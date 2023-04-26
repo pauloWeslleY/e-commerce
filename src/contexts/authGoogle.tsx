@@ -1,11 +1,13 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../services/firebase";
+import { Navigate } from "react-router-dom";
 
 interface AuthContextProps {
    userAuth?: any;
-   handleGoogleSignIn: () => void;
    signed: any;
+   handleGoogleSignIn: () => void;
+   signOut: () => void;
 }
 
 interface AuthGoogleProviderProps {
@@ -49,9 +51,16 @@ export const AuthGoogleProvider = ({ children }: AuthGoogleProviderProps) => {
       localStorageAuth();
    }, []);
 
+   function signOut() {
+      sessionStorage.clear();
+      setUserAuth(null);
+
+      return <Navigate to="/" />;
+   }
+
    return (
       <AuthGoogleContext.Provider
-         value={{ handleGoogleSignIn, signed: !!userAuth, userAuth }}
+         value={{ handleGoogleSignIn, signed: !!userAuth, userAuth, signOut }}
       >
          {children}
       </AuthGoogleContext.Provider>

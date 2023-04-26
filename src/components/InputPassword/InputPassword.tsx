@@ -2,7 +2,6 @@ import { memo, useState } from "react";
 import {
    Button,
    FormControl,
-   FormLabel,
    Input,
    InputProps,
    InputGroup,
@@ -11,13 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { HiLockClosed } from "react-icons/hi";
+import { FormLabelTitle } from "../../pages/Product/components/FormLabelTitle";
 
 function InputPassword({ ...props }: InputProps) {
    const [showPassword, setShowPassword] = useState<boolean>(false);
 
    return (
       <FormControl id="password" isRequired>
-         <FormLabel>Senha</FormLabel>
+         <FormLabelTitle title="Senha" htmlFor="password" />
          <InputGroup>
             <InputLeftElement
                pointerEvents="none"
@@ -26,10 +26,12 @@ function InputPassword({ ...props }: InputProps) {
             <Input
                {...props}
                id="password"
+               name="password"
+               autoComplete="password"
                type={showPassword ? "text" : "password"}
                placeholder="Digite sua senha..."
-               focusBorderColor={"blue.400"}
-               _placeholder={{ opacity: 1, color: "gray.400" }}
+               focusBorderColor={"purple.300"}
+               _placeholder={{ opacity: 1, color: "whiteAlpha.500" }}
             />
             <InputRightElement h={"full"}>
                <Button

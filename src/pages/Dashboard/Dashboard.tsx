@@ -1,18 +1,15 @@
 import { ReactNode } from "react";
-import {
-   Box,
-   Drawer,
-   DrawerContent,
-   useColorModeValue,
-   useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Drawer, DrawerContent, useDisclosure } from "@chakra-ui/react";
 import { DashboardMobileNav } from "./components/DashboardMobileNav";
 import { DashboardHeroContent } from "./components/DashboardHeroContent";
+import { useColors } from "../../hooks/useColors";
 
 export function Dashboard({ children }: { children: ReactNode }) {
    const { isOpen, onOpen, onClose } = useDisclosure();
+   const { THEME } = useColors();
+
    return (
-      <Box minH={"100vh"} bg={useColorModeValue("gray.100", "gray.900")}>
+      <Box minH={"100vh"} bg={THEME.DASHBOARD.BACKGROUND}>
          <DashboardHeroContent
             onClose={() => onClose}
             display={{ base: "none", md: "block" }}

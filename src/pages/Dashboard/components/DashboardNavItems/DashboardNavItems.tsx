@@ -21,18 +21,20 @@ const DashboardNavItems = (props: NavItemProps) => {
             role={"group"}
             cursor={"pointer"}
             onClick={onClickNav}
+            transition={"all .2s ease"}
             _hover={{
-               bg: "cyan.400",
+               bg: "purple.300",
                color: "whiteAlpha.900",
+               transform: "translateY(-5%)",
             }}
             {...rest}
          >
             {icon && (
                <Icon
-                  mr="4"
-                  fontSize="16"
+                  mr={"4"}
+                  fontSize={20}
                   _groupHover={{
-                     color: "white",
+                     color: "whiteAlpha.900",
                   }}
                   as={icon}
                />

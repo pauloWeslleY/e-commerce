@@ -15,7 +15,7 @@ const InputFooter = ({ label, link, onClick }: InputFooterProps) => {
             <Box
                as={"a"}
                cursor={"pointer"}
-               color={"blue.400"}
+               color={"purple.300"}
                onClick={onClick}
             >
                {link}

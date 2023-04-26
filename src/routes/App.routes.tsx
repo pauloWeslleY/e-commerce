@@ -6,6 +6,7 @@ import { Register } from "../pages/Register/Register";
 import PrivateRoutes from "./Private.routes";
 import { Home } from "../pages/Home/Home";
 import { Product } from "../pages/Product/Product";
+import { PageNotFound404 } from "../pages/404/404";
 
 interface RoutesProps {
    path: string;
@@ -18,7 +19,7 @@ const routes: RoutesProps[] = [
    {
       path: "/",
       element: <App />,
-      errorElement: <h1>Not Found</h1>,
+      errorElement: <PageNotFound404 />,
       children: [
          {
             path: "/",

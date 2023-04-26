@@ -16,7 +16,7 @@ const ButtonSignInWithGoogle = (BtnProps: ButtonSignInWithGoogle) => {
          size={"lg"}
          color={"whiteAlpha.900"}
          variant={"solid"}
-         transition={"all .5s ease-out 200ms"}
+         transition={"all .2s ease-out 200ms"}
          _hover={{
             transform: "translateY(-2px)",
             boxShadow: "lg",

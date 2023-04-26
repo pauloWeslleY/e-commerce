@@ -16,11 +16,11 @@ import {
    Text,
    VStack,
    useColorMode,
-   useColorModeValue,
 } from "@chakra-ui/react";
-import { FiBell, FiChevronDown, FiMenu } from "react-icons/fi";
+import { FiChevronDown, FiMenu } from "react-icons/fi";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { AuthGoogleContext } from "../../../../contexts/authGoogle";
+import { useColors } from "../../../../hooks/useColors";
 
 interface MobileProps extends FlexProps {
    onOpen: () => void;
@@ -28,48 +28,42 @@ interface MobileProps extends FlexProps {
 
 const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
    const { colorMode, toggleColorMode } = useColorMode();
-   const { userAuth } = useContext(AuthGoogleContext);
+   const { THEME } = useColors();
+   const { userAuth, signOut } = useContext(AuthGoogleContext);
    const userData = JSON.parse(userAuth);
 
    return (
       <Flex
          ml={{ base: 0, md: 60 }}
          px={{ base: 4, md: 4 }}
-         height="20"
-         alignItems="center"
-         bg={useColorModeValue("white", "gray.900")}
-         borderBottomWidth="1px"
-         borderBottomColor={useColorModeValue("gray.200", "gray.700")}
+         height={"20"}
+         alignItems={"center"}
+         bg={THEME.DASHBOARD.MOBILE_NAV_BG}
+         borderBottomColor={THEME.DASHBOARD.BORDER_COLOR_MOBILE_BG}
+         borderBottomWidth={"1px"}
          justifyContent={{ base: "space-between", md: "flex-end" }}
          {...rest}
       >
          <IconButton
             display={{ base: "flex", md: "none" }}
             onClick={onOpen}
-            variant="outline"
+            variant={"outline"}
             aria-label="open menu"
             icon={<FiMenu />}
          />
 
          <Text
             display={{ base: "flex", md: "none" }}
-            fontSize="2xl"
-            fontFamily="monospace"
-            fontWeight="bold"
+            fontSize={"2xl"}
+            fontWeight={500}
          >
             Logo
          </Text>
 
          <HStack spacing={{ base: "0", md: "6" }}>
-            <IconButton
-               size="lg"
-               variant="ghost"
-               aria-label="open menu"
-               icon={<FiBell />}
-            />
             <Button
-               size="lg"
-               variant="ghost"
+               size={"lg"}
+               variant={"ghost"}
                aria-label="open menu"
                onClick={toggleColorMode}
             >
@@ -79,7 +73,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                <Menu>
                   <MenuButton
                      py={2}
-                     transition="all 0.3s"
+                     transition={"all 0.3s"}
                      _focus={{ boxShadow: "none" }}
                   >
                      <HStack>
@@ -90,14 +84,11 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                         />
                         <VStack
                            display={{ base: "none", md: "flex" }}
-                           alignItems="flex-start"
-                           spacing="1px"
-                           ml="2"
+                           alignItems={"flex-start"}
+                           spacing={"1px"}
+                           ml={"2"}
                         >
-                           <Text fontSize="sm">{userData.displayName}</Text>
-                           <Text fontSize="xs" color="gray.600">
-                              Admin
-                           </Text>
+                           <Text fontSize={"sm"}>{userData.displayName}</Text>
                         </VStack>
                         <Box display={{ base: "none", md: "flex" }}>
                            <FiChevronDown />
@@ -105,8 +96,8 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                      </HStack>
                   </MenuButton>
                   <MenuList
-                     bg={useColorModeValue("whiteAlpha.900", "gray.900")}
-                     borderColor={useColorModeValue("gray.200", "gray.700")}
+                     bg={THEME.DASHBOARD.MENU_LIST_BG}
+                     borderColor={THEME.DASHBOARD.MENU_LIST_BORDER_COLORS}
                   >
                      <br />
                      <Center>
@@ -117,10 +108,18 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                         />
                      </Center>
                      <br />
-                     <Center>{userData.displayName}</Center>
+                     <Center>
+                        <Text
+                           fontSize={"lg"}
+                           fontFamily={"Inter"}
+                           fontWeight={500}
+                        >
+                           {userData.displayName}
+                        </Text>
+                     </Center>
                      <br />
                      <MenuDivider />
-                     <MenuItem>Sign out</MenuItem>
+                     <MenuItem onClick={() => signOut()}>Sair</MenuItem>
                   </MenuList>
                </Menu>
             </Flex>

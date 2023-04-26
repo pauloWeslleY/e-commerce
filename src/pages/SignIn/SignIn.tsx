@@ -1,7 +1,7 @@
-import { FormEvent, useContext, useState } from "react";
-import { Flex, Stack, Text, useToast } from "@chakra-ui/react";
+import { FormEvent, useContext, useEffect, useState } from "react";
+import { Flex, Stack, Text, useToast, chakra } from "@chakra-ui/react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "../../services/firebase";
+import { auth, db } from "../../services/firebase";
 import { Navigate, useNavigate } from "react-router-dom";
 import { InputPassword } from "../../components/InputPassword";
 import { InputEmail } from "../../components/InputEmail";
@@ -9,18 +9,23 @@ import { HeroTitle } from "../../components/HeroTitle";
 import { ButtonSign } from "../../components/Buttons";
 import { useColors } from "../../hooks/useColors";
 import { InputFooter } from "../../components/InputFooter";
-import ButtonSignInWithGoogle from "../../components/Buttons/ButtonSignInWithGoogle";
+import { ButtonSignInWithGoogle } from "../../components/Buttons";
 import { AuthGoogleContext } from "../../contexts/authGoogle";
+import { UserType } from "../../types/UsersType";
+import { collection, getDocs } from "firebase/firestore";
+import { Loading } from "../../components/Loading";
 
 export function SignIn() {
    const [email, setEmail] = useState<string>("");
    const [password, setPassword] = useState<string | any>("");
-   const [signInWithEmailAndPassword, loading, user] =
+   const [users, setUsers] = useState<UserType[]>([]);
+   const [signInWithEmailAndPassword, loading] =
       useSignInWithEmailAndPassword(auth);
-   const navigate = useNavigate();
-   const toast = useToast();
    const { THEME } = useColors();
    const { handleGoogleSignIn, signed } = useContext(AuthGoogleContext);
+   const navigate = useNavigate();
+   const toast = useToast();
+   const usersCollectionRef = collection(db, "users");
 
    const handleSignInWithGoogle = async () => {
       await handleGoogleSignIn();
@@ -53,22 +58,33 @@ export function SignIn() {
             isClosable: true,
          });
       }
+      const useEmail = users.find((user) => user.email === email);
+      const usePass = users.find((user) => user.password === password);
 
-      console.log(password === "");
       // TODO: Envie os dados do formulário caso ele for válido
-      if (email && password !== "") {
-         await signInWithEmailAndPassword(email, password).then(() => {
-            toast({
-               title: "Usuário Logado!",
-               status: "success",
-               duration: 9000,
-               isClosable: true,
+      if (email === useEmail.email && password === usePass.password) {
+         await signInWithEmailAndPassword(email, password)
+            .then(() => {
+               toast({
+                  title: "Usuário Logado!",
+                  status: "success",
+                  duration: 9000,
+                  isClosable: true,
+               });
+               setEmail("");
+               setPassword("");
+               navigate("/dashboard");
+            })
+            .catch((err) => {
+               toast({
+                  title: "Email e senha estão incorreto!",
+                  status: "success",
+                  duration: 9000,
+                  isClosable: true,
+               });
+               console.error(err);
             });
-            setEmail("");
-            setPassword("");
-            navigate("/product");
-         });
-      } else if (user) {
+      } else {
          toast({
             title: "Usuário não cadastrado",
             status: "error",
@@ -81,8 +97,20 @@ export function SignIn() {
       setPassword("");
    };
 
+   useEffect(() => {
+      async function getUsers() {
+         const dataUser = await getDocs(usersCollectionRef);
+         const users = dataUser.docs.map<UserType>((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+         }));
+         setUsers(users);
+      }
+      getUsers();
+   }, []);
+
    if (loading) {
-      return <p>carregando...</p>;
+      return <Loading />;
    }
 
    if (!signed) {
@@ -102,30 +130,34 @@ export function SignIn() {
                   </Text>
                </Stack>
                <Stack
-                  bg={"gray.100"}
+                  bg={THEME.SIGN_IN.BACKGROUND}
                   rounded={"lg"}
                   boxShadow={"lg"}
                   p={10}
                   justify={"center"}
                   align={"center"}
                >
-                  <Stack spacing={4}>
-                     <InputEmail
-                        onChange={(event) => setEmail(event.target.value)}
-                     />
-
-                     <InputPassword
-                        onChange={(event) => setPassword(event.target.value)}
-                     />
-
-                     <Stack spacing={5} pt={2}>
-                        <ButtonSign title="Entrar" onClick={handleSignInUser} />
-                        <ButtonSignInWithGoogle
-                           title="Entrar com google"
-                           onClick={handleSignInWithGoogle}
+                  <chakra.form onSubmit={handleSignInUser}>
+                     <Stack spacing={4}>
+                        <InputEmail
+                           value={email}
+                           onChange={(event) => setEmail(event.target.value)}
                         />
+
+                        <InputPassword
+                           value={password}
+                           onChange={(event) => setPassword(event.target.value)}
+                        />
+
+                        <Stack spacing={5} pt={2}>
+                           <ButtonSign title="Entrar" type="submit" />
+                           <ButtonSignInWithGoogle
+                              title="Entrar com google"
+                              onClick={handleSignInWithGoogle}
+                           />
+                        </Stack>
                      </Stack>
-                  </Stack>
+                  </chakra.form>
                   <InputFooter
                      label="Você não tem uma conta?"
                      link="Crie a sua conta aqui"

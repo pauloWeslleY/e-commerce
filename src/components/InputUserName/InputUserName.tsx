@@ -6,25 +6,25 @@ import {
    InputLeftElement,
    InputProps,
 } from "@chakra-ui/react";
-import { MdEmail } from "react-icons/md";
+import { RiUser3Fill } from "react-icons/ri";
 import { FormLabelTitle } from "../../pages/Product/components/FormLabelTitle";
 
-function InputEmail({ ...props }: InputProps) {
+function InputUserName({ ...props }: InputProps) {
    return (
-      <FormControl id="email" isRequired>
-         <FormLabelTitle title="Email" htmlFor="email" />
+      <FormControl id="username" isRequired>
+         <FormLabelTitle title="Nome" htmlFor="name" />
          <InputGroup>
             <InputLeftElement
                pointerEvents="none"
-               children={<MdEmail color="gray.300" />}
+               children={<RiUser3Fill color="gray.300" />}
             />
             <Input
                {...props}
-               type="email"
-               id="email"
-               name="email"
-               autoComplete="email"
-               placeholder="Digite seu email..."
+               type="name"
+               id="name"
+               name="name"
+               autoComplete="name"
+               placeholder="Digite seu nome..."
                focusBorderColor={"purple.300"}
                _placeholder={{ opacity: 1, color: "whiteAlpha.500" }}
                maxW={"xl"}
@@ -35,4 +35,4 @@ function InputEmail({ ...props }: InputProps) {
    );
 }
 
-export default memo(InputEmail);
+export default memo(InputUserName);
