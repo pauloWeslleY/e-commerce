@@ -2,11 +2,12 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../services/firebase";
 import { Navigate } from "react-router-dom";
+import { UserType } from "../types/UsersType";
 
 interface AuthContextProps {
-   userAuth?: any;
+   userAuth?: any | UserType;
    signed: any;
-   handleGoogleSignIn: () => void;
+   handleGoogleSignIn: () => Promise<void>;
    signOut: () => void;
 }
 
@@ -25,10 +26,10 @@ export const AuthGoogleProvider = ({ children }: AuthGoogleProviderProps) => {
          .then((result) => {
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
-            const user = result.user;
-            setUserAuth(user);
+            const users = result.user;
+            setUserAuth(users);
             sessionStorage.setItem("@AuthFirebase:token", token);
-            sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(user));
+            sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(users));
          })
          .catch((err) => {
             const errorCode = err.code;
@@ -36,7 +37,12 @@ export const AuthGoogleProvider = ({ children }: AuthGoogleProviderProps) => {
             const email = err.email;
             const credential = GoogleAuthProvider.credentialFromError(err);
 
-            console.log(err);
+            console.log(`
+               ${errorCode}
+               ${errorMessage}
+               ${email}
+               ${credential}
+            `);
          });
    };
 
@@ -48,6 +54,7 @@ export const AuthGoogleProvider = ({ children }: AuthGoogleProviderProps) => {
             setUserAuth(sessionUser);
          }
       };
+
       localStorageAuth();
    }, []);
 
@@ -60,7 +67,12 @@ export const AuthGoogleProvider = ({ children }: AuthGoogleProviderProps) => {
 
    return (
       <AuthGoogleContext.Provider
-         value={{ handleGoogleSignIn, signed: !!userAuth, userAuth, signOut }}
+         value={{
+            handleGoogleSignIn,
+            signed: !!userAuth,
+            userAuth,
+            signOut,
+         }}
       >
          {children}
       </AuthGoogleContext.Provider>

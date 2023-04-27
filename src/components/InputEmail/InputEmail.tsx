@@ -7,7 +7,7 @@ import {
    InputProps,
 } from "@chakra-ui/react";
 import { MdEmail } from "react-icons/md";
-import { FormLabelTitle } from "../../pages/Product/components/FormLabelTitle";
+import { FormLabelTitle } from "../FormLabelTitle";
 
 function InputEmail({ ...props }: InputProps) {
    return (

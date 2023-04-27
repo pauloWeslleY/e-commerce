@@ -1,10 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-   useCreateUserWithEmailAndPassword,
-   useIdToken,
-} from "react-firebase-hooks/auth";
-// import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { Flex, Stack, useToast, chakra } from "@chakra-ui/react";
 import { auth, db } from "../../services/firebase";
 import { InputPassword } from "../../components/InputPassword";
@@ -23,19 +19,18 @@ export function Register() {
    const [email, setEmail] = useState<string>("");
    const [password, setPassword] = useState<string>("");
    const [users, setUsers] = useState<UserType[]>([]);
-   // const [isLoading, setIsLoading] = useState<boolean>(false);
-   const [createUserWithEmailAndPassword] =
+   const [createUserWithEmailAndPassword, loading] =
       useCreateUserWithEmailAndPassword(auth);
    const { THEME } = useColors();
    const navigate = useNavigate();
    const toast = useToast();
    const usersCollectionRef = collection(db, "users");
-   const [user, loading] = useIdToken(auth);
-   const useEmail = users.find(({ email }) => email === email);
+
+   console.log("All users ==> ", users);
 
    const handleRegisterUser = async (event?: FormEvent) => {
       event.preventDefault();
-      // HACK: ==> Validação do campos do input Login e Senha!
+      // HACK: ==> Validação do campos do input Email e Senha!
       if (!email && password === "") {
          toast({
             title: "Preencha os campos",
@@ -61,8 +56,14 @@ export function Register() {
          });
       }
 
+      const emailAlreadyInUse = users.some(
+         (user: UserType) => user.email == email
+      );
+
+      console.log("result ==> ", emailAlreadyInUse);
+
       // NOTE: Envie os dados do formulário caso ele for válido
-      if (email === useEmail || email !== useEmail) {
+      if (!emailAlreadyInUse) {
          const newUser: UserType = { username, email, password };
          const docRef = await addDoc(usersCollectionRef, newUser);
          setUsers([...users, { id: docRef.id, ...newUser }]);
@@ -117,14 +118,6 @@ export function Register() {
       getUsers();
    }, []);
 
-   // if (user) {
-   //    return (
-   //       <div>
-   //          <p>Registered User: {user.user.email}</p>
-   //       </div>
-   //    );
-   // }
-
    if (loading) {
       return <Loading />;
    }
@@ -170,7 +163,7 @@ export function Register() {
                         <ButtonSign
                            title="Cadastrar"
                            type="submit"
-                           isLoading={loading}
+                           isLoading={Boolean(loading)}
                            loadingText="Cadastrando"
                            spinnerPlacement="start"
                         />

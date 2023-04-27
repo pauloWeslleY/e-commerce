@@ -1,34 +1,15 @@
-import { Flex, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Flex, Grid, GridItem } from "@chakra-ui/react";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { BiCategory, BiUser } from "react-icons/bi";
 import { useColors } from "../../hooks/useColors";
+import { useFetch } from "../../hooks/useFetch";
 
 import { Dashboard } from "../Dashboard/Dashboard";
 import { CardStatistic } from "./components/CardStatistic";
-import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { ProductsType } from "../../types/ProductType";
-import { db } from "../../services/firebase";
 
 export function Home() {
-   const [items, setItems] = useState<ProductsType[]>([]);
    const { THEME } = useColors();
-   const prodCollectionRef = collection(db, "items");
-
-   console.log("Products ==>", items);
-
-   useEffect(() => {
-      const getItems = async () => {
-         const data = await getDocs(prodCollectionRef);
-         const items = data.docs.map<ProductsType>((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-         }));
-         console.log("Prod =>", items);
-         setItems(items);
-      };
-      getItems();
-   }, []);
+   const { items, categories, users } = useFetch();
 
    return (
       <Dashboard>
@@ -45,7 +26,7 @@ export function Home() {
                <CardStatistic
                   icon={BiCategory}
                   title="Categorias"
-                  subtitle="7500"
+                  subtitle={categories.length}
                   background={THEME.HOME.CARDS_STATISTIC_BG_CATE}
                />
             </Flex>
@@ -53,7 +34,7 @@ export function Home() {
                <CardStatistic
                   icon={BiUser}
                   title="Usuários"
-                  subtitle="1500"
+                  subtitle={users.length}
                   background={THEME.HOME.CARDS_STATISTIC_BG_USERS}
                />
             </Flex>

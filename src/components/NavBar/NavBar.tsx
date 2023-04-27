@@ -1,12 +1,21 @@
 import { Box, Button, Flex, Stack } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
+import { memo } from "react";
 
-export function NavBar({ onOpen }: { onOpen: () => void }) {
+interface NavBarProps {
+   onOpen: () => void;
+   title: string;
+   label: string;
+}
+
+function NavBar(props: NavBarProps) {
+   const { label, title, onOpen } = props;
+
    return (
       <Box px={4}>
          <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
             <Box as={"h2"} fontFamily={"Poppins"}>
-               Lista de Produtos
+               {label}
             </Box>
 
             <Flex alignItems={"center"}>
@@ -19,7 +28,7 @@ export function NavBar({ onOpen }: { onOpen: () => void }) {
                      leftIcon={<AddIcon />}
                      onClick={onOpen}
                   >
-                     Criar Produto
+                     {title}
                   </Button>
                </Stack>
             </Flex>
@@ -27,3 +36,5 @@ export function NavBar({ onOpen }: { onOpen: () => void }) {
       </Box>
    );
 }
+
+export default memo(NavBar);

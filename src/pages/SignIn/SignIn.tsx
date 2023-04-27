@@ -33,7 +33,7 @@ export function SignIn() {
 
    const handleSignInUser = async (event: FormEvent) => {
       event.preventDefault();
-      // fixme ==> Validação do campos do input Login e Senha!
+      // NOTE: ==> Validação do campos do input
       if (!email && password === "") {
          toast({
             title: "Preencha os campos",
@@ -58,11 +58,18 @@ export function SignIn() {
             isClosable: true,
          });
       }
-      const useEmail = users.find((user) => user.email === email);
-      const usePass = users.find((user) => user.password === password);
+      const useEmail = users.some((user) => user.email === email);
+      const usePass = users.some((user) => user.password === password);
 
       // TODO: Envie os dados do formulário caso ele for válido
-      if (email === useEmail.email && password === usePass.password) {
+      if (useEmail && !usePass) {
+         toast({
+            title: "Email e senha estão incorreto!",
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+         });
+      } else if (useEmail && usePass) {
          await signInWithEmailAndPassword(email, password)
             .then(() => {
                toast({

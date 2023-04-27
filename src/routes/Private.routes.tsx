@@ -7,4 +7,4 @@ const PrivateRoutes = () => {
    return signed ? <Outlet /> : <Navigate to="/" />;
 };
 
-export default PrivateRoutes;
+export { PrivateRoutes };

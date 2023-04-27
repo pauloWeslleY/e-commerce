@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { HiLockClosed } from "react-icons/hi";
-import { FormLabelTitle } from "../../pages/Product/components/FormLabelTitle";
+import { FormLabelTitle } from "../FormLabelTitle";
 
 function InputPassword({ ...props }: InputProps) {
    const [showPassword, setShowPassword] = useState<boolean>(false);

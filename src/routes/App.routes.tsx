@@ -1,12 +1,14 @@
 import { ReactElement } from "react";
 import { RouteObject, createBrowserRouter } from "react-router-dom";
 import { App } from "../App";
+import { PrivateRoutes } from "./Private.routes";
+
 import { SignIn } from "../pages/SignIn/SignIn";
 import { Register } from "../pages/Register/Register";
-import PrivateRoutes from "./Private.routes";
 import { Home } from "../pages/Home/Home";
 import { Product } from "../pages/Product/Product";
 import { PageNotFound404 } from "../pages/404/404";
+import { Categories } from "../pages/Categories/Categories";
 
 interface RoutesProps {
    path: string;
@@ -40,6 +42,10 @@ const routes: RoutesProps[] = [
                {
                   path: "/dashboard/product",
                   element: <Product />,
+               },
+               {
+                  path: "/dashboard/categories",
+                  element: <Categories />,
                },
             ],
          },

@@ -22,17 +22,20 @@ import {
    Collapse,
    useToast,
    Button,
+   Select,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { IsButton } from "../../../../components/Buttons";
 import { db } from "../../../../services/firebase";
 import { useColors } from "../../../../hooks/useColors";
-import { FormLabelTitle } from "../FormLabelTitle";
-import { InputBar } from "../InputBar";
-import { TableProduct } from "../TableProduct";
+// import { useFetch } from "../../../../hooks/useFetch";
 import { ProductsType } from "../../../../types/ProductType";
-import { NavBar } from "../../../../components/NavBar/NavBar";
-import { ModalAlertProduct } from "../ModalUpdateProduct";
+
+import { TableProduct } from "../TableProduct";
+import { FormLabelTitle } from "../../../../components/FormLabelTitle";
+import { InputBar } from "../../../../components/InputBar";
+import { IsButton } from "../../../../components/Buttons";
+import { NavBar } from "../../../../components/NavBar";
+import { ModalAlert } from "../../../../components/ModalAlert";
 
 export function AddProduct() {
    const [items, setItems] = useState<ProductsType[]>([]);
@@ -42,6 +45,7 @@ export function AddProduct() {
    const [category, setCategory] = useState<string>("");
    const [quantity, setQuantity] = useState<number | any>();
    const { THEME } = useColors();
+   // const { categories } = useFetch();
    const { onToggle, onClose } = useDisclosure();
    const updateProduct = useDisclosure();
    const alert = useDisclosure();
@@ -137,7 +141,11 @@ export function AddProduct() {
 
    return (
       <>
-         <NavBar onOpen={navBarToggle.onToggle} />
+         <NavBar
+            label="Lista de Produtos"
+            title="Criar Produto"
+            onOpen={navBarToggle.onToggle}
+         />
 
          <Collapse in={navBarToggle.isOpen} animateOpacity>
             <Box mt={[10, 0]} mb={8}>
@@ -145,9 +153,7 @@ export function AddProduct() {
                   onSubmit={handleAddItem}
                   shadow={"base"}
                   rounded={[null, "md"]}
-                  overflow={{
-                     sm: "hidden",
-                  }}
+                  overflow={{ sm: "hidden" }}
                >
                   <Stack
                      px={4}
@@ -191,7 +197,7 @@ export function AddProduct() {
                            />
                         </FormControl>
 
-                        <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
+                        <FormControl as={GridItem} colSpan={[6, 3]}>
                            <FormLabelTitle
                               title="Descrição do Produto"
                               htmlFor="description_product"
@@ -208,7 +214,7 @@ export function AddProduct() {
                            />
                         </FormControl>
 
-                        <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
+                        <FormControl as={GridItem} colSpan={[6, 3]}>
                            <FormLabelTitle
                               title="Quantidade do Produto"
                               htmlFor="quantity_product"
@@ -227,20 +233,37 @@ export function AddProduct() {
                            />
                         </FormControl>
 
-                        <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
+                        <FormControl as={GridItem} colSpan={[6, 2]}>
                            <FormLabelTitle
                               title="Categoria do Produto"
                               htmlFor="category_product"
                            />
-                           <InputBar
-                              type="text"
-                              name="category_product"
+
+                           <Select
                               id="category_product"
+                              name="category_product"
                               autoComplete="category_product"
-                              placeholder="Digite a categoria do produto"
-                              value={category}
-                              onChange={(e) => setCategory(e.target.value)}
-                           />
+                              mt={1}
+                              placeholder="Selecione Categoria"
+                              focusBorderColor={
+                                 THEME.DASHBOARD
+                                    .INPUT_BAR_PLACEHOLDER_FOCUS_COLORS
+                              }
+                              _placeholder={{
+                                 opacity: 1,
+                                 color: THEME.DASHBOARD
+                                    .INPUT_BAR_PLACEHOLDER_COLORS,
+                              }}
+                              shadow={"sm"}
+                              size={"sm"}
+                              w={"full"}
+                              rounded={"md"}
+                              // value={categories}
+                           >
+                              {/* {category.map((props) => (
+                                 <option key={props.id}>{props.name}</option>
+                              ))} */}
+                           </Select>
                         </FormControl>
                      </SimpleGrid>
                   </Stack>
@@ -293,7 +316,7 @@ export function AddProduct() {
                            icon={<DeleteIcon />}
                         />
 
-                        <ModalAlertProduct
+                        <ModalAlert
                            isOpen={alert.isOpen}
                            onClose={alert.onClose}
                         >
@@ -305,7 +328,7 @@ export function AddProduct() {
                            >
                               Deletar
                            </Button>
-                        </ModalAlertProduct>
+                        </ModalAlert>
                      </Flex>
                   </Td>
                </Tr>
@@ -357,7 +380,7 @@ export function AddProduct() {
                         />
                      </FormControl>
 
-                     <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
+                     <FormControl as={GridItem} colSpan={[6, 3]}>
                         <FormLabelTitle
                            title="Descrição do Produto"
                            htmlFor="description_product"
@@ -374,7 +397,7 @@ export function AddProduct() {
                         />
                      </FormControl>
 
-                     <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
+                     <FormControl as={GridItem} colSpan={[6, 3]}>
                         <FormLabelTitle
                            title="Quantidade do Produto"
                            htmlFor="quantity_product"
@@ -391,20 +414,35 @@ export function AddProduct() {
                         />
                      </FormControl>
 
-                     <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
+                     <FormControl as={GridItem} colSpan={[6, 2]}>
                         <FormLabelTitle
                            title="Categoria do Produto"
                            htmlFor="category_product"
                         />
-                        <InputBar
-                           type="text"
-                           name="category_product"
+
+                        <Select
                            id="category_product"
+                           name="category_product"
                            autoComplete="category_product"
-                           placeholder="Digite a categoria do produto"
-                           value={category}
-                           onChange={(e) => setCategory(e.target.value)}
-                        />
+                           mt={1}
+                           placeholder="Selecione Categoria"
+                           focusBorderColor={
+                              THEME.DASHBOARD.INPUT_BAR_PLACEHOLDER_FOCUS_COLORS
+                           }
+                           _placeholder={{
+                              opacity: 1,
+                              color: THEME.DASHBOARD
+                                 .INPUT_BAR_PLACEHOLDER_COLORS,
+                           }}
+                           shadow={"sm"}
+                           size={"sm"}
+                           w={"full"}
+                           rounded={"md"}
+                        >
+                           {/* {category.map((props) => (
+                              <option key={props.id}>{props.name}</option>
+                           ))} */}
+                        </Select>
                      </FormControl>
                   </SimpleGrid>
                </Stack>

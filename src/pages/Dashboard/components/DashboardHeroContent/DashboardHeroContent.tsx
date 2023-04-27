@@ -1,12 +1,12 @@
 import { memo } from "react";
+import { useNavigate } from "react-router-dom";
 import { IconType } from "react-icons";
 import { Box, BoxProps, CloseButton, Flex, Text } from "@chakra-ui/react";
-import { FiStar, FiSettings } from "react-icons/fi";
-import { DashboardNavItems } from "../DashboardNavItems";
-import { useColors } from "../../../../hooks/useColors";
-import { useNavigate } from "react-router-dom";
-import { BiHomeAlt2, BiUser } from "react-icons/bi";
+import { BiCategory, BiHomeAlt2, BiUser } from "react-icons/bi";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { FiSettings } from "react-icons/fi";
+import { useColors } from "../../../../hooks/useColors";
+import { DashboardNavItems } from "../DashboardNavItems";
 
 interface LinkItemProps {
    name: string;
@@ -30,8 +30,8 @@ const DashboardHeroContent = (props: DashboardHeroContentProps) => {
          icon: MdOutlineProductionQuantityLimits,
          path: "/dashboard/product",
       },
+      { name: "Categorias", icon: BiCategory, path: "/dashboard/categories" },
       { name: "Usuário", icon: BiUser, path: "" },
-      { name: "Favorites", icon: FiStar, path: "" },
       { name: "Settings", icon: FiSettings, path: "" },
    ];
 
@@ -46,15 +46,11 @@ const DashboardHeroContent = (props: DashboardHeroContentProps) => {
          h={"full"}
          {...rest}
       >
-         <Flex
-            h={"20"}
-            alignItems={"center"}
-            mx={"8"}
-            justify={"space-between"}
-         >
+         <Flex h={"20"} mx={"8"} align={"center"} justify={"space-between"}>
             <Text fontSize={"2xl"} fontFamily={"Inter"} fontWeight={600}>
                Dashboard
             </Text>
+
             <CloseButton
                display={{ base: "flex", md: "none" }}
                onClick={onClose}

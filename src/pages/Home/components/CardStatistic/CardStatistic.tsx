@@ -36,6 +36,9 @@ function CardStatistic(props: CardsTypeProps) {
          <Stack flexDirection={"column"}>
             <Flex justify={"space-around"}>
                <Text
+                  fontSize={"lg"}
+                  fontFamily={"Inter"}
+                  fontWeight={500}
                   textAlign={"center"}
                   color={THEME.HOME.CARDS_STATISTIC_TEXT_COLORS}
                   px={3}

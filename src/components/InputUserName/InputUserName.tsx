@@ -7,7 +7,7 @@ import {
    InputProps,
 } from "@chakra-ui/react";
 import { RiUser3Fill } from "react-icons/ri";
-import { FormLabelTitle } from "../../pages/Product/components/FormLabelTitle";
+import { FormLabelTitle } from "../FormLabelTitle";
 
 function InputUserName({ ...props }: InputProps) {
    return (
