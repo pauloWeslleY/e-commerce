@@ -1,3 +1,3 @@
-import TableProduct from "./TableProduct";
+import TableProductItem from "./TableProductItem";
 
-export { TableProduct };
+export { TableProductItem };

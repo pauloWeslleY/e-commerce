@@ -1,22 +1,20 @@
 import { ReactNode, memo } from "react";
 import {
-   Box,
    Modal,
    ModalBody,
    ModalCloseButton,
    ModalContent,
    ModalHeader,
    ModalOverlay,
-   Text,
 } from "@chakra-ui/react";
 
-interface ModalAlertProps {
+interface ModalUpdateProps {
    isOpen: boolean;
    onClose: () => void;
    children: ReactNode;
 }
 
-function ModalAlert(props: ModalAlertProps) {
+function ModalUpdate(props: ModalUpdateProps) {
    const { isOpen, onClose, children } = props;
 
    return (
@@ -24,20 +22,13 @@ function ModalAlert(props: ModalAlertProps) {
          <ModalOverlay />
          <ModalContent>
             <ModalHeader fontSize={"lg"} fontWeight={800} fontFamily={"Inter"}>
-               Deleta Produto
+               Atualizar Item
             </ModalHeader>
             <ModalCloseButton />
-            <ModalBody pb={6}>
-               <Box py={8}>
-                  <Text fontFamily={"Inter"} fontSize={"lg"} fontWeight={500}>
-                     Realmente Desejar Deletar este produto?
-                  </Text>
-               </Box>
-               {children}
-            </ModalBody>
+            <ModalBody pb={6}>{children}</ModalBody>
          </ModalContent>
       </Modal>
    );
 }
 
-export default memo(ModalAlert);
+export default memo(ModalUpdate);

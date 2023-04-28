@@ -25,6 +25,18 @@ export function useColors() {
          BACKGROUND: useColorModeValue("blackAlpha.100", "gray.500"),
          BORDER_RIGHT_COLORS: useColorModeValue("gray.200", "gray.700"),
 
+         TABLE_PRODUCT_ITEM_BG: useColorModeValue("whiteAlpha.600", "gray.700"),
+         TABLE_PRODUCT_TITLE_BG: useColorModeValue("gray.100", "gray.700"),
+         TABLE_PRODUCT_LINE_BG: useColorModeValue("whiteAlpha.600", "gray.500"),
+         TABLE_PRODUCT_TITLE_COLORS: useColorModeValue(
+            "purple.900",
+            "whiteAlpha.800"
+         ),
+         TABLE_PRODUCT_ITEM_COLORS: useColorModeValue(
+            "purple.800",
+            "purple.700"
+         ),
+
          FORM_BACKGROUND: useColorModeValue("whiteAlpha.600", "purple.500"),
          FORM_FOOTER_BACKGROUND: useColorModeValue(
             "blackAlpha.100",
