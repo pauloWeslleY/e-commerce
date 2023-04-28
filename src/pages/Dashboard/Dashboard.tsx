@@ -9,7 +9,7 @@ export function Dashboard({ children }: { children: ReactNode }) {
    const { THEME } = useColors();
 
    return (
-      <Box minH={"100vh"} bg={THEME.DASHBOARD.BACKGROUND}>
+      <Box as={"main"} minH={"100vh"} bg={THEME.DASHBOARD.BACKGROUND}>
          <DashboardHeroContent
             onClose={() => onClose}
             display={{ base: "none", md: "block" }}

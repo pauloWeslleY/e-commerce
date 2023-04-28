@@ -65,7 +65,6 @@ export function AddProduct() {
       event.preventDefault();
       const itemID = items.filter((item) => item.id);
       console.log("item", itemID);
-      // const item = items.some((item) => item.id );
       if (true) {
          const newItem: ProductsType = {
             title,
@@ -154,7 +153,7 @@ export function AddProduct() {
    return (
       <>
          <NavBar
-            label="Lista de Produtos"
+            label="Tabela de Produtos"
             title="Criar Produto"
             onOpen={navBarToggle.onToggle}
          />
@@ -292,14 +291,14 @@ export function AddProduct() {
                   <SimpleGrid
                      spacingY={3}
                      columns={{ base: 1, md: 6 }}
-                     w={{ base: 120, md: "full" }}
+                     w={{ base: 230, md: "full" }}
                      textTransform={"uppercase"}
                      bg={THEME.DASHBOARD.TABLE_PRODUCT_ITEM_BG}
                      color={THEME.DASHBOARD.TABLE_PRODUCT_TITLE_COLORS}
                      py={{ base: 1, md: 4 }}
                      px={{ base: 2, md: 10 }}
                      fontSize={"md"}
-                     fontWeight={500}
+                     fontWeight={600}
                      alignItems={"center"}
                   >
                      {HEADER.map((item, i) => (
@@ -323,7 +322,7 @@ export function AddProduct() {
                         textOverflow="ellipsis"
                         overflow="hidden"
                         whiteSpace="nowrap"
-                        w={"28"}
+                        w={{ base: "full", md: 28 }}
                      >
                         {props.id.toUpperCase()}
                      </chakra.span>
@@ -377,14 +376,222 @@ export function AddProduct() {
                               </Portal>
                            </Popover>
 
-                           <IconButton
-                              size={"sm"}
-                              rounded={"lg"}
-                              colorScheme="blue"
-                              aria-label="Update item"
-                              onClick={updateProduct.onToggle}
-                              icon={<EditIcon />}
-                           />
+                           <Popover placement="left">
+                              <PopoverTrigger>
+                                 <IconButton
+                                    size={"sm"}
+                                    rounded={"lg"}
+                                    colorScheme="blue"
+                                    aria-label="Update item"
+                                    icon={<EditIcon />}
+                                 />
+                              </PopoverTrigger>
+                              <Portal>
+                                 <PopoverContent>
+                                    <PopoverArrow />
+                                    <PopoverHeader>
+                                       Atualizar Item
+                                    </PopoverHeader>
+                                    <PopoverCloseButton />
+                                    <PopoverBody>
+                                       <form>
+                                          <Stack
+                                             bg={
+                                                THEME.DASHBOARD.FORM_BACKGROUND
+                                             }
+                                             spacing={6}
+                                             borderTopRadius={12}
+                                             px={4}
+                                             py={5}
+                                             p={[null, 6]}
+                                          >
+                                             <Flex
+                                                align={"center"}
+                                                flexDir={"column"}
+                                                gap={5}
+                                             >
+                                                <Text
+                                                   as={"span"}
+                                                   fontWeight={600}
+                                                >
+                                                   ID:{" "}
+                                                   <Text
+                                                      display={"inline"}
+                                                      fontWeight={300}
+                                                   >
+                                                      {props.id}
+                                                   </Text>
+                                                </Text>
+                                                <Text
+                                                   as={"span"}
+                                                   fontWeight={600}
+                                                >
+                                                   Nome:{" "}
+                                                   <Text
+                                                      as={"u"}
+                                                      display={"inline"}
+                                                      fontWeight={700}
+                                                      letterSpacing={2}
+                                                   >
+                                                      {props.title.toUpperCase()}
+                                                   </Text>
+                                                </Text>
+                                             </Flex>
+
+                                             <SimpleGrid
+                                                columns={1}
+                                                spacing={2}
+                                             >
+                                                <FormControl
+                                                   as={GridItem}
+                                                   colSpan={[6, 3]}
+                                                >
+                                                   <FormLabelTitle
+                                                      title="Nome do Produto"
+                                                      htmlFor="name_product"
+                                                   />
+
+                                                   <InputBar
+                                                      type="text"
+                                                      name="name_product"
+                                                      id="name_product"
+                                                      autoComplete="name_product"
+                                                      placeholder="Digite o nome do produto"
+                                                      value={title}
+                                                      onChange={(e) =>
+                                                         setTitle(
+                                                            e.target.value
+                                                         )
+                                                      }
+                                                   />
+                                                </FormControl>
+
+                                                <FormControl
+                                                   as={GridItem}
+                                                   colSpan={[6, 3]}
+                                                >
+                                                   <FormLabelTitle
+                                                      title="Preço do Produto"
+                                                      htmlFor="price_product"
+                                                   />
+
+                                                   <InputBar
+                                                      type="number"
+                                                      name="price_product"
+                                                      id="price_product"
+                                                      autoComplete="price_product"
+                                                      placeholder="Digite o preço do produto"
+                                                      value={price}
+                                                      onChange={(e) =>
+                                                         setPrice(
+                                                            e.target.value
+                                                         )
+                                                      }
+                                                   />
+                                                </FormControl>
+
+                                                <FormControl
+                                                   as={GridItem}
+                                                   colSpan={[6, 3]}
+                                                >
+                                                   <FormLabelTitle
+                                                      title="Descrição do Produto"
+                                                      htmlFor="description_product"
+                                                   />
+
+                                                   <InputBar
+                                                      type="text"
+                                                      name="description_product"
+                                                      id="description_product"
+                                                      autoComplete="description_product"
+                                                      placeholder="Digite a descrição do produto"
+                                                      value={description}
+                                                      onChange={(e) =>
+                                                         setDescription(
+                                                            e.target.value
+                                                         )
+                                                      }
+                                                   />
+                                                </FormControl>
+
+                                                <FormControl
+                                                   as={GridItem}
+                                                   colSpan={[6, 3]}
+                                                >
+                                                   <FormLabelTitle
+                                                      title="Quantidade do Produto"
+                                                      htmlFor="quantity_product"
+                                                   />
+
+                                                   <InputBar
+                                                      type="number"
+                                                      name="quantity_product"
+                                                      id="quantity_product"
+                                                      autoComplete="quantity_product"
+                                                      placeholder="Digite a quantidade do produto"
+                                                      value={quantity}
+                                                      onChange={(e) =>
+                                                         setQuantity(
+                                                            Number(
+                                                               e.target.value
+                                                            )
+                                                         )
+                                                      }
+                                                   />
+                                                </FormControl>
+
+                                                <FormControl
+                                                   as={GridItem}
+                                                   colSpan={[6, 3]}
+                                                >
+                                                   <FormLabelTitle
+                                                      title="Categoria do Produto"
+                                                      htmlFor="category_product"
+                                                   />
+
+                                                   <InputBar
+                                                      type="text"
+                                                      name="category_product"
+                                                      id="category_product"
+                                                      autoComplete="category_product"
+                                                      placeholder="Digite a categoria do produto"
+                                                      value={category}
+                                                      onChange={(e) =>
+                                                         setCategory(
+                                                            e.target.value
+                                                         )
+                                                      }
+                                                   />
+                                                </FormControl>
+                                             </SimpleGrid>
+                                          </Stack>
+                                          <Box
+                                             bg={
+                                                THEME.DASHBOARD
+                                                   .FORM_FOOTER_BACKGROUND
+                                             }
+                                             borderBottomRadius={12}
+                                             px={{
+                                                base: 4,
+                                                sm: 6,
+                                             }}
+                                             py={3}
+                                             textAlign={"right"}
+                                          >
+                                             <IsButton
+                                                title="Atualizar"
+                                                onClick={() => {
+                                                   handleUpdateItem(props.id);
+                                                   updateProduct.onClose();
+                                                }}
+                                             />
+                                          </Box>
+                                       </form>
+                                    </PopoverBody>
+                                 </PopoverContent>
+                              </Portal>
+                           </Popover>
+
                            <Popover placement="left">
                               <PopoverTrigger>
                                  <IconButton
@@ -400,12 +607,16 @@ export function AddProduct() {
                                  <PopoverContent>
                                     <PopoverArrow />
                                     <PopoverHeader>
-                                       Voce deseja deletar este item?
+                                       <Text as={"small"}>ID: {props.id}</Text>
                                     </PopoverHeader>
                                     <PopoverCloseButton />
                                     <PopoverBody>
-                                       <Box py={4}>{props.id}</Box>
-                                       <Box py={4}>{props.title}</Box>
+                                       <Text as={"span"} fontWeight={600}>
+                                          Voce deseja deletar este item?
+                                       </Text>
+                                       <Flex as={"span"} py={4}>
+                                          Nome: {props.title}
+                                       </Flex>
                                     </PopoverBody>
                                     <PopoverFooter>
                                        <Button
@@ -431,136 +642,6 @@ export function AddProduct() {
                         </ButtonGroup>
                      </Flex>
                   </SimpleGrid>
-                  <Collapse in={updateProduct.isOpen} animateOpacity>
-                     <form>
-                        <Stack
-                           bg={THEME.DASHBOARD.FORM_BACKGROUND}
-                           spacing={6}
-                           borderTopRadius={12}
-                           px={4}
-                           py={5}
-                           p={[null, 6]}
-                        >
-                           <Flex align={"center"} gap={5}>
-                              <Text as={"span"} fontWeight={600}>
-                                 ID:{" "}
-                                 <Text display={"inline"} fontWeight={300}>
-                                    {props.id}
-                                 </Text>
-                              </Text>
-                              <Text as={"h3"}>Nome: {props.title}</Text>
-                           </Flex>
-
-                           <SimpleGrid columns={6} spacing={6}>
-                              <FormControl as={GridItem} colSpan={[6, 3]}>
-                                 <FormLabelTitle
-                                    title="Nome do Produto"
-                                    htmlFor="name_product"
-                                 />
-
-                                 <InputBar
-                                    type="text"
-                                    name="name_product"
-                                    id="name_product"
-                                    autoComplete="name_product"
-                                    placeholder="Digite o nome do produto"
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
-                                 />
-                              </FormControl>
-
-                              <FormControl as={GridItem} colSpan={[6, 3]}>
-                                 <FormLabelTitle
-                                    title="Preço do Produto"
-                                    htmlFor="price_product"
-                                 />
-
-                                 <InputBar
-                                    type="number"
-                                    name="price_product"
-                                    id="price_product"
-                                    autoComplete="price_product"
-                                    placeholder="Digite o preço do produto"
-                                    value={price}
-                                    onChange={(e) => setPrice(e.target.value)}
-                                 />
-                              </FormControl>
-
-                              <FormControl as={GridItem} colSpan={[6, 3]}>
-                                 <FormLabelTitle
-                                    title="Descrição do Produto"
-                                    htmlFor="description_product"
-                                 />
-
-                                 <InputBar
-                                    type="text"
-                                    name="description_product"
-                                    id="description_product"
-                                    autoComplete="description_product"
-                                    placeholder="Digite a descrição do produto"
-                                    value={description}
-                                    onChange={(e) =>
-                                       setDescription(e.target.value)
-                                    }
-                                 />
-                              </FormControl>
-
-                              <FormControl as={GridItem} colSpan={[6, 3]}>
-                                 <FormLabelTitle
-                                    title="Quantidade do Produto"
-                                    htmlFor="quantity_product"
-                                 />
-
-                                 <InputBar
-                                    type="number"
-                                    name="quantity_product"
-                                    id="quantity_product"
-                                    autoComplete="quantity_product"
-                                    placeholder="Digite a quantidade do produto"
-                                    value={quantity}
-                                    onChange={(e) =>
-                                       setQuantity(Number(e.target.value))
-                                    }
-                                 />
-                              </FormControl>
-
-                              <FormControl as={GridItem} colSpan={[6, 2]}>
-                                 <FormLabelTitle
-                                    title="Categoria do Produto"
-                                    htmlFor="category_product"
-                                 />
-
-                                 <InputBar
-                                    type="text"
-                                    name="category_product"
-                                    id="category_product"
-                                    autoComplete="category_product"
-                                    placeholder="Digite a categoria do produto"
-                                    value={category}
-                                    onChange={(e) =>
-                                       setCategory(e.target.value)
-                                    }
-                                 />
-                              </FormControl>
-                           </SimpleGrid>
-                        </Stack>
-                        <Box
-                           bg={THEME.DASHBOARD.FORM_FOOTER_BACKGROUND}
-                           borderBottomRadius={12}
-                           px={{
-                              base: 4,
-                              sm: 6,
-                           }}
-                           py={3}
-                           textAlign={"right"}
-                        >
-                           <IsButton
-                              title="Atualizar"
-                              onClick={() => handleUpdateItem(props.id)}
-                           />
-                        </Box>
-                     </form>
-                  </Collapse>
                </Flex>
             ))}
          </TableProductItem>

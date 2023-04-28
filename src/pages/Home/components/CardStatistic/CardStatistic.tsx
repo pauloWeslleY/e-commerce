@@ -18,8 +18,8 @@ function CardStatistic(props: CardsTypeProps) {
       <Stack
          borderWidth={"1px"}
          borderRadius={"lg"}
-         w={{ sm: "100%", md: "540px" }}
-         height={{ sm: "476px", md: "15rem" }}
+         w={{ base: "100%", md: "540px" }}
+         height={{ base: "10rem", sm: "476px", md: "15rem" }}
          direction={{ base: "column", md: "column" }}
          bg={background}
          boxShadow={"xl"}
@@ -36,6 +36,7 @@ function CardStatistic(props: CardsTypeProps) {
          <Stack flexDirection={"column"}>
             <Flex justify={"space-around"}>
                <Text
+                  as={"span"}
                   fontSize={"lg"}
                   fontFamily={"Inter"}
                   fontWeight={500}

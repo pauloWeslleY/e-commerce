@@ -34,6 +34,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
    return (
       <Flex
+         as={"nav"}
          ml={{ base: 0, md: 60 }}
          px={{ base: 4, md: 4 }}
          height={"20"}
@@ -57,7 +58,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
             fontSize={"2xl"}
             fontWeight={500}
          >
-            Logo
+            Dashboard
          </Text>
 
          <HStack spacing={{ base: "0", md: "6" }}>

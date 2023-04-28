@@ -227,30 +227,36 @@ export function AddCategory() {
                               <PopoverContent>
                                  <PopoverArrow />
                                  <PopoverHeader>
-                                    Voce quer deletar essa categoria?
+                                    <Text as={"small"}>ID: {props.id}</Text>
                                  </PopoverHeader>
                                  <PopoverCloseButton />
                                  <PopoverBody>
-                                    <Box py={4}>{props.id}</Box>
-                                    <Box py={4}>{props.name}</Box>
+                                    <Text as={"span"} fontWeight={600}>
+                                       Voce quer deletar essa categoria?
+                                    </Text>
+                                    <Flex as={"span"} py={4}>
+                                       Categoria: {props.name}
+                                    </Flex>
                                  </PopoverBody>
                                  <PopoverFooter>
-                                    <Button
-                                       colorScheme="red"
-                                       ml={3}
-                                       onClick={() => {
-                                          handleDelete(props.id);
-                                          alert.onClose();
-                                          toast({
-                                             title: `Item com ID ${props.id} deletado`,
-                                             status: "success",
-                                             duration: 10000,
-                                             isClosable: true,
-                                          });
-                                       }}
-                                    >
-                                       Deletar
-                                    </Button>
+                                    <Flex justify={"center"}>
+                                       <Button
+                                          colorScheme="red"
+                                          ml={3}
+                                          onClick={() => {
+                                             handleDelete(props.id);
+                                             alert.onClose();
+                                             toast({
+                                                title: `Item com ID ${props.id} deletado`,
+                                                status: "success",
+                                                duration: 10000,
+                                                isClosable: true,
+                                             });
+                                          }}
+                                       >
+                                          Deletar
+                                       </Button>
+                                    </Flex>
                                  </PopoverFooter>
                               </PopoverContent>
                            </Portal>
