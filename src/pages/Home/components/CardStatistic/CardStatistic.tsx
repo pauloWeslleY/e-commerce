@@ -21,9 +21,10 @@ function CardStatistic(props: CardsTypeProps) {
          w={{ base: "100%", md: "540px" }}
          height={{ base: "10rem", sm: "476px", md: "15rem" }}
          direction={{ base: "column", md: "column" }}
-         bg={background}
-         boxShadow={"xl"}
+         boxShadow={"lg"}
          justifyContent={"center"}
+         bg={background}
+         color={THEME.TEXT_COLORS}
       >
          <Stack flexDirection={"column"} justifyContent={"center"}>
             <Flex justify={"space-around"} align={"center"}>
@@ -41,7 +42,7 @@ function CardStatistic(props: CardsTypeProps) {
                   fontFamily={"Inter"}
                   fontWeight={500}
                   textAlign={"center"}
-                  color={THEME.HOME.CARDS_STATISTIC_TEXT_COLORS}
+                  color={THEME.SPAN_COLORS}
                   px={3}
                >
                   {subtitle}

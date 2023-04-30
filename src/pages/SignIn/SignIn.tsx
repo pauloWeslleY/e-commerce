@@ -1,8 +1,8 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 import { Flex, Stack, Text, useToast, chakra } from "@chakra-ui/react";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../services/firebase";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { InputPassword } from "../../components/InputPassword";
 import { InputEmail } from "../../components/InputEmail";
 import { HeroTitle } from "../../components/HeroTitle";
@@ -10,22 +10,23 @@ import { ButtonSign } from "../../components/Buttons";
 import { useColors } from "../../hooks/useColors";
 import { InputFooter } from "../../components/InputFooter";
 import { ButtonSignInWithGoogle } from "../../components/Buttons";
-import { AuthGoogleContext } from "../../contexts/authGoogle";
+import { AuthenticationContext } from "../../contexts/authContextProvider";
 import { UserType } from "../../types/UsersType";
 import { collection, getDocs } from "firebase/firestore";
+import { useLoading } from "../../hooks/useLoading";
 import { Loading } from "../../components/Loading";
 
 export function SignIn() {
    const [email, setEmail] = useState<string>("");
    const [password, setPassword] = useState<string | any>("");
    const [users, setUsers] = useState<UserType[]>([]);
-   const [signInWithEmailAndPassword, loading] =
-      useSignInWithEmailAndPassword(auth);
+   const { isLoading } = useLoading();
    const { THEME } = useColors();
-   const { handleGoogleSignIn, signed } = useContext(AuthGoogleContext);
+   const { handleGoogleSignIn } = useContext(AuthenticationContext);
    const navigate = useNavigate();
    const toast = useToast();
    const usersCollectionRef = collection(db, "users");
+
 
    const handleSignInWithGoogle = async () => {
       await handleGoogleSignIn();
@@ -70,7 +71,7 @@ export function SignIn() {
             isClosable: true,
          });
       } else if (useEmail && usePass) {
-         await signInWithEmailAndPassword(email, password)
+         await signInWithEmailAndPassword(auth, email, password)
             .then(() => {
                toast({
                   title: "Usuário Logado!",
@@ -116,65 +117,61 @@ export function SignIn() {
       getUsers();
    }, []);
 
-   if (loading) {
+   if (isLoading) {
       return <Loading />;
    }
 
-   if (!signed) {
-      return (
-         <Flex
-            minH={"100vh"}
-            align={"center"}
-            justify={"center"}
-            bg={THEME.BACKGROUND}
-         >
-            <Stack spacing={8} p={18}>
-               <Stack align={"center"}>
-                  <HeroTitle title="System E-commerce" />
+   return (
+      <Flex
+         minH={"100vh"}
+         align={"center"}
+         justify={"center"}
+         bg={THEME.BACKGROUND}
+      >
+         <Stack spacing={8} p={18}>
+            <Stack align={"center"}>
+               <HeroTitle title="System E-commerce" />
 
-                  <Text fontSize={"lg"} fontFamily={"Inter"} fontWeight={500}>
-                     Digite suas informações de login
-                  </Text>
-               </Stack>
-               <Stack
-                  bg={THEME.SIGN_IN.BACKGROUND}
-                  rounded={"lg"}
-                  boxShadow={"lg"}
-                  p={10}
-                  justify={"center"}
-                  align={"center"}
-               >
-                  <chakra.form onSubmit={handleSignInUser}>
-                     <Stack spacing={4}>
-                        <InputEmail
-                           value={email}
-                           onChange={(event) => setEmail(event.target.value)}
-                        />
-
-                        <InputPassword
-                           value={password}
-                           onChange={(event) => setPassword(event.target.value)}
-                        />
-
-                        <Stack spacing={5} pt={2}>
-                           <ButtonSign title="Entrar" type="submit" />
-                           <ButtonSignInWithGoogle
-                              title="Entrar com google"
-                              onClick={handleSignInWithGoogle}
-                           />
-                        </Stack>
-                     </Stack>
-                  </chakra.form>
-                  <InputFooter
-                     label="Você não tem uma conta?"
-                     link="Crie a sua conta aqui"
-                     onClick={() => navigate("/register")}
-                  />
-               </Stack>
+               <Text fontSize={"lg"} fontFamily={"Inter"} fontWeight={500}>
+                  Digite suas informações de login
+               </Text>
             </Stack>
-         </Flex>
-      );
-   } else {
-      return <Navigate to="/dashboard" />;
-   }
+            <Stack
+               bg={THEME.SIGN_IN.BACKGROUND}
+               rounded={"lg"}
+               boxShadow={"lg"}
+               p={10}
+               justify={"center"}
+               align={"center"}
+            >
+               <chakra.form onSubmit={handleSignInUser}>
+                  <Stack spacing={4}>
+                     <InputEmail
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                     />
+
+                     <InputPassword
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                     />
+
+                     <Stack spacing={5} pt={2}>
+                        <ButtonSign title="Entrar" type="submit" />
+                        <ButtonSignInWithGoogle
+                           title="Entrar com google"
+                           onClick={handleSignInWithGoogle}
+                        />
+                     </Stack>
+                  </Stack>
+               </chakra.form>
+               <InputFooter
+                  label="Você não tem uma conta?"
+                  link="Crie a sua conta aqui"
+                  onClick={() => navigate("/register")}
+               />
+            </Stack>
+         </Stack>
+      </Flex>
+   );
 }

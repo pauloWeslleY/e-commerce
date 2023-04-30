@@ -1,27 +1,34 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+   GoogleAuthProvider,
+   onAuthStateChanged,
+   signInWithPopup,
+} from "firebase/auth";
 import { auth } from "../services/firebase";
 import { Navigate } from "react-router-dom";
 import { UserType } from "../types/UsersType";
 
 interface AuthContextProps {
-   userAuth?: any | UserType;
+   userAuth: UserType;
    signed: any;
-   handleGoogleSignIn: () => Promise<void>;
+   userSigned: UserType | any;
+   handleGoogleSignIn: () => void;
    signOut: () => void;
 }
 
-interface AuthGoogleProviderProps {
+interface AuthProviderProps {
    children: ReactNode;
 }
 
 const provider = new GoogleAuthProvider();
-export const AuthGoogleContext = createContext({} as AuthContextProps);
 
-export const AuthGoogleProvider = ({ children }: AuthGoogleProviderProps) => {
-   const [userAuth, setUserAuth] = useState(null);
+export const AuthenticationContext = createContext({} as AuthContextProps);
 
-   const handleGoogleSignIn = (): any => {
+export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
+   const [userAuth, setUserAuth] = useState<any>(null);
+   const [userOnAuth, setUserOnAuth] = useState<UserType>(null);
+
+   const handleGoogleSignIn = (): void => {
       signInWithPopup(auth, provider)
          .then((result) => {
             const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -55,26 +62,35 @@ export const AuthGoogleProvider = ({ children }: AuthGoogleProviderProps) => {
          }
       };
 
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+         // const username = user.;
+         console.log("DATABASE ==>");
+         setUserOnAuth(user);
+      });
+
+      unsubscribe();
       localStorageAuth();
    }, []);
 
    function signOut() {
       sessionStorage.clear();
       setUserAuth(null);
+      setUserOnAuth(null);
 
       return <Navigate to="/" />;
    }
 
    return (
-      <AuthGoogleContext.Provider
+      <AuthenticationContext.Provider
          value={{
-            handleGoogleSignIn,
             signed: !!userAuth,
+            userSigned: !!userOnAuth,
             userAuth,
+            handleGoogleSignIn,
             signOut,
          }}
       >
          {children}
-      </AuthGoogleContext.Provider>
+      </AuthenticationContext.Provider>
    );
 };

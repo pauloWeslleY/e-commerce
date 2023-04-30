@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { AuthGoogleContext } from "../contexts/authGoogle";
+import { AuthenticationContext } from "../contexts/authContextProvider";
 
 const PrivateRoutes = () => {
-   const { signed } = useContext(AuthGoogleContext);
-   return signed ? <Outlet /> : <Navigate to="/" />;
+   const { signed, userSigned } = useContext(AuthenticationContext);
+   return signed || userSigned ? <Outlet /> : <Navigate to="/" />;
 };
 
 export { PrivateRoutes };

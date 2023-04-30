@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Flex, Stack, useToast, chakra } from "@chakra-ui/react";
 import { auth, db } from "../../services/firebase";
 import { InputPassword } from "../../components/InputPassword";
@@ -13,20 +13,18 @@ import { InputUserName } from "../../components/InputUserName";
 import { UserType } from "../../types/UsersType";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { Loading } from "../../components/Loading";
+import { useLoading } from "../../hooks/useLoading";
 
 export function Register() {
    const [username, setUsername] = useState<string>("");
    const [email, setEmail] = useState<string>("");
    const [password, setPassword] = useState<string>("");
    const [users, setUsers] = useState<UserType[]>([]);
-   const [createUserWithEmailAndPassword, loading] =
-      useCreateUserWithEmailAndPassword(auth);
+   const { isLoading } = useLoading();
    const { THEME } = useColors();
    const navigate = useNavigate();
    const toast = useToast();
    const usersCollectionRef = collection(db, "users");
-
-   console.log("All users ==> ", users);
 
    const handleRegisterUser = async (event?: FormEvent) => {
       event.preventDefault();
@@ -60,15 +58,16 @@ export function Register() {
          (user: UserType) => user.email == email
       );
 
-      console.log("result ==> ", emailAlreadyInUse);
-
       // NOTE: Envie os dados do formulário caso ele for válido
       if (!emailAlreadyInUse) {
          const newUser: UserType = { username, email, password };
          const docRef = await addDoc(usersCollectionRef, newUser);
          setUsers([...users, { id: docRef.id, ...newUser }]);
-         await createUserWithEmailAndPassword(email, password)
-            .then(() => {
+         await createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+               const user = userCredential.user;
+               console.log(user);
+
                toast({
                   title: "Usuário Cadastrado!",
                   status: "success",
@@ -118,7 +117,7 @@ export function Register() {
       getUsers();
    }, []);
 
-   if (loading) {
+   if (isLoading) {
       return <Loading />;
    }
 
@@ -163,7 +162,7 @@ export function Register() {
                         <ButtonSign
                            title="Cadastrar"
                            type="submit"
-                           isLoading={Boolean(loading)}
+                           // isLoading={Boolean(loading)}
                            loadingText="Cadastrando"
                            spinnerPlacement="start"
                         />

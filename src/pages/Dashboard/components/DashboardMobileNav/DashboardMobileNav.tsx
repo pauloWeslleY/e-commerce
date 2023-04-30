@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { FiChevronDown, FiMenu } from "react-icons/fi";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { AuthGoogleContext } from "../../../../contexts/authGoogle";
+import { AuthenticationContext } from "../../../../contexts/authContextProvider";
 import { useColors } from "../../../../hooks/useColors";
 
 interface MobileProps extends FlexProps {
@@ -29,8 +29,11 @@ interface MobileProps extends FlexProps {
 const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
    const { colorMode, toggleColorMode } = useColorMode();
    const { THEME } = useColors();
-   const { userAuth, signOut } = useContext(AuthGoogleContext);
-   const userData = JSON.parse(userAuth);
+   const { userAuth, signOut, userSigned } = useContext(AuthenticationContext);
+   const userData = JSON.parse(userAuth as string);
+
+   console.log("result userData", userData);
+   console.log("result userSigned", userSigned);
 
    return (
       <Flex
@@ -38,11 +41,11 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
          ml={{ base: 0, md: 60 }}
          px={{ base: 4, md: 4 }}
          height={"20"}
-         alignItems={"center"}
+         align={"center"}
+         justify={{ base: "space-between", md: "flex-end" }}
          bg={THEME.DASHBOARD.MOBILE_NAV_BG}
          borderBottomColor={THEME.DASHBOARD.BORDER_COLOR_MOBILE_BG}
          borderBottomWidth={"1px"}
-         justifyContent={{ base: "space-between", md: "flex-end" }}
          {...rest}
       >
          <IconButton
@@ -80,8 +83,8 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                      <HStack>
                         <Avatar
                            size={"sm"}
-                           src={userData.photoURL}
-                           name={userData.displayName}
+                           src={"null"}
+                           name={userSigned.username || "null"}
                         />
                         <VStack
                            display={{ base: "none", md: "flex" }}
@@ -89,7 +92,9 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                            spacing={"1px"}
                            ml={"2"}
                         >
-                           <Text fontSize={"sm"}>{userData.displayName}</Text>
+                           <Text fontSize={"sm"}>
+                              {userSigned.username || "null"}
+                           </Text>
                         </VStack>
                         <Box display={{ base: "none", md: "flex" }}>
                            <FiChevronDown />
@@ -102,11 +107,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   >
                      <br />
                      <Center>
-                        <Avatar
-                           size={"2xl"}
-                           src={userData.photoURL}
-                           name={userData.displayName}
-                        />
+                        <Avatar size={"2xl"} src={""} name={""} />
                      </Center>
                      <br />
                      <Center>
@@ -115,7 +116,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                            fontFamily={"Inter"}
                            fontWeight={500}
                         >
-                           {userData.displayName}
+                           {"null"}
                         </Text>
                      </Center>
                      <br />

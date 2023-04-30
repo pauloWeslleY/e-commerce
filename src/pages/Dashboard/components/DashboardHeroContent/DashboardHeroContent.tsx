@@ -24,7 +24,7 @@ const DashboardHeroContent = (props: DashboardHeroContentProps) => {
    const navigate = useNavigate();
 
    const LinkItems: Array<LinkItemProps> = [
-      { name: "Home", icon: BiHomeAlt2, path: "/" },
+      { name: "Home", icon: BiHomeAlt2, path: "/dashboard" },
       {
          name: "Produtos",
          icon: MdOutlineProductionQuantityLimits,

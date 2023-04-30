@@ -3,6 +3,8 @@ import { useColorModeValue } from "@chakra-ui/react";
 export function useColors() {
    const THEME = {
       BACKGROUND: useColorModeValue("gray.50", "gray.700"),
+      TEXT_COLORS: useColorModeValue("gray.500", "gray.50"),
+      SPAN_COLORS: useColorModeValue("blackAlpha.700", "whiteAlpha.900"),
 
       SIGN_IN: {
          BACKGROUND: useColorModeValue("blackAlpha.200", "blackAlpha.500"),
@@ -17,7 +19,11 @@ export function useColors() {
          ),
          CARDS_STATISTIC_TEXT_COLORS: useColorModeValue(
             "blackAlpha.700",
-            "whiteAlpha.700"
+            "whiteAlpha.900"
+         ),
+         GRID_COL_BACKGROUND: useColorModeValue(
+            "whiteAlpha.600",
+            "blackAlpha.400"
          ),
       },
 

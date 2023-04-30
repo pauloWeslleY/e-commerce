@@ -59,46 +59,56 @@ export function AddProduct() {
    const prodCollectionRef = collection(db, "items");
    const toast = useToast();
 
-   const HEADER = ["ID", "Nome", "Preço", "Qtd", "Categorias"];
+   const TABLE_HEADER = ["ID", "Nome", "Preço", "Quantidade", "Categorias"];
 
    const handleAddItem = async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const itemID = items.filter((item) => item.id);
       console.log("item", itemID);
-      if (true) {
-         const newItem: ProductsType = {
-            title,
-            description,
-            price,
-            category,
-            quantity,
-         };
-         const docRef = await addDoc(prodCollectionRef, newItem);
-         setItems([...items, { id: docRef.id, ...newItem }]);
-         setTitle("");
-         setPrice("");
-         setDescription("");
-         setCategory("");
-         setQuantity(0);
+      try {
+         if (title === "") {
+            const newItem: ProductsType = {
+               title,
+               description,
+               price,
+               category,
+               quantity,
+            };
+            const docRef = await addDoc(prodCollectionRef, newItem);
+            setItems([...items, { id: docRef.id, ...newItem }]);
+            setTitle("");
+            setPrice("");
+            setDescription("");
+            setCategory("");
+            setQuantity(0);
+            toast({
+               title: "Produto Cadastrado!",
+               status: "success",
+               duration: 9000,
+               isClosable: true,
+            });
+         } else {
+            toast({
+               title: "Produto já cadastrado!",
+               status: "error",
+               duration: 9000,
+               isClosable: true,
+            });
+         }
+      } catch (error) {
          toast({
-            title: "Produto Cadastrado!",
-            status: "success",
-            duration: 9000,
-            isClosable: true,
-         });
-      } else {
-         toast({
-            title: "Produto já cadastrado!",
+            title: "Não foi possível cadastrar este produto!",
             status: "error",
             duration: 9000,
             isClosable: true,
          });
+         console.log(error);
       }
    };
 
    const handleUpdateItem = async (id: string) => {
       const item = items.some((item) => item.id === id);
-      if (item) {
+      if (!item) {
          const updatedItem: ProductsType = {
             title,
             description,
@@ -162,7 +172,7 @@ export function AddProduct() {
             <Box mt={[10, 0]} mb={8}>
                <chakra.form
                   onSubmit={handleAddItem}
-                  shadow={"base"}
+                  shadow={"md"}
                   rounded={[null, "md"]}
                   overflow={{ sm: "hidden" }}
                >
@@ -284,9 +294,9 @@ export function AddProduct() {
          <TableProductItem>
             {items.map((props) => (
                <Flex
-                  direction={{ base: "row", md: "column" }}
-                  bg={THEME.DASHBOARD.TABLE_PRODUCT_LINE_BG}
                   key={props.id}
+                  flexDir={{ base: "row", md: "column" }}
+                  bg={THEME.DASHBOARD.TABLE_PRODUCT_LINE_BG}
                >
                   <SimpleGrid
                      spacingY={3}
@@ -301,7 +311,7 @@ export function AddProduct() {
                      fontWeight={600}
                      alignItems={"center"}
                   >
-                     {HEADER.map((item, i) => (
+                     {TABLE_HEADER.map((item, i) => (
                         <span key={i}>{item}</span>
                      ))}
                      <chakra.span textAlign={{ md: "right" }}>
