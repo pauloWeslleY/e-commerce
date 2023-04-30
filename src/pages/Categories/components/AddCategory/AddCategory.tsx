@@ -42,6 +42,7 @@ import { NavBar } from "../../../../components/NavBar";
 import { FormLabelTitle } from "../../../../components/FormLabelTitle";
 import { InputBar } from "../../../../components/InputBar";
 import { IsButton } from "../../../../components/Buttons";
+import { BiCategory } from "react-icons/bi";
 
 export function AddCategory() {
    const [category, setCategory] = useState<CategoryType[]>([]);
@@ -115,9 +116,10 @@ export function AddCategory() {
    return (
       <>
          <NavBar
-            label="Categorias do Produtos "
+            label="Categorias do Produtos"
             title="Criar Categoria"
             onOpen={navBarToggle.onToggle}
+            icon={BiCategory}
          />
 
          {/* NOTE: Category creation form */}

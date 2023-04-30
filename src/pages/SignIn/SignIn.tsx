@@ -27,7 +27,6 @@ export function SignIn() {
    const toast = useToast();
    const usersCollectionRef = collection(db, "users");
 
-
    const handleSignInWithGoogle = async () => {
       await handleGoogleSignIn();
    };
@@ -110,7 +109,7 @@ export function SignIn() {
          const dataUser = await getDocs(usersCollectionRef);
          const users = dataUser.docs.map<UserType>((doc) => ({
             ...doc.data(),
-            id: doc.id,
+            uid: doc.id,
          }));
          setUsers(users);
       }

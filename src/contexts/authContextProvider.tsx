@@ -9,9 +9,10 @@ import { Navigate } from "react-router-dom";
 import { UserType } from "../types/UsersType";
 
 interface AuthContextProps {
-   userAuth: UserType;
-   signed: any;
-   userSigned: UserType | any;
+   userAuthGoogle: UserType | any;
+   signedOnGoogle: boolean;
+   signed: boolean;
+   userOnAuth: UserType;
    handleGoogleSignIn: () => void;
    signOut: () => void;
 }
@@ -25,7 +26,7 @@ const provider = new GoogleAuthProvider();
 export const AuthenticationContext = createContext({} as AuthContextProps);
 
 export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
-   const [userAuth, setUserAuth] = useState<any>(null);
+   const [userAuthGoogle, setUserAuthGoogle] = useState<any>(null);
    const [userOnAuth, setUserOnAuth] = useState<UserType>(null);
 
    const handleGoogleSignIn = (): void => {
@@ -34,7 +35,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             const users = result.user;
-            setUserAuth(users);
+            setUserAuthGoogle(users);
             sessionStorage.setItem("@AuthFirebase:token", token);
             sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(users));
          })
@@ -58,13 +59,11 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
          const sessionToken = sessionStorage.getItem("@AuthFirebase:token");
          const sessionUser = sessionStorage.getItem("@AuthFirebase:user");
          if (sessionToken && sessionUser) {
-            setUserAuth(sessionUser);
+            setUserAuthGoogle(sessionUser);
          }
       };
 
       const unsubscribe = onAuthStateChanged(auth, (user) => {
-         // const username = user.;
-         console.log("DATABASE ==>");
          setUserOnAuth(user);
       });
 
@@ -74,7 +73,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
 
    function signOut() {
       sessionStorage.clear();
-      setUserAuth(null);
+      setUserAuthGoogle(null);
       setUserOnAuth(null);
 
       return <Navigate to="/" />;
@@ -83,9 +82,10 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
    return (
       <AuthenticationContext.Provider
          value={{
-            signed: !!userAuth,
-            userSigned: !!userOnAuth,
-            userAuth,
+            signedOnGoogle: !!userAuthGoogle,
+            signed: !!userOnAuth,
+            userAuthGoogle,
+            userOnAuth,
             handleGoogleSignIn,
             signOut,
          }}

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { IconType } from "react-icons";
 import { Box, BoxProps, CloseButton, Flex, Text } from "@chakra-ui/react";
 import { BiCategory, BiHomeAlt2, BiUser } from "react-icons/bi";
-import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { MdOutlineStoreMallDirectory } from "react-icons/md";
 import { FiSettings } from "react-icons/fi";
 import { useColors } from "../../../../hooks/useColors";
 import { DashboardNavItems } from "../DashboardNavItems";
@@ -23,11 +23,11 @@ const DashboardHeroContent = (props: DashboardHeroContentProps) => {
    const { THEME } = useColors();
    const navigate = useNavigate();
 
-   const LinkItems: Array<LinkItemProps> = [
+   const MENU_ITEMS: Array<LinkItemProps> = [
       { name: "Home", icon: BiHomeAlt2, path: "/dashboard" },
       {
          name: "Produtos",
-         icon: MdOutlineProductionQuantityLimits,
+         icon: MdOutlineStoreMallDirectory,
          path: "/dashboard/product",
       },
       { name: "Categorias", icon: BiCategory, path: "/dashboard/categories" },
@@ -48,7 +48,7 @@ const DashboardHeroContent = (props: DashboardHeroContentProps) => {
       >
          <Flex h={"20"} mx={"8"} align={"center"} justify={"space-between"}>
             <Text fontSize={"2xl"} fontFamily={"Inter"} fontWeight={600}>
-               Dashboard
+               SystemStock
             </Text>
 
             <CloseButton
@@ -56,7 +56,23 @@ const DashboardHeroContent = (props: DashboardHeroContentProps) => {
                onClick={onClose}
             />
          </Flex>
-         {LinkItems.map((link) => (
+         {MENU_ITEMS.map((link) => (
+            <DashboardNavItems
+               key={link.name}
+               icon={link.icon}
+               onClickNav={() => navigate(link.path)}
+            >
+               {link.name}
+            </DashboardNavItems>
+         ))}
+
+         <Box py={2} mx={"8"}>
+            <Text fontSize={"2xl"} fontFamily={"Inter"} fontWeight={600}>
+               Menu
+            </Text>
+         </Box>
+
+         {MENU_ITEMS.map((link) => (
             <DashboardNavItems
                key={link.name}
                icon={link.icon}

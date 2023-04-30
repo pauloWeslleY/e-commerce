@@ -43,6 +43,7 @@ import { FormLabelTitle } from "../../../../components/FormLabelTitle";
 import { InputBar } from "../../../../components/InputBar";
 import { IsButton } from "../../../../components/Buttons";
 import { NavBar } from "../../../../components/NavBar";
+import { MdStore } from "react-icons/md";
 
 export function AddProduct() {
    const [items, setItems] = useState<ProductsType[]>([]);
@@ -166,6 +167,7 @@ export function AddProduct() {
             label="Tabela de Produtos"
             title="Criar Produto"
             onOpen={navBarToggle.onToggle}
+            icon={MdStore}
          />
 
          <Collapse in={navBarToggle.isOpen} animateOpacity>
@@ -332,9 +334,8 @@ export function AddProduct() {
                         textOverflow="ellipsis"
                         overflow="hidden"
                         whiteSpace="nowrap"
-                        w={{ base: "full", md: 28 }}
                      >
-                        {props.id.toUpperCase()}
+                        {props.id.toUpperCase().slice(0, 11)}
                      </chakra.span>
                      <chakra.span textOverflow="ellipsis" overflow="hidden">
                         {props.title}
@@ -369,7 +370,9 @@ export function AddProduct() {
                                     <PopoverCloseButton />
                                     <PopoverBody>
                                        <Stack py={4} spacing={4}>
-                                          <Box>ID: {props.id}</Box>
+                                          <Box>
+                                             ID: {props.id.toUpperCase()}
+                                          </Box>
                                           <Box>Nome: {props.title}</Box>
                                           <Box>
                                              Descrição: {props.description}
@@ -617,7 +620,9 @@ export function AddProduct() {
                                  <PopoverContent>
                                     <PopoverArrow />
                                     <PopoverHeader>
-                                       <Text as={"small"}>ID: {props.id}</Text>
+                                       <Text as={"small"}>
+                                          ID: {props.id.toUpperCase()}
+                                       </Text>
                                     </PopoverHeader>
                                     <PopoverCloseButton />
                                     <PopoverBody>

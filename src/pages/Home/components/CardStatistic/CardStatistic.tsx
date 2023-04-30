@@ -28,17 +28,17 @@ function CardStatistic(props: CardsTypeProps) {
       >
          <Stack flexDirection={"column"} justifyContent={"center"}>
             <Flex justify={"space-around"} align={"center"}>
-               <Heading fontSize={"2xl"} fontFamily={"Inter"}>
+               <Heading fontSize={"xl"} fontFamily={"Inter"}>
                   {title}
                </Heading>
                <Icon as={icon} boxSize={7} />
             </Flex>
          </Stack>
          <Stack flexDirection={"column"}>
-            <Flex justify={"space-around"}>
+            <Flex justify={"space-evenly"}>
                <Text
                   as={"span"}
-                  fontSize={"lg"}
+                  fontSize={"2xl"}
                   fontFamily={"Inter"}
                   fontWeight={500}
                   textAlign={"center"}

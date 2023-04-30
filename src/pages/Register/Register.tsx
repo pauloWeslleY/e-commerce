@@ -16,7 +16,7 @@ import { Loading } from "../../components/Loading";
 import { useLoading } from "../../hooks/useLoading";
 
 export function Register() {
-   const [username, setUsername] = useState<string>("");
+   const [displayName, setDisplayName] = useState<string>("");
    const [email, setEmail] = useState<string>("");
    const [password, setPassword] = useState<string>("");
    const [users, setUsers] = useState<UserType[]>([]);
@@ -60,9 +60,9 @@ export function Register() {
 
       // NOTE: Envie os dados do formulário caso ele for válido
       if (!emailAlreadyInUse) {
-         const newUser: UserType = { username, email, password };
+         const newUser: UserType = { displayName, email, password };
          const docRef = await addDoc(usersCollectionRef, newUser);
-         setUsers([...users, { id: docRef.id, ...newUser }]);
+         setUsers([...users, { uid: docRef.id, ...newUser }]);
          await createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                const user = userCredential.user;
@@ -102,7 +102,7 @@ export function Register() {
 
       setEmail("");
       setPassword("");
-      setUsername("");
+      setDisplayName("");
    };
 
    useEffect(() => {
@@ -110,7 +110,7 @@ export function Register() {
          const dataUser = await getDocs(usersCollectionRef);
          const users = dataUser.docs.map<UserType>((doc) => ({
             ...doc.data(),
-            id: doc.id,
+            uid: doc.id,
          }));
          setUsers(users);
       }
@@ -143,8 +143,8 @@ export function Register() {
                <chakra.form onSubmit={handleRegisterUser}>
                   <Stack spacing={4}>
                      <InputUserName
-                        onChange={(event) => setUsername(event.target.value)}
-                        value={username}
+                        onChange={(event) => setDisplayName(event.target.value)}
+                        value={displayName}
                         isRequired
                      />
                      <InputEmail

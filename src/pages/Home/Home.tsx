@@ -1,5 +1,5 @@
-import { Box, Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
-import { MdProductionQuantityLimits } from "react-icons/md";
+import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { MdOutlineStoreMallDirectory } from "react-icons/md";
 import { BiCategory, BiUser } from "react-icons/bi";
 import { IconType } from "react-icons";
 import { useColors } from "../../hooks/useColors";
@@ -8,6 +8,8 @@ import { useFetch } from "../../hooks/useFetch";
 import { Dashboard } from "../Dashboard/Dashboard";
 import { CardStatistic } from "./components/CardStatistic";
 import { TableListItems } from "./components/TableListItems";
+import { RiHome2Fill } from "react-icons/ri";
+import { NavTitle } from "../../components/NavBar";
 
 interface CardsHomeProps {
    icon: IconType;
@@ -20,11 +22,10 @@ export function Home() {
    const { items, categories, users } = useFetch();
    const { THEME } = useColors();
 
-
    const CARDS_HOME_PROPS: Array<CardsHomeProps> = [
       {
-         icon: MdProductionQuantityLimits,
-         title: "Produtos Cadastrados",
+         icon: MdOutlineStoreMallDirectory,
+         title: "Produtos ",
          subtitle: items.length,
          background: THEME.HOME.CARDS_STATISTIC_BG_PROD,
       },
@@ -45,10 +46,8 @@ export function Home() {
    return (
       <Dashboard>
          <Box px={4} py={4}>
-            <Flex h={16} align={"center"} justify={"space-between"}>
-               <Heading fontWeight={500} fontSize={"xl"}>
-                  Home
-               </Heading>
+            <Flex h={16}>
+               <NavTitle label={"Home"} icon={RiHome2Fill} />
             </Flex>
          </Box>
 

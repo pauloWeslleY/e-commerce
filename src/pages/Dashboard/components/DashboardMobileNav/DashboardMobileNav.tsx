@@ -29,11 +29,7 @@ interface MobileProps extends FlexProps {
 const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
    const { colorMode, toggleColorMode } = useColorMode();
    const { THEME } = useColors();
-   const { userAuth, signOut, userSigned } = useContext(AuthenticationContext);
-   const userData = JSON.parse(userAuth as string);
-
-   console.log("result userData", userData);
-   console.log("result userSigned", userSigned);
+   const { signOut, userOnAuth } = useContext(AuthenticationContext);
 
    return (
       <Flex
@@ -61,7 +57,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
             fontSize={"2xl"}
             fontWeight={500}
          >
-            Dashboard
+            System E-commerce
          </Text>
 
          <HStack spacing={{ base: "0", md: "6" }}>
@@ -81,11 +77,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                      _focus={{ boxShadow: "none" }}
                   >
                      <HStack>
-                        <Avatar
-                           size={"sm"}
-                           src={"null"}
-                           name={userSigned.username || "null"}
-                        />
+                        <Avatar size={"sm"} bg={"purple.300"} />
                         <VStack
                            display={{ base: "none", md: "flex" }}
                            alignItems={"flex-start"}
@@ -93,7 +85,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                            ml={"2"}
                         >
                            <Text fontSize={"sm"}>
-                              {userSigned.username || "null"}
+                              ID: {userOnAuth.uid.toUpperCase().slice(0, 11)}
                            </Text>
                         </VStack>
                         <Box display={{ base: "none", md: "flex" }}>
@@ -107,7 +99,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   >
                      <br />
                      <Center>
-                        <Avatar size={"2xl"} src={""} name={""} />
+                        <Avatar size={"2xl"} bg={"purple.300"} />
                      </Center>
                      <br />
                      <Center>
@@ -116,7 +108,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                            fontFamily={"Inter"}
                            fontWeight={500}
                         >
-                           {"null"}
+                           ID: {userOnAuth.uid.toUpperCase().slice(0, 11)}
                         </Text>
                      </Center>
                      <br />

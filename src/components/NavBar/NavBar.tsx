@@ -1,24 +1,23 @@
-import { Box, Button, Flex, Stack, Text } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
 import { memo } from "react";
+import { Box, Button, Flex, Stack } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+import { IconType } from "react-icons";
+import { NavTitle } from "./index";
 
 interface NavBarProps {
    onOpen: () => void;
    title: string;
    label: string;
+   icon: IconType;
 }
 
 function NavBar(props: NavBarProps) {
-   const { label, title, onOpen } = props;
+   const { label, title, icon, onOpen } = props;
 
    return (
-      <Box px={4}>
+      <Box px={4} pb={5}>
          <Flex h={16} align={"center"} justify={"space-between"}>
-            <Box >
-               <Text fontFamily={"Poppins"} fontWeight={600}>
-                  {label}
-               </Text>
-            </Box>
+            <NavTitle label={label} icon={icon} />
 
             <Flex alignItems={"center"}>
                <Stack direction={"row"} spacing={7}>
