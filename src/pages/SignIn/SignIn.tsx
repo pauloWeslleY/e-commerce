@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Flex, Stack, Text, useToast, chakra } from "@chakra-ui/react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../services/firebase";
@@ -9,8 +9,6 @@ import { HeroTitle } from "../../components/HeroTitle";
 import { ButtonSign } from "../../components/Buttons";
 import { useColors } from "../../hooks/useColors";
 import { InputFooter } from "../../components/InputFooter";
-import { ButtonSignInWithGoogle } from "../../components/Buttons";
-import { AuthenticationContext } from "../../contexts/authContextProvider";
 import { UserType } from "../../types/UsersType";
 import { collection, getDocs } from "firebase/firestore";
 import { useLoading } from "../../hooks/useLoading";
@@ -22,14 +20,9 @@ export function SignIn() {
    const [users, setUsers] = useState<UserType[]>([]);
    const { isLoading } = useLoading();
    const { THEME } = useColors();
-   const { handleGoogleSignIn } = useContext(AuthenticationContext);
    const navigate = useNavigate();
    const toast = useToast();
    const usersCollectionRef = collection(db, "users");
-
-   const handleSignInWithGoogle = async () => {
-      await handleGoogleSignIn();
-   };
 
    const handleSignInUser = async (event: FormEvent) => {
       event.preventDefault();
@@ -85,7 +78,7 @@ export function SignIn() {
             .catch((err) => {
                toast({
                   title: "Email e senha estão incorreto!",
-                  status: "success",
+                  status: "warning",
                   duration: 9000,
                   isClosable: true,
                });
@@ -140,8 +133,6 @@ export function SignIn() {
                rounded={"lg"}
                boxShadow={"lg"}
                p={10}
-               justify={"center"}
-               align={"center"}
             >
                <chakra.form onSubmit={handleSignInUser}>
                   <Stack spacing={4}>
@@ -155,12 +146,8 @@ export function SignIn() {
                         onChange={(event) => setPassword(event.target.value)}
                      />
 
-                     <Stack spacing={5} pt={2}>
+                     <Stack pt={2}>
                         <ButtonSign title="Entrar" type="submit" />
-                        <ButtonSignInWithGoogle
-                           title="Entrar com google"
-                           onClick={handleSignInWithGoogle}
-                        />
                      </Stack>
                   </Stack>
                </chakra.form>

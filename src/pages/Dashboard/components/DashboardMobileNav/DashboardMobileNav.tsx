@@ -19,8 +19,11 @@ import {
 } from "@chakra-ui/react";
 import { FiChevronDown, FiMenu } from "react-icons/fi";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { signOut } from "firebase/auth";
 import { AuthenticationContext } from "../../../../contexts/authContextProvider";
 import { useColors } from "../../../../hooks/useColors";
+import { auth } from "../../../../services/firebase";
+import { useNavigate } from "react-router-dom";
 
 interface MobileProps extends FlexProps {
    onOpen: () => void;
@@ -29,7 +32,17 @@ interface MobileProps extends FlexProps {
 const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
    const { colorMode, toggleColorMode } = useColorMode();
    const { THEME } = useColors();
-   const { signOut, userOnAuth } = useContext(AuthenticationContext);
+   const { userOnAuth } = useContext(AuthenticationContext);
+   const navigate = useNavigate();
+
+   const current_user = auth.currentUser;
+   console.log(current_user);
+   console.log("DATA ==> ", userOnAuth.displayName);
+
+   const handleSignOut = () => {
+      signOut(auth);
+      navigate("/");
+   };
 
    return (
       <Flex
@@ -84,9 +97,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                            spacing={"1px"}
                            ml={"2"}
                         >
-                           <Text fontSize={"sm"}>
-                              ID: {userOnAuth.uid.toUpperCase().slice(0, 11)}
-                           </Text>
+                           <Text fontSize={"sm"}>{userOnAuth.displayName}</Text>
                         </VStack>
                         <Box display={{ base: "none", md: "flex" }}>
                            <FiChevronDown />
@@ -108,12 +119,12 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                            fontFamily={"Inter"}
                            fontWeight={500}
                         >
-                           ID: {userOnAuth.uid.toUpperCase().slice(0, 11)}
+                           {userOnAuth.displayName}
                         </Text>
                      </Center>
                      <br />
                      <MenuDivider />
-                     <MenuItem onClick={() => signOut()}>Sair</MenuItem>
+                     <MenuItem onClick={() => handleSignOut()}>Sair</MenuItem>
                   </MenuList>
                </Menu>
             </Flex>

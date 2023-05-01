@@ -10,22 +10,12 @@ import {
 } from "@chakra-ui/react";
 import { useFetch } from "../../../../hooks/useFetch";
 import { useColors } from "../../../../hooks/useColors";
-// import { collection, query, where } from "firebase/firestore";
-// import { db } from "../../../../services/firebase";
 
 function TableListItems() {
    const { users } = useFetch();
    const { THEME } = useColors();
-   // const [category, setCategory] = useState<any>();
 
-   // useEffect(() => {
-   //    const getCategory = query(
-   //       collection(db, "items"),
-   //       where("category", "==", "Eletrônicos")
-   //    );
-
-   //    setCategory(getCategory);
-   // }, []);
+   console.log("USERS ==> ", users);
 
    return (
       <Grid
@@ -40,8 +30,8 @@ function TableListItems() {
             colSpan={{ lg: 4 }}
             bg={THEME.HOME.GRID_COL_BACKGROUND}
             rounded={"md"}
-            p={1}
             boxShadow={"lg"}
+            p={1}
          >
             <Flex
                as={"section"}
@@ -58,9 +48,9 @@ function TableListItems() {
                   <Heading as={"h2"} fontSize={"xl"} fontWeight={500} py={2}>
                      Lista de Usuários
                   </Heading>
-                  {users.map((user) => (
+                  {users.map((user, index) => (
                      <ListItem
-                        key={user.uid}
+                        key={`${user.uid}${index}`}
                         shadow={"lg"}
                         p={2}
                         borderBottomWidth={1}

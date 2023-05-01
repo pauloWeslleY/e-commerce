@@ -11,10 +11,10 @@ import { UserType } from "../types/UsersType";
 interface AuthContextProps {
    userAuthGoogle: UserType | any;
    signedOnGoogle: boolean;
-   signed: boolean;
+
    userOnAuth: UserType;
    handleGoogleSignIn: () => void;
-   signOut: () => void;
+   handleLogout: () => void;
 }
 
 interface AuthProviderProps {
@@ -71,10 +71,9 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
       localStorageAuth();
    }, []);
 
-   function signOut() {
+   function handleLogout() {
       sessionStorage.clear();
       setUserAuthGoogle(null);
-      setUserOnAuth(null);
 
       return <Navigate to="/" />;
    }
@@ -83,11 +82,10 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
       <AuthenticationContext.Provider
          value={{
             signedOnGoogle: !!userAuthGoogle,
-            signed: !!userOnAuth,
             userAuthGoogle,
             userOnAuth,
             handleGoogleSignIn,
-            signOut,
+            handleLogout,
          }}
       >
          {children}

@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Flex, Stack, useToast, chakra } from "@chakra-ui/react";
 import { auth, db } from "../../services/firebase";
 import { InputPassword } from "../../components/InputPassword";
@@ -58,42 +58,42 @@ export function Register() {
          (user: UserType) => user.email == email
       );
 
-      // NOTE: Envie os dados do formulário caso ele for válido
-      if (!emailAlreadyInUse) {
-         const newUser: UserType = { displayName, email, password };
-         const docRef = await addDoc(usersCollectionRef, newUser);
-         setUsers([...users, { uid: docRef.id, ...newUser }]);
-         await createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-               const user = userCredential.user;
-               console.log(user);
+      try {
+         // NOTE: Envie os dados do formulário caso ele for válido
+         if (!emailAlreadyInUse) {
+            const newUser: UserType = { displayName, email, password };
+            const docRef = await addDoc(usersCollectionRef, newUser);
+            setUsers([...users, { uid: docRef.id, ...newUser }]);
+            const { user } = await createUserWithEmailAndPassword(
+               auth,
+               email,
+               password
+            );
 
-               toast({
-                  title: "Usuário Cadastrado!",
-                  status: "success",
-                  duration: 9000,
-                  isClosable: true,
-               });
-               navigate("/");
-            })
-            .catch((error) => {
-               const errorCode = error.code;
-               const errorMessage = error.message;
-
-               toast({
-                  title: "Email já em uso",
-                  status: "error",
-                  duration: 9000,
-                  isClosable: true,
-               });
-
-               console.error(
-                  `Error ao cria usuário ${errorCode} ${errorMessage}`
-               );
+            await updateProfile(user, {
+               displayName: displayName,
             });
-      } else {
+
+            toast({
+               title: "Usuário Cadastrado!",
+               status: "success",
+               duration: 9000,
+               isClosable: true,
+            });
+            navigate("/");
+
+            return user;
+         } else {
+            toast({
+               title: "Usuário já cadastrado",
+               status: "error",
+               duration: 9000,
+               isClosable: true,
+            });
+         }
+      } catch (error) {
          toast({
-            title: "Usuário já cadastrado",
+            title: `Falha ao cadastrar usuário! ==> ${error.message}`,
             status: "error",
             duration: 9000,
             isClosable: true,
