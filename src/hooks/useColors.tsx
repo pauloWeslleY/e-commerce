@@ -43,6 +43,8 @@ export function useColors() {
             "purple.700"
          ),
 
+         POPOVER_BACKGROUND: useColorModeValue("whiteAlpha.600", "gray.700"),
+
          FORM_BACKGROUND: useColorModeValue("whiteAlpha.600", "purple.500"),
          FORM_FOOTER_BACKGROUND: useColorModeValue(
             "blackAlpha.100",

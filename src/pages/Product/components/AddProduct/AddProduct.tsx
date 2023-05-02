@@ -439,10 +439,10 @@ export function AddProduct() {
                                        <form>
                                           <Stack
                                              bg={
-                                                THEME.DASHBOARD.FORM_BACKGROUND
+                                                THEME.DASHBOARD
+                                                   .POPOVER_BACKGROUND
                                              }
                                              spacing={6}
-                                             borderTopRadius={12}
                                              px={4}
                                              py={5}
                                              p={[null, 6]}
@@ -477,7 +477,7 @@ export function AddProduct() {
                                                       display={"inline"}
                                                       fontWeight={600}
                                                       fontFamily={"Inter"}
-                                                      letterSpacing={2}
+                                                      letterSpacing={1}
                                                    >
                                                       {props.title.toUpperCase()}
                                                    </Text>
@@ -619,9 +619,8 @@ export function AddProduct() {
                                           <Box
                                              bg={
                                                 THEME.DASHBOARD
-                                                   .FORM_FOOTER_BACKGROUND
+                                                   .POPOVER_BACKGROUND
                                              }
-                                             borderBottomRadius={12}
                                              px={{
                                                 base: 4,
                                                 sm: 6,
