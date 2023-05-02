@@ -2,7 +2,7 @@ type ProductsType = {
    id?: string;
    title?: string;
    description?: string;
-   price?: number;
+   price?: string;
    category?: string;
    quantity?: number;
 };

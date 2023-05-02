@@ -52,26 +52,20 @@ export function AddProduct() {
          title: "",
          description: "",
          category: "",
-         price: 0,
+         price: "",
          quantity: 0,
       },
    ]);
    const [title, setTitle] = useState<string>("");
-   const [price, setPrice] = useState<string | any>("");
+   const [price, setPrice] = useState<string>("");
    const [description, setDescription] = useState<string>("");
    const [category, setCategory] = useState<string>("");
-   const [quantity, setQuantity] = useState<number | any>();
-   const [result, setResult] = useState<any>();
+   const [quantity, setQuantity] = useState<number>();
    const { THEME } = useColors();
    const alert = useDisclosure();
    const navBarToggle = useDisclosure();
    const toast = useToast();
    const prodCollectionRef = collection(db, "items");
-
-   console.log(
-      "RESULT==> ",
-      result.map((item: { title: string }) => item.title)
-   );
 
    const TABLE_HEADER = ["ID", "Nome", "Preço", "Quantidade", "Categorias"];
    const prodItems: ProductsType = {
@@ -182,13 +176,12 @@ export function AddProduct() {
          );
          const querySnapshot = await getDocs(filtered);
 
-         const itemsData = querySnapshot.docs.map((doc) => ({
+         const itemsData = querySnapshot.docs.map<ProductsType>((doc) => ({
             id: doc.id,
             ...doc.data(),
          }));
 
-         console.log(itemsData);
-         setResult(itemsData);
+         console.log(itemsData.map((item) => item.title));
       };
 
       getItems();
