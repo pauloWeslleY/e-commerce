@@ -26,7 +26,7 @@ import {
 } from "@chakra-ui/react";
 import { FaUser } from "react-icons/fa";
 
-const Choc = () => {
+const FormLayout = () => {
    return (
       <Box bg="#edf3f8" _dark={{ bg: "#111" }} p={10}>
          <Box>
@@ -577,8 +577,8 @@ const Choc = () => {
                               <Flex alignItems="start">
                                  <Flex alignItems="center" h={5}>
                                     <Checkbox
-                                       colorScheme="brand"
-                                       borderColor="brand.700"
+                                       colorScheme="purple"
+                                       borderColor="purple.700"
                                        _dark={{ borderColor: "gray.50" }}
                                        id="comments"
                                        rounded="md"
@@ -605,8 +605,8 @@ const Choc = () => {
                               <Flex alignItems="start">
                                  <Flex alignItems="center" h={5}>
                                     <Checkbox
-                                       colorScheme="brand"
-                                       borderColor="brand.700"
+                                       colorScheme="purple"
+                                       borderColor="purple.700"
                                        _dark={{ borderColor: "gray.50" }}
                                        id="candidates"
                                        rounded="md"
@@ -633,8 +633,8 @@ const Choc = () => {
                               <Flex alignItems="start">
                                  <Flex alignItems="center" h={5}>
                                     <Checkbox
-                                       colorScheme="brand"
-                                       borderColor="brand.700"
+                                       colorScheme="purple"
+                                       borderColor="purple.700"
                                        _dark={{ borderColor: "gray.50" }}
                                        id="offers"
                                        rounded="md"
@@ -684,10 +684,10 @@ const Choc = () => {
                                  color: "gray.50",
                                  borderColor: "gray.50",
                               }}
-                              colorScheme="brand"
+                              colorScheme="purple"
                               mt={4}
                               defaultValue="1"
-                              borderColor="brand.700"
+                              borderColor="purple.700"
                            >
                               <Stack spacing={4}>
                                  <Radio spacing={3} value="1">
@@ -727,4 +727,4 @@ const Choc = () => {
    );
 };
 
-export default Choc;
+export default FormLayout;

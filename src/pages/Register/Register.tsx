@@ -26,7 +26,7 @@ export function Register() {
    const toast = useToast();
    const usersCollectionRef = collection(db, "users");
 
-   const handleRegisterUser = async (event?: FormEvent) => {
+   const handleRegisterUser = async (event: FormEvent) => {
       event.preventDefault();
       // HACK: ==> Validação do campos do input Email e Senha!
       if (!email && password === "") {

@@ -1,3 +1,4 @@
 import TableProductItem from "./TableProductItem";
+import HeroTableHeader from "./HeroTableHeader";
 
-export { TableProductItem };
+export { TableProductItem, HeroTableHeader };

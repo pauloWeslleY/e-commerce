@@ -31,7 +31,7 @@ const DashboardHeroContent = (props: DashboardHeroContentProps) => {
          path: "/dashboard/product",
       },
       { name: "Categorias", icon: BiCategory, path: "/dashboard/categories" },
-      { name: "Usuário", icon: BiUser, path: "" },
+      { name: "Usuário", icon: BiUser, path: "/dashboard/users" },
       { name: "Settings", icon: FiSettings, path: "" },
    ];
 

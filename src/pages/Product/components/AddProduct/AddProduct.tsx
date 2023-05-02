@@ -40,7 +40,7 @@ import { BsFillEyeFill } from "react-icons/bs";
 import { db } from "../../../../services/firebase";
 import { useColors } from "../../../../hooks/useColors";
 import { ProductsType } from "../../../../types/ProductType";
-import { TableProductItem } from "../TableProduct";
+import { HeroTableHeader, TableProductItem } from "../TableProduct";
 import { FormLabelTitle } from "../../../../components/FormLabelTitle";
 import { InputBar } from "../../../../components/InputBar";
 import { IsButton } from "../../../../components/Buttons";
@@ -67,7 +67,6 @@ export function AddProduct() {
    const toast = useToast();
    const prodCollectionRef = collection(db, "items");
 
-   const TABLE_HEADER = ["ID", "Nome", "Preço", "Quantidade", "Categorias"];
    const prodItems: ProductsType = {
       title,
       description,
@@ -327,26 +326,7 @@ export function AddProduct() {
                   flexDir={{ base: "row", md: "column" }}
                   bg={THEME.DASHBOARD.TABLE_PRODUCT_LINE_BG}
                >
-                  <SimpleGrid
-                     spacingY={3}
-                     columns={{ base: 1, md: 6 }}
-                     w={{ base: 230, md: "full" }}
-                     textTransform={"uppercase"}
-                     bg={THEME.DASHBOARD.TABLE_PRODUCT_ITEM_BG}
-                     color={THEME.DASHBOARD.TABLE_PRODUCT_TITLE_COLORS}
-                     py={{ base: 1, md: 4 }}
-                     px={{ base: 2, md: 10 }}
-                     fontSize={"md"}
-                     fontWeight={600}
-                     alignItems={"center"}
-                  >
-                     {TABLE_HEADER.map((item, i) => (
-                        <span key={i}>{item}</span>
-                     ))}
-                     <chakra.span textAlign={{ md: "right" }}>
-                        Ações
-                     </chakra.span>
-                  </SimpleGrid>
+                  <HeroTableHeader />
                   <SimpleGrid
                      spacingY={3}
                      columns={{ base: 1, md: 6 }}
@@ -409,7 +389,7 @@ export function AddProduct() {
                                           <Box>Preço: R${props.price}</Box>
                                           <Box>
                                              Quantidade: {props.quantity}{" "}
-                                             unidade
+                                             unidades
                                           </Box>
                                           <Box>Categoria: {props.category}</Box>
                                        </Stack>
@@ -431,9 +411,7 @@ export function AddProduct() {
                               <Portal>
                                  <PopoverContent>
                                     <PopoverArrow />
-                                    <PopoverHeader>
-                                       Atualizar Item
-                                    </PopoverHeader>
+                                    <PopoverHeader>Editar Item</PopoverHeader>
                                     <PopoverCloseButton />
                                     <PopoverBody>
                                        <form>
@@ -477,7 +455,7 @@ export function AddProduct() {
                                                       display={"inline"}
                                                       fontWeight={600}
                                                       fontFamily={"Inter"}
-                                                      letterSpacing={1}
+                                                      letterSpacing={2}
                                                    >
                                                       {props.title.toUpperCase()}
                                                    </Text>
@@ -621,6 +599,7 @@ export function AddProduct() {
                                                 THEME.DASHBOARD
                                                    .POPOVER_BACKGROUND
                                              }
+                                             borderBottomRadius={12}
                                              px={{
                                                 base: 4,
                                                 sm: 6,
