@@ -19,7 +19,7 @@ function CardStatistic(props: CardsTypeProps) {
          borderWidth={"1px"}
          borderRadius={"lg"}
          w={{ base: "100%", md: "540px" }}
-         height={{ base: "10rem", sm: "476px", md: "15rem" }}
+         height={{ base: "10rem", sm: "476px", md: "12rem" }}
          direction={{ base: "column", md: "column" }}
          boxShadow={"lg"}
          justifyContent={"center"}
@@ -28,17 +28,17 @@ function CardStatistic(props: CardsTypeProps) {
       >
          <Stack flexDirection={"column"} justifyContent={"center"}>
             <Flex justify={"space-around"} align={"center"}>
-               <Heading fontSize={"xl"} fontFamily={"Inter"}>
+               <Heading fontSize={"2xl"} fontFamily={"Inter"}>
                   {title}
                </Heading>
-               <Icon as={icon} boxSize={7} />
+               <Icon as={icon} boxSize={9} />
             </Flex>
          </Stack>
          <Stack flexDirection={"column"}>
             <Flex justify={"space-evenly"}>
                <Text
                   as={"span"}
-                  fontSize={"2xl"}
+                  fontSize={"4xl"}
                   fontFamily={"Inter"}
                   fontWeight={500}
                   textAlign={"center"}

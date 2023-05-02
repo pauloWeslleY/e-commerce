@@ -5,6 +5,6 @@ type ProductsType = {
    price?: number;
    category?: string;
    quantity?: number;
-}
+};
 
 export { ProductsType };

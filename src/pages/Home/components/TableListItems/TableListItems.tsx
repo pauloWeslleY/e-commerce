@@ -15,8 +15,6 @@ function TableListItems() {
    const { users } = useFetch();
    const { THEME } = useColors();
 
-   console.log("USERS ==> ", users);
-
    return (
       <Grid
          templateColumns={{
@@ -51,7 +49,6 @@ function TableListItems() {
                   {users.map((user, index) => (
                      <ListItem
                         key={`${user.uid}${index}`}
-                        shadow={"lg"}
                         p={2}
                         borderBottomWidth={1}
                         borderColor={"cyan.700"}

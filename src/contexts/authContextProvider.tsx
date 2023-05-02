@@ -3,17 +3,22 @@ import {
    GoogleAuthProvider,
    onAuthStateChanged,
    signInWithPopup,
+   signOut,
 } from "firebase/auth";
 import { auth } from "../services/firebase";
 import { Navigate } from "react-router-dom";
-import { UserType } from "../types/UsersType";
+
+type UserProps = {
+   id: string;
+   username: string;
+   email?: string;
+   avatar?: string;
+};
 
 interface AuthContextProps {
-   userAuthGoogle: UserType | any;
    signedOnGoogle: boolean;
-
-   userOnAuth: UserType;
-   handleGoogleSignIn: () => void;
+   userOnAuth: UserProps | null;
+   handleSignInWithGoogle: () => Promise<void>;
    handleLogout: () => void;
 }
 
@@ -21,70 +26,61 @@ interface AuthProviderProps {
    children: ReactNode;
 }
 
-const provider = new GoogleAuthProvider();
-
 export const AuthenticationContext = createContext({} as AuthContextProps);
 
 export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
-   const [userAuthGoogle, setUserAuthGoogle] = useState<any>(null);
-   const [userOnAuth, setUserOnAuth] = useState<UserType>(null);
+   const [userOnAuth, setUserOnAuth] = useState<UserProps | null>(null);
 
-   const handleGoogleSignIn = (): void => {
-      signInWithPopup(auth, provider)
-         .then((result) => {
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            const users = result.user;
-            setUserAuthGoogle(users);
-            sessionStorage.setItem("@AuthFirebase:token", token);
-            sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(users));
-         })
-         .catch((err) => {
-            const errorCode = err.code;
-            const errorMessage = err.message;
-            const email = err.email;
-            const credential = GoogleAuthProvider.credentialFromError(err);
+   const handleSignInWithGoogle = async () => {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
 
-            console.log(`
-               ${errorCode}
-               ${errorMessage}
-               ${email}
-               ${credential}
-            `);
-         });
+      if (result.user) {
+         const { displayName, photoURL, uid } = result.user;
+         if (!displayName || !photoURL) {
+            throw new Error("Missing information form Google Account");
+         }
+         console.log("ID: ", uid);
+      }
    };
 
    useEffect(() => {
-      const localStorageAuth = () => {
-         const sessionToken = sessionStorage.getItem("@AuthFirebase:token");
-         const sessionUser = sessionStorage.getItem("@AuthFirebase:user");
-         if (sessionToken && sessionUser) {
-            setUserAuthGoogle(sessionUser);
-         }
-      };
-
       const unsubscribe = onAuthStateChanged(auth, (user) => {
-         setUserOnAuth(user);
+         if (user) {
+            setUserOnAuth({
+               id: user.uid,
+               username: user.displayName,
+               email: user.email,
+               avatar: user.photoURL,
+            });
+         } else {
+            setUserOnAuth(null);
+         }
       });
 
-      unsubscribe();
-      localStorageAuth();
+      return () => {
+         unsubscribe();
+      };
    }, []);
 
-   function handleLogout() {
-      sessionStorage.clear();
-      setUserAuthGoogle(null);
+   async function handleLogout() {
+      try {
+         await signOut(auth);
+         setUserOnAuth(null);
+         sessionStorage.clear();
 
-      return <Navigate to="/" />;
+         return <Navigate to="/" />;
+      } catch (err) {
+         console.log(err);
+      }
    }
 
    return (
       <AuthenticationContext.Provider
          value={{
-            signedOnGoogle: !!userAuthGoogle,
-            userAuthGoogle,
+            signedOnGoogle: !!userOnAuth,
             userOnAuth,
-            handleGoogleSignIn,
+            handleSignInWithGoogle,
             handleLogout,
          }}
       >

@@ -1,6 +1,6 @@
 import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
 import { MdOutlineStoreMallDirectory } from "react-icons/md";
-import { BiCategory, BiUser } from "react-icons/bi";
+import { BiCategory, BiHomeAlt2, BiUser } from "react-icons/bi";
 import { IconType } from "react-icons";
 import { useColors } from "../../hooks/useColors";
 import { useFetch } from "../../hooks/useFetch";
@@ -8,7 +8,6 @@ import { useFetch } from "../../hooks/useFetch";
 import { Dashboard } from "../Dashboard/Dashboard";
 import { CardStatistic } from "./components/CardStatistic";
 import { TableListItems } from "./components/TableListItems";
-import { RiHome2Fill } from "react-icons/ri";
 import { NavTitle } from "../../components/NavBar";
 
 interface CardsHomeProps {
@@ -47,7 +46,7 @@ export function Home() {
       <Dashboard>
          <Box px={4} py={4}>
             <Flex h={16}>
-               <NavTitle label={"Home"} icon={RiHome2Fill} />
+               <NavTitle label={"Home"} icon={BiHomeAlt2} />
             </Flex>
          </Box>
 
