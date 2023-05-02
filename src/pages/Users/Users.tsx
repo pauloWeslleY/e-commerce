@@ -6,19 +6,21 @@ import {
    doc,
    getDocs,
 } from "firebase/firestore";
+import { chakra } from "@chakra-ui/react";
 import { db } from "../../services/firebase";
+import { InputBar } from "../../components/InputBar";
+import { IsButton } from "../../components/Buttons";
 
 type UserProps = {
-   id?: string | any;
+   id?: string;
    name?: string;
    email?: string;
 };
 
-export function Users() {
+export function PageUsers() {
    const [name, setName] = useState<string>("");
    const [email, setEmail] = useState<string>("");
    const [users, setUsers] = useState<UserProps[]>([]);
-
    const usersCollectionRef = collection(db, "users");
 
    const handleCreateUser = async (event: FormEvent<HTMLFormElement>) => {
@@ -48,34 +50,35 @@ export function Users() {
    }, []);
 
    return (
-      <div>
-         <form onSubmit={handleCreateUser}>
-            <input
+      <>
+         <chakra.form onSubmit={handleCreateUser} my={4}>
+            <InputBar
                type="text"
                placeholder="Nome"
                value={name}
                onChange={(e) => setName(e.target.value)}
             />
-            <input
+            <InputBar
                type="email"
                placeholder="E-mail"
                value={email}
                onChange={(e) => setEmail(e.target.value)}
             />
-            <button type="submit">Criar User</button>
-         </form>
+            <IsButton title="Criar User" type="submit" />
+         </chakra.form>
 
          <ul>
             {users.map((user) => (
                <div key={user.id}>
                   <li>{user.name}</li>
                   <li>{user.email}</li>
-                  <button onClick={() => handleDeleteUser(user.id)}>
-                     Deletar
-                  </button>
+                  <IsButton
+                     title="Deletar"
+                     onClick={() => handleDeleteUser(user.id)}
+                  />
                </div>
             ))}
          </ul>
-      </div>
+      </>
    );
 }

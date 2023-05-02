@@ -1,31 +1,52 @@
-import { Box, Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
-import { MdProductionQuantityLimits } from "react-icons/md";
-import { BiCategory, BiUser } from "react-icons/bi";
+import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { MdOutlineStoreMallDirectory } from "react-icons/md";
+import { BiCategory, BiHomeAlt2, BiUser } from "react-icons/bi";
+import { IconType } from "react-icons";
 import { useColors } from "../../hooks/useColors";
 import { useFetch } from "../../hooks/useFetch";
 
 import { Dashboard } from "../Dashboard/Dashboard";
 import { CardStatistic } from "./components/CardStatistic";
-import { TableListCategories } from "./components/TableListCategories";
-import { query, orderBy, limit, collection } from "firebase/firestore";
-import { db } from "../../services/firebase";
+import { TableListItems } from "./components/TableListItems";
+import { NavTitle } from "../../components/NavBar";
+
+interface CardsHomeProps {
+   icon: IconType;
+   title: string;
+   subtitle: any;
+   background: string;
+}
 
 export function Home() {
    const { items, categories, users } = useFetch();
    const { THEME } = useColors();
-   const prodCollectionRef = collection(db, "items");
 
-   const q = query(prodCollectionRef, orderBy("name"), limit(3));
-
-   console.log("items ==> ", q);
+   const CARDS_HOME_PROPS: Array<CardsHomeProps> = [
+      {
+         icon: MdOutlineStoreMallDirectory,
+         title: "Produtos ",
+         subtitle: items.length,
+         background: THEME.HOME.CARDS_STATISTIC_BG_PROD,
+      },
+      {
+         icon: BiCategory,
+         title: "Categorias",
+         subtitle: categories.length,
+         background: THEME.HOME.CARDS_STATISTIC_BG_CATE,
+      },
+      {
+         icon: BiUser,
+         title: "Usuários",
+         subtitle: users.length,
+         background: THEME.HOME.CARDS_STATISTIC_BG_USERS,
+      },
+   ];
 
    return (
       <Dashboard>
          <Box px={4} py={4}>
-            <Flex h={16} align={"center"} justify={"space-between"}>
-               <Heading fontWeight={500} fontSize={"xl"}>
-                  Home
-               </Heading>
+            <Flex h={16}>
+               <NavTitle label={"Home"} icon={BiHomeAlt2} />
             </Flex>
          </Box>
 
@@ -36,41 +57,21 @@ export function Home() {
             }}
             gap={10}
          >
-            <GridItem colSpan={{ lg: 4 }}>
-               <Flex>
-                  <CardStatistic
-                     icon={MdProductionQuantityLimits}
-                     title="Produtos Cadastrados"
-                     subtitle={items.length}
-                     background={THEME.HOME.CARDS_STATISTIC_BG_PROD}
-                  />
-               </Flex>
-            </GridItem>
-
-            <GridItem colSpan={{ lg: 4 }}>
-               <Flex>
-                  <CardStatistic
-                     icon={BiCategory}
-                     title="Categorias"
-                     subtitle={categories.length}
-                     background={THEME.HOME.CARDS_STATISTIC_BG_CATE}
-                  />
-               </Flex>
-            </GridItem>
-
-            <GridItem colSpan={{ lg: 4 }}>
-               <Flex>
-                  <CardStatistic
-                     icon={BiUser}
-                     title="Usuários"
-                     subtitle={users.length}
-                     background={THEME.HOME.CARDS_STATISTIC_BG_USERS}
-                  />
-               </Flex>
-            </GridItem>
+            {CARDS_HOME_PROPS.map((props, index) => (
+               <GridItem key={`${props.icon}${index}`} colSpan={{ lg: 4 }}>
+                  <Flex>
+                     <CardStatistic
+                        icon={props.icon}
+                        title={props.title}
+                        subtitle={props.subtitle}
+                        background={props.background}
+                     />
+                  </Flex>
+               </GridItem>
+            ))}
          </Grid>
 
-         <TableListCategories />
+         <TableListItems />
       </Dashboard>
    );
 }

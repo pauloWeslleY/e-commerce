@@ -31,6 +31,7 @@ function InputPassword({ ...props }: InputProps) {
                type={showPassword ? "text" : "password"}
                placeholder="Digite sua senha..."
                focusBorderColor={"purple.300"}
+               fontFamily={"Poppins"}
                _placeholder={{ opacity: 1, color: "whiteAlpha.500" }}
             />
             <InputRightElement h={"full"}>

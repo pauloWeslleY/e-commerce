@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Flex, Stack, useToast, chakra } from "@chakra-ui/react";
 import { auth, db } from "../../services/firebase";
 import { InputPassword } from "../../components/InputPassword";
@@ -13,22 +13,20 @@ import { InputUserName } from "../../components/InputUserName";
 import { UserType } from "../../types/UsersType";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { Loading } from "../../components/Loading";
+import { useLoading } from "../../hooks/useLoading";
 
 export function Register() {
-   const [username, setUsername] = useState<string>("");
+   const [displayName, setDisplayName] = useState<string>("");
    const [email, setEmail] = useState<string>("");
    const [password, setPassword] = useState<string>("");
    const [users, setUsers] = useState<UserType[]>([]);
-   const [createUserWithEmailAndPassword, loading] =
-      useCreateUserWithEmailAndPassword(auth);
+   const { isLoading } = useLoading();
    const { THEME } = useColors();
    const navigate = useNavigate();
    const toast = useToast();
    const usersCollectionRef = collection(db, "users");
 
-   console.log("All users ==> ", users);
-
-   const handleRegisterUser = async (event?: FormEvent) => {
+   const handleRegisterUser = async (event: FormEvent) => {
       event.preventDefault();
       // HACK: ==> Validação do campos do input Email e Senha!
       if (!email && password === "") {
@@ -60,41 +58,42 @@ export function Register() {
          (user: UserType) => user.email == email
       );
 
-      console.log("result ==> ", emailAlreadyInUse);
+      try {
+         // NOTE: Envie os dados do formulário caso ele for válido
+         if (!emailAlreadyInUse) {
+            const newUser: UserType = { displayName, email, password };
+            const docRef = await addDoc(usersCollectionRef, newUser);
+            setUsers([...users, { uid: docRef.id, ...newUser }]);
+            const { user } = await createUserWithEmailAndPassword(
+               auth,
+               email,
+               password
+            );
 
-      // NOTE: Envie os dados do formulário caso ele for válido
-      if (!emailAlreadyInUse) {
-         const newUser: UserType = { username, email, password };
-         const docRef = await addDoc(usersCollectionRef, newUser);
-         setUsers([...users, { id: docRef.id, ...newUser }]);
-         await createUserWithEmailAndPassword(email, password)
-            .then(() => {
-               toast({
-                  title: "Usuário Cadastrado!",
-                  status: "success",
-                  duration: 9000,
-                  isClosable: true,
-               });
-               navigate("/");
-            })
-            .catch((error) => {
-               const errorCode = error.code;
-               const errorMessage = error.message;
-
-               toast({
-                  title: "Email já em uso",
-                  status: "error",
-                  duration: 9000,
-                  isClosable: true,
-               });
-
-               console.error(
-                  `Error ao cria usuário ${errorCode} ${errorMessage}`
-               );
+            await updateProfile(user, {
+               displayName: displayName,
             });
-      } else {
+
+            toast({
+               title: "Usuário Cadastrado!",
+               status: "success",
+               duration: 9000,
+               isClosable: true,
+            });
+            navigate("/");
+
+            return user;
+         } else {
+            toast({
+               title: "Usuário já cadastrado",
+               status: "error",
+               duration: 9000,
+               isClosable: true,
+            });
+         }
+      } catch (error) {
          toast({
-            title: "Usuário já cadastrado",
+            title: `Falha ao cadastrar usuário! ==> ${error.message}`,
             status: "error",
             duration: 9000,
             isClosable: true,
@@ -103,7 +102,7 @@ export function Register() {
 
       setEmail("");
       setPassword("");
-      setUsername("");
+      setDisplayName("");
    };
 
    useEffect(() => {
@@ -111,14 +110,14 @@ export function Register() {
          const dataUser = await getDocs(usersCollectionRef);
          const users = dataUser.docs.map<UserType>((doc) => ({
             ...doc.data(),
-            id: doc.id,
+            uid: doc.id,
          }));
          setUsers(users);
       }
       getUsers();
    }, []);
 
-   if (loading) {
+   if (isLoading) {
       return <Loading />;
    }
 
@@ -144,8 +143,8 @@ export function Register() {
                <chakra.form onSubmit={handleRegisterUser}>
                   <Stack spacing={4}>
                      <InputUserName
-                        onChange={(event) => setUsername(event.target.value)}
-                        value={username}
+                        onChange={(event) => setDisplayName(event.target.value)}
+                        value={displayName}
                         isRequired
                      />
                      <InputEmail
@@ -163,7 +162,7 @@ export function Register() {
                         <ButtonSign
                            title="Cadastrar"
                            type="submit"
-                           isLoading={Boolean(loading)}
+                           // isLoading={Boolean(loading)}
                            loadingText="Cadastrando"
                            spinnerPlacement="start"
                         />

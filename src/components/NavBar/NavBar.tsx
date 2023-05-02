@@ -1,28 +1,29 @@
+import { memo } from "react";
 import { Box, Button, Flex, Stack } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-import { memo } from "react";
+import { IconType } from "react-icons";
+import { NavTitle } from "./index";
 
 interface NavBarProps {
    onOpen: () => void;
    title: string;
    label: string;
+   icon: IconType;
 }
 
 function NavBar(props: NavBarProps) {
-   const { label, title, onOpen } = props;
+   const { label, title, icon, onOpen } = props;
 
    return (
-      <Box px={4}>
-         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-            <Box as={"h2"} fontFamily={"Poppins"}>
-               {label}
-            </Box>
+      <Box px={4} pb={5}>
+         <Flex h={16} align={"center"} justify={"space-between"}>
+            <NavTitle label={label} icon={icon} />
 
             <Flex alignItems={"center"}>
                <Stack direction={"row"} spacing={7}>
                   <Button
-                     variant={"outline"}
-                     colorScheme={"teal"}
+                     variant={"ghost"}
+                     colorScheme={"purple"}
                      size={"sm"}
                      mr={4}
                      leftIcon={<AddIcon />}

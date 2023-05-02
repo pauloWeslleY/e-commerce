@@ -18,7 +18,7 @@ export function useFetch() {
          const dataUser = await getDocs(usersCollectionRef);
          const users = dataUser.docs.map<UserType>((doc) => ({
             ...doc.data(),
-            id: doc.id,
+            uid: doc.id,
          }));
          setUsers(users);
       };

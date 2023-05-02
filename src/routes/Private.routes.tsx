@@ -1,10 +1,13 @@
 import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { AuthGoogleContext } from "../contexts/authGoogle";
+import { AuthenticationContext } from "../contexts/authContextProvider";
+import { auth } from "../services/firebase";
 
 const PrivateRoutes = () => {
-   const { signed } = useContext(AuthGoogleContext);
-   return signed ? <Outlet /> : <Navigate to="/" />;
+   const { signedOnGoogle } = useContext(AuthenticationContext);
+   const currentUser = auth.currentUser;
+
+   return currentUser || signedOnGoogle ? <Outlet /> : <Navigate to="/" />;
 };
 
 export { PrivateRoutes };

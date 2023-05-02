@@ -4,7 +4,7 @@ import { IconType } from "react-icons";
 
 interface NavItemProps extends FlexProps {
    icon: IconType;
-   children: String;
+   children: string;
    onClickNav: () => void;
 }
 

@@ -1,10 +1,9 @@
 type UserType = {
-   id?: string | any;
-   username?: string;
+   uid?: string;
+   displayName?: string;
    email?: string;
    password?: string | number;
    avatar?: string;
 };
 
-
-export {UserType}
+export { UserType };

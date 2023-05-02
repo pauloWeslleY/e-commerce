@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Flex, Heading } from "@chakra-ui/react";
 
-export function PageNotFound404() {
+export function NotFound() {
    const [redirect, setRedirect] = useState<number>(3);
    const timeout = useRef<any>(0);
    const navigate = useNavigate();
