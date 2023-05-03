@@ -27,6 +27,7 @@ export function Dashboard({ children }: { children: ReactNode }) {
                <DashboardHeroContent onClose={onClose} />
             </DrawerContent>
          </Drawer>
+
          {/* HACK: mobile_nav */}
          <DashboardMobileNav onOpen={onOpen} />
          <Box ml={{ base: 0, md: 60 }} p={"4"}>

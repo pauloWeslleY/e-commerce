@@ -1,10 +1,33 @@
 import { memo, useEffect, useState } from "react";
-import { ButtonGroup, IconButton, Td, Tr } from "@chakra-ui/react";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+   Button,
+   ButtonGroup,
+   IconButton,
+   Popover,
+   PopoverArrow,
+   PopoverBody,
+   PopoverCloseButton,
+   PopoverContent,
+   PopoverFooter,
+   PopoverHeader,
+   PopoverTrigger,
+   Portal,
+   Td,
+   Tr,
+   useToast,
+} from "@chakra-ui/react";
+import {
+   collection,
+   deleteDoc,
+   doc,
+   getDocs,
+   query,
+   where,
+} from "firebase/firestore";
 import { AiFillEdit } from "react-icons/ai";
 import { BsBoxArrowUpRight, BsFillTrashFill } from "react-icons/bs";
 import { UserType } from "../../../../types/UsersType";
-import { db } from "../../../../services/firebase";
+import { db, auth } from "../../../../services/firebase";
 import {
    WrapperTable,
    WrapperTableCell,
@@ -14,6 +37,25 @@ import {
 const UsersTable = () => {
    const [users, setUsers] = useState<UserType[]>([]);
    const usersCollectionRef = collection(db, "users");
+   const toast = useToast();
+   const currentUser = auth.currentUser;
+
+   const handleDeleteUser = async (id: string) => {
+      await deleteDoc(doc(db, "users", id));
+      const deleteUniqueUser = users.filter((user) => user.uid !== id);
+      setUsers(deleteUniqueUser);
+
+      if (!currentUser) {
+         currentUser.delete().then(() => {
+            toast({
+               title: "Usuário Excluído!",
+               status: "success",
+               duration: 9000,
+               isClosable: true,
+            });
+         });
+      }
+   };
 
    useEffect(() => {
       const filteredListUsers = async () => {
@@ -75,12 +117,35 @@ const UsersTable = () => {
                            icon={<AiFillEdit />}
                            aria-label="Edit"
                         />
-                        <IconButton
-                           colorScheme="red"
-                           variant="outline"
-                           icon={<BsFillTrashFill />}
-                           aria-label="Delete"
-                        />
+                        <Popover placement="left">
+                           <PopoverTrigger>
+                              <IconButton
+                                 colorScheme="red"
+                                 variant="outline"
+                                 icon={<BsFillTrashFill />}
+                                 aria-label="Delete"
+                              />
+                           </PopoverTrigger>
+                           <Portal>
+                              <PopoverContent>
+                                 <PopoverArrow />
+                                 <PopoverHeader>Header</PopoverHeader>
+                                 <PopoverCloseButton />
+                                 <PopoverBody>{token.uid}</PopoverBody>
+                                 <PopoverFooter>
+                                    <Button
+                                       variant="outline"
+                                       colorScheme="red"
+                                       onClick={() =>
+                                          handleDeleteUser(token.uid)
+                                       }
+                                    >
+                                       Deletar
+                                    </Button>
+                                 </PopoverFooter>
+                              </PopoverContent>
+                           </Portal>
+                        </Popover>
                      </ButtonGroup>
                   </Td>
                </Tr>

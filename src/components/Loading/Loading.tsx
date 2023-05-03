@@ -6,13 +6,13 @@ type LoaderTextProps = {
 };
 
 const LoaderText = ({ title }: LoaderTextProps) => (
-   <chakra.h1 px={4} fontSize={"7xl"} color={"purple.200"}>
+   <chakra.h1 px={4} fontSize={"3xl"} color={"purple.300"}>
       {title}
    </chakra.h1>
 );
 
 const Loading = () => (
-   <Flex h={"100vh"} align={"center"} justify={"center"}>
+   <Flex h={"100vh"} align={"center"} justify={"center"} bg={"whiteAlpha.50"}>
       <Flex p={1} align={"center"}>
          <Spinner
             label={"Loading..."}

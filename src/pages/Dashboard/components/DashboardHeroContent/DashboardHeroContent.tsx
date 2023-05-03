@@ -32,6 +32,10 @@ const DashboardHeroContent = (props: DashboardHeroContentProps) => {
       },
       { name: "Categorias", icon: BiCategory, path: "/dashboard/categories" },
       { name: "Usuário", icon: BiUser, path: "/dashboard/users" },
+   ];
+
+   const SUB_MENU_ITEMS: Array<LinkItemProps> = [
+      { name: "Profile", icon: BiUser, path: "/dashboard/users" },
       { name: "Settings", icon: FiSettings, path: "" },
    ];
 
@@ -72,7 +76,7 @@ const DashboardHeroContent = (props: DashboardHeroContentProps) => {
             </Text>
          </Box>
 
-         {MENU_ITEMS.map((link) => (
+         {SUB_MENU_ITEMS.map((link) => (
             <DashboardNavItems
                key={link.name}
                icon={link.icon}

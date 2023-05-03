@@ -6,43 +6,59 @@ import {
    doc,
    getDocs,
 } from "firebase/firestore";
-import { chakra } from "@chakra-ui/react";
-import { db } from "../../services/firebase";
+import {
+   // Flex,
+   // ListItem,
+   // Text,
+   // UnorderedList,
+   chakra,
+   useToast,
+} from "@chakra-ui/react";
+import { auth, db } from "../../services/firebase";
 import { InputBar } from "../../components/InputBar";
 import { IsButton } from "../../components/Buttons";
-
-type UserProps = {
-   id?: string;
-   name?: string;
-   email?: string;
-};
+import { UserType } from "../../types/UsersType";
 
 export function PageUsers() {
-   const [name, setName] = useState<string>("");
+   const [displayName, setDisplayName] = useState<string>("");
    const [email, setEmail] = useState<string>("");
-   const [users, setUsers] = useState<UserProps[]>([]);
+   const [users, setUsers] = useState<UserType[]>([]);
    const usersCollectionRef = collection(db, "users");
+   const toast = useToast();
+   const currentUser = auth.currentUser;
 
    const handleCreateUser = async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      const newUser: UserProps = { name, email };
+      const newUser: UserType = { displayName, email };
       const docRef = await addDoc(usersCollectionRef, newUser);
-      setUsers([...users, { id: docRef.id, ...newUser }]);
-      setName("");
+      setUsers([...users, { uid: docRef.id, ...newUser }]);
+      setDisplayName("");
       setEmail("");
    };
 
    const handleDeleteUser = async (id: string) => {
       await deleteDoc(doc(db, "users", id));
-      setUsers(users.filter((user) => user.id !== id));
+      const deleteUniqueUser = users.filter((user) => user.uid !== id);
+      setUsers(deleteUniqueUser);
+
+      if (currentUser) {
+         currentUser.delete().then(() => {
+            toast({
+               title: "Usuário Excluído!",
+               status: "success",
+               duration: 9000,
+               isClosable: true,
+            });
+         });
+      }
    };
 
    useEffect(() => {
       async function getUsers() {
          const dataUser = await getDocs(usersCollectionRef);
-         const users = dataUser.docs.map<UserProps>((doc) => ({
+         const users = dataUser.docs.map<UserType>((doc) => ({
+            uid: doc.id,
             ...doc.data(),
-            id: doc.id,
          }));
          setUsers(users);
       }
@@ -55,8 +71,8 @@ export function PageUsers() {
             <InputBar
                type="text"
                placeholder="Nome"
-               value={name}
-               onChange={(e) => setName(e.target.value)}
+               value={displayName}
+               onChange={(e) => setDisplayName(e.target.value)}
             />
             <InputBar
                type="email"
@@ -67,18 +83,36 @@ export function PageUsers() {
             <IsButton title="Criar User" type="submit" />
          </chakra.form>
 
-         <ul>
+         {/* <UnorderedList
+            bg={"blackAlpha.600"}
+            boxShadow={"xl"}
+            rounded={"md"}
+            listStyleType={"none"}
+            spacing={6}
+            p={5}
+         >
             {users.map((user) => (
-               <div key={user.id}>
-                  <li>{user.name}</li>
-                  <li>{user.email}</li>
+               <Flex
+                  key={user.uid}
+                  flexDir={"row"}
+                  justify={"space-between"}
+                  align={"center"}
+                  boxShadow={"xl"}
+                  rounded={"sm"}
+                  bg={"purple.500"}
+                  p={3}
+               >
+                  <ListItem>
+                     <Text>{user.displayName}</Text>
+                     <Text>{user.email}</Text>
+                  </ListItem>
                   <IsButton
                      title="Deletar"
-                     onClick={() => handleDeleteUser(user.id)}
+                     onClick={() => handleDeleteUser(user.uid)}
                   />
-               </div>
+               </Flex>
             ))}
-         </ul>
+         </UnorderedList> */}
       </>
    );
 }

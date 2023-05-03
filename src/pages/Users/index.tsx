@@ -1,4 +1,4 @@
-import FormLayout from "../../components/FormLayout";
+// import FormLayout from "../../components/FormLayout";
 import { Dashboard } from "../Dashboard/Dashboard";
 import { PageUsers } from "./Users";
 import { UsersTable } from "./components/UsersTable";
@@ -10,7 +10,7 @@ export function Users() {
 
          <UsersTable />
 
-         <FormLayout />
+         {/* <FormLayout /> */}
       </Dashboard>
    );
 }
