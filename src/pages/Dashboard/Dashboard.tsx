@@ -13,6 +13,7 @@ export function Dashboard({ children }: { children: ReactNode }) {
          <DashboardHeroContent
             onClose={() => onClose}
             display={{ base: "none", md: "block" }}
+            title="SystemStock"
          />
          <Drawer
             autoFocus={false}

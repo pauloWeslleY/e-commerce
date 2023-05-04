@@ -4,9 +4,10 @@ import { IconType } from "react-icons";
 import { Box, BoxProps, CloseButton, Flex, Text } from "@chakra-ui/react";
 import { BiCategory, BiHomeAlt2, BiUser } from "react-icons/bi";
 import { MdOutlineStoreMallDirectory } from "react-icons/md";
-import { FiSettings } from "react-icons/fi";
+import { BsGear } from "react-icons/bs";
 import { useColors } from "../../../../hooks/useColors";
 import { DashboardNavItems } from "../DashboardNavItems";
+import { FiTool } from "react-icons/fi";
 
 interface LinkItemProps {
    name: string;
@@ -16,10 +17,11 @@ interface LinkItemProps {
 
 interface DashboardHeroContentProps extends BoxProps {
    onClose: () => void;
+   title?: string;
 }
 
 const DashboardHeroContent = (props: DashboardHeroContentProps) => {
-   const { onClose, ...rest } = props;
+   const { title, onClose, ...rest } = props;
    const { THEME } = useColors();
    const navigate = useNavigate();
 
@@ -32,11 +34,8 @@ const DashboardHeroContent = (props: DashboardHeroContentProps) => {
       },
       { name: "Categorias", icon: BiCategory, path: "/dashboard/categories" },
       { name: "Usuário", icon: BiUser, path: "/dashboard/users" },
-   ];
-
-   const SUB_MENU_ITEMS: Array<LinkItemProps> = [
-      { name: "Profile", icon: BiUser, path: "/dashboard/users" },
-      { name: "Settings", icon: FiSettings, path: "" },
+      { name: "Profile", icon: FiTool, path: "/dashboard/users" },
+      { name: "Settings", icon: BsGear, path: "" },
    ];
 
    return (
@@ -52,7 +51,7 @@ const DashboardHeroContent = (props: DashboardHeroContentProps) => {
       >
          <Flex h={"20"} mx={"8"} align={"center"} justify={"space-between"}>
             <Text fontSize={"2xl"} fontFamily={"Inter"} fontWeight={600}>
-               SystemStock
+               {title}
             </Text>
 
             <CloseButton
@@ -61,22 +60,6 @@ const DashboardHeroContent = (props: DashboardHeroContentProps) => {
             />
          </Flex>
          {MENU_ITEMS.map((link) => (
-            <DashboardNavItems
-               key={link.name}
-               icon={link.icon}
-               onClickNav={() => navigate(link.path)}
-            >
-               {link.name}
-            </DashboardNavItems>
-         ))}
-
-         <Box py={2} mx={"8"}>
-            <Text fontSize={"2xl"} fontFamily={"Inter"} fontWeight={600}>
-               Menu
-            </Text>
-         </Box>
-
-         {SUB_MENU_ITEMS.map((link) => (
             <DashboardNavItems
                key={link.name}
                icon={link.icon}

@@ -67,7 +67,7 @@ export function PageUsers() {
 
    return (
       <>
-         <chakra.form onSubmit={handleCreateUser} my={4}>
+         {/* <chakra.form onSubmit={handleCreateUser} my={4}>
             <InputBar
                type="text"
                placeholder="Nome"
@@ -81,7 +81,7 @@ export function PageUsers() {
                onChange={(e) => setEmail(e.target.value)}
             />
             <IsButton title="Criar User" type="submit" />
-         </chakra.form>
+         </chakra.form> */}
 
          {/* <UnorderedList
             bg={"blackAlpha.600"}

@@ -1,4 +1,11 @@
-import TableProductItem from "./TableProductItem";
+import HeroTableProductItem from "./HeroTableProductItem";
 import HeroTableHeader from "./HeroTableHeader";
+import HeroTableColumn from "./HeroTableColumn";
+import HeroTableWrapper from "./HeroTableWrapper";
 
-export { TableProductItem, HeroTableHeader };
+export {
+   HeroTableProductItem,
+   HeroTableHeader,
+   HeroTableColumn,
+   HeroTableWrapper,
+};

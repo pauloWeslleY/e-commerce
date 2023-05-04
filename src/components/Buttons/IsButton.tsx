@@ -18,10 +18,12 @@ function IsButton(props: IsButtonProps) {
          color={THEME.BUTTONS.IS_BUTTON_COLORS}
          rounded={"md"}
          border={"2px"}
-         borderColor={THEME.BUTTONS.IS_BUTTON_BORDER_COLORS}
+         borderColor={THEME.BUTTONS.IS_BUTTON_COLORS}
          _hover={{
             transform: "translateY(-2px)",
             boxShadow: "lg",
+            color: THEME.BUTTONS.IS_BUTTON_COLORS_HOVER,
+            borderColor: THEME.BUTTONS.IS_BUTTON_COLORS_HOVER,
          }}
       >
          {title}

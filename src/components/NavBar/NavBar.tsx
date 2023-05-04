@@ -5,8 +5,8 @@ import { IconType } from "react-icons";
 import { NavTitle } from "./index";
 
 interface NavBarProps {
-   onOpen: () => void;
-   title: string;
+   onOpen?: () => void;
+   title?: string;
    label: string;
    icon: IconType;
 }

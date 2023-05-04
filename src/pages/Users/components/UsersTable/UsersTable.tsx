@@ -2,6 +2,7 @@ import { memo, useEffect, useState } from "react";
 import {
    Button,
    ButtonGroup,
+   Flex,
    IconButton,
    Popover,
    PopoverArrow,
@@ -13,7 +14,7 @@ import {
    PopoverTrigger,
    Portal,
    Td,
-   Tr,
+   Text,
    useToast,
 } from "@chakra-ui/react";
 import {
@@ -31,6 +32,7 @@ import { db, auth } from "../../../../services/firebase";
 import {
    WrapperTable,
    WrapperTableCell,
+   WrapperTableRow,
    WrapperTableTdHero,
 } from "../WrapperTable";
 
@@ -84,20 +86,7 @@ const UsersTable = () => {
       <WrapperTable>
          {users.map((token, index) => {
             return (
-               <Tr
-                  key={index}
-                  display={{
-                     base: "grid",
-                     md: "table-row",
-                  }}
-                  sx={{
-                     "@media print": {
-                        display: "table-row",
-                     },
-                     gridTemplateColumns: "minmax(0px, 35%) minmax(0px, 65%)",
-                     gridGap: "10px",
-                  }}
-               >
+               <WrapperTableRow key={index}>
                   <WrapperTableCell>ID:</WrapperTableCell>
                   <WrapperTableTdHero>{token.uid}</WrapperTableTdHero>
                   <WrapperTableCell>Nome</WrapperTableCell>
@@ -129,9 +118,28 @@ const UsersTable = () => {
                            <Portal>
                               <PopoverContent>
                                  <PopoverArrow />
-                                 <PopoverHeader>Header</PopoverHeader>
+                                 <PopoverHeader>
+                                    Desejar Excluir este usuário?
+                                 </PopoverHeader>
                                  <PopoverCloseButton />
-                                 <PopoverBody>{token.uid}</PopoverBody>
+                                 <PopoverBody>
+                                    <Flex flexDir={"column"} gap={3}>
+                                       <Text
+                                          as={"h3"}
+                                          fontSize={"md"}
+                                          fontWeight={500}
+                                       >
+                                          {token.uid}
+                                       </Text>
+                                       <Text
+                                          as={"span"}
+                                          fontSize={"lg"}
+                                          fontWeight={500}
+                                       >
+                                          {token.displayName}
+                                       </Text>
+                                    </Flex>
+                                 </PopoverBody>
                                  <PopoverFooter>
                                     <Button
                                        variant="outline"
@@ -148,7 +156,7 @@ const UsersTable = () => {
                         </Popover>
                      </ButtonGroup>
                   </Td>
-               </Tr>
+               </WrapperTableRow>
             );
          })}
       </WrapperTable>

@@ -51,7 +51,7 @@ function TableListItems() {
                         key={`${user.uid}${index}`}
                         p={2}
                         borderBottomWidth={1}
-                        borderColor={"cyan.700"}
+                        borderColor={"purple.700"}
                      >
                         <Text fontWeight={600}>{user.displayName}</Text>
                      </ListItem>

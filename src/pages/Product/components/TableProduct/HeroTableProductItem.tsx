@@ -2,7 +2,7 @@ import { memo, ReactNode } from "react";
 import { Stack } from "@chakra-ui/react";
 import { useColors } from "../../../../hooks/useColors";
 
-function TableProductItem({ children }: { children: ReactNode }) {
+function HeroTableProductItem({ children }: { children: ReactNode }) {
    const { THEME } = useColors();
 
    return (
@@ -10,11 +10,11 @@ function TableProductItem({ children }: { children: ReactNode }) {
          direction={{ base: "column" }}
          bg={{ md: THEME.DASHBOARD.TABLE_PRODUCT_LINE_BG }}
          w={"full"}
-         shadow={"lg"}
+         // shadow={"lg"}
       >
          {children}
       </Stack>
    );
 }
 
-export default memo(TableProductItem);
+export default memo(HeroTableProductItem);

@@ -2,25 +2,27 @@ import { memo, useContext } from "react";
 import {
    Avatar,
    Box,
-   Button,
    Center,
    Flex,
    FlexProps,
    HStack,
+   VStack,
+   Text,
+   Button,
    IconButton,
+   Icon,
    Menu,
    MenuButton,
    MenuDivider,
    MenuItem,
    MenuList,
-   Text,
-   VStack,
    useColorMode,
 } from "@chakra-ui/react";
-import { FiChevronDown, FiMenu } from "react-icons/fi";
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { FiChevronDown } from "react-icons/fi";
+import { HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { AuthenticationContext } from "../../../../contexts/authContextProvider";
 import { useColors } from "../../../../hooks/useColors";
+import { HiOutlineLogout } from "react-icons/hi";
 
 interface MobileProps extends FlexProps {
    onOpen: () => void;
@@ -39,6 +41,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
          height={"20"}
          align={"center"}
          justify={{ base: "space-between", md: "flex-end" }}
+         gap={2}
          bg={THEME.DASHBOARD.MOBILE_NAV_BG}
          borderBottomColor={THEME.DASHBOARD.BORDER_COLOR_MOBILE_BG}
          borderBottomWidth={"1px"}
@@ -49,7 +52,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
             onClick={onOpen}
             variant={"outline"}
             aria-label="open menu"
-            icon={<FiMenu />}
+            icon={<HamburgerIcon />}
          />
 
          <Text
@@ -57,7 +60,7 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
             fontSize={"2xl"}
             fontWeight={500}
          >
-            System E-commerce
+            SystemStock
          </Text>
 
          <HStack spacing={{ base: "0", md: "6" }}>
@@ -69,12 +72,16 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
             >
                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
             </Button>
-            <Flex alignItems={"center"}>
+            <Flex align={"center"}>
                <Menu>
                   <MenuButton
                      py={2}
+                     px={2}
+                     borderRadius={"md"}
                      transition={"all 0.3s"}
                      _focus={{ boxShadow: "none" }}
+                     _hover={{ bg: "whiteAlpha.100" }}
+                     _expanded={{ bg: "blackAlpha.600" }}
                   >
                      <HStack>
                         <Avatar size={"sm"} bg={"purple.300"} />
@@ -94,13 +101,20 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   <MenuList
                      bg={THEME.DASHBOARD.MENU_LIST_BG}
                      borderColor={THEME.DASHBOARD.MENU_LIST_BORDER_COLORS}
+                     p={3}
                   >
                      <br />
                      <Center>
                         <Avatar size={"2xl"} bg={"purple.300"} />
                      </Center>
                      <br />
-                     <Center>
+
+                     <Flex
+                        flexDir={"column"}
+                        justify={"center"}
+                        align={"center"}
+                        gap={3}
+                     >
                         <Text
                            fontSize={"lg"}
                            fontFamily={"Inter"}
@@ -108,10 +122,23 @@ const DashboardMobileNav = ({ onOpen, ...rest }: MobileProps) => {
                         >
                            {userOnAuth.username}
                         </Text>
-                     </Center>
+                        <Text
+                           fontSize={"md"}
+                           fontFamily={"Inter"}
+                           fontWeight={400}
+                        >
+                           {userOnAuth.email}
+                        </Text>
+                     </Flex>
+
                      <br />
                      <MenuDivider />
-                     <MenuItem onClick={handleLogout}>Sair</MenuItem>
+                     <MenuItem onClick={handleLogout}>
+                        <Flex align={"center"} gap={3}>
+                           <Icon as={HiOutlineLogout} boxSize={6} />
+                           <span>Sair</span>
+                        </Flex>
+                     </MenuItem>
                   </MenuList>
                </Menu>
             </Flex>

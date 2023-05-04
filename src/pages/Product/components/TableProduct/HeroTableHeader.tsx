@@ -8,16 +8,16 @@ function HeroTableHeader() {
 
    return (
       <SimpleGrid
-         spacingY={3}
+         spacingY={5}
          columns={{ base: 1, md: 6 }}
-         w={{ base: 230, md: "full" }}
-         textTransform={"uppercase"}
          bg={THEME.DASHBOARD.TABLE_PRODUCT_ITEM_BG}
          color={THEME.DASHBOARD.TABLE_PRODUCT_TITLE_COLORS}
+         w={{ base: 230, md: "full" }}
          py={{ base: 1, md: 4 }}
          px={{ base: 2, md: 10 }}
-         fontSize={"md"}
          fontWeight={600}
+         fontSize={"md"}
+         textTransform={"uppercase"}
          alignItems={"center"}
       >
          {TABLE_HEADER.map((item, i) => (

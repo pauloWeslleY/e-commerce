@@ -45,12 +45,23 @@ export function useColors() {
 
          POPOVER_BACKGROUND: useColorModeValue("whiteAlpha.600", "gray.700"),
 
-         FORM_BACKGROUND: useColorModeValue("whiteAlpha.600", "purple.500"),
+         /*
+            ! NOTE: Form Colors
+         */
+         FORM_BACKGROUND: useColorModeValue("whiteAlpha.600", "gray.500"),
          FORM_FOOTER_BACKGROUND: useColorModeValue(
             "blackAlpha.100",
-            "purple.800"
+            "purple.400"
          ),
          FORM_LABEL_BACKGROUND: useColorModeValue("gray.700", "gray.50"),
+         INPUT_BAR_PLACEHOLDER_FOCUS_COLORS: useColorModeValue(
+            "purple.700",
+            "purple.800"
+         ),
+         INPUT_BAR_PLACEHOLDER_COLORS: useColorModeValue(
+            "blackAlpha.400",
+            "whiteAlpha.400"
+         ),
 
          SIDE_BAR_BG: useColorModeValue("gray.50", "gray.700"),
          MOBILE_NAV_BG: useColorModeValue("whiteAlpha.900", "gray.700"),
@@ -58,15 +69,6 @@ export function useColors() {
 
          MENU_LIST_BG: useColorModeValue("whiteAlpha.900", "gray.700"),
          MENU_LIST_BORDER_COLORS: useColorModeValue("purple.100", "purple.700"),
-
-         INPUT_BAR_PLACEHOLDER_FOCUS_COLORS: useColorModeValue(
-            "purple.700",
-            "purple.300"
-         ),
-         INPUT_BAR_PLACEHOLDER_COLORS: useColorModeValue(
-            "blackAlpha.400",
-            "whiteAlpha.400"
-         ),
       },
 
       TABLE: {
@@ -78,8 +80,8 @@ export function useColors() {
             "whiteAlpha.400",
             "blackAlpha.300"
          ),
-         IS_BUTTON_COLORS: useColorModeValue("purple.400", "purple.100"),
-         IS_BUTTON_BORDER_COLORS: useColorModeValue("purple.400", "purple.100"),
+         IS_BUTTON_COLORS: useColorModeValue("purple.600", "purple.100"),
+         IS_BUTTON_COLORS_HOVER: useColorModeValue("purple.700", "purple.600"),
       },
    };
 
