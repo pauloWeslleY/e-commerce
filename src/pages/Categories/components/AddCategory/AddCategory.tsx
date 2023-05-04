@@ -17,7 +17,6 @@ import {
    Stack,
    chakra,
    useDisclosure,
-   IconButton,
    Collapse,
    useToast,
    Button,
@@ -42,7 +41,7 @@ import { useColors } from "../../../../hooks/useColors";
 import { NavBar } from "../../../../components/NavBar";
 import { FormLabelTitle } from "../../../../components/FormLabelTitle";
 import { InputBar } from "../../../../components/InputBar";
-import { IsButton } from "../../../../components/Buttons";
+import { BtnIcon, IsButton } from "../../../../components/Buttons";
 import { BiCategory } from "react-icons/bi";
 
 export function AddCategory() {
@@ -241,9 +240,7 @@ export function AddCategory() {
                      <Flex gap={2}>
                         <Popover placement="left">
                            <PopoverTrigger>
-                              <IconButton
-                                 size={"sm"}
-                                 rounded={"lg"}
+                              <BtnIcon
                                  colorScheme="blue"
                                  aria-label="Update item"
                                  icon={<EditIcon />}
@@ -346,9 +343,7 @@ export function AddCategory() {
 
                         <Popover placement="left">
                            <PopoverTrigger>
-                              <IconButton
-                                 size={"sm"}
-                                 rounded={"lg"}
+                              <BtnIcon
                                  variant="outline"
                                  colorScheme="red"
                                  aria-label="Delete item"

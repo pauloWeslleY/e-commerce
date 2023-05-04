@@ -3,7 +3,6 @@ import {
    Button,
    ButtonGroup,
    Flex,
-   IconButton,
    Popover,
    PopoverArrow,
    PopoverBody,
@@ -25,8 +24,8 @@ import {
    query,
    where,
 } from "firebase/firestore";
-import { AiFillEdit } from "react-icons/ai";
-import { BsBoxArrowUpRight, BsFillTrashFill } from "react-icons/bs";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { BsFillEyeFill } from "react-icons/bs";
 import { UserType } from "../../../../types/UsersType";
 import { db, auth } from "../../../../services/firebase";
 import {
@@ -35,6 +34,7 @@ import {
    WrapperTableRow,
    WrapperTableTdHero,
 } from "../WrapperTable";
+import { BtnIcon } from "../../../../components/Buttons";
 
 const UsersTable = () => {
    const [users, setUsers] = useState<UserType[]>([]);
@@ -96,23 +96,23 @@ const UsersTable = () => {
                   <WrapperTableCell>Ações</WrapperTableCell>
                   <Td>
                      <ButtonGroup variant="solid" size="sm" spacing={3}>
-                        <IconButton
-                           colorScheme="blue"
-                           icon={<BsBoxArrowUpRight />}
-                           aria-label="Up"
+                        <BtnIcon
+                           colorScheme="teal"
+                           aria-label="Show item"
+                           icon={<BsFillEyeFill />}
                         />
-                        <IconButton
-                           colorScheme="green"
-                           icon={<AiFillEdit />}
-                           aria-label="Edit"
+                        <BtnIcon
+                           colorScheme="blue"
+                           aria-label="Edit item"
+                           icon={<EditIcon />}
                         />
                         <Popover placement="left">
                            <PopoverTrigger>
-                              <IconButton
-                                 colorScheme="red"
+                              <BtnIcon
                                  variant="outline"
-                                 icon={<BsFillTrashFill />}
+                                 colorScheme="red"
                                  aria-label="Delete"
+                                 icon={<DeleteIcon />}
                               />
                            </PopoverTrigger>
                            <Portal>

@@ -12,17 +12,18 @@ interface ModalUpdateProps {
    isOpen: boolean;
    onClose: () => void;
    children: ReactNode;
+   title: string;
 }
 
 function ModalUpdate(props: ModalUpdateProps) {
-   const { isOpen, onClose, children } = props;
+   const { isOpen, onClose, children, title } = props;
 
    return (
       <Modal isOpen={isOpen} onClose={onClose}>
          <ModalOverlay />
          <ModalContent>
             <ModalHeader fontSize={"lg"} fontWeight={800} fontFamily={"Inter"}>
-               Atualizar Item
+               {title}
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>{children}</ModalBody>

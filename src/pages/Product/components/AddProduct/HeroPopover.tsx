@@ -1,5 +1,6 @@
 import { ReactNode, memo } from "react";
 import {
+   PopoverContentProps,
    PopoverArrow,
    PopoverBody,
    PopoverCloseButton,
@@ -9,15 +10,15 @@ import {
    Stack,
 } from "@chakra-ui/react";
 
-type HeroPopoverProps = {
+interface HeroPopoverProps extends PopoverContentProps {
    title: string;
    children: ReactNode;
-};
+}
 
-function HeroPopover({ title, children }: HeroPopoverProps) {
+function HeroPopover({ title, children, ...props }: HeroPopoverProps) {
    return (
       <Portal>
-         <PopoverContent>
+         <PopoverContent {...props}>
             <PopoverArrow />
             <PopoverHeader>{title}</PopoverHeader>
             <PopoverCloseButton />
