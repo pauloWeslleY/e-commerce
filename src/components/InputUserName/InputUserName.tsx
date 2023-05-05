@@ -27,8 +27,6 @@ function InputUserName({ ...props }: InputProps) {
                placeholder="Digite seu nome..."
                focusBorderColor={"purple.300"}
                _placeholder={{ opacity: 1, color: "whiteAlpha.500" }}
-               maxW={"xl"}
-               w={"lg"}
             />
          </InputGroup>
       </FormControl>

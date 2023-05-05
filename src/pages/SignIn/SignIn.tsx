@@ -1,18 +1,19 @@
 import { FormEvent, useEffect, useState } from "react";
-import { Flex, Stack, Text, useToast, chakra } from "@chakra-ui/react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../services/firebase";
 import { useNavigate } from "react-router-dom";
+import { Flex, Stack, Text, useToast, chakra, Image } from "@chakra-ui/react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs } from "firebase/firestore";
+import { auth, db } from "../../services/firebase";
 import { InputPassword } from "../../components/InputPassword";
 import { InputEmail } from "../../components/InputEmail";
 import { HeroTitle } from "../../components/HeroTitle";
 import { ButtonSign } from "../../components/Buttons";
-import { useColors } from "../../hooks/useColors";
+import { Loading } from "../../components/Loading";
 import { InputFooter } from "../../components/InputFooter";
 import { UserType } from "../../types/UsersType";
-import { collection, getDocs } from "firebase/firestore";
+import { useColors } from "../../hooks/useColors";
 import { useLoading } from "../../hooks/useLoading";
-import { Loading } from "../../components/Loading";
+import Logotipo from "../../assets/logo.svg";
 
 export function SignIn() {
    const [email, setEmail] = useState<string>("");
@@ -119,10 +120,12 @@ export function SignIn() {
          align={"center"}
          justify={"center"}
          bg={THEME.BACKGROUND}
+         as={"main"}
       >
-         <Stack spacing={8} p={18}>
-            <Stack align={"center"}>
-               <HeroTitle title="System E-commerce" />
+         <Stack as={"section"} spacing={8} p={18}>
+            <Stack as={"header"} align={"center"}>
+               <Image src={Logotipo} alt="Logotipo" />
+               <HeroTitle title="SystemStock" />
 
                <Text fontSize={"lg"} fontFamily={"Inter"} fontWeight={500}>
                   Digite suas informações de login
@@ -132,6 +135,7 @@ export function SignIn() {
                bg={THEME.SIGN_IN.BACKGROUND}
                rounded={"lg"}
                boxShadow={"lg"}
+               as={"section"}
                p={10}
             >
                <chakra.form onSubmit={handleSignInUser}>

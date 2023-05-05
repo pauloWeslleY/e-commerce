@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 export function NotFound() {
    const [redirect, setRedirect] = useState<number>(3);
@@ -20,22 +20,24 @@ export function NotFound() {
    }, [redirect]);
 
    return (
-      <>
-         <Flex py={62} justify={"center"} fontWeight={600} fontSize={"lg"}>
-            Redirecionando para Home: {redirect}
-         </Flex>
-
-         <Flex
-            py={34}
-            justify={"center"}
-            align={"center"}
-            gap={3}
-            textTransform={"uppercase"}
-            flexDir={"column"}
-         >
-            <Heading fontSize={"8xl"}>404</Heading>
-            <Heading>Pagina Não Encontrada</Heading>
-         </Flex>
-      </>
+      <Flex minH={"100vh"} align={"center"} justify={"center"}>
+         <Box textAlign={"center"} py={10} px={6}>
+            <Heading
+               display={"inline-block"}
+               as={"h2"}
+               size={"4xl"}
+               bgGradient={"linear(to-r, purple.400, purple.600)"}
+               backgroundClip={"text"}
+            >
+               404
+            </Heading>
+            <Text fontSize={"2xl"} mt={3} mb={2}>
+               Page Not Found
+            </Text>
+            <Text color={"gray.100"} mb={6}>
+               Redirecionando para Home: {redirect}
+            </Text>
+         </Box>
+      </Flex>
    );
 }

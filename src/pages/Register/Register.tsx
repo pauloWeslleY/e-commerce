@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { Flex, Stack, useToast, chakra } from "@chakra-ui/react";
+import { Flex, Stack, useToast, chakra, Image, Text } from "@chakra-ui/react";
 import { auth, db } from "../../services/firebase";
 import { InputPassword } from "../../components/InputPassword";
 import { InputEmail } from "../../components/InputEmail";
@@ -14,6 +14,7 @@ import { UserType } from "../../types/UsersType";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { Loading } from "../../components/Loading";
 import { useLoading } from "../../hooks/useLoading";
+import Logotipo from "../../assets/logo.svg";
 
 export function Register() {
    const [displayName, setDisplayName] = useState<string>("");
@@ -127,18 +128,32 @@ export function Register() {
          align={"center"}
          justify={"center"}
          bg={THEME.BACKGROUND}
+         as={"main"}
       >
-         <Stack spacing={8} mx={"auto"} p={18}>
-            <Stack align={"center"}>
+         <Stack
+            as={"section"}
+            spacing={8}
+            mx={"auto"}
+            maxW={"lg"}
+            py={12}
+            px={6}
+         >
+            <Stack as={"header"} align={"center"}>
+               <Image src={Logotipo} alt="" />
                <HeroTitle title="Cadastre-se" />
+
+               <Text fontSize={"lg"} fontFamily={"Inter"} fontWeight={500}>
+                  Crie sua conta agora
+               </Text>
             </Stack>
             <Stack
                bg={THEME.SIGN_IN.BACKGROUND}
                rounded={"lg"}
                boxShadow={"lg"}
-               p={10}
                justify={"center"}
                align={"center"}
+               as={"section"}
+               p={10}
             >
                <chakra.form onSubmit={handleRegisterUser}>
                   <Stack spacing={4}>
@@ -159,13 +174,7 @@ export function Register() {
                         isRequired
                      />
                      <Stack spacing={10} pt={2}>
-                        <ButtonSign
-                           title="Cadastrar"
-                           type="submit"
-                           // isLoading={Boolean(loading)}
-                           loadingText="Cadastrando"
-                           spinnerPlacement="start"
-                        />
+                        <ButtonSign title="Cadastrar" type="submit" />
                      </Stack>
                      <InputFooter
                         label="Você já tem conta?"
