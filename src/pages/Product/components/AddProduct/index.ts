@@ -1,3 +1,4 @@
 import AddProduct from "./AddProduct";
+import ModalProductHero from "./ModalProductHero";
 
-export { AddProduct };
+export { AddProduct, ModalProductHero };

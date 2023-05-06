@@ -4,18 +4,18 @@ import {
    MdOutlineSpaceDashboard,
    MdOutlineShoppingBag,
    MdMailOutline,
-   MdOutlineFlag,
    MdCalendarToday,
-   MdOutlineSupervisorAccount,
    MdOutlineNotificationsActive,
    MdOutlineChatBubbleOutline,
-   MdOutlineSettingsInputComposite,
 } from "react-icons/md";
+import { BiCategoryAlt, BiUser } from "react-icons/bi";
+import { TbTool } from "react-icons/tb";
 import {
    SideBarContainerProps,
    SideBarNavItem,
    MenuItemsProps,
 } from "../index";
+import { BsGear } from "react-icons/bs";
 
 const MENU_ITEMS: Array<MenuItemsProps> = [
    {
@@ -34,7 +34,7 @@ const MENU_ITEMS: Array<MenuItemsProps> = [
    {
       type: "link",
       label: "Categories",
-      icon: MdOutlineFlag,
+      icon: BiCategoryAlt,
       path: "/dashboard/categories",
    },
    {
@@ -51,8 +51,8 @@ const MENU_ITEMS: Array<MenuItemsProps> = [
    },
    {
       type: "link",
-      label: "Contacts",
-      icon: MdOutlineSupervisorAccount,
+      label: "Users",
+      icon: BiUser,
       path: "/dashboard/users",
    },
 
@@ -77,8 +77,14 @@ const MENU_ITEMS: Array<MenuItemsProps> = [
    },
    {
       type: "link",
+      label: "Profile",
+      icon: TbTool,
+      path: "/",
+   },
+   {
+      type: "link",
       label: "Settings",
-      icon: MdOutlineSettingsInputComposite,
+      icon: BsGear,
       path: "/",
    },
 ];

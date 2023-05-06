@@ -37,12 +37,12 @@ import {
    HeroTableHeader,
    HeroTableProductItem,
 } from "../TableProduct";
-import { DrawerHero } from "../../../../components/DrawerHero";
-import ModalProductHero from "./ModalProductHero";
 import {
    ModalHeroDelete,
    ModalHeroUpdate,
 } from "../../../../components/Modais";
+import { DrawerHero } from "../../../../components/DrawerHero";
+import { ModalProductHero } from "./index";
 
 function AddProduct() {
    const [items, setItems] = useState<ProductsType[]>([
