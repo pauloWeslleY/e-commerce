@@ -1,10 +1,11 @@
-import { Dashboard } from "../Dashboard/Dashboard";
+import { SideBar } from "../../components/SideBar";
+// import { Dashboard } from "../Dashboard/Dashboard";
 import { AddCategory } from "./components/AddCategory/AddCategory";
 
 export function Categories() {
    return (
-      <Dashboard>
+      <SideBar>
          <AddCategory />
-      </Dashboard>
+      </SideBar>
    );
 }

@@ -1,6 +1,6 @@
 type CategoryType = {
    id?: string;
-   name?: string;
+   title?: string;
 };
 
 export { CategoryType };

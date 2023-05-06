@@ -1,34 +1,52 @@
-import { ReactNode, memo } from "react";
+import { memo } from "react";
 import {
-   PopoverContentProps,
+   Box,
+   Popover,
    PopoverArrow,
    PopoverBody,
    PopoverCloseButton,
    PopoverContent,
    PopoverHeader,
+   PopoverTrigger,
    Portal,
    Stack,
 } from "@chakra-ui/react";
+import { BtnIcon } from "../../../../components/Buttons";
+import { BsFillEyeFill } from "react-icons/bs";
+import { ProductsType } from "../../../../types/ProductType";
 
-interface HeroPopoverProps extends PopoverContentProps {
-   title: string;
-   children: ReactNode;
+interface HeroPopoverProps {
+   popover: ProductsType;
 }
 
-function HeroPopover({ title, children, ...props }: HeroPopoverProps) {
+function HeroPopover({ popover }: HeroPopoverProps) {
    return (
-      <Portal>
-         <PopoverContent {...props}>
-            <PopoverArrow />
-            <PopoverHeader>{title}</PopoverHeader>
-            <PopoverCloseButton />
-            <PopoverBody>
-               <Stack py={4} spacing={4}>
-                  {children}
-               </Stack>
-            </PopoverBody>
-         </PopoverContent>
-      </Portal>
+      <Popover placement="left" trigger="hover">
+         <PopoverTrigger>
+            <BtnIcon
+               colorScheme="teal"
+               aria-label="Show item"
+               icon={<BsFillEyeFill />}
+            />
+         </PopoverTrigger>
+         <Portal>
+            <PopoverContent>
+               <PopoverArrow />
+               <PopoverHeader>Informações do Item</PopoverHeader>
+               <PopoverCloseButton />
+               <PopoverBody>
+                  <Stack py={4} spacing={4}>
+                     <Box textTransform={"uppercase"}>ID: {popover.id}</Box>
+                     <span>Nome: {popover.title}</span>
+                     <span>Descrição: {popover.description}</span>
+                     <span>Preço: R${popover.price}</span>
+                     <span>Quantidade: {popover.quantity} unidades</span>
+                     <span>Categoria: {popover.category}</span>
+                  </Stack>
+               </PopoverBody>
+            </PopoverContent>
+         </Portal>
+      </Popover>
    );
 }
 

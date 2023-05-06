@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useFetch } from "../../../../hooks/useFetch";
 import { useColors } from "../../../../hooks/useColors";
+import { HeroProducts } from "../HeroProducts";
 
 function TableListItems() {
    const { users } = useFetch();
@@ -23,10 +24,11 @@ function TableListItems() {
          }}
          my={6}
          gap={9}
+         as={"section"}
       >
          <GridItem
             colSpan={{ lg: 4 }}
-            bg={THEME.HOME.GRID_COL_BACKGROUND}
+            bg={THEME.HOME.BACKGROUND}
             rounded={"md"}
             boxShadow={"lg"}
             p={1}
@@ -34,7 +36,7 @@ function TableListItems() {
             <Flex
                as={"section"}
                flexDir={"column"}
-               w={{ base: "full", md: "20vw" }}
+               w={{ base: "full", md: "25vw" }}
                p={1}
             >
                <UnorderedList
@@ -44,15 +46,10 @@ function TableListItems() {
                   color={THEME.TEXT_COLORS}
                >
                   <Heading as={"h2"} fontSize={"xl"} fontWeight={500} py={2}>
-                     Lista de Usuários
+                     Usuários
                   </Heading>
                   {users.map((user, index) => (
-                     <ListItem
-                        key={`${user.uid}${index}`}
-                        p={2}
-                        borderBottomWidth={1}
-                        borderColor={"purple.700"}
-                     >
+                     <ListItem key={`${user.uid}${index}`} p={2}>
                         <Text fontWeight={600}>{user.displayName}</Text>
                      </ListItem>
                   ))}
@@ -62,12 +59,12 @@ function TableListItems() {
 
          <GridItem
             colSpan={{ lg: 8 }}
-            bg={THEME.HOME.GRID_COL_BACKGROUND}
+            bg={THEME.HOME.BACKGROUND}
             rounded={"md"}
-            p={1}
             boxShadow={"lg"}
+            p={1}
          >
-            <Flex>{"category"}</Flex>
+            <HeroProducts />
          </GridItem>
       </Grid>
    );

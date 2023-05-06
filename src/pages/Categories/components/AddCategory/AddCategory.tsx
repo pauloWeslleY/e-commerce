@@ -19,42 +19,34 @@ import {
    useDisclosure,
    Collapse,
    useToast,
-   Button,
    UnorderedList,
    ListItem,
    Flex,
    Text,
-   Popover,
-   PopoverTrigger,
-   PopoverContent,
-   Portal,
-   PopoverBody,
-   PopoverCloseButton,
-   PopoverHeader,
-   PopoverArrow,
-   PopoverFooter,
 } from "@chakra-ui/react";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { BiCategory } from "react-icons/bi";
 import { db } from "../../../../services/firebase";
 import { CategoryType } from "../../../../types/CategoryType";
 import { useColors } from "../../../../hooks/useColors";
 import { NavBar } from "../../../../components/NavBar";
 import { FormLabelTitle } from "../../../../components/FormLabelTitle";
 import { InputBar } from "../../../../components/InputBar";
-import { BtnIcon, IsButton } from "../../../../components/Buttons";
-import { BiCategory } from "react-icons/bi";
+import { IsButton } from "../../../../components/Buttons";
+import {
+   ModalHeroDelete,
+   ModalHeroUpdate,
+} from "../../../../components/Modais";
 
 export function AddCategory() {
    const [category, setCategory] = useState<CategoryType[]>([]);
-   const [name, setName] = useState<string>("");
+   const [title, setTitle] = useState<string>("");
    const { THEME } = useColors();
-   const alert = useDisclosure();
    const navBarToggle = useDisclosure();
    const cateCollectionRef = collection(db, "categories");
    const toast = useToast();
 
    const isCategory: CategoryType = {
-      name,
+      title,
    };
 
    const handleAddCategory = async (event: FormEvent<HTMLFormElement>) => {
@@ -70,7 +62,7 @@ export function AddCategory() {
          if (querySnapshot.empty) {
             const docRef = await addDoc(cateCollectionRef, isCategory);
             setCategory([...category, { id: docRef.id, ...isCategory }]);
-            setName("");
+            setTitle("");
 
             toast({
                title: "Categoria Cadastrada!",
@@ -97,10 +89,10 @@ export function AddCategory() {
       }
    };
 
-   const handleUpdated = async (id: string) => {
+   const handleUpdatedCategory = async (id: string) => {
       try {
          const categoryId = category.some((props) => props.id === id);
-         if (categoryId && name.length !== 0) {
+         if (categoryId && title.length !== 0) {
             const categories = category.map((category) =>
                category.id === id ? { id, ...isCategory } : category
             );
@@ -187,8 +179,8 @@ export function AddCategory() {
                               id="name_category"
                               autoComplete="name_category"
                               placeholder="Digite o nome do categoria"
-                              value={name}
-                              onChange={(event) => setName(event.target.value)}
+                              value={title}
+                              onChange={(event) => setTitle(event.target.value)}
                            />
                         </FormControl>
                      </SimpleGrid>
@@ -234,160 +226,90 @@ export function AddCategory() {
                            fontSize={"md"}
                            fontWeight={500}
                         >
-                           {props.name}
+                           {props.title}
                         </Text>
                      </ListItem>
                      <Flex gap={2}>
-                        <Popover placement="left">
-                           <PopoverTrigger>
-                              <BtnIcon
-                                 colorScheme="blue"
-                                 aria-label="Update item"
-                                 icon={<EditIcon />}
-                              />
-                           </PopoverTrigger>
-                           <Portal>
-                              <PopoverContent>
-                                 <PopoverArrow />
-                                 <PopoverHeader>Atualizar Item</PopoverHeader>
-                                 <PopoverCloseButton />
-                                 <PopoverBody>
-                                    <form>
-                                       <Stack
-                                          bg={
-                                             THEME.DASHBOARD.POPOVER_BACKGROUND
-                                          }
-                                          spacing={6}
-                                          px={4}
-                                          py={5}
-                                          p={[null, 6]}
-                                       >
-                                          <Flex
-                                             align={"center"}
-                                             flexDir={"column"}
-                                             gap={5}
-                                          >
-                                             <Text as={"span"} fontWeight={600}>
-                                                ID:{" "}
-                                                <Text
-                                                   display={"inline"}
-                                                   fontWeight={300}
-                                                   textTransform={"uppercase"}
-                                                >
-                                                   {props.id}
-                                                </Text>
-                                             </Text>
-                                             <Text as={"span"} fontWeight={700}>
-                                                Nome:{" "}
-                                                <Text
-                                                   as={"u"}
-                                                   display={"inline"}
-                                                   fontWeight={600}
-                                                   fontFamily={"Inter"}
-                                                   letterSpacing={2}
-                                                >
-                                                   {props.name.toUpperCase()}
-                                                </Text>
-                                             </Text>
-                                          </Flex>
-                                          <SimpleGrid columns={12} spacing={6}>
-                                             <FormControl
-                                                as={GridItem}
-                                                colSpan={12}
-                                                isRequired
-                                             >
-                                                <FormLabelTitle
-                                                   title="Nome do Categoria"
-                                                   htmlFor="name_category"
-                                                />
-
-                                                <InputBar
-                                                   type="text"
-                                                   name="name_category"
-                                                   id="name_category"
-                                                   autoComplete="name_category"
-                                                   placeholder="Digite o nome do categoria"
-                                                   value={name}
-                                                   onChange={(event) =>
-                                                      setName(
-                                                         event.target.value
-                                                      )
-                                                   }
-                                                />
-                                             </FormControl>
-                                          </SimpleGrid>
-                                       </Stack>
-                                       <Box
-                                          bg={
-                                             THEME.DASHBOARD.POPOVER_BACKGROUND
-                                          }
-                                          px={{
-                                             base: 4,
-                                             sm: 6,
-                                          }}
-                                          py={3}
-                                          textAlign={"right"}
-                                       >
-                                          <IsButton
-                                             title="Atualizar"
-                                             onClick={() =>
-                                                handleUpdated(props.id)
-                                             }
-                                          />
-                                       </Box>
-                                    </form>
-                                 </PopoverBody>
-                              </PopoverContent>
-                           </Portal>
-                        </Popover>
-
-                        <Popover placement="left">
-                           <PopoverTrigger>
-                              <BtnIcon
-                                 variant="outline"
-                                 colorScheme="red"
-                                 aria-label="Delete item"
-                                 icon={<DeleteIcon />}
-                              />
-                           </PopoverTrigger>
-                           <Portal>
-                              <PopoverContent>
-                                 <PopoverArrow />
-                                 <PopoverHeader>
-                                    <Text as={"small"}>ID: {props.id}</Text>
-                                 </PopoverHeader>
-                                 <PopoverCloseButton />
-                                 <PopoverBody>
+                        <ModalHeroUpdate
+                           items={props}
+                           onHandleClick={() => handleUpdatedCategory(props.id)}
+                        >
+                           <form>
+                              <Stack
+                                 bg={THEME.DASHBOARD.POPOVER_BACKGROUND}
+                                 spacing={6}
+                                 px={4}
+                                 py={5}
+                                 p={[null, 6]}
+                              >
+                                 <Flex
+                                    align={"center"}
+                                    flexDir={"column"}
+                                    gap={5}
+                                 >
                                     <Text as={"span"} fontWeight={600}>
-                                       Voce quer deletar essa categoria?
-                                    </Text>
-                                    <Flex as={"span"} py={4}>
-                                       Categoria: {props.name}
-                                    </Flex>
-                                 </PopoverBody>
-                                 <PopoverFooter>
-                                    <Flex justify={"center"}>
-                                       <Button
-                                          colorScheme="red"
-                                          ml={3}
-                                          onClick={() => {
-                                             handleDelete(props.id);
-                                             alert.onClose();
-                                             toast({
-                                                title: `Item com ID ${props.id} deletado`,
-                                                status: "success",
-                                                duration: 10000,
-                                                isClosable: true,
-                                             });
-                                          }}
+                                       ID:{" "}
+                                       <Text
+                                          display={"inline"}
+                                          fontWeight={300}
+                                          textTransform={"uppercase"}
                                        >
-                                          Deletar
-                                       </Button>
-                                    </Flex>
-                                 </PopoverFooter>
-                              </PopoverContent>
-                           </Portal>
-                        </Popover>
+                                          {props.id}
+                                       </Text>
+                                    </Text>
+                                    <Text as={"span"} fontWeight={700}>
+                                       Nome:{" "}
+                                       <Text
+                                          as={"u"}
+                                          display={"inline"}
+                                          fontWeight={600}
+                                          fontFamily={"Inter"}
+                                          letterSpacing={2}
+                                       >
+                                          {props.title.toUpperCase()}
+                                       </Text>
+                                    </Text>
+                                 </Flex>
+                                 <SimpleGrid columns={12} spacing={6}>
+                                    <FormControl
+                                       as={GridItem}
+                                       colSpan={12}
+                                       isRequired
+                                    >
+                                       <FormLabelTitle
+                                          title="Nome do Categoria"
+                                          htmlFor="name_category"
+                                       />
+
+                                       <InputBar
+                                          type="text"
+                                          name="name_category"
+                                          id="name_category"
+                                          autoComplete="name_category"
+                                          placeholder="Digite o nome do categoria"
+                                          value={title}
+                                          onChange={(event) =>
+                                             setTitle(event.target.value)
+                                          }
+                                       />
+                                    </FormControl>
+                                 </SimpleGrid>
+                              </Stack>
+                           </form>
+                        </ModalHeroUpdate>
+
+                        <ModalHeroDelete
+                           items={props}
+                           onHandleDelete={() => {
+                              handleDelete(props.id);
+                              toast({
+                                 title: `Item com ID ${props.id} deletado`,
+                                 status: "success",
+                                 duration: 10000,
+                                 isClosable: true,
+                              });
+                           }}
+                        />
                      </Flex>
                   </Flex>
                </Box>

@@ -5,10 +5,11 @@ import { IconType } from "react-icons";
 import { useColors } from "../../hooks/useColors";
 import { useFetch } from "../../hooks/useFetch";
 
-import { Dashboard } from "../Dashboard/Dashboard";
+// import { Dashboard } from "../Dashboard/Dashboard";
 import { CardStatistic } from "./components/CardStatistic";
 import { TableListItems } from "./components/TableListItems";
 import { NavTitle } from "../../components/NavBar";
+import { SideBar } from "../../components/SideBar";
 
 interface CardsHomeProps {
    icon: IconType;
@@ -43,10 +44,10 @@ export function Home() {
    ];
 
    return (
-      <Dashboard>
-         <Box px={4} py={4}>
+      <SideBar>
+         <Box my={4} p={2} rounded={"lg"} bg={THEME.HOME.BACKGROUND}>
             <Flex h={16}>
-               <NavTitle label={"Home"} icon={BiHomeAlt2} />
+               <NavTitle label={"Dashboard"} icon={BiHomeAlt2} />
             </Flex>
          </Box>
 
@@ -72,6 +73,6 @@ export function Home() {
          </Grid>
 
          <TableListItems />
-      </Dashboard>
+      </SideBar>
    );
 }

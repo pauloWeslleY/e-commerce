@@ -2,9 +2,9 @@
    width: 0.815rem;
 }
 ::-webkit-scrollbar-track {
-   background: #1b1d22;
+   background: rgba(77, 80, 88, 0.1);
 }
 ::-webkit-scrollbar-thumb {
-   background: #393053;
+   background: #6a64d9;
    border-radius: 2.2rem;
 }

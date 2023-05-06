@@ -1,10 +1,11 @@
-import { Dashboard } from "../Dashboard/Dashboard";
+import { SideBar } from "../../components/SideBar";
+// import { Dashboard } from "../Dashboard/Dashboard";
 import { AddProduct } from "./components/AddProduct";
 
 export function Product() {
    return (
-      <Dashboard>
+      <SideBar>
          <AddProduct />
-      </Dashboard>
+      </SideBar>
    );
 }
