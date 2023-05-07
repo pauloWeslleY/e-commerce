@@ -32,17 +32,17 @@ import { InputBar } from "../../../../components/InputBar";
 import { IsButton } from "../../../../components/Buttons";
 import { NavBar } from "../../../../components/NavBar";
 import { Loading } from "../../../../components/Loading";
+import { DrawerHero } from "../../../../components/DrawerHero";
+import { ModalProductHero } from "./index";
+import {
+   ModalHeroDelete,
+   ModalHeroUpdate,
+} from "../../../../components/Modais";
 import {
    HeroTableColumn,
    HeroTableHeader,
    HeroTableProductItem,
 } from "../TableProduct";
-import {
-   ModalHeroDelete,
-   ModalHeroUpdate,
-} from "../../../../components/Modais";
-import { DrawerHero } from "../../../../components/DrawerHero";
-import { ModalProductHero } from "./index";
 
 function AddProduct() {
    const [items, setItems] = useState<ProductsType[]>([
@@ -79,7 +79,14 @@ function AddProduct() {
       const querySnapshot = await getDocs(data);
 
       try {
-         if (querySnapshot.empty) {
+         if (title.length === 0) {
+            toast({
+               title: "Preencha os campos!",
+               status: "error",
+               duration: 9000,
+               isClosable: true,
+            });
+         } else if (querySnapshot.empty) {
             const docRef = await addDoc(prodCollectionRef, prodItems);
             setItems([...items, { id: docRef.id, ...prodItems }]);
             setTitle("");
@@ -115,7 +122,14 @@ function AddProduct() {
    const handleUpdateItem = async (id: string) => {
       const item = items.some((item) => item.id === id);
       try {
-         if (item && title.length !== 0) {
+         if (title.length === 0) {
+            toast({
+               title: "Preencher os campos!",
+               status: "error",
+               duration: 9000,
+               isClosable: true,
+            });
+         } else if (item && title.length !== 0) {
             const products = items.map((item) =>
                item.id === id ? { id, ...prodItems } : item
             );
@@ -383,16 +397,16 @@ function AddProduct() {
                                              {props.id}
                                           </Text>
                                        </Text>
-                                       <Text as={"span"} fontWeight={700}>
+                                       <Text as={"span"} fontWeight={600}>
                                           Nome:{" "}
                                           <Text
-                                             as={"u"}
+                                             as={"p"}
                                              display={"inline"}
-                                             fontWeight={600}
+                                             fontWeight={500}
                                              fontFamily={"Inter"}
-                                             letterSpacing={2}
+                                             fontSize={"xl"}
                                           >
-                                             {props.title.toUpperCase()}
+                                             {props.title}
                                           </Text>
                                        </Text>
                                     </Flex>

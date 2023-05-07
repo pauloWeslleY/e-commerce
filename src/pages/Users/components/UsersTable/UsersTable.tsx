@@ -1,21 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import {
-   Button,
-   ButtonGroup,
-   Flex,
-   Popover,
-   PopoverArrow,
-   PopoverBody,
-   PopoverCloseButton,
-   PopoverContent,
-   PopoverFooter,
-   PopoverHeader,
-   PopoverTrigger,
-   Portal,
-   Td,
-   Text,
-   useToast,
-} from "@chakra-ui/react";
+import { ButtonGroup, Td, useToast } from "@chakra-ui/react";
 import {
    collection,
    deleteDoc,
@@ -24,8 +8,6 @@ import {
    query,
    where,
 } from "firebase/firestore";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { BsFillEyeFill } from "react-icons/bs";
 import { UserType } from "../../../../types/UsersType";
 import { db, auth } from "../../../../services/firebase";
 import {
@@ -34,7 +16,8 @@ import {
    WrapperTableRow,
    WrapperTableTdHero,
 } from "../WrapperTable";
-import { BtnIcon } from "../../../../components/Buttons";
+import { ModalHeroDelete } from "../../../../components/Modais";
+import { ModalUserHero } from "./index";
 
 const UsersTable = () => {
    const [users, setUsers] = useState<UserType[]>([]);
@@ -44,7 +27,7 @@ const UsersTable = () => {
 
    const handleDeleteUser = async (id: string) => {
       await deleteDoc(doc(db, "users", id));
-      const deleteUniqueUser = users.filter((user) => user.uid !== id);
+      const deleteUniqueUser = users.filter((user) => user.id !== id);
       setUsers(deleteUniqueUser);
 
       if (!currentUser) {
@@ -63,11 +46,11 @@ const UsersTable = () => {
       const filteredListUsers = async () => {
          const filteredUsers = query(
             usersCollectionRef,
-            where("displayName", "!=", true)
+            where("email", "!=", true)
          );
          const querySnapshot = await getDocs(filteredUsers);
          const usersData = querySnapshot.docs.map<UserType>((doc) => ({
-            uid: doc.id,
+            id: doc.id,
             ...doc.data(),
          }));
 
@@ -75,7 +58,7 @@ const UsersTable = () => {
 
          console.log(
             "name ==>",
-            usersData.map((item) => item.displayName)
+            usersData.map((item) => item.username)
          );
       };
 
@@ -84,76 +67,32 @@ const UsersTable = () => {
 
    return (
       <WrapperTable>
-         {users.map((token, index) => {
+         {users.map((props, index) => {
             return (
                <WrapperTableRow key={index}>
                   <WrapperTableCell>ID:</WrapperTableCell>
-                  <WrapperTableTdHero>{token.uid}</WrapperTableTdHero>
+                  <WrapperTableTdHero>{props.id}</WrapperTableTdHero>
                   <WrapperTableCell>Nome</WrapperTableCell>
-                  <WrapperTableTdHero>{token.displayName}</WrapperTableTdHero>
+                  <WrapperTableTdHero>{props.username}</WrapperTableTdHero>
                   <WrapperTableCell>Email</WrapperTableCell>
-                  <WrapperTableTdHero>{token.email}</WrapperTableTdHero>
+                  <WrapperTableTdHero>{props.email}</WrapperTableTdHero>
                   <WrapperTableCell>Ações</WrapperTableCell>
                   <Td>
                      <ButtonGroup variant="solid" size="sm" spacing={3}>
-                        <BtnIcon
-                           colorScheme="teal"
-                           aria-label="Show item"
-                           icon={<BsFillEyeFill />}
+                        <ModalUserHero user={props} />
+
+                        <ModalHeroDelete
+                           user={props}
+                           onHandleDelete={() => {
+                              handleDeleteUser(props.id);
+                              toast({
+                                 title: `Item com ID ${props.id} deletado`,
+                                 status: "success",
+                                 duration: 10000,
+                                 isClosable: true,
+                              });
+                           }}
                         />
-                        <BtnIcon
-                           colorScheme="blue"
-                           aria-label="Edit item"
-                           icon={<EditIcon />}
-                        />
-                        <Popover placement="left">
-                           <PopoverTrigger>
-                              <BtnIcon
-                                 variant="outline"
-                                 colorScheme="red"
-                                 aria-label="Delete"
-                                 icon={<DeleteIcon />}
-                              />
-                           </PopoverTrigger>
-                           <Portal>
-                              <PopoverContent>
-                                 <PopoverArrow />
-                                 <PopoverHeader>
-                                    Desejar Excluir este usuário?
-                                 </PopoverHeader>
-                                 <PopoverCloseButton />
-                                 <PopoverBody>
-                                    <Flex flexDir={"column"} gap={3}>
-                                       <Text
-                                          as={"h3"}
-                                          fontSize={"md"}
-                                          fontWeight={500}
-                                       >
-                                          {token.uid}
-                                       </Text>
-                                       <Text
-                                          as={"span"}
-                                          fontSize={"lg"}
-                                          fontWeight={500}
-                                       >
-                                          {token.displayName}
-                                       </Text>
-                                    </Flex>
-                                 </PopoverBody>
-                                 <PopoverFooter>
-                                    <Button
-                                       variant="outline"
-                                       colorScheme="red"
-                                       onClick={() =>
-                                          handleDeleteUser(token.uid)
-                                       }
-                                    >
-                                       Deletar
-                                    </Button>
-                                 </PopoverFooter>
-                              </PopoverContent>
-                           </Portal>
-                        </Popover>
                      </ButtonGroup>
                   </Td>
                </WrapperTableRow>

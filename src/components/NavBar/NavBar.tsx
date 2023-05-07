@@ -17,7 +17,7 @@ function NavBar(props: NavBarProps) {
    const { THEME } = useColors();
 
    return (
-      <Box my={4} p={2} rounded={"lg"} bg={THEME.HOME.BACKGROUND}>
+      <Box my={4} p={2} rounded={"lg"} bg={THEME.HOME.BACKGROUND} shadow={"md"}>
          <Flex h={16} align={"center"} justify={"space-between"}>
             <NavTitle label={label} icon={icon} />
 

@@ -4,7 +4,6 @@ import {
    SideBarAvatarHero,
    SideBarLogoSearch,
    SideBarNavigation,
-   SideBarSwitchButton,
    SideBarContainerProps,
 } from "./index";
 
@@ -13,7 +12,7 @@ function SideBarContainer({ collapsed }: SideBarContainerProps) {
       <>
          <Box w={"full"}>
             <SideBarLogoSearch collapsed={collapsed} />
-            <SideBarSwitchButton collapsed={collapsed} />
+
             <SideBarNavigation collapsed={collapsed} />
          </Box>
          <SideBarAvatarHero collapsed={collapsed} />

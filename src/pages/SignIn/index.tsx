@@ -5,5 +5,5 @@ import { SignIn } from "./SignIn";
 export const Login = () => {
    const { userAuth } = useLoggedUser();
 
-   return !userAuth ? <SignIn /> : <Navigate to={"/dashboard"} />;
+   return !userAuth ? <SignIn /> : <Navigate to="/dashboard" />;
 };

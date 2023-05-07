@@ -91,14 +91,10 @@ const MENU_ITEMS: Array<MenuItemsProps> = [
 
 function SideBarNavigation({ collapsed }: SideBarContainerProps) {
    return (
-      <List>
+      <List py={3}>
          {MENU_ITEMS.map((item, index) => (
             <ListItem key={index}>
-               <SideBarNavItem
-                  item={item}
-                  // isActive={index === 3}
-                  collapse={collapsed}
-               />
+               <SideBarNavItem item={item} collapse={collapsed} />
             </ListItem>
          ))}
       </List>

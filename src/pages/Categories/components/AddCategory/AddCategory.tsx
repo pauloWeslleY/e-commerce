@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent, memo } from "react";
 import {
    collection,
    addDoc,
@@ -11,18 +11,18 @@ import {
 } from "firebase/firestore";
 import {
    Box,
-   FormControl,
-   GridItem,
-   SimpleGrid,
+   Flex,
    Stack,
+   VStack,
+   StackDivider,
+   FormControl,
+   SimpleGrid,
+   GridItem,
+   Collapse,
+   Text,
    chakra,
    useDisclosure,
-   Collapse,
    useToast,
-   UnorderedList,
-   ListItem,
-   Flex,
-   Text,
 } from "@chakra-ui/react";
 import { BiCategory } from "react-icons/bi";
 import { db } from "../../../../services/firebase";
@@ -36,8 +36,9 @@ import {
    ModalHeroDelete,
    ModalHeroUpdate,
 } from "../../../../components/Modais";
+import ModalCategoryHero from "./ModalCategoryHero";
 
-export function AddCategory() {
+function AddCategory() {
    const [category, setCategory] = useState<CategoryType[]>([]);
    const [title, setTitle] = useState<string>("");
    const { THEME } = useColors();
@@ -59,7 +60,14 @@ export function AddCategory() {
          );
          const querySnapshot = await getDocs(data);
 
-         if (querySnapshot.empty) {
+         if (title.length === 0) {
+            toast({
+               title: "Preencha os campos!",
+               status: "error",
+               duration: 9000,
+               isClosable: true,
+            });
+         } else if (querySnapshot.empty) {
             const docRef = await addDoc(cateCollectionRef, isCategory);
             setCategory([...category, { id: docRef.id, ...isCategory }]);
             setTitle("");
@@ -92,12 +100,21 @@ export function AddCategory() {
    const handleUpdatedCategory = async (id: string) => {
       try {
          const categoryId = category.some((props) => props.id === id);
-         if (categoryId && title.length !== 0) {
+
+         if (title.length === 0) {
+            toast({
+               title: "Preencher os campos!",
+               status: "error",
+               duration: 9000,
+               isClosable: true,
+            });
+         } else if (categoryId && title.length !== 0) {
             const categories = category.map((category) =>
                category.id === id ? { id, ...isCategory } : category
             );
             await updateDoc(doc(db, "categories", id), isCategory);
             setCategory(categories);
+            setTitle("");
             toast({
                title: "Categoria Atualizada!",
                status: "success",
@@ -205,116 +222,117 @@ export function AddCategory() {
          </Collapse>
 
          {/* HACK: List Categories */}
-         <UnorderedList listStyleType={"none"} spacing={2}>
+         <VStack
+            divider={<StackDivider borderColor={"purple.200"} />}
+            spacing={4}
+            align={"stretch"}
+         >
             {category.map((props) => (
-               <Box key={props.id}>
-                  <Flex
-                     align={"center"}
-                     justify={"space-between"}
-                     gap={6}
-                     py={2}
-                     px={4}
-                     rounded={"md"}
-                     shadow={"md"}
-                     bg={"whiteAlpha.100"}
-                     mb={2}
+               <Flex
+                  key={props.id}
+                  align={"center"}
+                  justify={"space-between"}
+                  gap={6}
+                  py={2}
+                  px={4}
+                  rounded={"md"}
+                  shadow={"md"}
+                  bg={"whiteAlpha.100"}
+                  mb={2}
+               >
+                  <Text
+                     as={"h3"}
+                     fontFamily={"Inter"}
+                     fontSize={"md"}
+                     fontWeight={500}
                   >
-                     <ListItem>
-                        <Text
-                           as={"h3"}
-                           fontFamily={"Inter"}
-                           fontSize={"md"}
-                           fontWeight={500}
-                        >
-                           {props.title}
-                        </Text>
-                     </ListItem>
-                     <Flex gap={2}>
-                        <ModalHeroUpdate
-                           items={props}
-                           onHandleClick={() => handleUpdatedCategory(props.id)}
-                        >
-                           <form>
-                              <Stack
-                                 bg={THEME.DASHBOARD.POPOVER_BACKGROUND}
-                                 spacing={6}
-                                 px={4}
-                                 py={5}
-                                 p={[null, 6]}
-                              >
-                                 <Flex
-                                    align={"center"}
-                                    flexDir={"column"}
-                                    gap={5}
-                                 >
-                                    <Text as={"span"} fontWeight={600}>
-                                       ID:{" "}
-                                       <Text
-                                          display={"inline"}
-                                          fontWeight={300}
-                                          textTransform={"uppercase"}
-                                       >
-                                          {props.id}
-                                       </Text>
-                                    </Text>
-                                    <Text as={"span"} fontWeight={700}>
-                                       Nome:{" "}
-                                       <Text
-                                          as={"u"}
-                                          display={"inline"}
-                                          fontWeight={600}
-                                          fontFamily={"Inter"}
-                                          letterSpacing={2}
-                                       >
-                                          {props.title.toUpperCase()}
-                                       </Text>
-                                    </Text>
-                                 </Flex>
-                                 <SimpleGrid columns={12} spacing={6}>
-                                    <FormControl
-                                       as={GridItem}
-                                       colSpan={12}
-                                       isRequired
+                     {props.title}
+                  </Text>
+                  <Flex gap={2}>
+                     <ModalCategoryHero category={props} />
+
+                     <ModalHeroUpdate
+                        category={props}
+                        onHandleClick={() => handleUpdatedCategory(props.id)}
+                     >
+                        <form>
+                           <Stack
+                              bg={THEME.DASHBOARD.POPOVER_BACKGROUND}
+                              spacing={6}
+                              px={4}
+                              py={5}
+                              p={[null, 6]}
+                           >
+                              <Flex align={"center"} flexDir={"column"} gap={5}>
+                                 <Text as={"span"} fontWeight={600}>
+                                    ID:{" "}
+                                    <Text
+                                       display={"inline"}
+                                       fontWeight={300}
+                                       textTransform={"uppercase"}
                                     >
-                                       <FormLabelTitle
-                                          title="Nome do Categoria"
-                                          htmlFor="name_category"
-                                       />
+                                       {props.id}
+                                    </Text>
+                                 </Text>
+                                 <Text as={"span"} fontWeight={700}>
+                                    Nome:{" "}
+                                    <Text
+                                       as={"u"}
+                                       display={"inline"}
+                                       fontWeight={600}
+                                       fontFamily={"Inter"}
+                                       letterSpacing={2}
+                                    >
+                                       {props.title.toUpperCase()}
+                                    </Text>
+                                 </Text>
+                              </Flex>
+                              <SimpleGrid columns={12} spacing={6}>
+                                 <FormControl
+                                    as={GridItem}
+                                    colSpan={12}
+                                    isRequired
+                                 >
+                                    <FormLabelTitle
+                                       title="Nome do Categoria"
+                                       htmlFor="name_category"
+                                    />
 
-                                       <InputBar
-                                          type="text"
-                                          name="name_category"
-                                          id="name_category"
-                                          autoComplete="name_category"
-                                          placeholder="Digite o nome do categoria"
-                                          value={title}
-                                          onChange={(event) =>
-                                             setTitle(event.target.value)
-                                          }
-                                       />
-                                    </FormControl>
-                                 </SimpleGrid>
-                              </Stack>
-                           </form>
-                        </ModalHeroUpdate>
+                                    <InputBar
+                                       type="text"
+                                       name="name_category"
+                                       id="name_category"
+                                       autoComplete="name_category"
+                                       placeholder="Digite o nome do categoria"
+                                       value={title}
+                                       onChange={(event) =>
+                                          setTitle(event.target.value)
+                                       }
+                                    />
+                                 </FormControl>
+                              </SimpleGrid>
+                           </Stack>
+                        </form>
+                     </ModalHeroUpdate>
 
-                        <ModalHeroDelete
-                           items={props}
-                           onHandleDelete={() => {
-                              handleDelete(props.id);
-                              toast({
-                                 title: `Item com ID ${props.id} deletado`,
-                                 status: "success",
-                                 duration: 10000,
-                                 isClosable: true,
-                              });
-                           }}
-                        />
-                     </Flex>
+                     <ModalHeroDelete
+                        items={props}
+                        onHandleDelete={() => {
+                           handleDelete(props.id);
+                           toast({
+                              title: `Item com ID ${props.id} deletado`,
+                              status: "success",
+                              duration: 10000,
+                              isClosable: true,
+                           });
+                        }}
+                     />
                   </Flex>
-               </Box>
+               </Flex>
             ))}
-         </UnorderedList>
+         </VStack>
       </>
    );
 }
+
+export default memo(AddCategory);

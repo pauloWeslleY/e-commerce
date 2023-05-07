@@ -6,22 +6,24 @@ import {
    AlertDialogFooter,
    AlertDialogHeader,
    AlertDialogOverlay,
+   Box,
    Button,
-   Flex,
    Text,
    useDisclosure,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { BtnIcon } from "../Buttons";
 import { ProductsType } from "../../types/ProductType";
+import { UserType } from "../../types/UsersType";
 
 interface ModalHeroDeleteProps {
-   items: ProductsType;
+   items?: ProductsType;
+   user?: UserType;
    onHandleDelete: () => void;
 }
 
 function ModalHeroDelete(props: ModalHeroDeleteProps) {
-   const { items, onHandleDelete } = props;
+   const { user, items, onHandleDelete } = props;
    const { isOpen, onOpen, onClose } = useDisclosure();
    const cancelRef = useRef();
 
@@ -37,32 +39,45 @@ function ModalHeroDelete(props: ModalHeroDeleteProps) {
 
          <AlertDialog
             isOpen={isOpen}
-            leastDestructiveRef={cancelRef}
             onClose={onClose}
+            leastDestructiveRef={cancelRef}
          >
             <AlertDialogOverlay>
                <AlertDialogContent>
                   <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                     <Text as={"small"} textTransform={"uppercase"}>
-                        ID: {items.id}
+                     <Text as={"span"} fontWeight={600}>
+                        Tem certeza que você deseja excluir?
                      </Text>
                   </AlertDialogHeader>
 
                   <AlertDialogBody>
-                     <Text as={"span"} fontWeight={600}>
-                        Voce deseja deletar este item?
-                     </Text>
-                     <Flex as={"span"} py={4}>
-                        Item: {items.title}
-                     </Flex>
+                     {items ? (
+                        <Text as={"small"} textTransform={"uppercase"}>
+                           ID: {items.id}
+                        </Text>
+                     ) : (
+                        <Text as={"small"} textTransform={"uppercase"}>
+                           ID: {user.id}
+                        </Text>
+                     )}
+
+                     {items ? (
+                        <Box as={"p"} py={4} fontSize={"lg"}>
+                           <span>Name: {items.title}</span>
+                        </Box>
+                     ) : (
+                        <Box as={"p"} py={4} fontSize={"lg"}>
+                           <span>Usuário: {user.username}</span>
+                        </Box>
+                     )}
                   </AlertDialogBody>
 
                   <AlertDialogFooter>
                      <Button ref={cancelRef} onClick={onClose}>
-                        Cancel
+                        Cancelar
                      </Button>
                      <Button colorScheme="red" onClick={onHandleDelete} ml={3}>
-                        Delete
+                        excluir
                      </Button>
                   </AlertDialogFooter>
                </AlertDialogContent>

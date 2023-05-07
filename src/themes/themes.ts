@@ -26,6 +26,7 @@ export const THEME = extendTheme({
       gray: {
          700: "#121212",
          500: "#141517",
+         400: "#9BA4B5",
       },
       purple: {
          800: "#7743DB",

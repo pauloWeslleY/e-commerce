@@ -7,10 +7,10 @@ import {
    getDocs,
 } from "firebase/firestore";
 import {
-   // Flex,
-   // ListItem,
-   // Text,
-   // UnorderedList,
+   Flex,
+   ListItem,
+   Text,
+   UnorderedList,
    chakra,
    useToast,
 } from "@chakra-ui/react";
@@ -20,7 +20,7 @@ import { IsButton } from "../../components/Buttons";
 import { UserType } from "../../types/UsersType";
 
 export function PageUsers() {
-   const [displayName, setDisplayName] = useState<string>("");
+   const [username, setUserName] = useState<string>("");
    const [email, setEmail] = useState<string>("");
    const [users, setUsers] = useState<UserType[]>([]);
    const usersCollectionRef = collection(db, "users");
@@ -29,16 +29,16 @@ export function PageUsers() {
 
    const handleCreateUser = async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      const newUser: UserType = { displayName, email };
+      const newUser: UserType = { username, email };
       const docRef = await addDoc(usersCollectionRef, newUser);
-      setUsers([...users, { uid: docRef.id, ...newUser }]);
-      setDisplayName("");
+      setUsers([...users, { id: docRef.id, ...newUser }]);
+      setUserName("");
       setEmail("");
    };
 
    const handleDeleteUser = async (id: string) => {
       await deleteDoc(doc(db, "users", id));
-      const deleteUniqueUser = users.filter((user) => user.uid !== id);
+      const deleteUniqueUser = users.filter((user) => user.id !== id);
       setUsers(deleteUniqueUser);
 
       if (currentUser) {
@@ -57,7 +57,7 @@ export function PageUsers() {
       async function getUsers() {
          const dataUser = await getDocs(usersCollectionRef);
          const users = dataUser.docs.map<UserType>((doc) => ({
-            uid: doc.id,
+            id: doc.id,
             ...doc.data(),
          }));
          setUsers(users);
@@ -67,12 +67,12 @@ export function PageUsers() {
 
    return (
       <>
-         {/* <chakra.form onSubmit={handleCreateUser} my={4}>
+         <chakra.form onSubmit={handleCreateUser} my={4}>
             <InputBar
                type="text"
                placeholder="Nome"
-               value={displayName}
-               onChange={(e) => setDisplayName(e.target.value)}
+               value={username}
+               onChange={(e) => setUserName(e.target.value)}
             />
             <InputBar
                type="email"
@@ -81,9 +81,9 @@ export function PageUsers() {
                onChange={(e) => setEmail(e.target.value)}
             />
             <IsButton title="Criar User" type="submit" />
-         </chakra.form> */}
+         </chakra.form>
 
-         {/* <UnorderedList
+         <UnorderedList
             bg={"blackAlpha.600"}
             boxShadow={"xl"}
             rounded={"md"}
@@ -93,7 +93,7 @@ export function PageUsers() {
          >
             {users.map((user) => (
                <Flex
-                  key={user.uid}
+                  key={user.id}
                   flexDir={"row"}
                   justify={"space-between"}
                   align={"center"}
@@ -103,16 +103,16 @@ export function PageUsers() {
                   p={3}
                >
                   <ListItem>
-                     <Text>{user.displayName}</Text>
+                     <Text>{user.username}</Text>
                      <Text>{user.email}</Text>
                   </ListItem>
                   <IsButton
                      title="Deletar"
-                     onClick={() => handleDeleteUser(user.uid)}
+                     onClick={() => handleDeleteUser(user.id)}
                   />
                </Flex>
             ))}
-         </UnorderedList> */}
+         </UnorderedList>
       </>
    );
 }

@@ -1,6 +1,6 @@
 type UserType = {
-   uid?: string;
-   displayName?: string;
+   id?: string;
+   username?: string;
    email?: string;
    password?: string | number;
    avatar?: string;

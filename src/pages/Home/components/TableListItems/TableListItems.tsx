@@ -49,8 +49,8 @@ function TableListItems() {
                      Usuários
                   </Heading>
                   {users.map((user, index) => (
-                     <ListItem key={`${user.uid}${index}`} p={2}>
-                        <Text fontWeight={600}>{user.displayName}</Text>
+                     <ListItem key={`${user.id}${index}`} p={2}>
+                        <Text fontWeight={600}>{user.username}</Text>
                      </ListItem>
                   ))}
                </UnorderedList>

@@ -1,3 +1,4 @@
 import UsersTable from "./UsersTable";
+import ModalUserHero from "./ModalUserHero";
 
-export { UsersTable };
+export { UsersTable, ModalUserHero };

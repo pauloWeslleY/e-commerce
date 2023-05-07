@@ -20,14 +20,14 @@ function SideBarAvatarHero({ collapsed }: SideBarContainerProps) {
          w={"full"}
          p={2}
       >
-         <Avatar name={"Profile Name"} bg={"purple.400"} />
+         <Avatar name={userOnAuth.username} bg={"purple.400"} />
          {collapsed && (
             <Flex
+               w={"full"}
                align={"flex-start"}
                justify={"center"}
                flexDir={"column"}
                gap={4}
-               w={"full"}
             >
                <Text
                   fontSize={"sm"}
@@ -50,15 +50,6 @@ function SideBarAvatarHero({ collapsed }: SideBarContainerProps) {
          )}
 
          <SideBarAvatarMenu />
-
-         {/* <IconButton
-            aria-label="Settings"
-            icon={<MdOutlineMoreHoriz />}
-            borderRadius={"full"}
-            color={THEME.SPAN_COLORS}
-            variant={"ghost"}
-            fontSize={20}
-         /> */}
       </Flex>
    );
 }

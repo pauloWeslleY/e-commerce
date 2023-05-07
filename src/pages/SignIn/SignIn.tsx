@@ -27,31 +27,6 @@ export function SignIn() {
 
    const handleSignInUser = async (event: FormEvent) => {
       event.preventDefault();
-      // NOTE: ==> Validação do campos do input
-      if (!email && password === "") {
-         toast({
-            title: "Preencha os campos",
-            status: "error",
-            duration: 9000,
-            isClosable: true,
-         });
-      }
-      if (email === "") {
-         toast({
-            title: "Digite seu e-mail!",
-            status: "warning",
-            duration: 9000,
-            isClosable: true,
-         });
-      }
-      if (password === "") {
-         toast({
-            title: "Digite sua senha!",
-            status: "warning",
-            duration: 9000,
-            isClosable: true,
-         });
-      }
       const useEmail = users.some((user) => user.email === email);
       const usePass = users.some((user) => user.password === password);
 
@@ -103,7 +78,7 @@ export function SignIn() {
          const dataUser = await getDocs(usersCollectionRef);
          const users = dataUser.docs.map<UserType>((doc) => ({
             ...doc.data(),
-            uid: doc.id,
+            id: doc.id,
          }));
          setUsers(users);
       }

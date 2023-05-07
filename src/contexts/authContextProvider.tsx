@@ -1,4 +1,5 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import {
    GoogleAuthProvider,
    onAuthStateChanged,
@@ -6,7 +7,6 @@ import {
    signOut,
 } from "firebase/auth";
 import { auth } from "../services/firebase";
-import { Navigate } from "react-router-dom";
 
 type UserProps = {
    id: string;
@@ -16,7 +16,7 @@ type UserProps = {
 };
 
 interface AuthContextProps {
-   signedOnGoogle: boolean;
+   signedOnUser: boolean;
    userOnAuth: UserProps | null;
    handleSignInWithGoogle: () => Promise<void>;
    handleLogout: () => void;
@@ -44,6 +44,17 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
       }
    };
 
+   async function handleLogout() {
+      try {
+         await signOut(auth);
+         setUserOnAuth(null);
+
+         return <Navigate to="/" />;
+      } catch (err) {
+         console.log(err);
+      }
+   }
+
    useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
          if (user) {
@@ -63,22 +74,10 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
       };
    }, []);
 
-   async function handleLogout() {
-      try {
-         await signOut(auth);
-         setUserOnAuth(null);
-         sessionStorage.clear();
-
-         return <Navigate to="/" />;
-      } catch (err) {
-         console.log(err);
-      }
-   }
-
    return (
       <AuthenticationContext.Provider
          value={{
-            signedOnGoogle: !!userOnAuth,
+            signedOnUser: !!userOnAuth,
             userOnAuth,
             handleSignInWithGoogle,
             handleLogout,

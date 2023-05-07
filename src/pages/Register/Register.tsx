@@ -17,7 +17,7 @@ import { useLoading } from "../../hooks/useLoading";
 import Logotipo from "../../assets/logo.svg";
 
 export function Register() {
-   const [displayName, setDisplayName] = useState<string>("");
+   const [username, setUserName] = useState<string>("");
    const [email, setEmail] = useState<string>("");
    const [password, setPassword] = useState<string>("");
    const [users, setUsers] = useState<UserType[]>([]);
@@ -29,42 +29,17 @@ export function Register() {
 
    const handleRegisterUser = async (event: FormEvent) => {
       event.preventDefault();
-      // HACK: ==> Validação do campos do input Email e Senha!
-      if (!email && password === "") {
-         toast({
-            title: "Preencha os campos",
-            status: "error",
-            duration: 9000,
-            isClosable: true,
-         });
-      }
-      if (email === "") {
-         toast({
-            title: "Digite seu e-mail!",
-            status: "warning",
-            duration: 9000,
-            isClosable: true,
-         });
-      }
-      if (password === "") {
-         toast({
-            title: "Digite sua senha!",
-            status: "warning",
-            duration: 9000,
-            isClosable: true,
-         });
-      }
 
       const emailAlreadyInUse = users.some(
-         (user: UserType) => user.email == email
+         (user: UserType) => user.email === email
       );
 
       try {
          // NOTE: Envie os dados do formulário caso ele for válido
          if (!emailAlreadyInUse) {
-            const newUser: UserType = { displayName, email, password };
+            const newUser: UserType = { username, email, password };
             const docRef = await addDoc(usersCollectionRef, newUser);
-            setUsers([...users, { uid: docRef.id, ...newUser }]);
+            setUsers([...users, { id: docRef.id, ...newUser }]);
             const { user } = await createUserWithEmailAndPassword(
                auth,
                email,
@@ -72,7 +47,7 @@ export function Register() {
             );
 
             await updateProfile(user, {
-               displayName: displayName,
+               displayName: username,
             });
 
             toast({
@@ -103,7 +78,7 @@ export function Register() {
 
       setEmail("");
       setPassword("");
-      setDisplayName("");
+      setUserName("");
    };
 
    useEffect(() => {
@@ -111,7 +86,7 @@ export function Register() {
          const dataUser = await getDocs(usersCollectionRef);
          const users = dataUser.docs.map<UserType>((doc) => ({
             ...doc.data(),
-            uid: doc.id,
+            id: doc.id,
          }));
          setUsers(users);
       }
@@ -158,8 +133,8 @@ export function Register() {
                <chakra.form onSubmit={handleRegisterUser}>
                   <Stack spacing={4}>
                      <InputUserName
-                        onChange={(event) => setDisplayName(event.target.value)}
-                        value={displayName}
+                        onChange={(event) => setUserName(event.target.value)}
+                        value={username}
                         isRequired
                      />
                      <InputEmail

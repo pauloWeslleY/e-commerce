@@ -1,5 +1,6 @@
 import { ReactNode, memo } from "react";
 import {
+   Flex,
    Modal,
    ModalBody,
    ModalCloseButton,
@@ -9,18 +10,20 @@ import {
    ModalOverlay,
    useDisclosure,
 } from "@chakra-ui/react";
-import { ProductsType } from "../../types/ProductType";
-import { BtnIcon, IsButton } from "../Buttons";
 import { EditIcon } from "@chakra-ui/icons";
+import { ProductsType } from "../../types/ProductType";
+import { CategoryType } from "../../types/CategoryType";
+import { BtnIcon, IsButton } from "../Buttons";
 
 interface ModalHeroUpdateProps {
-   items: ProductsType;
+   items?: ProductsType;
+   category?: CategoryType;
    children: ReactNode;
    onHandleClick: () => void;
 }
 
 function ModalHeroUpdate(props: ModalHeroUpdateProps) {
-   const { children, items, onHandleClick } = props;
+   const { items, children, onHandleClick } = props;
    const { isOpen, onOpen, onClose } = useDisclosure();
 
    return (
@@ -35,18 +38,30 @@ function ModalHeroUpdate(props: ModalHeroUpdateProps) {
          <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-               <ModalHeader>{items.title}</ModalHeader>
+               {items ? (
+                  <ModalHeader>Atualizar Produto</ModalHeader>
+               ) : (
+                  <ModalHeader>Atualizar Categoria</ModalHeader>
+               )}
+
                <ModalCloseButton />
                <ModalBody>{children}</ModalBody>
                <ModalFooter>
-                  <IsButton
-                     title="Atualizar"
-                     type="button"
-                     onClick={() => {
-                        onHandleClick();
-                        onClose();
-                     }}
-                  />
+                  <Flex gap={2}>
+                     <IsButton
+                        title="Cancelar"
+                        type="button"
+                        onClick={onClose}
+                     />
+                     <IsButton
+                        title="Atualizar"
+                        type="button"
+                        onClick={() => {
+                           onHandleClick();
+                           onClose();
+                        }}
+                     />
+                  </Flex>
                </ModalFooter>
             </ModalContent>
          </Modal>
