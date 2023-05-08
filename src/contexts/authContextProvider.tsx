@@ -15,16 +15,16 @@ type UserProps = {
    avatar?: string;
 };
 
-interface AuthContextProps {
+type AuthContextProps = {
    signedOnUser: boolean;
    userOnAuth: UserProps | null;
    handleSignInWithGoogle: () => Promise<void>;
    handleLogout: () => void;
-}
+};
 
-interface AuthProviderProps {
+type AuthProviderProps = {
    children: ReactNode;
-}
+};
 
 export const AuthenticationContext = createContext({} as AuthContextProps);
 

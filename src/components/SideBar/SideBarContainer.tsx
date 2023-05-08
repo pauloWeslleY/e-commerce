@@ -1,10 +1,10 @@
 import { memo } from "react";
 import { Box } from "@chakra-ui/react";
+import { SideBarContainerProps } from "../../types/SideBarType";
 import {
    SideBarAvatarHero,
    SideBarLogoSearch,
    SideBarNavigation,
-   SideBarContainerProps,
 } from "./index";
 
 function SideBarContainer({ collapsed }: SideBarContainerProps) {

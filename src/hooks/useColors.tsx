@@ -34,6 +34,7 @@ export function useColors() {
          */
          SIDE_BAR_BG: useColorModeValue("gray.300", "gray.800"),
          SIDE_BAR_COLORS: useColorModeValue("purple.600", "purple.400"),
+         SIDE_BAR_TITLE_COLORS: useColorModeValue("purple.700", "purple.100"),
          SIDEBAR_AVATAR_HERO_BORDER_COLORS: useColorModeValue(
             "purple.600",
             "purple.400"

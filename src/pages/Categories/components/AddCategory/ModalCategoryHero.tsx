@@ -21,6 +21,7 @@ interface ModalCategoryHeroProps {
 
 function ModalCategoryHero({ category }: ModalCategoryHeroProps) {
    const { isOpen, onOpen, onClose } = useDisclosure();
+
    return (
       <>
          <BtnIcon
@@ -42,7 +43,6 @@ function ModalCategoryHero({ category }: ModalCategoryHeroProps) {
                      justifyContent={"center"}
                   >
                      <Box textTransform={"uppercase"}>ID: {category.id}</Box>
-                     <span>Nome: {category.title}</span>
                   </Stack>
                </ModalBody>
 

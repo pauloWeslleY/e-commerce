@@ -18,8 +18,8 @@ function CardStatistic(props: CardsTypeProps) {
       <Stack
          borderWidth={"1px"}
          borderRadius={"lg"}
-         w={{ base: "100%", md: "540px" }}
-         height={{ base: "10rem", sm: "476px", md: "12rem" }}
+         w={"full"}
+         height={{ base: "10rem", md: "12rem" }}
          direction={{ base: "column", md: "column" }}
          boxShadow={"lg"}
          justifyContent={"center"}

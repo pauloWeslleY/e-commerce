@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../services/firebase";
 import { ProductsType } from "../types/ProductType";
 import { CategoryType } from "../types/CategoryType";
@@ -8,6 +8,7 @@ import { UserType } from "../types/UsersType";
 export function useFetch() {
    const [items, setItems] = useState<ProductsType[]>([]);
    const [categories, setCategories] = useState<CategoryType[]>([]);
+   const [isCategories, setIsCategories] = useState<CategoryType[]>([]);
    const [users, setUsers] = useState<UserType[]>([]);
    const usersCollectionRef = collection(db, "users");
    const itemsCollectionRef = collection(db, "items");
@@ -18,7 +19,7 @@ export function useFetch() {
          const dataUser = await getDocs(usersCollectionRef);
          const users = dataUser.docs.map<UserType>((doc) => ({
             ...doc.data(),
-            uid: doc.id,
+            id: doc.id,
          }));
          setUsers(users);
       };
@@ -41,14 +42,31 @@ export function useFetch() {
          setItems(items);
       };
 
+      const filteredCategory = async () => {
+         const filteredUsers = query(
+            categoryCollectionRef,
+            where("title", "!=", true),
+            orderBy("title", "asc")
+         );
+         const querySnapshot = await getDocs(filteredUsers);
+         const isCategory = querySnapshot.docs.map<any>((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+         }));
+
+         setIsCategories(isCategory);
+      };
+
       getCategories();
       getItems();
       getUsers();
+      filteredCategory();
    }, []);
 
    return {
       items,
       categories,
       users,
+      isCategories,
    };
 }

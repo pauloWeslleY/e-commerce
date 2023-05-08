@@ -10,7 +10,7 @@ import { Product } from "../pages/Product/Product";
 import { NotFound } from "../pages/404/404";
 import { Categories } from "../pages/Categories/Categories";
 import { Users } from "../pages/Users";
-import { SideBar } from "../components/SideBar";
+import { UserProfile } from "../pages/Profile/UserProfile";
 
 interface RoutesProps {
    path: string;
@@ -54,8 +54,8 @@ const routes: RoutesProps[] = [
                   element: <Users />,
                },
                {
-                  path: "/dashboard/main",
-                  element: <SideBar />,
+                  path: "/dashboard/profile",
+                  element: <UserProfile />,
                },
             ],
          },

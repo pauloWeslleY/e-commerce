@@ -1,17 +1,17 @@
 import { memo } from "react";
 import { NavLink } from "react-router-dom";
 import { Badge, Box, Heading, Link, ListIcon, Text } from "@chakra-ui/react";
-import { MenuItemsProps } from "../index";
+import { MenuItemsProps } from "../../../types/MenuItemsProps";
 import { useColors } from "../../../hooks/useColors";
 
 interface SideBarNavItemProps {
    item: MenuItemsProps;
    isActive?: boolean;
-   collapse: boolean;
+   collapsed: boolean;
 }
 
 function SideBarNavItem(props: SideBarNavItemProps) {
-   const { item, isActive, collapse } = props;
+   const { item, isActive, collapsed } = props;
    const { label } = item;
    const { THEME } = useColors();
 
@@ -29,9 +29,9 @@ function SideBarNavItem(props: SideBarNavItemProps) {
                as={NavLink}
                to={path}
                display={"flex"}
-               gap={1}
                alignItems={"center"}
-               justifyContent={!collapse ? "center" : ""}
+               justifyContent={!collapsed ? "center" : ""}
+               gap={2}
                fontWeight={600}
                w={"full"}
                color={
@@ -45,9 +45,9 @@ function SideBarNavItem(props: SideBarNavItemProps) {
                }}
             >
                <ListIcon as={icon} fontSize={22} m={0} />
-               {collapse && <Text as={"span"}>{label}</Text>}
+               {collapsed && <Text as={"span"}>{label}</Text>}
             </Link>
-            {collapse && (
+            {collapsed && (
                <>
                   {notifications && (
                      <Badge
@@ -83,10 +83,10 @@ function SideBarNavItem(props: SideBarNavItemProps) {
          textTransform={"uppercase"}
          borderTopWidth={1}
          borderTopColor={THEME.SPAN_COLORS}
-         pt={collapse ? 8 : 0}
+         pt={collapsed ? 8 : 0}
          my={6}
       >
-         <Text display={collapse ? "flex" : "none"}>{label}</Text>
+         <Text display={collapsed ? "flex" : "none"}>{label}</Text>
       </Heading>
    );
 }

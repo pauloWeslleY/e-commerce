@@ -1,11 +1,6 @@
 import { memo } from "react";
 import { Flex, Heading, Icon } from "@chakra-ui/react";
-import { IconType } from "react-icons";
-
-interface NavBarProps {
-   label: string;
-   icon: IconType;
-}
+import { NavBarProps } from "../../types/NavBarType";
 
 function NavTitle(props: NavBarProps) {
    return (

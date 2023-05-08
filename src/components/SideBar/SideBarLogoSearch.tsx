@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { Box, Flex, IconButton, Image, Text } from "@chakra-ui/react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { SideBarContainerProps } from "./index";
 import { useColors } from "../../hooks/useColors";
+import { SideBarContainerProps } from "../../types/SideBarType";
 import Logotipo from "../../assets/logo.svg";
 
 function SideBarLogoSearch({ collapsed }: SideBarContainerProps) {
@@ -21,11 +21,20 @@ function SideBarLogoSearch({ collapsed }: SideBarContainerProps) {
             {collapsed && (
                <Text
                   as={"h2"}
-                  fontWeight={600}
-                  fontSize={"xl"}
-                  color={THEME.TEXT_COLORS}
+                  fontWeight={900}
+                  fontSize={"2xl"}
+                  fontFamily={"Inter"}
+                  letterSpacing={1}
+                  color={THEME.DASHBOARD.SIDE_BAR_TITLE_COLORS}
                >
-                  SystemStock
+                  System
+                  <Box
+                     as={"span"}
+                     bgGradient={"linear(to-r, purple.700, purple.400)"}
+                     backgroundClip={"text"}
+                  >
+                     Stock
+                  </Box>
                </Text>
             )}
          </Box>

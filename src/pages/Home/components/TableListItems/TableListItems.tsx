@@ -1,19 +1,10 @@
 import { memo } from "react";
-import {
-   Flex,
-   Grid,
-   GridItem,
-   Heading,
-   ListItem,
-   Text,
-   UnorderedList,
-} from "@chakra-ui/react";
-import { useFetch } from "../../../../hooks/useFetch";
+import { Grid, GridItem } from "@chakra-ui/react";
 import { useColors } from "../../../../hooks/useColors";
 import { HeroProducts } from "../HeroProducts";
+import { HeroUsersList } from "../HeroUsersList";
 
 function TableListItems() {
-   const { users } = useFetch();
    const { THEME } = useColors();
 
    return (
@@ -22,8 +13,8 @@ function TableListItems() {
             base: "repeat(1, 1fr)",
             lg: "repeat(12, 1fr)",
          }}
-         my={6}
          gap={9}
+         my={6}
          as={"section"}
       >
          <GridItem
@@ -31,39 +22,11 @@ function TableListItems() {
             bg={THEME.HOME.BACKGROUND}
             rounded={"md"}
             boxShadow={"lg"}
-            p={1}
          >
-            <Flex
-               as={"section"}
-               flexDir={"column"}
-               w={{ base: "full", md: "25vw" }}
-               p={1}
-            >
-               <UnorderedList
-                  spacing={5}
-                  listStyleType={"none"}
-                  fontFamily={"Poppins"}
-                  color={THEME.TEXT_COLORS}
-               >
-                  <Heading as={"h2"} fontSize={"xl"} fontWeight={500} py={2}>
-                     Usuários
-                  </Heading>
-                  {users.map((user, index) => (
-                     <ListItem key={`${user.id}${index}`} p={2}>
-                        <Text fontWeight={600}>{user.username}</Text>
-                     </ListItem>
-                  ))}
-               </UnorderedList>
-            </Flex>
+            <HeroUsersList />
          </GridItem>
 
-         <GridItem
-            colSpan={{ lg: 8 }}
-            bg={THEME.HOME.BACKGROUND}
-            rounded={"md"}
-            boxShadow={"lg"}
-            p={1}
-         >
+         <GridItem colSpan={{ lg: 8 }}>
             <HeroProducts />
          </GridItem>
       </Grid>

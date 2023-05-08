@@ -21,6 +21,7 @@ import {
    chakra,
    useToast,
    useDisclosure,
+   Select,
 } from "@chakra-ui/react";
 import { MdOutlineStoreMallDirectory } from "react-icons/md";
 import { db } from "../../../../services/firebase";
@@ -43,8 +44,10 @@ import {
    HeroTableHeader,
    HeroTableProductItem,
 } from "../TableProduct";
+import { useFetch } from "../../../../hooks/useFetch";
 
 function AddProduct() {
+   const { isCategories } = useFetch();
    const [items, setItems] = useState<ProductsType[]>([
       {
          title: "",
@@ -58,6 +61,7 @@ function AddProduct() {
    const [price, setPrice] = useState<string>("");
    const [description, setDescription] = useState<string>("");
    const [category, setCategory] = useState<string>("");
+   const [isNewCategories, setIsNewCategories] = useState<string>();
    const [quantity, setQuantity] = useState<number>(0);
    const { THEME } = useColors();
    const { isLoading } = useLoading();
@@ -69,7 +73,7 @@ function AddProduct() {
       title,
       description,
       price,
-      category,
+      category: isNewCategories,
       quantity,
    };
 
@@ -179,18 +183,6 @@ function AddProduct() {
          }));
          setItems(items);
       };
-
-      // const isResultData = async () => {
-      //    const filtered = query(prodCollectionRef, where("title", "!=", true));
-      //    const querySnapshot = await getDocs(filtered);
-      //    const itemsData = querySnapshot.docs.map<ProductsType>((doc) => ({
-      //       id: doc.id,
-      //       ...doc.data(),
-      //    }));
-
-      //    console.log(itemsData.map((item) => item.title));
-      //    setProduct(itemsData);
-      // };
 
       getItems();
    }, []);
@@ -331,6 +323,36 @@ function AddProduct() {
                               onChange={(e) => setCategory(e.target.value)}
                            />
                         </FormControl>
+
+                        <FormControl as={GridItem} colSpan={[6, 3]}>
+                           <FormLabelTitle
+                              title="Categorias"
+                              htmlFor="categories_product"
+                           />
+                           <Select
+                              id="categories_product"
+                              name="categories_product"
+                              autoComplete="categories_product"
+                              placeholder="Select option"
+                              mt={1}
+                              focusBorderColor="brand.400"
+                              shadow="sm"
+                              size="sm"
+                              w="full"
+                              rounded="md"
+                              value={isNewCategories}
+                              onChange={(e) => {
+                                 setIsNewCategories(e.target.value);
+                                 console.log(isNewCategories);
+                              }}
+                           >
+                              {isCategories.map((props, i) => (
+                                 <option key={i} value={`${i} ${props.title}`}>
+                                    {props.title}
+                                 </option>
+                              ))}
+                           </Select>
+                        </FormControl>
                      </SimpleGrid>
                   </Stack>
                   <Box
@@ -363,7 +385,7 @@ function AddProduct() {
                   <HeroTableColumn>
                      <HeroTableRowSpanID>{props.id}</HeroTableRowSpanID>
                      <HeroTableRowSpan>{props.title}</HeroTableRowSpan>
-                     <HeroTableRowSpan>R$ {props.price}</HeroTableRowSpan>
+                     <HeroTableRowSpan>R${props.price}</HeroTableRowSpan>
                      <HeroTableRowSpan>{props.quantity} uni</HeroTableRowSpan>
                      <HeroTableRowSpan>{props.category}</HeroTableRowSpan>
                      <Flex justify={{ md: "flex-end" }} gap={3}>
@@ -371,6 +393,7 @@ function AddProduct() {
                            <ModalProductHero items={props} />
 
                            <ModalHeroUpdate
+                              title="Produto"
                               items={props}
                               onHandleClick={() => handleUpdateItem(props.id)}
                            >
@@ -534,6 +557,7 @@ function AddProduct() {
                            </ModalHeroUpdate>
 
                            <ModalHeroDelete
+                              title="Item"
                               items={props}
                               onHandleDelete={() => {
                                  handleDelete(props.id);

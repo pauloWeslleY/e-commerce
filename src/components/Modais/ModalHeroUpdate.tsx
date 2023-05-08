@@ -16,6 +16,7 @@ import { CategoryType } from "../../types/CategoryType";
 import { BtnIcon, IsButton } from "../Buttons";
 
 interface ModalHeroUpdateProps {
+   title: string;
    items?: ProductsType;
    category?: CategoryType;
    children: ReactNode;
@@ -23,7 +24,7 @@ interface ModalHeroUpdateProps {
 }
 
 function ModalHeroUpdate(props: ModalHeroUpdateProps) {
-   const { items, children, onHandleClick } = props;
+   const { title, children, onHandleClick } = props;
    const { isOpen, onOpen, onClose } = useDisclosure();
 
    return (
@@ -38,11 +39,7 @@ function ModalHeroUpdate(props: ModalHeroUpdateProps) {
          <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-               {items ? (
-                  <ModalHeader>Atualizar Produto</ModalHeader>
-               ) : (
-                  <ModalHeader>Atualizar Categoria</ModalHeader>
-               )}
+               <ModalHeader>Atualizar {title}</ModalHeader>
 
                <ModalCloseButton />
                <ModalBody>{children}</ModalBody>

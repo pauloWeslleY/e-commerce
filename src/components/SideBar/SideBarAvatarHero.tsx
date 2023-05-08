@@ -2,7 +2,8 @@ import { memo, useContext } from "react";
 import { Avatar, Flex, Text } from "@chakra-ui/react";
 import { AuthenticationContext } from "../../contexts/authContextProvider";
 import { useColors } from "../../hooks/useColors";
-import { SideBarContainerProps, SideBarAvatarMenu } from "./index";
+import { SideBarContainerProps } from "../../types/SideBarType";
+import { SideBarAvatarMenu } from "./index";
 
 function SideBarAvatarHero({ collapsed }: SideBarContainerProps) {
    const { userOnAuth } = useContext(AuthenticationContext);

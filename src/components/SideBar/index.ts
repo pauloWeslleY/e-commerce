@@ -9,9 +9,6 @@ import SideBarAvatarMenu from "./SideBarAvatarMenu";
 import SideBarNavigation from "./SideBarNavigation/SideBarNavigation";
 import SideBarNavItem from "./SideBarNavigation/SideBarNavItem";
 
-import { SideBarContainerProps } from "../../types/SideBarType";
-import { MenuItemsProps } from "../../types/MenuItemsProps";
-
 export {
    SideBar,
    SideBarContainer,
@@ -23,5 +20,3 @@ export {
    SideBarMobile,
    SideBarAvatarMenu,
 };
-
-export type { SideBarContainerProps, MenuItemsProps };

@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 import { Button, Flex, Switch } from "@chakra-ui/react";
-import { SideBarContainerProps } from "./index";
+import { SideBarContainerProps } from "../../types/SideBarType";
 
 function SideBarSwitchButton({ collapsed }: SideBarContainerProps) {
    const [isPersonal, setIsPersonal] = useState(true);

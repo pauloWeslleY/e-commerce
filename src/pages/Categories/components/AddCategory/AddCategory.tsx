@@ -56,7 +56,7 @@ function AddCategory() {
       try {
          const data = query(
             collection(db, "category"),
-            where("name", "==", name)
+            where("title", "==", title)
          );
          const querySnapshot = await getDocs(data);
 
@@ -252,6 +252,7 @@ function AddCategory() {
                      <ModalCategoryHero category={props} />
 
                      <ModalHeroUpdate
+                        title="Categoria"
                         category={props}
                         onHandleClick={() => handleUpdatedCategory(props.id)}
                      >
@@ -316,11 +317,12 @@ function AddCategory() {
                      </ModalHeroUpdate>
 
                      <ModalHeroDelete
+                        title="Categoria"
                         items={props}
                         onHandleDelete={() => {
                            handleDelete(props.id);
                            toast({
-                              title: `Item com ID ${props.id} deletado`,
+                              title: `Categoria com ID ${props.id} deletado`,
                               status: "success",
                               duration: 10000,
                               isClosable: true,

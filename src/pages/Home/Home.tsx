@@ -1,15 +1,15 @@
-import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { Flex, Grid, GridItem } from "@chakra-ui/react";
+import { IconType } from "react-icons";
 import { MdOutlineStoreMallDirectory } from "react-icons/md";
 import { BiCategory, BiHomeAlt2, BiUser } from "react-icons/bi";
-import { IconType } from "react-icons";
 import { useColors } from "../../hooks/useColors";
 import { useFetch } from "../../hooks/useFetch";
 
-// import { Dashboard } from "../Dashboard/Dashboard";
 import { CardStatistic } from "./components/CardStatistic";
 import { TableListItems } from "./components/TableListItems";
-import { NavTitle } from "../../components/NavBar";
 import { SideBar } from "../../components/SideBar";
+import { HeroTitleBar } from "../../components/HeroTitle";
+import { useProduct } from "../../hooks/useProduct";
 
 interface CardsHomeProps {
    icon: IconType;
@@ -19,7 +19,8 @@ interface CardsHomeProps {
 }
 
 export function Home() {
-   const { items, categories, users } = useFetch();
+   const { categories, users } = useFetch();
+   const { items } = useProduct();
    const { THEME } = useColors();
 
    const CARDS_HOME_PROPS: Array<CardsHomeProps> = [
@@ -45,18 +46,15 @@ export function Home() {
 
    return (
       <SideBar>
-         <Box my={4} p={2} rounded={"lg"} bg={THEME.HOME.BACKGROUND}>
-            <Flex h={16}>
-               <NavTitle label={"Dashboard"} icon={BiHomeAlt2} />
-            </Flex>
-         </Box>
+         <HeroTitleBar label={"Dashboard"} icon={BiHomeAlt2} />
 
          <Grid
             templateColumns={{
                base: "repeat(1, 1fr)",
                lg: "repeat(12, 1fr)",
             }}
-            gap={10}
+            gap={9}
+            as={"section"}
          >
             {CARDS_HOME_PROPS.map((props, index) => (
                <GridItem key={`${props.icon}${index}`} colSpan={{ lg: 4 }}>
@@ -73,6 +71,25 @@ export function Home() {
          </Grid>
 
          <TableListItems />
+
+         <Grid
+            templateColumns={{
+               base: "repeat(1, 1fr)",
+               lg: "repeat(12, 1fr)",
+            }}
+            gap={9}
+         >
+            <GridItem
+               colSpan={{ lg: 12 }}
+               bg={THEME.HOME.BACKGROUND}
+               rounded={"md"}
+               shadow={"lg"}
+               h={"15rem"}
+               p={5}
+            >
+               <h1>Section</h1>
+            </GridItem>
+         </Grid>
       </SideBar>
    );
 }

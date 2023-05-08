@@ -17,7 +17,6 @@ export function useLoggedUser() {
       return new Promise((resolve) => {
          onAuthStateChanged(auth, (user: any) => {
             setPersistence(auth, browserSessionPersistence);
-            console.log(user);
             resolve(user);
          });
       });

@@ -40,6 +40,7 @@ function ModalProductHero({ items }: ModalProductHeroProps) {
                      spacing={4}
                      alignItems={"center"}
                      justifyContent={"center"}
+                     textAlign={"center"}
                   >
                      <Box textTransform={"uppercase"}>ID: {items.id}</Box>
                      <span>Nome: {items.title}</span>

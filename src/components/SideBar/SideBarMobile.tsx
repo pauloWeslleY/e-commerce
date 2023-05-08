@@ -11,19 +11,20 @@ import {
 } from "@chakra-ui/react";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { SideBarContainer } from "./index";
+import { SideBarContainerProps } from "../../types/SideBarType";
+import { useColors } from "../../hooks/useColors";
 
-function SideBarMobile() {
+function SideBarMobile({ collapsed }: SideBarContainerProps) {
    const { isOpen, onOpen, onClose } = useDisclosure();
+   const { THEME } = useColors();
    const firstField = useRef();
+
    return (
       <>
          <IconButton
             aria-label="Menu Collapse"
             icon={<HamburgerIcon />}
             display={{ base: "block", lg: "none" }}
-            pos={"absolute"}
-            top={6}
-            left={6}
             onClick={onOpen}
          />
          <Drawer
@@ -33,7 +34,7 @@ function SideBarMobile() {
             onClose={onClose}
          >
             <DrawerOverlay />
-            <DrawerContent bg={"whiteAlpha.900"}>
+            <DrawerContent bg={THEME.DASHBOARD.SIDE_BAR_BG}>
                <DrawerHeader borderBottomWidth="1px">
                   <Flex justify={"center"}>
                      <IconButton
@@ -47,7 +48,7 @@ function SideBarMobile() {
                </DrawerHeader>
 
                <DrawerBody>
-                  <SideBarContainer />
+                  <SideBarContainer collapsed={collapsed} />
                </DrawerBody>
             </DrawerContent>
          </Drawer>

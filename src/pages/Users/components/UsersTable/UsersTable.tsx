@@ -10,14 +10,14 @@ import {
 } from "firebase/firestore";
 import { UserType } from "../../../../types/UsersType";
 import { db, auth } from "../../../../services/firebase";
+import { ModalHeroDelete } from "../../../../components/Modais";
+import { ModalUserHero } from "./index";
 import {
    WrapperTable,
    WrapperTableCell,
    WrapperTableRow,
    WrapperTableTdHero,
 } from "../WrapperTable";
-import { ModalHeroDelete } from "../../../../components/Modais";
-import { ModalUserHero } from "./index";
 
 const UsersTable = () => {
    const [users, setUsers] = useState<UserType[]>([]);
@@ -55,11 +55,6 @@ const UsersTable = () => {
          }));
 
          setUsers(usersData);
-
-         console.log(
-            "name ==>",
-            usersData.map((item) => item.username)
-         );
       };
 
       filteredListUsers();
@@ -82,6 +77,7 @@ const UsersTable = () => {
                         <ModalUserHero user={props} />
 
                         <ModalHeroDelete
+                           title="Usuário"
                            user={props}
                            onHandleDelete={() => {
                               handleDeleteUser(props.id);

@@ -40,8 +40,8 @@ function SideBar({ children }: SideBarProps) {
             overflowY={"scroll"}
             p={4}
          >
-            <SideBarMobile />
             <Flex gap={2}>
+               <SideBarMobile collapsed={collapse} />
                <IconButton
                   aria-label="Menu Collapse"
                   icon={<HamburgerIcon />}
