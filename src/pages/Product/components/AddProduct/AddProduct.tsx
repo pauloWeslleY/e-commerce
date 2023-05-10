@@ -10,7 +10,7 @@ import {
    query,
 } from "firebase/firestore";
 import { Flex, useToast, useDisclosure } from "@chakra-ui/react";
-import { MdOutlineStoreMallDirectory } from "react-icons/md";
+import { HiOutlineShoppingBag } from "react-icons/hi";
 import { db } from "../../../../services/firebase";
 import { useColors } from "../../../../hooks/useColors";
 import { useLoading } from "../../../../hooks/useLoading";
@@ -183,7 +183,7 @@ function AddProduct() {
             label="Tabela de Produtos"
             title="Criar Produto"
             onOpen={navBarToggle.onOpen}
-            icon={MdOutlineStoreMallDirectory}
+            icon={HiOutlineShoppingBag}
          />
 
          <DrawerHero

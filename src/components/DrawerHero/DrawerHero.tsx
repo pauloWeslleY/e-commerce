@@ -27,7 +27,7 @@ function DrawerHero({ isOpen, onClose, children }: DrawerHeroProps) {
          <DrawerOverlay />
          <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader>Adicionar Produto</DrawerHeader>
+            <DrawerHeader>Criar Produto</DrawerHeader>
 
             <DrawerBody>{children}</DrawerBody>
          </DrawerContent>

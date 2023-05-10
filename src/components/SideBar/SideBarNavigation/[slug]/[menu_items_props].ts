@@ -1,51 +1,50 @@
 import {
-   MdOutlineSpaceDashboard,
-   MdOutlineShoppingBag,
-   MdMailOutline,
-   MdCalendarToday,
    MdOutlineNotificationsActive,
-   MdOutlineChatBubbleOutline,
+   MdOutlineCalendarMonth,
 } from "react-icons/md";
 import { BiCategoryAlt, BiUser } from "react-icons/bi";
 import { TbTool } from "react-icons/tb";
+import { HiOutlineChatBubbleBottomCenter } from "react-icons/hi2";
 import { BsGear } from "react-icons/bs";
+import { RxDashboard } from "react-icons/rx";
+import { HiOutlineMail, HiOutlineShoppingBag } from "react-icons/hi";
 import { MenuItemsProps } from "../../../../types/MenuItemsProps";
 
 const MENU_ITEMS: Array<MenuItemsProps> = [
    {
       type: "link",
       label: "Dashboard",
-      icon: MdOutlineSpaceDashboard,
+      icon: RxDashboard,
       path: "/dashboard",
    },
    {
       type: "link",
-      label: "Products",
-      icon: MdOutlineShoppingBag,
+      label: "Produtos",
+      icon: HiOutlineShoppingBag,
       path: "/dashboard/product",
    },
 
    {
       type: "link",
-      label: "Categories",
+      label: "Categorias",
       icon: BiCategoryAlt,
       path: "/dashboard/categories",
    },
    {
       type: "link",
-      label: "Calendar",
-      icon: MdCalendarToday,
+      label: "Calendário",
+      icon: MdOutlineCalendarMonth,
       path: "/",
    },
    {
       type: "link",
-      label: "Mail",
-      icon: MdMailOutline,
+      label: "Email",
+      icon: HiOutlineMail,
       path: "/",
    },
    {
       type: "link",
-      label: "Users",
+      label: "Usuários",
       icon: BiUser,
       path: "/dashboard/users",
    },
@@ -55,7 +54,7 @@ const MENU_ITEMS: Array<MenuItemsProps> = [
    },
    {
       type: "link",
-      label: "Notifications",
+      label: "Notificações",
       icon: MdOutlineNotificationsActive,
       path: "/",
       notifications: 24,
@@ -63,19 +62,19 @@ const MENU_ITEMS: Array<MenuItemsProps> = [
    {
       type: "link",
       label: "Chat",
-      icon: MdOutlineChatBubbleOutline,
+      icon: HiOutlineChatBubbleBottomCenter,
       path: "/",
       messages: 8,
    },
    {
       type: "link",
-      label: "Profile",
+      label: "Ferramentas",
       icon: TbTool,
       path: "/dashboard/profile",
    },
    {
       type: "link",
-      label: "Settings",
+      label: "Configurações",
       icon: BsGear,
       path: "/",
    },

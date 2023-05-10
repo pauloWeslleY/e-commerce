@@ -1,7 +1,8 @@
 import { Flex, Grid, GridItem } from "@chakra-ui/react";
 import { IconType } from "react-icons";
+import { RxDashboard } from "react-icons/rx";
 import { MdOutlineStoreMallDirectory } from "react-icons/md";
-import { BiCategory, BiHomeAlt2, BiUser } from "react-icons/bi";
+import { BiCategory, BiUser } from "react-icons/bi";
 import { useColors } from "../../hooks/useColors";
 import { useFetch } from "../../hooks/useFetch";
 
@@ -46,7 +47,7 @@ export function Home() {
 
    return (
       <SideBar>
-         <HeroTitleBar label={"Dashboard"} icon={BiHomeAlt2} />
+         <HeroTitleBar label={"Dashboard"} icon={RxDashboard} />
 
          <Grid
             templateColumns={{
