@@ -11,6 +11,7 @@ export function useProduct() {
    const [itemsStationeryShop, setItemsStationeryShop] = useState<
       ProductsType[]
    >([]);
+   const [itemsTechnology, setItemsTechnology] = useState<ProductsType[]>([]);
    const itemsCollectionsRef = collection(db, "items");
 
    const filteredGetItems = async () => {
@@ -27,6 +28,21 @@ export function useProduct() {
             ...doc.data(),
          })
       );
+
+      // TODO: Pega todos os items da categoria Technology
+      const filteredItemsTechnology = query(
+         itemsCollectionsRef,
+         where("category", "==", "Tecnologia"),
+         orderBy("title")
+      );
+      const querySnapshotItemsTechnology = await getDocs(
+         filteredItemsTechnology
+      );
+      const itemsTechnologyData =
+         querySnapshotItemsTechnology.docs.map<ProductsType>((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+         }));
 
       // TODO: Pega todos os items da categoria StationeryShop
       const filteredItemsStationeryShop = query(
@@ -83,6 +99,7 @@ export function useProduct() {
          ...doc.data(),
       }));
 
+      setItemsTechnology(itemsTechnologyData);
       setItemsStationeryShop(itemsStationeryShopData);
       setItemsAutomotive(itemsAutomotiveData);
       setItemsElectronics(itemsElectronicsData);
@@ -100,5 +117,6 @@ export function useProduct() {
       itemsOrchids,
       itemsAutomotive,
       itemsStationeryShop,
+      itemsTechnology,
    };
 }

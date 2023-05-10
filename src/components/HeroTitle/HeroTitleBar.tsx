@@ -8,7 +8,14 @@ function HeroTitleBar(props: NavBarProps) {
    const { THEME } = useColors();
 
    return (
-      <Box my={4} p={2} rounded={"lg"} shadow={"md"} bg={THEME.HOME.BACKGROUND}>
+      <Box
+         as={"header"}
+         my={4}
+         p={2}
+         rounded={"lg"}
+         shadow={"md"}
+         bg={THEME.HOME.BACKGROUND}
+      >
          <Flex h={16}>
             <NavTitle label={props.label} icon={props.icon} />
          </Flex>

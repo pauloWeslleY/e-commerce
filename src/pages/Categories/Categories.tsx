@@ -1,10 +1,10 @@
 import { SideBar } from "../../components/SideBar";
-import { AddCategory } from "./components/AddCategory";
+import { HeroCategories } from "./components/HeroCategories";
 
 export function Categories() {
    return (
       <SideBar>
-         <AddCategory />
+         <HeroCategories />
       </SideBar>
    );
 }

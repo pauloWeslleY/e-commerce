@@ -3,18 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Flex, Stack, useToast, chakra, Image, Text } from "@chakra-ui/react";
 import { auth, db } from "../../services/firebase";
-import { InputPassword } from "../../components/InputPassword";
-import { InputEmail } from "../../components/InputEmail";
+import { InputPassword } from "../../components/Form/InputPassword";
+import { InputEmail } from "../../components/Form/InputEmail";
 import { HeroTitle } from "../../components/HeroTitle";
 import { ButtonSign } from "../../components/Buttons";
 import { useColors } from "../../hooks/useColors";
-import { InputFooter } from "../../components/InputFooter";
-import { InputUserName } from "../../components/InputUserName";
+import { InputFooter } from "../../components/Form/InputFooter";
+import { InputUserName } from "../../components/Form/InputUserName";
 import { UserType } from "../../types/UsersType";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { Loading } from "../../components/Loading";
 import { useLoading } from "../../hooks/useLoading";
 import Logotipo from "../../assets/logo.svg";
+import { InputFieldBar } from "../../components/Form/InputBar";
+import { RiUser3Fill } from "react-icons/ri";
+import { EmailIcon } from "@chakra-ui/icons";
 
 export function Register() {
    const [username, setUserName] = useState<string>("");
@@ -132,15 +135,20 @@ export function Register() {
             >
                <chakra.form onSubmit={handleRegisterUser}>
                   <Stack spacing={4}>
-                     <InputUserName
-                        onChange={(event) => setUserName(event.target.value)}
+                     <InputFieldBar
+                        title="Nome"
+                        label="username"
+                        icon={<RiUser3Fill color="gray.300" />}
                         value={username}
-                        isRequired
+                        onChange={(event) => setUserName(event.target.value)}
                      />
-                     <InputEmail
-                        onChange={(event) => setEmail(event.target.value)}
+
+                     <InputFieldBar
+                        title="Email"
+                        label="email"
+                        icon={<EmailIcon w={4} h={4} />}
                         value={email}
-                        isRequired
+                        onChange={(event) => setEmail(event.target.value)}
                      />
 
                      <InputPassword

@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import { ButtonGroup, Td, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import {
    collection,
    deleteDoc,
@@ -11,13 +11,7 @@ import {
 import { UserType } from "../../../../types/UsersType";
 import { db, auth } from "../../../../services/firebase";
 import { ModalHeroDelete } from "../../../../components/Modais";
-import { ModalUserHero } from "./index";
-import {
-   WrapperTable,
-   WrapperTableCell,
-   WrapperTableRow,
-   WrapperTableTdHero,
-} from "../WrapperTable";
+import { WrapperTable, WrapperTableRow } from "../WrapperTable";
 
 const UsersTable = () => {
    const [users, setUsers] = useState<UserType[]>([]);
@@ -64,33 +58,20 @@ const UsersTable = () => {
       <WrapperTable>
          {users.map((props, index) => {
             return (
-               <WrapperTableRow key={index}>
-                  <WrapperTableCell>ID:</WrapperTableCell>
-                  <WrapperTableTdHero>{props.id}</WrapperTableTdHero>
-                  <WrapperTableCell>Nome</WrapperTableCell>
-                  <WrapperTableTdHero>{props.username}</WrapperTableTdHero>
-                  <WrapperTableCell>Email</WrapperTableCell>
-                  <WrapperTableTdHero>{props.email}</WrapperTableTdHero>
-                  <WrapperTableCell>Ações</WrapperTableCell>
-                  <Td>
-                     <ButtonGroup variant="solid" size="sm" spacing={3}>
-                        <ModalUserHero user={props} />
-
-                        <ModalHeroDelete
-                           title="Usuário"
-                           user={props}
-                           onHandleDelete={() => {
-                              handleDeleteUser(props.id);
-                              toast({
-                                 title: `Item com ID ${props.id} deletado`,
-                                 status: "success",
-                                 duration: 10000,
-                                 isClosable: true,
-                              });
-                           }}
-                        />
-                     </ButtonGroup>
-                  </Td>
+               <WrapperTableRow key={index} users={props}>
+                  <ModalHeroDelete
+                     title="Usuário"
+                     user={props}
+                     onHandleDelete={() => {
+                        handleDeleteUser(props.id);
+                        toast({
+                           title: `Item com ID ${props.id} deletado`,
+                           status: "success",
+                           duration: 10000,
+                           isClosable: true,
+                        });
+                     }}
+                  />
                </WrapperTableRow>
             );
          })}

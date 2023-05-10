@@ -63,7 +63,7 @@ export function useColors() {
          FORM_BACKGROUND: useColorModeValue("whiteAlpha.600", "gray.500"),
          FORM_FOOTER_BACKGROUND: useColorModeValue(
             "blackAlpha.100",
-            "gray.400"
+            "blackAlpha.400"
          ),
          FORM_LABEL_BACKGROUND: useColorModeValue("gray.700", "gray.50"),
          INPUT_BAR_PLACEHOLDER_FOCUS_COLORS: useColorModeValue(
@@ -86,10 +86,10 @@ export function useColors() {
       BUTTONS: {
          IS_BUTTON_BACKGROUND: useColorModeValue(
             "whiteAlpha.400",
-            "blackAlpha.700"
+            "blackAlpha.900"
          ),
-         IS_BUTTON_COLORS: useColorModeValue("purple.600", "purple.100"),
-         IS_BUTTON_COLORS_HOVER: useColorModeValue("purple.700", "purple.600"),
+         IS_BUTTON_COLORS: useColorModeValue("purple.600", "purple.400"),
+         IS_BUTTON_COLORS_HOVER: useColorModeValue("purple.800", "purple.600"),
       },
    };
 

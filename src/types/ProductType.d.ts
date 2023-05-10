@@ -3,7 +3,7 @@ type ProductsType = {
    title?: string;
    description?: string;
    price?: string;
-   category?: Array<string> | any;
+   category?: string;
    quantity?: number;
 };
 

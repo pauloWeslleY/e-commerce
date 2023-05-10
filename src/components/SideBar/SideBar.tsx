@@ -40,7 +40,7 @@ function SideBar({ children }: SideBarProps) {
             overflowY={"scroll"}
             p={4}
          >
-            <Flex gap={2}>
+            <Flex as={"nav"} gap={2}>
                <SideBarMobile collapsed={collapse} />
                <IconButton
                   aria-label="Menu Collapse"

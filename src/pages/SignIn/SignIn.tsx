@@ -4,16 +4,19 @@ import { Flex, Stack, Text, useToast, chakra, Image } from "@chakra-ui/react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "../../services/firebase";
-import { InputPassword } from "../../components/InputPassword";
-import { InputEmail } from "../../components/InputEmail";
+import { InputPassword } from "../../components/Form/InputPassword";
+import { InputFieldBar } from "../../components/Form/InputBar";
+import { InputFooter } from "../../components/Form/InputFooter";
 import { HeroTitle } from "../../components/HeroTitle";
 import { ButtonSign } from "../../components/Buttons";
 import { Loading } from "../../components/Loading";
-import { InputFooter } from "../../components/InputFooter";
 import { UserType } from "../../types/UsersType";
 import { useColors } from "../../hooks/useColors";
 import { useLoading } from "../../hooks/useLoading";
+// import { MdEmail } from "react-icons/md";
+import { EmailIcon, WarningIcon } from "@chakra-ui/icons";
 import Logotipo from "../../assets/logo.svg";
+import { UserIcon } from "../../components/Icons";
 
 export function SignIn() {
    const [email, setEmail] = useState<string>("");
@@ -115,7 +118,10 @@ export function SignIn() {
             >
                <chakra.form onSubmit={handleSignInUser}>
                   <Stack spacing={4}>
-                     <InputEmail
+                     <InputFieldBar
+                        title="Email"
+                        label="email"
+                        icon={<EmailIcon w={4} h={4} />}
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
                      />

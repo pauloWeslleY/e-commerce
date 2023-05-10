@@ -1,8 +1,20 @@
 import { ReactNode, memo } from "react";
 import { SimpleGrid } from "@chakra-ui/react";
 import { useColors } from "../../../../hooks/useColors";
+import { ProductsType } from "../../../../types/ProductType";
+import { ModalProductHero } from "../ModalProductHero";
+import {
+   HeroTableRowButtons,
+   HeroTableRowSpan,
+   HeroTableRowSpanID,
+} from "./index";
 
-function HeroTableColumn({ children }: { children: ReactNode }) {
+interface HeroTableColumnProps {
+   items: ProductsType;
+   children: ReactNode;
+}
+
+function HeroTableColumn({ children, items }: HeroTableColumnProps) {
    const { THEME } = useColors();
 
    return (
@@ -16,7 +28,15 @@ function HeroTableColumn({ children }: { children: ReactNode }) {
          color={THEME.DASHBOARD.TABLE_PRODUCT_ITEM_COLORS}
          alignItems={"center"}
       >
-         {children}
+         <HeroTableRowSpanID>{items.id}</HeroTableRowSpanID>
+         <HeroTableRowSpan>{items.title}</HeroTableRowSpan>
+         <HeroTableRowSpan>R${items.price}</HeroTableRowSpan>
+         <HeroTableRowSpan>{items.quantity} uni</HeroTableRowSpan>
+         <HeroTableRowSpan>{items.category}</HeroTableRowSpan>
+         <HeroTableRowButtons>
+            <ModalProductHero items={items} />
+            {children}
+         </HeroTableRowButtons>
       </SimpleGrid>
    );
 }

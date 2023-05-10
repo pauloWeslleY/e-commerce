@@ -15,7 +15,7 @@ import {
    useToast,
 } from "@chakra-ui/react";
 import { auth, db } from "../../services/firebase";
-import { InputBar } from "../../components/InputBar";
+import { InputBar } from "../../components/Form/InputBar";
 import { IsButton } from "../../components/Buttons";
 import { UserType } from "../../types/UsersType";
 

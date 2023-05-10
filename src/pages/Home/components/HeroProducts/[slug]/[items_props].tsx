@@ -1,5 +1,5 @@
-import { ModalHeroShowProducts } from "../index";
 import { useProduct } from "../../../../../hooks/useProduct";
+import { ModalHeroShowProducts } from "../../ModalHeroShowProducts";
 
 export function ItemsProps() {
    const {
@@ -7,6 +7,7 @@ export function ItemsProps() {
       itemsOrchids,
       itemsAutomotive,
       itemsStationeryShop,
+      itemsTechnology,
    } = useProduct();
 
    const ITEMS_PROPS = [
@@ -42,6 +43,13 @@ export function ItemsProps() {
                title="Papelaria"
                items={itemsStationeryShop}
             />
+         ),
+      },
+      {
+         title: "Tecnologia",
+         label: itemsTechnology.length,
+         element: (
+            <ModalHeroShowProducts title="Tecnologia" items={itemsTechnology} />
          ),
       },
    ];

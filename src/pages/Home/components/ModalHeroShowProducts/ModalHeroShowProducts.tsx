@@ -9,13 +9,15 @@ import {
    ModalBody,
    ModalCloseButton,
    useDisclosure,
+   Text,
 } from "@chakra-ui/react";
 import { BtnIcon, IsButton } from "../../../../components/Buttons";
 import { BsFillEyeFill } from "react-icons/bs";
+import { ProductsType } from "../../../../types/ProductType";
 
 type ModalHeroShowProductsProps = {
    title: string;
-   items: any;
+   items: ProductsType[];
 };
 
 function ModalHeroShowProducts(props: ModalHeroShowProductsProps) {
@@ -35,9 +37,7 @@ function ModalHeroShowProducts(props: ModalHeroShowProductsProps) {
          <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-               <ModalHeader pt={4} fontSize={"lg"} fontWeight={500}>
-                  Produtos {title} - {items.length}
-               </ModalHeader>
+               <ModalHeader>Categoria {title}</ModalHeader>
                <ModalCloseButton />
                <ModalBody>
                   <Flex
@@ -45,6 +45,9 @@ function ModalHeroShowProducts(props: ModalHeroShowProductsProps) {
                      textAlign={"center"}
                      fontWeight={500}
                   >
+                     <Text py={4} fontSize={"lg"} fontWeight={500}>
+                        Total de Produtos - {items.length}
+                     </Text>
                      {items.map((prod, index) => (
                         <span key={index}>{prod.title}</span>
                      ))}

@@ -8,6 +8,7 @@ import {
    ModalFooter,
    ModalHeader,
    ModalOverlay,
+   Text,
    useDisclosure,
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
@@ -24,7 +25,7 @@ interface ModalHeroUpdateProps {
 }
 
 function ModalHeroUpdate(props: ModalHeroUpdateProps) {
-   const { title, children, onHandleClick } = props;
+   const { title, children, onHandleClick, items, category } = props;
    const { isOpen, onOpen, onClose } = useDisclosure();
 
    return (
@@ -34,15 +35,43 @@ function ModalHeroUpdate(props: ModalHeroUpdateProps) {
             aria-label="Update item"
             icon={<EditIcon />}
             onClick={onOpen}
+            variant={"solid"}
          />
 
-         <Modal isOpen={isOpen} onClose={onClose}>
+         <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
             <ModalOverlay />
             <ModalContent>
                <ModalHeader>Atualizar {title}</ModalHeader>
 
                <ModalCloseButton />
-               <ModalBody>{children}</ModalBody>
+               <ModalBody>
+                  <Flex align={"center"} flexDir={"column"} gap={5}>
+                     <Text as={"span"} fontWeight={600}>
+                        ID:{" "}
+                        <Text
+                           display={"inline"}
+                           fontWeight={300}
+                           textTransform={"uppercase"}
+                        >
+                           {items ? <>{items.id}</> : <>{category.id}</>}
+                        </Text>
+                     </Text>
+                     <Text as={"span"} fontWeight={600}>
+                        Nome:{" "}
+                        <Text
+                           as={"p"}
+                           display={"inline"}
+                           fontFamily={"Inter"}
+                           fontSize={"xl"}
+                           fontWeight={500}
+                        >
+                           {items ? <>{items.title}</> : <>{category.title}</>}
+                        </Text>
+                     </Text>
+                  </Flex>
+
+                  {children}
+               </ModalBody>
                <ModalFooter>
                   <Flex gap={2}>
                      <IsButton
