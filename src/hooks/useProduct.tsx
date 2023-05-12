@@ -62,7 +62,7 @@ export function useProduct() {
       // TODO: Pega todos os items da categoria Electronics
       const filteredItemsElectronics = query(
          itemsCollectionsRef,
-         where("category", "==", "Electronics"),
+         where("category", "==", "Eletrônicos"),
          orderBy("title")
       );
       const querySnapshotItems = await getDocs(filteredItemsElectronics);

@@ -33,41 +33,32 @@ import {
    FormHeroProduct,
    FormStackContainer,
 } from "../HeroFormProduct";
+import { createAndUpdateProductItems } from "../../../../utils/createAndUpdateProductItems";
 
 function AddProduct() {
-   const [items, setItems] = useState<ProductsType[]>([
-      {
-         title: "",
-         description: "",
-         category: "",
-         price: "",
-         quantity: 0,
-      },
-   ]);
+   const [items, setItems] = useState<ProductsType[]>([]);
    const [title, setTitle] = useState<string>("");
    const [price, setPrice] = useState<string>("");
    const [description, setDescription] = useState<string>("");
    const [category, setCategory] = useState<string>("");
    const [quantity, setQuantity] = useState<number>(0);
-   const { THEME } = useColors();
-   const { isLoading } = useLoading();
+   const prodCollectionRef = collection(db, "items");
    const navBarToggle = useDisclosure();
    const toast = useToast();
-   const prodCollectionRef = collection(db, "items");
-
-   const prodItems: ProductsType = {
+   const { THEME } = useColors();
+   const { isLoading } = useLoading();
+   const { createProdItems, updateProdItems } = createAndUpdateProductItems({
       title,
       description,
       price,
       category,
       quantity,
-   };
+   });
 
    const handleAddItem = async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const data = query(collection(db, "items"), where("title", "==", title));
       const querySnapshot = await getDocs(data);
-
       try {
          if (title.length === 0) {
             toast({
@@ -77,8 +68,8 @@ function AddProduct() {
                isClosable: true,
             });
          } else if (querySnapshot.empty) {
-            const docRef = await addDoc(prodCollectionRef, prodItems);
-            setItems([...items, { id: docRef.id, ...prodItems }]);
+            const docRef = await addDoc(prodCollectionRef, createProdItems);
+            setItems([...items, { id: docRef.id, ...createProdItems }]);
             setTitle("");
             setPrice("");
             setDescription("");
@@ -121,9 +112,9 @@ function AddProduct() {
             });
          } else if (item && title.length !== 0) {
             const products = items.map((item) =>
-               item.id === id ? { id, ...prodItems } : item
+               item.id === id ? { id, ...updateProdItems } : item
             );
-            await updateDoc(doc(db, "items", id), prodItems);
+            await updateDoc(doc(db, "items", id), updateProdItems);
             setItems(products);
             setTitle("");
             setPrice("");

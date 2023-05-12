@@ -87,9 +87,7 @@ export function Home() {
                shadow={"lg"}
                h={"15rem"}
                p={5}
-            >
-               <h1>Section</h1>
-            </GridItem>
+            ></GridItem>
          </Grid>
       </SideBar>
    );

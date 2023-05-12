@@ -28,7 +28,7 @@ function HeroProducts() {
                   <Flex flexDir={"column"} align={"center"} gap={2} p={2}>
                      <h1>{item.title}</h1>
                      <span>{item.label}</span>
-                     {item.element}
+                     <div>{item.element}</div>
                   </Flex>
                </GridItem>
             ))}

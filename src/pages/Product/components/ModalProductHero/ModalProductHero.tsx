@@ -14,6 +14,10 @@ import {
 import { BsFillEyeFill } from "react-icons/bs";
 import { ProductsType } from "../../../../types/ProductType";
 import { BtnIcon, IsButton } from "../../../../components/Buttons";
+import { convertTimestampToDayjs } from "../../../../utils/convertTimestampToDayjs";
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
+dayjs.locale("pt-br");
 
 interface ModalProductHeroProps {
    items: ProductsType;
@@ -21,6 +25,15 @@ interface ModalProductHeroProps {
 
 function ModalProductHero({ items }: ModalProductHeroProps) {
    const { isOpen, onOpen, onClose } = useDisclosure();
+
+   const createdAt = convertTimestampToDayjs(items.createAt);
+   const today = createdAt.format("D [de] MMMM [de] YYYY [às] HH:mm");
+
+   const updatedAt = convertTimestampToDayjs(items.updateAt);
+   const dayUpdate = updatedAt.format("D [de] MMMM [de] YYYY [às] HH:mm");
+
+   const lastUpdate = items.updateAt ? `Ultima atualização: ${dayUpdate}` : "";
+
    return (
       <>
          <BtnIcon
@@ -48,6 +61,8 @@ function ModalProductHero({ items }: ModalProductHeroProps) {
                      <span>Preço: R${items.price}</span>
                      <span>Quantidade: {items.quantity} unidades</span>
                      <span>Categoria: {items.category}</span>
+                     <span>Data de criação: {today}</span>
+                     <span>{lastUpdate}</span>
                   </Stack>
                </ModalBody>
 
