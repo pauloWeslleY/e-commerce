@@ -60,7 +60,7 @@ function ModalProductHero({ items }: ModalProductHeroProps) {
                      <span>Descrição: {items.description}</span>
                      <span>Preço: R${items.price}</span>
                      <span>Quantidade: {items.quantity} unidades</span>
-                     <span>Categoria: {items.category}</span>
+                     <span>Categoria: {items.categoryId}</span>
                      <span>Data de criação: {today}</span>
                      <span>{lastUpdate}</span>
                   </Stack>

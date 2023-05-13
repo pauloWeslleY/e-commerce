@@ -32,7 +32,7 @@ function HeroTableColumn({ children, product }: HeroTableColumnProps) {
          <HeroTableRowSpan>{product.name}</HeroTableRowSpan>
          <HeroTableRowSpan>R${product.price}</HeroTableRowSpan>
          <HeroTableRowSpan>{product.quantity} uni</HeroTableRowSpan>
-         <HeroTableRowSpan>{product.category}</HeroTableRowSpan>
+         <HeroTableRowSpan>{product.categoryId}</HeroTableRowSpan>
          <HeroTableRowButtons>
             <ModalProductHero items={product} />
             {children}

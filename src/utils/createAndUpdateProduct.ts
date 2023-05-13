@@ -9,7 +9,7 @@ export const createAndUpdateProduct = ({
    name,
    description,
    price,
-   category,
+   categoryId,
    quantity,
    createAt = createdAtTimestamp,
    updateAt = updatedAtTimestamp,
@@ -18,7 +18,7 @@ export const createAndUpdateProduct = ({
       name,
       description,
       price,
-      category,
+      categoryId,
       quantity,
       createAt,
    };
@@ -27,7 +27,7 @@ export const createAndUpdateProduct = ({
       name,
       description,
       price,
-      category,
+      categoryId,
       quantity,
       updateAt,
    };

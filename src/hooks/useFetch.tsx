@@ -34,12 +34,17 @@ export function useFetch() {
       };
 
       const getProduct = async () => {
-         const data = await getDocs(productCollectionRef);
-         const items = data.docs.map<ProductsType>((doc) => ({
+         const filteredProduct = query(
+            productCollectionRef,
+            where("name", "!=", true),
+            orderBy("name", "asc")
+         );
+         const querySnapshot = await getDocs(filteredProduct);
+         const isProduct = querySnapshot.docs.map<ProductsType>((doc) => ({
             id: doc.id,
             ...doc.data(),
          }));
-         setProduct(items);
+         setProduct(isProduct);
       };
 
       const filteredCategory = async () => {
@@ -49,7 +54,7 @@ export function useFetch() {
             orderBy("name", "asc")
          );
          const querySnapshot = await getDocs(filteredCategories);
-         const isCategory = querySnapshot.docs.map<any>((doc) => ({
+         const isCategory = querySnapshot.docs.map<CategoryType>((doc) => ({
             id: doc.id,
             ...doc.data(),
          }));

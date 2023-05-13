@@ -8,6 +8,7 @@ import {
    deleteDoc,
    where,
    query,
+   orderBy,
 } from "firebase/firestore";
 import { useToast, useDisclosure } from "@chakra-ui/react";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -41,7 +42,7 @@ function CreateProduct() {
    const [name, setName] = useState<string>("");
    const [price, setPrice] = useState<string>("");
    const [description, setDescription] = useState<string>("");
-   const [category, setCategory] = useState<string>("");
+   const [categoryId, setCategoryId] = useState<string>("");
    const [quantity, setQuantity] = useState<number>(0);
    const prodCollectionRef = collection(db, "product");
    const navBarToggle = useDisclosure();
@@ -52,7 +53,7 @@ function CreateProduct() {
       name,
       description,
       price,
-      category,
+      categoryId,
       quantity,
    });
 
@@ -75,7 +76,7 @@ function CreateProduct() {
             setName("");
             setPrice("");
             setDescription("");
-            setCategory("");
+            setCategoryId("");
             setQuantity(0);
             toast({
                title: "Produto Cadastrado!",
@@ -121,7 +122,7 @@ function CreateProduct() {
             setName("");
             setPrice("");
             setDescription("");
-            setCategory("");
+            setCategoryId("");
             setQuantity(0);
             toast({
                title: "Produto Atualizado!",
@@ -154,16 +155,22 @@ function CreateProduct() {
    };
 
    useEffect(() => {
-      const getItems = async () => {
-         const data = await getDocs(prodCollectionRef);
-         const items = data.docs.map<ProductsType>((doc) => ({
+      const filteredProducts = async () => {
+         const filteredProd = query(
+            prodCollectionRef,
+            where("name", "!=", true),
+            orderBy("name", "asc")
+         );
+         const querySnapshot = await getDocs(filteredProd);
+         const allProducts = querySnapshot.docs.map<ProductsType>((doc) => ({
             id: doc.id,
             ...doc.data(),
          }));
-         setProduct(items);
+
+         setProduct(allProducts);
       };
 
-      getItems();
+      filteredProducts();
    }, []);
 
    if (isLoading) {
@@ -190,7 +197,7 @@ function CreateProduct() {
                      valuePrice={price}
                      valueDescription={description}
                      valueQuantity={quantity}
-                     valueCategory={category}
+                     valueCategoryId={categoryId}
                      onHandleChangeName={(e) => setName(e.target.value)}
                      onHandleChangePrice={(e) => setPrice(e.target.value)}
                      onHandleChangeDescription={(e) =>
@@ -199,7 +206,9 @@ function CreateProduct() {
                      onHandleChangeQuantity={(e) =>
                         setQuantity(Number(e.target.value))
                      }
-                     onHandleChangeCategory={(e) => setCategory(e.target.value)}
+                     onHandleChangeCategoryId={(e) =>
+                        setCategoryId(e.target.value)
+                     }
                   />
                </FormStack>
                <FormFooterHero onHandleClick={navBarToggle.onToggle} />
@@ -222,7 +231,7 @@ function CreateProduct() {
                               valuePrice={price}
                               valueDescription={description}
                               valueQuantity={quantity}
-                              valueCategory={category}
+                              valueCategoryId={categoryId}
                               onHandleChangeName={(e) =>
                                  setName(e.target.value)
                               }
@@ -235,8 +244,8 @@ function CreateProduct() {
                               onHandleChangeQuantity={(e) =>
                                  setQuantity(Number(e.target.value))
                               }
-                              onHandleChangeCategory={(e) =>
-                                 setCategory(e.target.value)
+                              onHandleChangeCategoryId={(e) =>
+                                 setCategoryId(e.target.value)
                               }
                            />
                         </FormStack>

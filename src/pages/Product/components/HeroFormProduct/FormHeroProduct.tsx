@@ -11,8 +11,8 @@ interface HeroFormProductProps extends InputProps {
    onHandleChangeDescription: ChangeEventHandler<HTMLInputElement>;
    valueQuantity?: number;
    onHandleChangeQuantity: ChangeEventHandler<HTMLInputElement>;
-   valueCategory?: string;
-   onHandleChangeCategory: ChangeEventHandler<HTMLSelectElement>;
+   valueCategoryId?: string;
+   onHandleChangeCategoryId: ChangeEventHandler<HTMLSelectElement>;
 }
 
 function FormHeroProduct(props: HeroFormProductProps) {
@@ -21,12 +21,12 @@ function FormHeroProduct(props: HeroFormProductProps) {
       valuePrice,
       valueDescription,
       valueQuantity,
-      valueCategory,
+      valueCategoryId,
       onHandleChangeName,
       onHandleChangePrice,
       onHandleChangeDescription,
       onHandleChangeQuantity,
-      onHandleChangeCategory,
+      onHandleChangeCategoryId,
    } = props;
 
    return (
@@ -73,8 +73,8 @@ function FormHeroProduct(props: HeroFormProductProps) {
 
          <FormSelect
             colSpan={[6, 3]}
-            value={valueCategory}
-            onChange={onHandleChangeCategory}
+            value={valueCategoryId}
+            onChange={onHandleChangeCategoryId}
          />
       </SimpleGrid>
    );

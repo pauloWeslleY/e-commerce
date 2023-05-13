@@ -15,16 +15,7 @@ export function GetHandleProduct() {
       prodAutomotive,
       prodStationeryShop,
       prodTechnology,
-      product,
    } = useProduct();
-
-   const prodCategory = product.find((prod) => {
-      console.log(prod.category);
-
-      return {
-         title: prod.category,
-      };
-   });
 
    const PRODUCT_PROPS: Array<GetProductProps> = [
       {
@@ -37,13 +28,13 @@ export function GetHandleProduct() {
             />
          ),
       },
-      // {
-      //    title: "Orquídeas",
-      //    label: prodOrchids.length,
-      //    element: (
-      //       <ModalHeroShowProducts title="Orquídeas" product={prodOrchids} />
-      //    ),
-      // },
+      {
+         title: "Orquídeas",
+         label: prodOrchids.length,
+         element: (
+            <ModalHeroShowProducts title="Orquídeas" product={prodOrchids} />
+         ),
+      },
       {
          title: "Automotivo",
          label: prodAutomotive.length,
@@ -54,26 +45,26 @@ export function GetHandleProduct() {
             />
          ),
       },
-      // {
-      //    title: "Papelaria",
-      //    label: prodStationeryShop.length,
-      //    element: (
-      //       <ModalHeroShowProducts
-      //          title="Papelaria"
-      //          product={prodStationeryShop}
-      //       />
-      //    ),
-      // },
-      // {
-      //    title: "Tecnologia",
-      //    label: prodTechnology.length,
-      //    element: (
-      //       <ModalHeroShowProducts
-      //          title="Tecnologia"
-      //          product={prodTechnology}
-      //       />
-      //    ),
-      // },
+      {
+         title: "Papelaria",
+         label: prodStationeryShop.length,
+         element: (
+            <ModalHeroShowProducts
+               title="Papelaria"
+               product={prodStationeryShop}
+            />
+         ),
+      },
+      {
+         title: "Tecnologia",
+         label: prodTechnology.length,
+         element: (
+            <ModalHeroShowProducts
+               title="Tecnologia"
+               product={prodTechnology}
+            />
+         ),
+      },
    ];
 
    return {

@@ -17,7 +17,7 @@ export function useProduct() {
    const productCollectionsRef = collection(db, "product");
 
    const filteredProducts = async () => {
-      //[] NOTE: Pega todos os items da categoria Orchids
+      //? NOTE: Pega todos os items da categoria Orchids
       const filteredProd = query(
          productCollectionsRef,
          where("category", "==", "prodCategory"),
@@ -31,7 +31,7 @@ export function useProduct() {
          })
       );
 
-      //[] NOTE: Pega todos os items da categoria Technology
+      //? NOTE: Pega todos os items da categoria Technology
       const filteredItemsTechnology = query(
          productCollectionsRef,
          where("category", "==", "Tecnologia"),
@@ -46,7 +46,7 @@ export function useProduct() {
             ...doc.data(),
          }));
 
-      //[] NOTE: Pega todos os items da categoria StationeryShop
+      //? NOTE: Pega todos os items da categoria StationeryShop
       const filteredItemsStationeryShop = query(
          productCollectionsRef,
          where("category", "==", "Papelaria"),
@@ -61,7 +61,7 @@ export function useProduct() {
             ...doc.data(),
          }));
 
-      //[] NOTE: Pega todos os items da categoria Electronics
+      //? NOTE: Pega todos os items da categoria Electronics
       const filteredItemsElectronics = query(
          productCollectionsRef,
          where("category", "==", "Eletrônicos"),
@@ -75,7 +75,7 @@ export function useProduct() {
          })
       );
 
-      //[] NOTE: Pega todos os items da categoria Automotive
+      //? NOTE: Pega todos os items da categoria Automotive
       const filteredItemsAutomotive = query(
          productCollectionsRef,
          where("category", "==", "Automotivo"),
@@ -90,7 +90,7 @@ export function useProduct() {
             ...doc.data(),
          }));
 
-      //[] NOTE: Pega todos os items da Coleção
+      //? NOTE: Pega todos os items da Coleção
       const filteredItems = query(
          productCollectionsRef,
          where("name", "!=", true)

@@ -5,7 +5,7 @@ type ProductsType = {
    name?: string;
    description?: string;
    price?: string;
-   category?: string;
+   categoryId?: string;
    quantity?: number;
    createAt?: Timestamp;
    updateAt?: Timestamp;

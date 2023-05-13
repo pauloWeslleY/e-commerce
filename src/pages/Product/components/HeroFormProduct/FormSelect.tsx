@@ -31,8 +31,8 @@ function SelectForm(props: SelectFormProps) {
             }}
             shadow={"sm"}
             size={"sm"}
-            w={"full"}
             rounded={"md"}
+            w={"full"}
          >
             {isCategories.map((props, i) => (
                <option key={i} value={props.name}>
