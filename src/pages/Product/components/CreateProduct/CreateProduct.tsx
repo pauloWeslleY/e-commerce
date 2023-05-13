@@ -9,7 +9,7 @@ import {
    where,
    query,
 } from "firebase/firestore";
-import { Flex, useToast, useDisclosure } from "@chakra-ui/react";
+import { useToast, useDisclosure } from "@chakra-ui/react";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { db } from "../../../../services/firebase";
 import { useColors } from "../../../../hooks/useColors";
@@ -26,41 +26,43 @@ import {
    HeroTableColumn,
    HeroTableHeader,
    HeroTableProductItem,
+   HeroTableWrapper,
 } from "../TableProduct";
 import {
    FormFooterHero,
    FormHeroBox,
    FormHeroProduct,
-   FormStackContainer,
+   FormStack,
 } from "../HeroFormProduct";
-import { createAndUpdateProductItems } from "../../../../utils/createAndUpdateProductItems";
+import { createAndUpdateProduct } from "../../../../utils/createAndUpdateProduct";
 
-function AddProduct() {
-   const [items, setItems] = useState<ProductsType[]>([]);
-   const [title, setTitle] = useState<string>("");
+function CreateProduct() {
+   const [product, setProduct] = useState<ProductsType[]>([]);
+   const [name, setName] = useState<string>("");
    const [price, setPrice] = useState<string>("");
    const [description, setDescription] = useState<string>("");
    const [category, setCategory] = useState<string>("");
    const [quantity, setQuantity] = useState<number>(0);
-   const prodCollectionRef = collection(db, "items");
+   const prodCollectionRef = collection(db, "product");
    const navBarToggle = useDisclosure();
    const toast = useToast();
    const { THEME } = useColors();
    const { isLoading } = useLoading();
-   const { createProdItems, updateProdItems } = createAndUpdateProductItems({
-      title,
+   const { createProduct, updateProduct } = createAndUpdateProduct({
+      name,
       description,
       price,
       category,
       quantity,
    });
 
-   const handleAddItem = async (event: FormEvent<HTMLFormElement>) => {
+   const handleCreateProduct = async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      const data = query(collection(db, "items"), where("title", "==", title));
+      const data = query(collection(db, "product"), where("name", "==", name));
       const querySnapshot = await getDocs(data);
+
       try {
-         if (title.length === 0) {
+         if (name.length === 0) {
             toast({
                title: "Preencha os campos!",
                status: "error",
@@ -68,9 +70,9 @@ function AddProduct() {
                isClosable: true,
             });
          } else if (querySnapshot.empty) {
-            const docRef = await addDoc(prodCollectionRef, createProdItems);
-            setItems([...items, { id: docRef.id, ...createProdItems }]);
-            setTitle("");
+            const docRef = await addDoc(prodCollectionRef, createProduct);
+            setProduct([...product, { id: docRef.id, ...createProduct }]);
+            setName("");
             setPrice("");
             setDescription("");
             setCategory("");
@@ -100,23 +102,23 @@ function AddProduct() {
       }
    };
 
-   const handleUpdateItem = async (id: string) => {
-      const item = items.some((item) => item.id === id);
+   const handleUpdateProduct = async (id: string) => {
+      const prodItem = product.some((prod) => prod.id === id);
       try {
-         if (title.length === 0) {
+         if (name.length === 0) {
             toast({
                title: "Preencher os campos!",
                status: "error",
                duration: 9000,
                isClosable: true,
             });
-         } else if (item && title.length !== 0) {
-            const products = items.map((item) =>
-               item.id === id ? { id, ...updateProdItems } : item
+         } else if (prodItem && name.length !== 0) {
+            const products = product.map((prod) =>
+               prod.id === id ? { id, ...updateProduct } : prod
             );
-            await updateDoc(doc(db, "items", id), updateProdItems);
-            setItems(products);
-            setTitle("");
+            await updateDoc(doc(db, "items", id), updateProduct);
+            setProduct(products);
+            setName("");
             setPrice("");
             setDescription("");
             setCategory("");
@@ -147,8 +149,8 @@ function AddProduct() {
    };
 
    const handleDelete = async (id: string) => {
-      await deleteDoc(doc(db, "items", id));
-      setItems(items.filter((item) => item.id !== id));
+      await deleteDoc(doc(db, "product", id));
+      setProduct(product.filter((prod) => prod.id !== id));
    };
 
    useEffect(() => {
@@ -158,7 +160,7 @@ function AddProduct() {
             id: doc.id,
             ...doc.data(),
          }));
-         setItems(items);
+         setProduct(items);
       };
 
       getItems();
@@ -181,15 +183,15 @@ function AddProduct() {
             isOpen={navBarToggle.isOpen}
             onClose={navBarToggle.onClose}
          >
-            <FormHeroBox onHandleSubmit={handleAddItem}>
-               <FormStackContainer bg={THEME.DASHBOARD.FORM_BACKGROUND}>
+            <FormHeroBox onHandleSubmit={handleCreateProduct}>
+               <FormStack bg={THEME.DASHBOARD.FORM_BACKGROUND}>
                   <FormHeroProduct
-                     valueTitle={title}
+                     valueName={name}
                      valuePrice={price}
                      valueDescription={description}
                      valueQuantity={quantity}
                      valueCategory={category}
-                     onHandleChangeTitle={(e) => setTitle(e.target.value)}
+                     onHandleChangeName={(e) => setName(e.target.value)}
                      onHandleChangePrice={(e) => setPrice(e.target.value)}
                      onHandleChangeDescription={(e) =>
                         setDescription(e.target.value)
@@ -199,36 +201,30 @@ function AddProduct() {
                      }
                      onHandleChangeCategory={(e) => setCategory(e.target.value)}
                   />
-               </FormStackContainer>
+               </FormStack>
                <FormFooterHero onHandleClick={navBarToggle.onToggle} />
             </FormHeroBox>
          </DrawerHero>
 
          <HeroTableProductItem>
-            {items.map((props, i) => (
-               <Flex
-                  key={`${props.id}${i}`}
-                  flexDir={{ base: "row", md: "column" }}
-                  bg={THEME.DASHBOARD.TABLE_PRODUCT_LINE_BG}
-               >
+            {product.map((props, i) => (
+               <HeroTableWrapper key={`${props.id}${i}`}>
                   <HeroTableHeader />
-                  <HeroTableColumn items={props}>
+                  <HeroTableColumn product={props}>
                      <ModalHeroUpdate
                         title="Produto"
                         items={props}
-                        onHandleClick={() => handleUpdateItem(props.id)}
+                        onHandleClick={() => handleUpdateProduct(props.id)}
                      >
-                        <FormStackContainer
-                           bg={THEME.DASHBOARD.POPOVER_BACKGROUND}
-                        >
+                        <FormStack bg={THEME.DASHBOARD.POPOVER_BACKGROUND}>
                            <FormHeroProduct
-                              valueTitle={title}
+                              valueName={name}
                               valuePrice={price}
                               valueDescription={description}
                               valueQuantity={quantity}
                               valueCategory={category}
-                              onHandleChangeTitle={(e) =>
-                                 setTitle(e.target.value)
+                              onHandleChangeName={(e) =>
+                                 setName(e.target.value)
                               }
                               onHandleChangePrice={(e) =>
                                  setPrice(e.target.value)
@@ -243,7 +239,7 @@ function AddProduct() {
                                  setCategory(e.target.value)
                               }
                            />
-                        </FormStackContainer>
+                        </FormStack>
                      </ModalHeroUpdate>
 
                      <ModalHeroDelete
@@ -252,7 +248,7 @@ function AddProduct() {
                         onHandleDelete={() => {
                            handleDelete(props.id);
                            toast({
-                              title: `Item ${props.title} deletado`,
+                              title: `Item ${props.name} deletado`,
                               status: "success",
                               duration: 10000,
                               isClosable: true,
@@ -260,11 +256,11 @@ function AddProduct() {
                         }}
                      />
                   </HeroTableColumn>
-               </Flex>
+               </HeroTableWrapper>
             ))}
          </HeroTableProductItem>
       </>
    );
 }
 
-export default memo(AddProduct);
+export default memo(CreateProduct);

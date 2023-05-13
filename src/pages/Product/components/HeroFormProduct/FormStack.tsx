@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
+import { ReactNode, memo } from "react";
 import { Stack, StackProps } from "@chakra-ui/react";
 
-interface StackContainerFormProps extends StackProps {
+interface FormStackProps extends StackProps {
    bg: string;
    children: ReactNode;
 }
 
-function StackContainerForm(props: StackContainerFormProps) {
+function FormStack(props: FormStackProps) {
    const { children, bg, ...rest } = props;
 
    return (
@@ -16,4 +16,4 @@ function StackContainerForm(props: StackContainerFormProps) {
    );
 }
 
-export default StackContainerForm;
+export default memo(FormStack);

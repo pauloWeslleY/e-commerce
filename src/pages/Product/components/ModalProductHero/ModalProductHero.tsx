@@ -45,7 +45,7 @@ function ModalProductHero({ items }: ModalProductHeroProps) {
          <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-               <ModalHeader>{items.title}</ModalHeader>
+               <ModalHeader>{items.name}</ModalHeader>
                <ModalCloseButton />
                <ModalBody>
                   <Stack
@@ -56,7 +56,7 @@ function ModalProductHero({ items }: ModalProductHeroProps) {
                      textAlign={"center"}
                   >
                      <Box textTransform={"uppercase"}>ID: {items.id}</Box>
-                     <span>Nome: {items.title}</span>
+                     <span>Nome: {items.name}</span>
                      <span>Descrição: {items.description}</span>
                      <span>Preço: R${items.price}</span>
                      <span>Quantidade: {items.quantity} unidades</span>

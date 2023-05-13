@@ -3,7 +3,7 @@ import { useColorModeValue } from "@chakra-ui/react";
 export function useColors() {
    const THEME = {
       BACKGROUND: useColorModeValue("gray.50", "gray.700"),
-      TEXT_COLORS: useColorModeValue("gray.500", "gray.50"),
+      TEXT_COLORS: useColorModeValue("gray.500", "whiteAlpha.800"),
       SPAN_COLORS: useColorModeValue("blackAlpha.700", "whiteAlpha.900"),
 
       SIGN_IN: {
@@ -25,14 +25,14 @@ export function useColors() {
       },
 
       DASHBOARD: {
-         BACKGROUND: useColorModeValue("blackAlpha.100", "gray.500"),
+         BACKGROUND: useColorModeValue("blackAlpha.100", "gray.600"),
          TEXT_COLORS: useColorModeValue("gray.500", "gray.50"),
          BORDER_RIGHT_COLORS: useColorModeValue("gray.200", "gray.700"),
 
          /*
             ! NOTE: SideBar Colors
          */
-         SIDE_BAR_BG: useColorModeValue("gray.300", "gray.800"),
+         SIDE_BAR_BG: useColorModeValue("blackAlpha.300", "gray.900"),
          SIDE_BAR_COLORS: useColorModeValue("purple.600", "purple.400"),
          SIDE_BAR_TITLE_COLORS: useColorModeValue("purple.700", "purple.100"),
          SIDEBAR_AVATAR_HERO_BORDER_COLORS: useColorModeValue(
@@ -43,29 +43,29 @@ export function useColors() {
          MOBILE_NAV_BG: useColorModeValue("whiteAlpha.900", "gray.700"),
          BORDER_COLOR_MOBILE_BG: useColorModeValue("purple.100", "purple.700"),
 
-         TABLE_PRODUCT_ITEM_BG: useColorModeValue("blackAlpha.200", "gray.700"),
-         TABLE_PRODUCT_TITLE_BG: useColorModeValue("gray.100", "gray.700"),
-         TABLE_PRODUCT_LINE_BG: useColorModeValue("whiteAlpha.600", "gray.500"),
+         //! TABLE COLORS
+         TABLE_PRODUCT_HEADER_BG: useColorModeValue(
+            "blackAlpha.200",
+            "gray.800"
+         ),
+         TABLE_PRODUCT_LINE_BG: useColorModeValue("whiteAlpha.600", "gray.600"),
          TABLE_PRODUCT_TITLE_COLORS: useColorModeValue(
             "purple.900",
             "whiteAlpha.800"
          ),
-         TABLE_PRODUCT_ITEM_COLORS: useColorModeValue(
-            "purple.800",
-            "purple.700"
-         ),
+         TABLE_PRODUCT_COLORS: useColorModeValue("purple.800", "purple.700"),
 
          POPOVER_BACKGROUND: useColorModeValue("whiteAlpha.600", "gray.700"),
 
          /*
             ! NOTE: Form Colors
          */
-         FORM_BACKGROUND: useColorModeValue("whiteAlpha.600", "gray.500"),
+         FORM_BACKGROUND: useColorModeValue("whiteAlpha.600", "gray.600"),
          FORM_FOOTER_BACKGROUND: useColorModeValue(
             "blackAlpha.100",
             "blackAlpha.400"
          ),
-         FORM_LABEL_BACKGROUND: useColorModeValue("gray.700", "gray.50"),
+         FORM_LABEL_BACKGROUND: useColorModeValue("gray.700", "whiteAlpha.900"),
          INPUT_BAR_PLACEHOLDER_FOCUS_COLORS: useColorModeValue(
             "purple.700",
             "purple.800"
@@ -79,7 +79,9 @@ export function useColors() {
          MENU_LIST_BORDER_COLORS: useColorModeValue("purple.100", "purple.700"),
       },
 
-      TABLE: {
+      TABLE_USERS: {
+         TABLE_BACKGROUND: useColorModeValue("transparent", "gray.600"),
+         TABLE_TITLE_COLORS: useColorModeValue("purple.800", "purple.300"),
          TABLE_TEXT_COLORS: useColorModeValue("purple.800", "purple.600"),
       },
 

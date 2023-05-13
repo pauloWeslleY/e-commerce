@@ -3,8 +3,8 @@ import { InputProps, SimpleGrid } from "@chakra-ui/react";
 import { FormInputField, FormSelect } from "./index";
 
 interface HeroFormProductProps extends InputProps {
-   valueTitle?: string;
-   onHandleChangeTitle: ChangeEventHandler<HTMLInputElement>;
+   valueName?: string;
+   onHandleChangeName: ChangeEventHandler<HTMLInputElement>;
    valuePrice?: string;
    onHandleChangePrice: ChangeEventHandler<HTMLInputElement>;
    valueDescription?: string;
@@ -17,12 +17,12 @@ interface HeroFormProductProps extends InputProps {
 
 function FormHeroProduct(props: HeroFormProductProps) {
    const {
-      valueTitle,
+      valueName,
       valuePrice,
       valueDescription,
       valueQuantity,
       valueCategory,
-      onHandleChangeTitle,
+      onHandleChangeName,
       onHandleChangePrice,
       onHandleChangeDescription,
       onHandleChangeQuantity,
@@ -37,8 +37,8 @@ function FormHeroProduct(props: HeroFormProductProps) {
             type="text"
             colSpan={[6, 3]}
             placeholder="Digite o nome do produto"
-            value={valueTitle}
-            onChange={onHandleChangeTitle}
+            value={valueName}
+            onChange={onHandleChangeName}
          />
 
          <FormInputField

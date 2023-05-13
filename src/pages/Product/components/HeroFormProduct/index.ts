@@ -1,7 +1,7 @@
 import FormInputField from "./FormInputField";
 import FormSelect from "./FormSelect";
 import FormHeroBox from "./FormHeroBox";
-import FormStackContainer from "./FormStackContainer";
+import FormStack from "./FormStack";
 import FormHeroProduct from "./FormHeroProduct";
 import FormFooterHero from "./FormFooterHero";
 
@@ -9,7 +9,7 @@ export {
    FormHeroProduct,
    FormInputField,
    FormSelect,
-   FormStackContainer,
+   FormStack,
    FormHeroBox,
    FormFooterHero,
 };

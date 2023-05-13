@@ -65,7 +65,7 @@ function ModalHeroUpdate(props: ModalHeroUpdateProps) {
                            fontSize={"xl"}
                            fontWeight={500}
                         >
-                           {items ? <>{items.title}</> : <>{category.title}</>}
+                           {items ? <>{items.name}</> : <>{category.title}</>}
                         </Text>
                      </Text>
                   </Flex>

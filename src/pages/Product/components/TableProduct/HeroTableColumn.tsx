@@ -10,11 +10,11 @@ import {
 } from "./index";
 
 interface HeroTableColumnProps {
-   items: ProductsType;
+   product: ProductsType;
    children: ReactNode;
 }
 
-function HeroTableColumn({ children, items }: HeroTableColumnProps) {
+function HeroTableColumn({ children, product }: HeroTableColumnProps) {
    const { THEME } = useColors();
 
    return (
@@ -22,19 +22,19 @@ function HeroTableColumn({ children, items }: HeroTableColumnProps) {
          spacingY={3}
          columns={{ base: 1, md: 6 }}
          w={"full"}
-         py={2}
+         py={3}
          px={6}
          fontWeight={400}
-         color={THEME.DASHBOARD.TABLE_PRODUCT_ITEM_COLORS}
          alignItems={"center"}
+         color={THEME.DASHBOARD.TABLE_PRODUCT_COLORS}
       >
-         <HeroTableRowSpanID>{items.id}</HeroTableRowSpanID>
-         <HeroTableRowSpan>{items.title}</HeroTableRowSpan>
-         <HeroTableRowSpan>R${items.price}</HeroTableRowSpan>
-         <HeroTableRowSpan>{items.quantity} uni</HeroTableRowSpan>
-         <HeroTableRowSpan>{items.category}</HeroTableRowSpan>
+         <HeroTableRowSpanID>{product.id}</HeroTableRowSpanID>
+         <HeroTableRowSpan>{product.name}</HeroTableRowSpan>
+         <HeroTableRowSpan>R${product.price}</HeroTableRowSpan>
+         <HeroTableRowSpan>{product.quantity} uni</HeroTableRowSpan>
+         <HeroTableRowSpan>{product.category}</HeroTableRowSpan>
          <HeroTableRowButtons>
-            <ModalProductHero items={items} />
+            <ModalProductHero items={product} />
             {children}
          </HeroTableRowButtons>
       </SimpleGrid>

@@ -57,7 +57,7 @@ export function Register() {
                duration: 9000,
                isClosable: true,
             });
-            navigate("/");
+            // navigate("/");
 
             return user;
          } else {
@@ -155,7 +155,18 @@ export function Register() {
                         isRequired
                      />
                      <Stack spacing={10} pt={2}>
-                        <ButtonSign title="Cadastrar" type="submit" />
+                        <ButtonSign
+                           title="Cadastrar"
+                           type="submit"
+                           isDisabled={email.length === 0}
+                           isLoading={email.length === 0}
+                           loadingText={
+                              email.length === 0 ? "Cadastrar" : "Carregando"
+                           }
+                           spinnerPlacement={
+                              email.length === 0 ? null : "start"
+                           }
+                        />
                      </Stack>
                      <InputFooter
                         label="Você já tem conta?"

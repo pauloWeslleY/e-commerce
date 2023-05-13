@@ -14,9 +14,8 @@ import { UserType } from "../../types/UsersType";
 import { useColors } from "../../hooks/useColors";
 import { useLoading } from "../../hooks/useLoading";
 // import { MdEmail } from "react-icons/md";
-import { EmailIcon, WarningIcon } from "@chakra-ui/icons";
+import { EmailIcon } from "@chakra-ui/icons";
 import Logotipo from "../../assets/logo.svg";
-import { UserIcon } from "../../components/Icons";
 
 export function SignIn() {
    const [email, setEmail] = useState<string>("");
@@ -132,7 +131,18 @@ export function SignIn() {
                      />
 
                      <Stack pt={2}>
-                        <ButtonSign title="Entrar" type="submit" />
+                        <ButtonSign
+                           title="Entrar"
+                           type="submit"
+                           isDisabled={email.length === 0}
+                           isLoading={email.length === 0}
+                           loadingText={
+                              email.length === 0 ? "Entrar" : "Carregando"
+                           }
+                           spinnerPlacement={
+                              email.length === 0 ? null : "start"
+                           }
+                        />
                      </Stack>
                   </Stack>
                </chakra.form>

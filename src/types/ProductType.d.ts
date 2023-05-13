@@ -2,7 +2,7 @@ import { Timestamp } from "firebase/firestore";
 
 type ProductsType = {
    id?: string;
-   title?: string;
+   name?: string;
    description?: string;
    price?: string;
    category?: string;

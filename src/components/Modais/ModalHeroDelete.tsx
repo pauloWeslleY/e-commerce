@@ -65,7 +65,7 @@ function ModalHeroDelete(props: ModalHeroDeleteProps) {
                      {items ? (
                         <Box as={"p"} py={4} fontSize={"lg"}>
                            <span>
-                              {title}: {items.title}
+                              {title}: {items.name}
                            </span>
                         </Box>
                      ) : (

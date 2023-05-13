@@ -8,7 +8,7 @@ function HeroTableProductItem({ children }: { children: ReactNode }) {
    return (
       <Stack
          direction={{ base: "column" }}
-         bg={{ md: THEME.DASHBOARD.TABLE_PRODUCT_LINE_BG }}
+         bg={THEME.DASHBOARD.TABLE_PRODUCT_LINE_BG}
          w={"full"}
          as={"section"}
       >

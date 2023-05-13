@@ -17,11 +17,11 @@ import { ProductsType } from "../../../../types/ProductType";
 
 type ModalHeroShowProductsProps = {
    title: string;
-   items: ProductsType[];
+   product?: ProductsType[];
 };
 
 function ModalHeroShowProducts(props: ModalHeroShowProductsProps) {
-   const { items, title } = props;
+   const { product, title } = props;
    const { isOpen, onOpen, onClose } = useDisclosure();
 
    return (
@@ -46,10 +46,10 @@ function ModalHeroShowProducts(props: ModalHeroShowProductsProps) {
                      fontWeight={500}
                   >
                      <Text py={4} fontSize={"lg"} fontWeight={500}>
-                        Total de Produtos - {items.length}
+                        Total de Produtos - {product.length}
                      </Text>
-                     {items.map((prod, index) => (
-                        <span key={index}>{prod.title}</span>
+                     {product.map((prod, index) => (
+                        <span key={index}>{prod.name}</span>
                      ))}
                   </Flex>
                </ModalBody>

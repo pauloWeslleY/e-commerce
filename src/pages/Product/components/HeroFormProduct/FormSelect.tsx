@@ -4,7 +4,7 @@ import { useColors } from "../../../../hooks/useColors";
 import { useFetch } from "../../../../hooks/useFetch";
 
 interface SelectFormProps extends SelectProps {
-   colSpan: any;
+   colSpan: number[];
 }
 
 function SelectForm(props: SelectFormProps) {
@@ -35,8 +35,8 @@ function SelectForm(props: SelectFormProps) {
             rounded={"md"}
          >
             {isCategories.map((props, i) => (
-               <option key={i} value={props.title}>
-                  {props.title}
+               <option key={i} value={props.name}>
+                  {props.name}
                </option>
             ))}
          </Select>

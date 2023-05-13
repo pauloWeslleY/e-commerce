@@ -8,10 +8,10 @@ function HeroUsersList() {
    const { THEME } = useColors();
 
    return (
-      <Flex as={"section"} flexDir={"column"} p={1}>
+      <Flex as={"section"} flexDir={"column"} px={8} py={4}>
          <Stack py={2}>
             <Text as={"h2"} fontSize={"2xl"} fontWeight={500}>
-               Usuários
+               Usuários Cadastrado
             </Text>
          </Stack>
          <Flex

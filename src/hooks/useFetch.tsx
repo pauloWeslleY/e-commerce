@@ -6,12 +6,12 @@ import { CategoryType } from "../types/CategoryType";
 import { UserType } from "../types/UsersType";
 
 export function useFetch() {
-   const [items, setItems] = useState<ProductsType[]>([]);
+   const [product, setProduct] = useState<ProductsType[]>([]);
    const [categories, setCategories] = useState<CategoryType[]>([]);
    const [isCategories, setIsCategories] = useState<CategoryType[]>([]);
    const [users, setUsers] = useState<UserType[]>([]);
    const usersCollectionRef = collection(db, "users");
-   const itemsCollectionRef = collection(db, "items");
+   const productCollectionRef = collection(db, "product");
    const categoryCollectionRef = collection(db, "categories");
 
    useEffect(() => {
@@ -33,22 +33,22 @@ export function useFetch() {
          setCategories(category);
       };
 
-      const getItems = async () => {
-         const data = await getDocs(itemsCollectionRef);
+      const getProduct = async () => {
+         const data = await getDocs(productCollectionRef);
          const items = data.docs.map<ProductsType>((doc) => ({
             id: doc.id,
             ...doc.data(),
          }));
-         setItems(items);
+         setProduct(items);
       };
 
       const filteredCategory = async () => {
-         const filteredUsers = query(
+         const filteredCategories = query(
             categoryCollectionRef,
-            where("title", "!=", true),
-            orderBy("title", "asc")
+            where("name", "!=", true),
+            orderBy("name", "asc")
          );
-         const querySnapshot = await getDocs(filteredUsers);
+         const querySnapshot = await getDocs(filteredCategories);
          const isCategory = querySnapshot.docs.map<any>((doc) => ({
             id: doc.id,
             ...doc.data(),
@@ -58,13 +58,13 @@ export function useFetch() {
       };
 
       getCategories();
-      getItems();
+      getProduct();
       getUsers();
       filteredCategory();
    }, []);
 
    return {
-      items,
+      product,
       categories,
       users,
       isCategories,

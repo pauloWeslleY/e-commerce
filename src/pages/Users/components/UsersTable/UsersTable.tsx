@@ -56,25 +56,23 @@ const UsersTable = () => {
 
    return (
       <WrapperTable>
-         {users.map((props, index) => {
-            return (
-               <WrapperTableRow key={index} users={props}>
-                  <ModalHeroDelete
-                     title="Usuário"
-                     user={props}
-                     onHandleDelete={() => {
-                        handleDeleteUser(props.id);
-                        toast({
-                           title: `Item com ID ${props.id} deletado`,
-                           status: "success",
-                           duration: 10000,
-                           isClosable: true,
-                        });
-                     }}
-                  />
-               </WrapperTableRow>
-            );
-         })}
+         {users.map((props, index) => (
+            <WrapperTableRow key={index} users={props}>
+               <ModalHeroDelete
+                  title="Usuário"
+                  user={props}
+                  onHandleDelete={() => {
+                     handleDeleteUser(props.id);
+                     toast({
+                        title: `Item com ID ${props.id} deletado`,
+                        status: "success",
+                        duration: 10000,
+                        isClosable: true,
+                     });
+                  }}
+               />
+            </WrapperTableRow>
+         ))}
       </WrapperTable>
    );
 };

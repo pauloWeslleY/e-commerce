@@ -1,8 +1,8 @@
 import { ReactNode, memo } from "react";
 import { ButtonGroup, Td, Tr } from "@chakra-ui/react";
 import { UserType } from "../../../../types/UsersType";
-import { WrapperTableCell, WrapperTableTdHero } from "./index";
 import { ModalUserHero } from "../ModalUserHero";
+import { WrapperTableCell, WrapperTableTdHero } from "./index";
 
 interface WrapperTableRowProps {
    users: UserType;

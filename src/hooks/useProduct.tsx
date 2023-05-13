@@ -4,36 +4,38 @@ import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../services/firebase";
 
 export function useProduct() {
-   const [items, setItems] = useState<ProductsType[]>([]);
-   const [itemsElectronics, setItemsElectronics] = useState<ProductsType[]>([]);
-   const [itemsOrchids, setItemsOrchids] = useState<ProductsType[]>([]);
-   const [itemsAutomotive, setItemsAutomotive] = useState<ProductsType[]>([]);
-   const [itemsStationeryShop, setItemsStationeryShop] = useState<
+   const [product, setProduct] = useState<ProductsType[]>([]);
+   const [prodOrchids, setProductOrchids] = useState<ProductsType[]>([]);
+   const [prodAutomotive, setProductAutomotive] = useState<ProductsType[]>([]);
+   const [prodTechnology, setProductTechnology] = useState<ProductsType[]>([]);
+   const [prodStationeryShop, setProductStationeryShop] = useState<
       ProductsType[]
    >([]);
-   const [itemsTechnology, setItemsTechnology] = useState<ProductsType[]>([]);
-   const itemsCollectionsRef = collection(db, "items");
+   const [prodElectronics, setProductElectronics] = useState<ProductsType[]>(
+      []
+   );
+   const productCollectionsRef = collection(db, "product");
 
-   const filteredGetItems = async () => {
-      // TODO: Pega todos os items da categoria Orchids
-      const filteredItemsOrchids = query(
-         itemsCollectionsRef,
-         where("category", "==", "Orquídeas"),
-         orderBy("title")
+   const filteredProducts = async () => {
+      //[] NOTE: Pega todos os items da categoria Orchids
+      const filteredProd = query(
+         productCollectionsRef,
+         where("category", "==", "prodCategory"),
+         orderBy("name")
       );
-      const querySnapshotItemsOrchids = await getDocs(filteredItemsOrchids);
-      const itemsOrchidsData = querySnapshotItemsOrchids.docs.map<ProductsType>(
+      const querySnapshotProduct = await getDocs(filteredProd);
+      const productData = querySnapshotProduct.docs.map<ProductsType>(
          (doc) => ({
             id: doc.id,
             ...doc.data(),
          })
       );
 
-      // TODO: Pega todos os items da categoria Technology
+      //[] NOTE: Pega todos os items da categoria Technology
       const filteredItemsTechnology = query(
-         itemsCollectionsRef,
+         productCollectionsRef,
          where("category", "==", "Tecnologia"),
-         orderBy("title")
+         orderBy("name")
       );
       const querySnapshotItemsTechnology = await getDocs(
          filteredItemsTechnology
@@ -44,11 +46,11 @@ export function useProduct() {
             ...doc.data(),
          }));
 
-      // TODO: Pega todos os items da categoria StationeryShop
+      //[] NOTE: Pega todos os items da categoria StationeryShop
       const filteredItemsStationeryShop = query(
-         itemsCollectionsRef,
+         productCollectionsRef,
          where("category", "==", "Papelaria"),
-         orderBy("title")
+         orderBy("name")
       );
       const querySnapshotItemsStationeryShop = await getDocs(
          filteredItemsStationeryShop
@@ -59,11 +61,11 @@ export function useProduct() {
             ...doc.data(),
          }));
 
-      // TODO: Pega todos os items da categoria Electronics
+      //[] NOTE: Pega todos os items da categoria Electronics
       const filteredItemsElectronics = query(
-         itemsCollectionsRef,
+         productCollectionsRef,
          where("category", "==", "Eletrônicos"),
-         orderBy("title")
+         orderBy("name")
       );
       const querySnapshotItems = await getDocs(filteredItemsElectronics);
       const itemsElectronicsData = querySnapshotItems.docs.map<ProductsType>(
@@ -73,11 +75,11 @@ export function useProduct() {
          })
       );
 
-      // TODO: Pega todos os items da categoria Automotive
+      //[] NOTE: Pega todos os items da categoria Automotive
       const filteredItemsAutomotive = query(
-         itemsCollectionsRef,
+         productCollectionsRef,
          where("category", "==", "Automotivo"),
-         orderBy("title")
+         orderBy("name")
       );
       const querySnapshotItemsAutomotive = await getDocs(
          filteredItemsAutomotive
@@ -88,10 +90,10 @@ export function useProduct() {
             ...doc.data(),
          }));
 
-      // TODO: Pega todos os items da Coleção
+      //[] NOTE: Pega todos os items da Coleção
       const filteredItems = query(
-         itemsCollectionsRef,
-         where("title", "!=", true)
+         productCollectionsRef,
+         where("name", "!=", true)
       );
       const querySnapshot = await getDocs(filteredItems);
       const itemsData = querySnapshot.docs.map<ProductsType>((doc) => ({
@@ -99,24 +101,24 @@ export function useProduct() {
          ...doc.data(),
       }));
 
-      setItemsTechnology(itemsTechnologyData);
-      setItemsStationeryShop(itemsStationeryShopData);
-      setItemsAutomotive(itemsAutomotiveData);
-      setItemsElectronics(itemsElectronicsData);
-      setItemsOrchids(itemsOrchidsData);
-      setItems(itemsData);
+      setProductTechnology(itemsTechnologyData);
+      setProductStationeryShop(itemsStationeryShopData);
+      setProductAutomotive(itemsAutomotiveData);
+      setProductElectronics(itemsElectronicsData);
+      setProductOrchids(productData);
+      setProduct(itemsData);
    };
 
    useEffect(() => {
-      filteredGetItems();
+      filteredProducts();
    }, []);
 
    return {
-      items,
-      itemsElectronics,
-      itemsOrchids,
-      itemsAutomotive,
-      itemsStationeryShop,
-      itemsTechnology,
+      product,
+      prodElectronics,
+      prodOrchids,
+      prodAutomotive,
+      prodStationeryShop,
+      prodTechnology,
    };
 }

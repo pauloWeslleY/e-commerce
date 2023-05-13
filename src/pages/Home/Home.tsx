@@ -1,34 +1,26 @@
 import { Flex, Grid, GridItem } from "@chakra-ui/react";
-import { IconType } from "react-icons";
 import { RxDashboard } from "react-icons/rx";
-import { MdOutlineStoreMallDirectory } from "react-icons/md";
 import { BiCategory, BiUser } from "react-icons/bi";
+import { HiOutlineShoppingBag } from "react-icons/hi";
 import { useColors } from "../../hooks/useColors";
 import { useFetch } from "../../hooks/useFetch";
-
 import { CardStatistic } from "./components/CardStatistic";
 import { TableListItems } from "./components/TableListItems";
 import { SideBar } from "../../components/SideBar";
 import { HeroTitleBar } from "../../components/HeroTitle";
 import { useProduct } from "../../hooks/useProduct";
-
-interface CardsHomeProps {
-   icon: IconType;
-   title: string;
-   subtitle: any;
-   background: string;
-}
+import { CardsHomeType } from "../../types/CardsHomeType";
 
 export function Home() {
    const { categories, users } = useFetch();
-   const { items } = useProduct();
+   const { product } = useProduct();
    const { THEME } = useColors();
 
-   const CARDS_HOME_PROPS: Array<CardsHomeProps> = [
+   const CARDS_HOME_PROPS: Array<CardsHomeType> = [
       {
-         icon: MdOutlineStoreMallDirectory,
-         title: "Produtos ",
-         subtitle: items.length,
+         icon: HiOutlineShoppingBag,
+         title: "Produtos",
+         subtitle: product.length,
          background: THEME.HOME.CARDS_STATISTIC_BG_PROD,
       },
       {
@@ -60,12 +52,7 @@ export function Home() {
             {CARDS_HOME_PROPS.map((props, index) => (
                <GridItem key={`${props.icon}${index}`} colSpan={{ lg: 4 }}>
                   <Flex>
-                     <CardStatistic
-                        icon={props.icon}
-                        title={props.title}
-                        subtitle={props.subtitle}
-                        background={props.background}
-                     />
+                     <CardStatistic cards={props} />
                   </Flex>
                </GridItem>
             ))}

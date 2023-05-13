@@ -1,22 +1,18 @@
 import { memo } from "react";
 import { Flex, Heading, Icon, Stack, Text } from "@chakra-ui/react";
-import { IconType } from "react-icons";
 import { useColors } from "../../../../hooks/useColors";
+import { CardsHomeType } from "../../../../types/CardsHomeType";
 
-interface CardsTypeProps {
-   title: string;
-   subtitle: any;
-   icon: IconType;
-   background: string;
+interface CardStatisticProps {
+   cards: CardsHomeType;
 }
 
-function CardStatistic(props: CardsTypeProps) {
-   const { title, subtitle, icon, background } = props;
+function CardStatistic({ cards }: CardStatisticProps) {
+   const { title, subtitle, icon, background } = cards;
    const { THEME } = useColors();
 
    return (
       <Stack
-         borderWidth={"1px"}
          borderRadius={"lg"}
          w={"full"}
          height={{ base: "10rem", md: "12rem" }}

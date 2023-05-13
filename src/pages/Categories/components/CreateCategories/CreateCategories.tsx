@@ -29,29 +29,29 @@ import {
    ModalHeroUpdate,
 } from "../../../../components/Modais";
 
-function HeroCategories() {
+function CreateCategories() {
    const [category, setCategory] = useState<CategoryType[]>([]);
-   const [title, setTitle] = useState<string>("");
+   const [name, setName] = useState<string>("");
 
    const navBarToggle = useDisclosure();
    const cateCollectionRef = collection(db, "categories");
    const toast = useToast();
 
    const isCategory: CategoryType = {
-      title,
+      name,
    };
 
-   const handleAddCategory = async (event: FormEvent<HTMLFormElement>) => {
+   const handleCreateCategory = async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
       try {
          const data = query(
             collection(db, "category"),
-            where("title", "==", title)
+            where("name", "==", name)
          );
          const querySnapshot = await getDocs(data);
 
-         if (title.length === 0) {
+         if (name.length === 0) {
             toast({
                title: "Preencha os campos!",
                status: "error",
@@ -61,8 +61,7 @@ function HeroCategories() {
          } else if (querySnapshot.empty) {
             const docRef = await addDoc(cateCollectionRef, isCategory);
             setCategory([...category, { id: docRef.id, ...isCategory }]);
-            setTitle("");
-
+            setName("");
             toast({
                title: "Categoria Cadastrada!",
                status: "success",
@@ -92,20 +91,20 @@ function HeroCategories() {
       try {
          const categoryId = category.some((props) => props.id === id);
 
-         if (title.length === 0) {
+         if (name.length === 0) {
             toast({
                title: "Preencher os campos!",
                status: "error",
                duration: 9000,
                isClosable: true,
             });
-         } else if (categoryId && title.length !== 0) {
+         } else if (categoryId && name.length !== 0) {
             const categories = category.map((category) =>
                category.id === id ? { id, ...isCategory } : category
             );
             await updateDoc(doc(db, "categories", id), isCategory);
             setCategory(categories);
-            setTitle("");
+            setName("");
             toast({
                title: "Categoria Atualizada!",
                status: "success",
@@ -159,9 +158,9 @@ function HeroCategories() {
          {/* NOTE: Category creation form */}
          <Collapse in={navBarToggle.isOpen} animateOpacity>
             <FormCategoryHero
-               onHandleSubmit={handleAddCategory}
-               value={title}
-               onChange={(e) => setTitle(e.target.value)}
+               onHandleSubmit={handleCreateCategory}
+               value={name}
+               onChange={(e) => setName(e.target.value)}
                onHandleClick={navBarToggle.onToggle}
             />
          </Collapse>
@@ -180,7 +179,7 @@ function HeroCategories() {
                      fontSize={"md"}
                      fontWeight={500}
                   >
-                     {props.title}
+                     {props.name}
                   </Text>
                   <Flex gap={2}>
                      <ModalHeroUpdate
@@ -189,8 +188,8 @@ function HeroCategories() {
                         onHandleClick={() => handleUpdatedCategory(props.id)}
                      >
                         <FormCategoryHeroUpdate
-                           value={title}
-                           onChange={(event) => setTitle(event.target.value)}
+                           value={name}
+                           onChange={(event) => setName(event.target.value)}
                         />
                      </ModalHeroUpdate>
 
@@ -215,4 +214,4 @@ function HeroCategories() {
    );
 }
 
-export default memo(HeroCategories);
+export default memo(CreateCategories);
