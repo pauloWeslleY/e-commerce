@@ -1,48 +1,10 @@
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 import { Flex, Grid, GridItem } from "@chakra-ui/react";
 import { useColors } from "../../../../hooks/useColors";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { ProductsType } from "../../../../types/ProductType";
-import { db } from "../../../../services/firebase";
+import { FilterByCategory } from "../FilterByCategory";
 
 function HeroProducts() {
-   const [prodByCategory, setProdByCategory] = useState<ProductsType[]>([]);
    const { THEME } = useColors();
-
-   const filterProductsByCategory = async (id: string) => {
-      const productCollectionsRef = collection(db, "product");
-      const filteredProductsByCategory = query(
-         productCollectionsRef,
-         where("categoryId", "==", id)
-      );
-
-      const querySnapshot = await getDocs(filteredProductsByCategory);
-
-      // Cria um array para armazenar os dados dos documentos
-      const products: any[] = [];
-
-      // Itera sobre cada documento e adiciona os dados ao array
-      for (const doc of querySnapshot.docs) {
-         const dataProduct = doc.data();
-         // Adiciona os dados e informações adicionais ao array de produtos
-         products.push({ ...dataProduct });
-      }
-
-      // Retorna o array de produtos
-      return products;
-   };
-
-   const getProductsByCategory = async () => {
-      const productByCategories = await filterProductsByCategory("Eletrônicos");
-
-      setProdByCategory(productByCategories);
-   };
-
-   console.log("PROD ==> ", prodByCategory);
-
-   useEffect(() => {
-      getProductsByCategory();
-   }, []);
 
    return (
       <Flex as={"section"} flexDir={"column"}>
@@ -54,19 +16,16 @@ function HeroProducts() {
             gap={2}
             as={"section"}
          >
-            {prodByCategory.map((props, i) => (
-               <GridItem
-                  key={i}
-                  colSpan={{ lg: 3 }}
-                  bg={THEME.HOME.BACKGROUND}
-                  rounded={"md"}
-                  boxShadow={"lg"}
-               >
-                  <Flex flexDir={"column"} align={"center"} gap={2} p={2}>
-                     <h1>{props.name}</h1>
-                  </Flex>
-               </GridItem>
-            ))}
+            <GridItem
+               colSpan={{ lg: 12 }}
+               bg={THEME.HOME.BACKGROUND}
+               rounded={"md"}
+               boxShadow={"lg"}
+            >
+               <Flex flexDir={"column"} p={2}>
+                  <FilterByCategory />
+               </Flex>
+            </GridItem>
          </Grid>
       </Flex>
    );

@@ -15,6 +15,13 @@ const HeroPricing = () => {
    const topBg = useColorModeValue("gray.100", "purple.100");
    const bottomBg = useColorModeValue("white", "blackAlpha.400");
 
+   const CONTENT: Array<string> = [
+      "Projetos Ilimitados",
+      "Rastreamento e análise de e-mail APIs de e-mail",
+      "1 IP Dedicado (Fundação 100k e superior)",
+      "SMTP Relay e Webhooks",
+   ];
+
    return (
       <Box
          as={"section"}
@@ -30,16 +37,17 @@ const HeroPricing = () => {
          >
             <Stack spacing={8} p={"45px"} flex={"0.7"}>
                <Text fontSize={"3xl"} fontWeight={"bold"} lineHeight={"tight"}>
-                  Lifetime Membership
+                  Associação Vitalícia
                </Text>
                <chakra.p
                   fontSize={["sm", "md"]}
                   color={"gray.600"}
                   _dark={{ color: "gray.50" }}
                >
-                  One plan for any organization—from startups to Fortune 500s.
-                  We offer 50% off of for all students and universities. Please
-                  get in touch with us and provide proof of your status.
+                  Um plano para qualquer organização - de startups a empresas da
+                  Fortune 500. Oferecemos 50% de desconto para todos os
+                  estudantes e universidades. Por favor, entre em contato
+                  conosco e forneça uma prova de seu status.
                </chakra.p>
                <Flex align={"center"}>
                   <Text
@@ -49,7 +57,7 @@ const HeroPricing = () => {
                      textTransform={"uppercase"}
                      color={"brand.400"}
                   >
-                     What's included
+                     O que está incluído
                   </Text>
                   <Flex
                      h={"3px"}
@@ -60,14 +68,9 @@ const HeroPricing = () => {
                   />
                </Flex>
                <SimpleGrid columns={[1, 2, 1, 2]} spacingY={4}>
-                  <IconFeature>Unlimited Projects</IconFeature>
-                  <IconFeature>Email Tracking and Analytics </IconFeature>
-                  <IconFeature>
-                     Email APIs, SMTP Relay, and Webhooks
-                  </IconFeature>
-                  <IconFeature>
-                     1 Dedicated IP (Foundation 100k and up)
-                  </IconFeature>
+                  {CONTENT.map((props, i) => (
+                     <IconFeature key={i}>{props}</IconFeature>
+                  ))}
                </SimpleGrid>
             </Stack>
             <Stack
@@ -79,8 +82,12 @@ const HeroPricing = () => {
                _dark={{ bg: "gray.800" }}
                borderRightRadius={"md"}
             >
-               <Text fontSize={"xl"} fontWeight={"semibold"}>
-                  Pay once, use anytime
+               <Text
+                  textAlign={"center"}
+                  fontSize={"xl"}
+                  fontWeight={"semibold"}
+               >
+                  Pague uma vez, use quando quiser
                </Text>
                <Flex
                   align={"center"}
@@ -88,7 +95,7 @@ const HeroPricing = () => {
                   fontWeight={["bold", "extrabold"]}
                   lineHeight={"tight"}
                >
-                  $500
+                  R$500
                   <chakra.span
                      ml={2}
                      fontSize={"2xl"}
@@ -97,20 +104,21 @@ const HeroPricing = () => {
                      _dark={{ color: "gray.400" }}
                   >
                      {" "}
-                     USD
+                     REAIS
                   </chakra.span>
                </Flex>
                <Stack spacing={6}>
                   <Text
+                     textAlign={"center"}
                      textDecor={"underline"}
                      color={"gray.600"}
                      _dark={{ color: "gray.400" }}
                   >
-                     Learn more about our membership
+                     Saiba mais sobre nossa adesão
                   </Text>
                   <IsButton title="Get Access" />
                   <Text align={"center"} fontWeight={"semibold"}>
-                     Get a free sample
+                     Obtenha uma amostra grátis
                      <chakra.span
                         ml={2}
                         color={"gray.500"}
