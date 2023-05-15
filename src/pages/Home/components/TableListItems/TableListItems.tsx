@@ -14,11 +14,11 @@ function TableListItems() {
             lg: "repeat(12, 1fr)",
          }}
          gap={9}
-         my={6}
+         my={4}
          as={"section"}
       >
          <GridItem
-            colSpan={{ lg: 4 }}
+            colSpan={{ lg: 3 }}
             bg={THEME.HOME.BACKGROUND}
             rounded={"md"}
             boxShadow={"lg"}
@@ -26,7 +26,7 @@ function TableListItems() {
             <HeroUsersList />
          </GridItem>
 
-         <GridItem colSpan={{ lg: 8 }}>
+         <GridItem colSpan={{ lg: 9 }}>
             <HeroProducts />
          </GridItem>
       </Grid>

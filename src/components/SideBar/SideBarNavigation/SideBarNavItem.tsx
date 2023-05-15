@@ -81,9 +81,7 @@ function SideBarNavItem(props: SideBarNavItemProps) {
          fontWeight={600}
          fontSize={"sm"}
          textTransform={"uppercase"}
-         borderTopWidth={1}
-         borderTopColor={THEME.SPAN_COLORS}
-         pt={collapsed ? 8 : 0}
+         pt={collapsed ? 1 : 0}
          my={6}
       >
          <Text display={collapsed ? "flex" : "none"}>{label}</Text>

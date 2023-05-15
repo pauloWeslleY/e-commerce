@@ -13,7 +13,6 @@ import { Loading } from "../../components/Loading";
 import { UserType } from "../../types/UsersType";
 import { useColors } from "../../hooks/useColors";
 import { useLoading } from "../../hooks/useLoading";
-// import { MdEmail } from "react-icons/md";
 import { EmailIcon } from "@chakra-ui/icons";
 import Logotipo from "../../assets/logo.svg";
 

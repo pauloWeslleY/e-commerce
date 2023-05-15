@@ -21,7 +21,6 @@ function SelectForm(props: SelectFormProps) {
             name="categories_product"
             autoComplete="categories_product"
             placeholder="Selecione uma opção"
-            mt={1}
             focusBorderColor={
                THEME.DASHBOARD.INPUT_BAR_PLACEHOLDER_FOCUS_COLORS
             }
@@ -31,8 +30,8 @@ function SelectForm(props: SelectFormProps) {
             }}
             shadow={"sm"}
             size={"sm"}
-            rounded={"md"}
             w={"full"}
+            variant={"flushed"}
          >
             {isCategories.map((props, i) => (
                <option key={i} value={props.name}>

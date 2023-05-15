@@ -20,7 +20,7 @@ function FormFooterHero({ onHandleClick }: FormFooterHeroProps) {
          bg={THEME.DASHBOARD.FORM_FOOTER_BACKGROUND}
          textAlign={"right"}
       >
-         <IsButton title="Adicionar" type="submit" onClick={onHandleClick} />
+         <IsButton title="Criar" type="submit" onClick={onHandleClick} />
       </Box>
    );
 }

@@ -42,16 +42,6 @@ function FormHeroProduct(props: HeroFormProductProps) {
          />
 
          <FormInputField
-            title="Preço do Produto"
-            label="price_product"
-            type="text"
-            colSpan={[6, 3]}
-            placeholder="Digite o preço do produto"
-            value={valuePrice}
-            onChange={onHandleChangePrice}
-         />
-
-         <FormInputField
             title="Descrição do Produto"
             label="description_product"
             type="text"
@@ -59,6 +49,16 @@ function FormHeroProduct(props: HeroFormProductProps) {
             placeholder="Digite a descrição do produto"
             value={valueDescription}
             onChange={onHandleChangeDescription}
+         />
+
+         <FormInputField
+            title="Preço do Produto"
+            label="price_product"
+            type="text"
+            colSpan={[6, 3]}
+            placeholder="Digite o preço do produto"
+            value={valuePrice}
+            onChange={onHandleChangePrice}
          />
 
          <FormInputField
@@ -72,7 +72,7 @@ function FormHeroProduct(props: HeroFormProductProps) {
          />
 
          <FormSelect
-            colSpan={[6, 3]}
+            colSpan={[6, 2]}
             value={valueCategoryId}
             onChange={onHandleChangeCategoryId}
          />

@@ -1,12 +1,13 @@
 import { memo, useContext } from "react";
-import { Avatar, Flex, Text } from "@chakra-ui/react";
+import { Avatar, Button, Flex, Text } from "@chakra-ui/react";
 import { AuthenticationContext } from "../../contexts/authContextProvider";
 import { useColors } from "../../hooks/useColors";
 import { SideBarContainerProps } from "../../types/SideBarType";
 import { SideBarAvatarMenu } from "./index";
+import { HiOutlineLogout } from "react-icons/hi";
 
 function SideBarAvatarHero({ collapsed }: SideBarContainerProps) {
-   const { userOnAuth } = useContext(AuthenticationContext);
+   const { userOnAuth, handleLogout } = useContext(AuthenticationContext);
    const { THEME } = useColors();
 
    return (
@@ -15,21 +16,25 @@ function SideBarAvatarHero({ collapsed }: SideBarContainerProps) {
          justify={"space-between"}
          flexDir={collapsed ? "row" : "column-reverse"}
          gap={2}
-         borderWidth={collapsed ? 1 : 0}
-         borderColor={THEME.DASHBOARD.SIDEBAR_AVATAR_HERO_BORDER_COLORS}
-         borderRadius={"full"}
          w={"full"}
          p={2}
       >
-         <Avatar name={userOnAuth.username} bg={"purple.400"} />
+         {!collapsed && <Avatar name={userOnAuth.username} bg={"purple.400"} />}
+         {!collapsed && <SideBarAvatarMenu />}
+
          {collapsed && (
             <Flex
                w={"full"}
-               align={"flex-start"}
+               align={"center"}
                justify={"center"}
                flexDir={"column"}
                gap={4}
             >
+               <Avatar
+                  name={userOnAuth.username}
+                  bg={"purple.400"}
+                  size={"md"}
+               />
                <Text
                   fontSize={"sm"}
                   fontWeight={600}
@@ -45,12 +50,30 @@ function SideBarAvatarHero({ collapsed }: SideBarContainerProps) {
                   fontSize={12}
                   lineHeight={0}
                >
-                  {userOnAuth.email.slice(0, 22)}
+                  {userOnAuth.email}
                </Text>
+               <Button
+                  onClick={handleLogout}
+                  leftIcon={<HiOutlineLogout />}
+                  variant={"outline"}
+                  size={"sm"}
+                  border={"2px"}
+                  borderColor={"purple.700"}
+                  borderRadius={6}
+                  transition={"all 150ms ease"}
+                  boxShadow={"0 3px 3px rgba(#000, 0.25)"}
+                  _hover={{
+                     color: "purple.700",
+                  }}
+                  _active={{
+                     boxShadow: "none",
+                     transform: "translateY(2px)",
+                  }}
+               >
+                  Sair
+               </Button>
             </Flex>
          )}
-
-         <SideBarAvatarMenu />
       </Flex>
    );
 }

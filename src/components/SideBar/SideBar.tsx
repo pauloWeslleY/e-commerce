@@ -27,7 +27,7 @@ function SideBar({ children }: SideBarProps) {
             flexDir={"column"}
             borderRadius={"3xl"}
             p={6}
-            transition={"ease-in-out .2s"}
+            transition={"ease-in-out .3s"}
          >
             <SideBarContainer collapsed={collapse} />
          </Flex>
@@ -40,16 +40,27 @@ function SideBar({ children }: SideBarProps) {
             overflowY={"scroll"}
             p={4}
          >
-            <Flex as={"nav"} gap={2}>
-               <SideBarMobile collapsed={collapse} />
-               <IconButton
-                  aria-label="Menu Collapse"
-                  icon={<HamburgerIcon />}
-                  display={{ base: "none", lg: "flex" }}
-                  onClick={() => setCollapse(!collapse)}
-                  variant={"ghost"}
-               />
-               <BtnSwitchDarkMode />
+            <Flex as={"nav"}>
+               <Flex gap={2}>
+                  <SideBarMobile collapsed={collapse} />
+
+                  <IconButton
+                     aria-label="Menu Collapse"
+                     icon={<HamburgerIcon />}
+                     display={{ base: "none", lg: "flex" }}
+                     onClick={() => setCollapse(!collapse)}
+                     variant={"outline"}
+                     borderColor={"transparent"}
+                     borderWidth={2}
+                     transition={"ease-in-out .4s 100ms"}
+                     _hover={{
+                        bg: THEME.BUTTONS.BTN_ICON_BACKGROUND,
+                        color: "purple.700",
+                        borderColor: "purple.600",
+                     }}
+                  />
+                  <BtnSwitchDarkMode />
+               </Flex>
             </Flex>
 
             {children}

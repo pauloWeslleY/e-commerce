@@ -5,7 +5,7 @@ import { currentDay } from "./convertTimestampToDayjs";
 const createdAtTimestamp = Timestamp.fromDate(currentDay);
 const updatedAtTimestamp = Timestamp.fromDate(currentDay);
 
-export const createAndUpdateProduct = ({
+const createAndUpdateProduct = ({
    name,
    description,
    price,
@@ -37,3 +37,5 @@ export const createAndUpdateProduct = ({
       updateProduct,
    };
 };
+
+export { createAndUpdateProduct };

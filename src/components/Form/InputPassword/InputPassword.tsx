@@ -33,6 +33,9 @@ function InputPassword({ ...props }: InputProps) {
                focusBorderColor={"purple.300"}
                fontFamily={"Poppins"}
                _placeholder={{ opacity: 1, color: "whiteAlpha.500" }}
+               shadow={"sm"}
+               w={"full"}
+               variant={"flushed"}
             />
             <InputRightElement h={"full"}>
                <Button

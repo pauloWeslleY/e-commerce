@@ -1,14 +1,12 @@
 import { memo, useEffect, useState } from "react";
 import { Flex, Grid, GridItem } from "@chakra-ui/react";
 import { useColors } from "../../../../hooks/useColors";
-import { useFetch } from "../../../../hooks/useFetch";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { ProductsType } from "../../../../types/ProductType";
 import { db } from "../../../../services/firebase";
 
 function HeroProducts() {
-   const [prodByCate, setProdByCate] = useState<ProductsType[]>([]);
-   const { isCategories } = useFetch();
+   const [prodByCategory, setProdByCategory] = useState<ProductsType[]>([]);
    const { THEME } = useColors();
 
    const filterProductsByCategory = async (id: string) => {
@@ -37,10 +35,10 @@ function HeroProducts() {
    const getProductsByCategory = async () => {
       const productByCategories = await filterProductsByCategory("Eletrônicos");
 
-      setProdByCate(productByCategories);
+      setProdByCategory(productByCategories);
    };
 
-   console.log("PROD ==> ", prodByCate);
+   console.log("PROD ==> ", prodByCategory);
 
    useEffect(() => {
       getProductsByCategory();
@@ -56,7 +54,7 @@ function HeroProducts() {
             gap={2}
             as={"section"}
          >
-            {prodByCate.map((props, i) => (
+            {prodByCategory.map((props, i) => (
                <GridItem
                   key={i}
                   colSpan={{ lg: 3 }}

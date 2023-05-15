@@ -1,9 +1,10 @@
 import { memo } from "react";
-import { Box, Flex, IconButton, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Icon, IconButton, Text } from "@chakra-ui/react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useColors } from "../../hooks/useColors";
 import { SideBarContainerProps } from "../../types/SideBarType";
-import Logotipo from "../../assets/logo.svg";
+
+import { FaBuffer } from "react-icons/fa";
 
 function SideBarLogoSearch({ collapsed }: SideBarContainerProps) {
    const { THEME } = useColors();
@@ -17,7 +18,11 @@ function SideBarLogoSearch({ collapsed }: SideBarContainerProps) {
          gap={4}
       >
          <Box display={"flex"} alignItems={"center"} gap={2}>
-            <Image src={Logotipo} alt={"Logo"} boxSize={"2.5rem"} />
+            <Icon
+               as={FaBuffer}
+               boxSize={"2.5rem"}
+               color={THEME.DASHBOARD.SIDEBAR_ICON_BG}
+            />
             {collapsed && (
                <Text
                   as={"h2"}

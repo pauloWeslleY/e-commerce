@@ -38,9 +38,9 @@ function ModalHeroUpdate(props: ModalHeroUpdateProps) {
             variant={"solid"}
          />
 
-         <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
+         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent maxW={["xl", "5xl"]}>
                <ModalHeader>Atualizar {title}</ModalHeader>
 
                <ModalCloseButton />
@@ -65,7 +65,7 @@ function ModalHeroUpdate(props: ModalHeroUpdateProps) {
                            fontSize={"xl"}
                            fontWeight={500}
                         >
-                           {items ? <>{items.name}</> : <>{category.title}</>}
+                           {items ? <>{items.name}</> : <>{category.name}</>}
                         </Text>
                      </Text>
                   </Flex>

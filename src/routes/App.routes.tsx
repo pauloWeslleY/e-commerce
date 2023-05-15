@@ -16,7 +16,7 @@ interface RoutesProps {
    path: string;
    element: ReactElement;
    children?: RouteObject[];
-   errorElement?: ReactElement;
+   errorElement: ReactElement;
 }
 
 const routes: RoutesProps[] = [

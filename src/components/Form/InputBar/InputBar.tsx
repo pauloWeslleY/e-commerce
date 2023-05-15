@@ -18,7 +18,7 @@ function InputBar({ ...rest }: InputProps) {
          shadow={"sm"}
          size={"sm"}
          w={"full"}
-         rounded={"md"}
+         variant={"flushed"}
       />
    );
 }

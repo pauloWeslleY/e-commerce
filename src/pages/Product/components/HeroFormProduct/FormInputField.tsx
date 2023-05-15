@@ -20,11 +20,12 @@ function FormInputField(props: FormInputFieldProps) {
 
          <Input
             {...rest}
+            id={label}
             type={type}
             name={label}
-            id={label}
             autoComplete={label}
             mt={1}
+            variant={"flushed"}
             focusBorderColor={
                THEME.DASHBOARD.INPUT_BAR_PLACEHOLDER_FOCUS_COLORS
             }
@@ -34,7 +35,6 @@ function FormInputField(props: FormInputFieldProps) {
             }}
             fontFamily={"Poppins"}
             shadow={"sm"}
-            rounded={"md"}
             size={"sm"}
             w={"full"}
          />

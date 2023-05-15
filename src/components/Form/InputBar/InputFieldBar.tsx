@@ -32,6 +32,9 @@ function InputFieldBar(props: InputFieldBarProps) {
                focusBorderColor={"purple.300"}
                _placeholder={{ opacity: 1, color: "whiteAlpha.500" }}
                fontFamily={"Poppins"}
+               shadow={"sm"}
+               w={"full"}
+               variant={"flushed"}
             />
          </InputGroup>
       </FormControl>

@@ -2,19 +2,23 @@ import {
    MdOutlineNotificationsActive,
    MdOutlineCalendarMonth,
 } from "react-icons/md";
-import { BiCategoryAlt, BiUser } from "react-icons/bi";
+import { BiCategoryAlt, BiHomeAlt2, BiUser } from "react-icons/bi";
 import { TbTool } from "react-icons/tb";
 import { HiOutlineChatBubbleBottomCenter } from "react-icons/hi2";
 import { BsGear } from "react-icons/bs";
-import { RxDashboard } from "react-icons/rx";
+// import { RxDashboard } from "react-icons/rx";
 import { HiOutlineMail, HiOutlineShoppingBag } from "react-icons/hi";
 import { MenuItemsProps } from "../../../../types/MenuItemsProps";
 
 const MENU_ITEMS: Array<MenuItemsProps> = [
    {
+      type: "header",
+      label: "Menu",
+   },
+   {
       type: "link",
-      label: "Dashboard",
-      icon: RxDashboard,
+      label: "Home",
+      icon: BiHomeAlt2,
       path: "/dashboard",
    },
    {
