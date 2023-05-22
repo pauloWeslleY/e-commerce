@@ -19,10 +19,10 @@ function NavBar(props: NavBarProps) {
   return (
     <Box
       as={'header'}
+      bg={THEME.HOME.BACKGROUND}
       my={4}
       p={2}
       rounded={'lg'}
-      bg={THEME.HOME.BACKGROUND}
       shadow={'md'}
     >
       <Flex h={16} align={'center'} justify={'space-between'}>
@@ -31,8 +31,18 @@ function NavBar(props: NavBarProps) {
         <Flex alignItems={'center'}>
           <Stack direction={'row'} spacing={7}>
             <Button
-              variant={'ghost'}
-              colorScheme={'purple'}
+              variant={'outline'}
+              color={THEME.BUTTONS.IS_BUTTON_COLORS}
+              borderColor={'transparent'}
+              borderWidth={2}
+              transition={'ease-in-out .4s 100ms'}
+              _hover={{
+                bg: THEME.BUTTONS.BTN_ICON_BACKGROUND,
+                color: 'purple.700',
+                borderColor: 'purple.600',
+                boxShadow: 'none',
+                transform: 'translateY(2px)',
+              }}
               size={'sm'}
               mr={4}
               leftIcon={<AddIcon />}

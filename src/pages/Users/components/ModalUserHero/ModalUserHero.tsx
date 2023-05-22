@@ -14,6 +14,7 @@ import {
 import { BsFillEyeFill } from 'react-icons/bs'
 import { UserType } from '../../../../types/UsersType'
 import { BtnIcon, IsButton } from '../../../../components/Buttons'
+import { useColors } from '../../../../hooks/useColors'
 
 interface ModalUserHeroProps {
   user: UserType
@@ -21,10 +22,21 @@ interface ModalUserHeroProps {
 
 function ModalUserHero({ user }: ModalUserHeroProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { THEME } = useColors()
+
   return (
     <>
       <BtnIcon
-        colorScheme="teal"
+        bg={'emerald.400'}
+        color={'whiteAlpha.900'}
+        borderColor={'transparent'}
+        borderWidth={2}
+        transition={'ease-in-out .4s 100ms'}
+        _hover={{
+          bg: THEME.BUTTONS.BTN_ICON_BACKGROUND,
+          color: 'emerald.700',
+          borderColor: 'emerald.600',
+        }}
         aria-label="Show item"
         icon={<BsFillEyeFill />}
         onClick={onOpen}

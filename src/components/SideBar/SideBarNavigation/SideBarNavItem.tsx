@@ -50,7 +50,8 @@ function SideBarNavItem(props: SideBarNavItemProps) {
             {notifications && (
               <Badge
                 borderRadius={'full'}
-                colorScheme={'teal'}
+                bg={'emerald.300'}
+                color={'blackAlpha.800'}
                 w={6}
                 textAlign={'center'}
               >
@@ -60,7 +61,8 @@ function SideBarNavItem(props: SideBarNavItemProps) {
             {messages && (
               <Badge
                 borderRadius={'full'}
-                colorScheme={'green'}
+                bg={'blue.400'}
+                color={'blackAlpha.700'}
                 w={6}
                 textAlign={'center'}
               >

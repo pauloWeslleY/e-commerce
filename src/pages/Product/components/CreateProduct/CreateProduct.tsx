@@ -1,6 +1,5 @@
 import { useState, useEffect, FormEvent, memo } from 'react'
 import {
-  collection,
   addDoc,
   getDocs,
   doc,
@@ -9,10 +8,13 @@ import {
   where,
   query,
   orderBy,
+  collection,
 } from 'firebase/firestore'
+import { prodCollectionRef } from '../../../../services/collections'
+import { db } from '../../../../services/firebase'
 import { useToast, useDisclosure } from '@chakra-ui/react'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
-import { db } from '../../../../services/firebase'
+import { createAndUpdateProduct } from '../../../../utils/createAndUpdateProduct'
 import { useColors } from '../../../../hooks/useColors'
 import { useLoading } from '../../../../hooks/useLoading'
 import { ProductsType } from '../../../../types/ProductType'
@@ -32,7 +34,6 @@ import {
   FormHeroProduct,
   FormStack,
 } from '../HeroFormProduct'
-import { createAndUpdateProduct } from '../../../../utils/createAndUpdateProduct'
 
 function CreateProduct() {
   const [product, setProduct] = useState<ProductsType[]>([])
@@ -42,7 +43,6 @@ function CreateProduct() {
   const [supplier, setSupplier] = useState<string>('')
   const [categoryId, setCategoryId] = useState<string>('')
   const [quantity, setQuantity] = useState<number>(0)
-  const prodCollectionRef = collection(db, 'product')
   const navBarToggle = useDisclosure()
   const toast = useToast()
   const { THEME } = useColors()

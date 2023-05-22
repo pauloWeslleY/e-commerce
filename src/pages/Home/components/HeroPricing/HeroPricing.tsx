@@ -8,12 +8,12 @@ import {
   Stack,
   SimpleGrid,
 } from '@chakra-ui/react'
-import IconFeature from './IconFeature'
 import { IsButton } from '../../../../components/Buttons'
+import { IconFeature } from './index'
 
 const HeroPricing = () => {
-  const topBg = useColorModeValue('gray.100', 'purple.100')
-  const bottomBg = useColorModeValue('white', 'blackAlpha.400')
+  const rightBg = useColorModeValue('gray.100', 'purple.100')
+  const leftBg = useColorModeValue('white', 'blackAlpha.400')
 
   const CONTENT: Array<string> = [
     'Projetos Ilimitados',
@@ -30,23 +30,23 @@ const HeroPricing = () => {
       textAlign={{ base: 'left', md: 'center' }}
     >
       <Flex
+        bg={leftBg}
         rounded={'md'}
-        bg={bottomBg}
         textAlign={'left'}
         flexDir={{ base: 'column', lg: 'row' }}
       >
         <Stack spacing={8} p={'45px'} flex={'0.7'}>
           <Text fontSize={'3xl'} fontWeight={'bold'} lineHeight={'tight'}>
-            Associação Vitalícia
+            Planos Vitalício
           </Text>
           <chakra.p
             fontSize={['sm', 'md']}
             color={'gray.600'}
             _dark={{ color: 'gray.50' }}
           >
-            Um plano para qualquer organização - de startups e pequenas e medias
-            empresas. Oferecemos 50% de desconto para todos os CTO e Gestores.
-            Por favor, entre em contato conosco.
+            Um Sistema de Gerenciamento de Estoque - para startups, pequenas e
+            medias empresas. Oferecemos 50% de desconto para todos os CTO e
+            Gestores. Por favor, entre em contato conosco.
           </chakra.p>
           <Flex align={'center'}>
             <Text
@@ -63,7 +63,7 @@ const HeroPricing = () => {
               w={'full'}
               ml={'15px'}
               borderTopWidth={'1px'}
-              borderTopColor={topBg}
+              borderTopColor={rightBg}
             />
           </Flex>
           <SimpleGrid columns={[1, 2, 1, 2]} spacingY={4}>

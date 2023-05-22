@@ -44,7 +44,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
     }
   }
 
-  async function handleLogout() {
+  const handleLogout = async () => {
     try {
       await signOut(auth)
       setUserOnAuth(null)

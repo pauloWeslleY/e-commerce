@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react'
-import { collection, getDocs, orderBy, query, where } from 'firebase/firestore'
-import { db } from '../services/firebase'
+import { getDocs, orderBy, query, where } from 'firebase/firestore'
 import { ProductsType } from '../types/ProductType'
 import { CategoryType } from '../types/CategoryType'
 import { UserType } from '../types/UsersType'
+import {
+  cateCollectionRef,
+  prodCollectionRef,
+  usersCollectionRef,
+} from '../services/collections'
 
 export function useFetch() {
   const [product, setProduct] = useState<ProductsType[]>([])
   const [categories, setCategories] = useState<CategoryType[]>([])
   const [isCategories, setIsCategories] = useState<CategoryType[]>([])
   const [users, setUsers] = useState<UserType[]>([])
-  const usersCollectionRef = collection(db, 'users')
-  const productCollectionRef = collection(db, 'product')
-  const categoryCollectionRef = collection(db, 'categories')
 
   const getUsers = async () => {
     const dataUser = await getDocs(usersCollectionRef)
@@ -24,7 +25,7 @@ export function useFetch() {
   }
 
   const getCategories = async () => {
-    const data = await getDocs(categoryCollectionRef)
+    const data = await getDocs(cateCollectionRef)
     const category = data.docs.map<CategoryType>((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -34,7 +35,7 @@ export function useFetch() {
 
   const getProduct = async () => {
     const filteredProduct = query(
-      productCollectionRef,
+      prodCollectionRef,
       where('name', '!=', true),
       orderBy('name', 'asc')
     )
@@ -48,7 +49,7 @@ export function useFetch() {
 
   const filteredCategory = async () => {
     const filteredCategories = query(
-      categoryCollectionRef,
+      cateCollectionRef,
       where('name', '!=', true),
       orderBy('name', 'asc')
     )

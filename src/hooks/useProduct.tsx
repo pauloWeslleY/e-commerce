@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ProductsType } from '../types/ProductType'
-import { collection, getDocs, orderBy, query, where } from 'firebase/firestore'
-import { db } from '../services/firebase'
+import { getDocs, orderBy, query, where } from 'firebase/firestore'
+import { prodCollectionRef } from '../services/collections'
 
 export function useProduct() {
   const [product, setProduct] = useState<ProductsType[]>([])
@@ -12,12 +12,11 @@ export function useProduct() {
     ProductsType[]
   >([])
   const [prodElectronics, setProductElectronics] = useState<ProductsType[]>([])
-  const productCollectionsRef = collection(db, 'product')
 
   const filteredProducts = async () => {
     //? NOTE: Pega todos os items da categoria Orchids
     const filteredProd = query(
-      productCollectionsRef,
+      prodCollectionRef,
       where('category', '==', 'prodCategory'),
       orderBy('name')
     )
@@ -29,7 +28,7 @@ export function useProduct() {
 
     //? NOTE: Pega todos os items da categoria Technology
     const filteredItemsTechnology = query(
-      productCollectionsRef,
+      prodCollectionRef,
       where('category', '==', 'Tecnologia'),
       orderBy('name')
     )
@@ -42,7 +41,7 @@ export function useProduct() {
 
     //? NOTE: Pega todos os items da categoria StationeryShop
     const filteredItemsStationeryShop = query(
-      productCollectionsRef,
+      prodCollectionRef,
       where('category', '==', 'Papelaria'),
       orderBy('name')
     )
@@ -57,7 +56,7 @@ export function useProduct() {
 
     //? NOTE: Pega todos os items da categoria Electronics
     const filteredItemsElectronics = query(
-      productCollectionsRef,
+      prodCollectionRef,
       where('category', '==', 'Eletrônicos'),
       orderBy('name')
     )
@@ -71,7 +70,7 @@ export function useProduct() {
 
     //? NOTE: Pega todos os items da categoria Automotive
     const filteredItemsAutomotive = query(
-      productCollectionsRef,
+      prodCollectionRef,
       where('category', '==', 'Automotivo'),
       orderBy('name')
     )
@@ -83,10 +82,7 @@ export function useProduct() {
       }))
 
     //? NOTE: Pega todos os items da Coleção
-    const filteredItems = query(
-      productCollectionsRef,
-      where('name', '!=', true)
-    )
+    const filteredItems = query(prodCollectionRef, where('name', '!=', true))
     const querySnapshot = await getDocs(filteredItems)
     const itemsData = querySnapshot.docs.map<ProductsType>((doc) => ({
       id: doc.id,

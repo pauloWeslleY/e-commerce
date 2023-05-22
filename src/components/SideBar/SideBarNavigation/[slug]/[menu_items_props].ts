@@ -2,7 +2,7 @@ import {
   MdOutlineNotificationsActive,
   MdOutlineCalendarMonth,
 } from 'react-icons/md'
-import { BiCategoryAlt, BiHomeAlt2, BiUser } from 'react-icons/bi'
+import { BiCategory, BiHomeAlt2, BiUser } from 'react-icons/bi'
 import { TbTool } from 'react-icons/tb'
 import { HiOutlineChatBubbleBottomCenter } from 'react-icons/hi2'
 import { BsGear } from 'react-icons/bs'
@@ -31,7 +31,7 @@ const MENU_ITEMS: Array<MenuItemsProps> = [
   {
     type: 'link',
     label: 'Categorias',
-    icon: BiCategoryAlt,
+    icon: BiCategory,
     path: '/dashboard/categories',
   },
   {
@@ -61,18 +61,18 @@ const MENU_ITEMS: Array<MenuItemsProps> = [
     label: 'Notificações',
     icon: MdOutlineNotificationsActive,
     path: '/',
-    notifications: 24,
+    notifications: 18,
   },
   {
     type: 'link',
     label: 'Chat',
     icon: HiOutlineChatBubbleBottomCenter,
     path: '/',
-    messages: 8,
+    messages: 5,
   },
   {
     type: 'link',
-    label: 'Ferramentas',
+    label: 'Profile',
     icon: TbTool,
     path: '/dashboard/profile',
   },

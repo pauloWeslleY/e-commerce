@@ -1,9 +1,10 @@
 import { FormEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Flex, Stack, Text, useToast, chakra, Image } from '@chakra-ui/react'
+import { EmailIcon } from '@chakra-ui/icons'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { collection, getDocs } from 'firebase/firestore'
-import { auth, db } from '../../services/firebase'
+import { getDocs } from 'firebase/firestore'
+import { auth } from '../../services/firebase'
 import { InputPassword } from '../../components/Form/InputPassword'
 import { InputFieldBar } from '../../components/Form/InputBar'
 import { InputFooter } from '../../components/Form/InputFooter'
@@ -13,7 +14,7 @@ import { Loading } from '../../components/Loading'
 import { UserType } from '../../types/UsersType'
 import { useColors } from '../../hooks/useColors'
 import { useLoading } from '../../hooks/useLoading'
-import { EmailIcon } from '@chakra-ui/icons'
+import { usersCollectionRef } from '../../services/collections'
 import Logotipo from '../../assets/logo.svg'
 
 export function SignIn() {
@@ -24,7 +25,6 @@ export function SignIn() {
   const { THEME } = useColors()
   const navigate = useNavigate()
   const toast = useToast()
-  const usersCollectionRef = collection(db, 'users')
 
   const handleSignInUser = async (event: FormEvent) => {
     event.preventDefault()
@@ -43,7 +43,7 @@ export function SignIn() {
       await signInWithEmailAndPassword(auth, email, password)
         .then(() => {
           toast({
-            title: 'Usuário Logado!',
+            title: `Usuário ${email} Logado!`,
             status: 'success',
             duration: 9000,
             isClosable: true,
@@ -74,15 +74,16 @@ export function SignIn() {
     setPassword('')
   }
 
+  const getUsers = async () => {
+    const dataUser = await getDocs(usersCollectionRef)
+    const users = dataUser.docs.map<UserType>((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }))
+    setUsers(users)
+  }
+
   useEffect(() => {
-    async function getUsers() {
-      const dataUser = await getDocs(usersCollectionRef)
-      const users = dataUser.docs.map<UserType>((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }))
-      setUsers(users)
-    }
     getUsers()
   }, [])
 

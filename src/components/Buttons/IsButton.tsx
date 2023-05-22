@@ -14,16 +14,18 @@ function IsButton(props: IsButtonProps) {
     <Button
       {...rest}
       px={8}
-      bg={THEME.BUTTONS.IS_BUTTON_BACKGROUND}
+      variant={'outline'}
       color={THEME.BUTTONS.IS_BUTTON_COLORS}
-      rounded={'md'}
-      border={'2px'}
       borderColor={THEME.BUTTONS.IS_BUTTON_COLORS}
+      borderWidth={2}
+      borderRadius={'0.4rem'}
+      transition={'ease-in-out .3s'}
       _hover={{
+        bg: THEME.BUTTONS.BTN_ICON_BACKGROUND,
+        color: 'purple.700',
+        borderColor: 'purple.600',
         transform: 'translateY(-2px)',
         boxShadow: 'lg',
-        color: THEME.BUTTONS.IS_BUTTON_COLORS_HOVER,
-        borderColor: THEME.BUTTONS.IS_BUTTON_COLORS_HOVER,
       }}
     >
       {title}

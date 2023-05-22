@@ -15,6 +15,7 @@ import { EditIcon } from '@chakra-ui/icons'
 import { ProductsType } from '../../types/ProductType'
 import { CategoryType } from '../../types/CategoryType'
 import { BtnIcon, IsButton } from '../Buttons'
+import { useColors } from '../../hooks/useColors'
 
 interface ModalHeroUpdateProps {
   title: string
@@ -27,15 +28,24 @@ interface ModalHeroUpdateProps {
 function ModalHeroUpdate(props: ModalHeroUpdateProps) {
   const { title, children, onHandleClick, items, category } = props
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { THEME } = useColors()
 
   return (
     <>
       <BtnIcon
-        colorScheme="blue"
+        bg={'blue.600'}
+        color={'whiteAlpha.900'}
+        borderColor={'transparent'}
+        borderWidth={2}
+        transition={'ease-in-out .4s 100ms'}
+        _hover={{
+          bg: THEME.BUTTONS.BTN_ICON_BACKGROUND,
+          color: 'blue.700',
+          borderColor: 'blue.600',
+        }}
         aria-label="Update item"
         icon={<EditIcon />}
         onClick={onOpen}
-        variant={'solid'}
       />
 
       <Modal isOpen={isOpen} onClose={onClose}>

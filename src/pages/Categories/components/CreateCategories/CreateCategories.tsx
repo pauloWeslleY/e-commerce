@@ -8,6 +8,7 @@ import {
   deleteDoc,
   where,
   query,
+  orderBy,
 } from 'firebase/firestore'
 import {
   Flex,
@@ -25,13 +26,12 @@ import { NavBar } from '../../../../components/NavBar'
 import { FormCategoryHero, FormCategoryHeroUpdate } from '../FormCategoryHero'
 import { HeroCategoryContainer } from '../HeroCategoryContainer'
 import { ModalHeroDelete, ModalHeroUpdate } from '../../../../components/Modais'
+import { cateCollectionRef } from '../../../../services/collections'
 
 function CreateCategories() {
   const [category, setCategory] = useState<CategoryType[]>([])
   const [name, setName] = useState<string>('')
-
   const navBarToggle = useDisclosure()
-  const cateCollectionRef = collection(db, 'categories')
   const toast = useToast()
 
   const isCategory: CategoryType = {
@@ -128,16 +128,23 @@ function CreateCategories() {
     setCategory(category.filter((item) => item.id !== id))
   }
 
+  const filteredCategory = async () => {
+    const filteredCategories = query(
+      cateCollectionRef,
+      where('name', '!=', true),
+      orderBy('name', 'asc')
+    )
+    const querySnapshot = await getDocs(filteredCategories)
+    const isCategory = querySnapshot.docs.map<CategoryType>((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }))
+
+    setCategory(isCategory)
+  }
+
   useEffect(() => {
-    const getCategories = async () => {
-      const data = await getDocs(cateCollectionRef)
-      const category = data.docs.map<CategoryType>((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-      setCategory(category)
-    }
-    getCategories()
+    filteredCategory()
   }, [])
 
   return (

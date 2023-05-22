@@ -81,6 +81,7 @@ export function useColors() {
     },
 
     BUTTONS: {
+      BTN_ICON_COLORS: useColorModeValue('whiteAlpha.900', 'blackAlpha.800'),
       BTN_ICON_BACKGROUND: useColorModeValue(
         'blackAlpha.200',
         'whiteAlpha.100'

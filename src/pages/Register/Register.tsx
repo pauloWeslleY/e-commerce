@@ -1,21 +1,22 @@
 import { FormEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { Flex, Stack, useToast, chakra, Image, Text } from '@chakra-ui/react'
-import { auth, db } from '../../services/firebase'
+import { EmailIcon } from '@chakra-ui/icons'
+import { RiUser3Fill } from 'react-icons/ri'
+import { addDoc, getDocs } from 'firebase/firestore'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { auth } from '../../services/firebase'
 import { InputPassword } from '../../components/Form/InputPassword'
 import { HeroTitle } from '../../components/HeroTitle'
 import { ButtonSign } from '../../components/Buttons'
 import { useColors } from '../../hooks/useColors'
 import { InputFooter } from '../../components/Form/InputFooter'
-import { UserType } from '../../types/UsersType'
-import { addDoc, collection, getDocs } from 'firebase/firestore'
 import { Loading } from '../../components/Loading'
-import { useLoading } from '../../hooks/useLoading'
-import Logotipo from '../../assets/logo.svg'
 import { InputFieldBar } from '../../components/Form/InputBar'
-import { RiUser3Fill } from 'react-icons/ri'
-import { EmailIcon } from '@chakra-ui/icons'
+import { useLoading } from '../../hooks/useLoading'
+import { UserType } from '../../types/UsersType'
+import Logotipo from '../../assets/logo.svg'
+import { usersCollectionRef } from '../../services/collections'
 
 export function Register() {
   const [username, setUserName] = useState<string>('')
@@ -26,7 +27,6 @@ export function Register() {
   const { THEME } = useColors()
   const navigate = useNavigate()
   const toast = useToast()
-  const usersCollectionRef = collection(db, 'users')
 
   const handleRegisterUser = async (event: FormEvent) => {
     event.preventDefault()
@@ -57,7 +57,7 @@ export function Register() {
           duration: 9000,
           isClosable: true,
         })
-        // navigate("/");
+        navigate('/')
 
         return user
       } else {
