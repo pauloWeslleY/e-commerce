@@ -1,3 +1,3 @@
-import HeroCategoryContainer from "./HeroCategoryContainer";
+import HeroCategoryContainer from './HeroCategoryContainer'
 
-export { HeroCategoryContainer };
+export { HeroCategoryContainer }

@@ -1,4 +1,4 @@
-import FormCategoryHero from "./FormCategoryHero";
-import FormCategoryHeroUpdate from "./FormCategoryHeroUpdate";
+import FormCategoryHero from './FormCategoryHero'
+import FormCategoryHeroUpdate from './FormCategoryHeroUpdate'
 
-export { FormCategoryHero, FormCategoryHeroUpdate };
+export { FormCategoryHero, FormCategoryHeroUpdate }

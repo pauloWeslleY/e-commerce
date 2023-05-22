@@ -1,10 +1,10 @@
-import { SideBar } from "../../components/SideBar";
-import { CreateProduct } from "./components/CreateProduct";
+import { SideBar } from '../../components/SideBar'
+import { CreateProduct } from './components/CreateProduct'
 
 export function Product() {
-   return (
-      <SideBar>
-         <CreateProduct />
-      </SideBar>
-   );
+  return (
+    <SideBar>
+      <CreateProduct />
+    </SideBar>
+  )
 }

@@ -1,3 +1,3 @@
-import CreateProduct from "./CreateProduct";
+import CreateProduct from './CreateProduct'
 
-export { CreateProduct };
+export { CreateProduct }

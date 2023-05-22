@@ -1,3 +1,3 @@
-import CreateCategories from "./CreateCategories";
+import CreateCategories from './CreateCategories'
 
-export { CreateCategories };
+export { CreateCategories }

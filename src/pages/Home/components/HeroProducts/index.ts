@@ -1,3 +1,3 @@
-import HeroProducts from "./HeroProducts";
+import HeroProducts from './HeroProducts'
 
-export { HeroProducts };
+export { HeroProducts }

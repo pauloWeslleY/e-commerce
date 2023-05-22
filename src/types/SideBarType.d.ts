@@ -1,5 +1,5 @@
 interface SideBarContainerProps {
-   collapsed?: boolean;
+  collapsed?: boolean
 }
 
-export { SideBarContainerProps };
+export { SideBarContainerProps }

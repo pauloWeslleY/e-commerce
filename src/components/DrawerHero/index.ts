@@ -1,3 +1,3 @@
-import DrawerHero from "./DrawerHero";
+import DrawerHero from './DrawerHero'
 
-export { DrawerHero };
+export { DrawerHero }

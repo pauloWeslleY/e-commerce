@@ -1,3 +1,3 @@
-import ModalHeroShowProducts from "./ModalHeroShowProducts";
+import ModalHeroShowProducts from './ModalHeroShowProducts'
 
-export { ModalHeroShowProducts };
+export { ModalHeroShowProducts }

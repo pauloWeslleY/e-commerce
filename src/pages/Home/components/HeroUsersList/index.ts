@@ -1,3 +1,3 @@
-import HeroUsersList from "./HeroUsersList";
+import HeroUsersList from './HeroUsersList'
 
-export { HeroUsersList };
+export { HeroUsersList }

@@ -1,14 +1,14 @@
 body {
-   overflow: hidden;
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {
-   width: 0.71rem;
+  width: 0.71rem;
 }
 ::-webkit-scrollbar-track {
-   background: rgba(77, 80, 88, 0.1);
+  background: rgba(77, 80, 88, 0.1);
 }
 ::-webkit-scrollbar-thumb {
-   background: #6a64d9;
-   border-radius: 2.2rem;
+  background: #6a64d9;
+  border-radius: 2.2rem;
 }

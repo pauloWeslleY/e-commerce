@@ -1,3 +1,3 @@
-import ModalCategoryHero from "./ModalCategoryHero";
+import ModalCategoryHero from './ModalCategoryHero'
 
-export { ModalCategoryHero };
+export { ModalCategoryHero }

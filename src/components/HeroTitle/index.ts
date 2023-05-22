@@ -1,4 +1,4 @@
-import HeroTitle from "./HeroTitle";
-import HeroTitleBar from "./HeroTitleBar";
+import HeroTitle from './HeroTitle'
+import HeroTitleBar from './HeroTitleBar'
 
-export { HeroTitle, HeroTitleBar };
+export { HeroTitle, HeroTitleBar }

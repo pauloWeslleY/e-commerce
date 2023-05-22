@@ -1,8 +1,8 @@
-import { IconType } from "react-icons";
+import { IconType } from 'react-icons'
 
 type NavBarProps = {
-   label: string;
-   icon: IconType;
-};
+  label: string
+  icon: IconType
+}
 
-export { NavBarProps };
+export { NavBarProps }

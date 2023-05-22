@@ -1,3 +1,3 @@
-import InputFooter from "./InputFooter";
+import InputFooter from './InputFooter'
 
-export { InputFooter };
+export { InputFooter }

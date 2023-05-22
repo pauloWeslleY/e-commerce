@@ -1,38 +1,38 @@
-import { ReactNode, memo, useRef } from "react";
+import { ReactNode, memo, useRef } from 'react'
 import {
-   Drawer,
-   DrawerBody,
-   DrawerCloseButton,
-   DrawerContent,
-   DrawerHeader,
-   DrawerOverlay,
-} from "@chakra-ui/react";
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+} from '@chakra-ui/react'
 
 interface DrawerHeroProps {
-   isOpen: boolean;
-   children: ReactNode;
-   onClose: () => void;
+  isOpen: boolean
+  children: ReactNode
+  onClose: () => void
 }
 
 function DrawerHero({ isOpen, onClose, children }: DrawerHeroProps) {
-   const btnRef = useRef();
+  const btnRef = useRef()
 
-   return (
-      <Drawer
-         isOpen={isOpen}
-         placement="bottom"
-         onClose={onClose}
-         finalFocusRef={btnRef}
-      >
-         <DrawerOverlay />
-         <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>Criar Produto</DrawerHeader>
+  return (
+    <Drawer
+      isOpen={isOpen}
+      placement="bottom"
+      onClose={onClose}
+      finalFocusRef={btnRef}
+    >
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerCloseButton />
+        <DrawerHeader>Criar Produto</DrawerHeader>
 
-            <DrawerBody>{children}</DrawerBody>
-         </DrawerContent>
-      </Drawer>
-   );
+        <DrawerBody>{children}</DrawerBody>
+      </DrawerContent>
+    </Drawer>
+  )
 }
 
-export default memo(DrawerHero);
+export default memo(DrawerHero)

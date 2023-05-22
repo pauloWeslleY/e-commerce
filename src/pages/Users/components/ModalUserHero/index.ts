@@ -1,2 +1,2 @@
-import ModalUserHero from "./ModalUserHero";
-export { ModalUserHero };
+import ModalUserHero from './ModalUserHero'
+export { ModalUserHero }

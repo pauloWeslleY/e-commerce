@@ -1,10 +1,10 @@
-import { IconType } from "react-icons";
+import { IconType } from 'react-icons'
 
 interface CardsHomeType {
-   title: string;
-   subtitle: number;
-   icon: IconType;
-   background: string;
+  title: string
+  subtitle: number
+  icon: IconType
+  background: string
 }
 
-export { CardsHomeType };
+export { CardsHomeType }

@@ -1,4 +1,4 @@
-import FilterByCategory from "./FilterByCategory";
-import HeroTabPanel from "./HeroTabPanel";
+import FilterByCategory from './FilterByCategory'
+import HeroTabPanel from './HeroTabPanel'
 
-export { FilterByCategory, HeroTabPanel };
+export { FilterByCategory, HeroTabPanel }

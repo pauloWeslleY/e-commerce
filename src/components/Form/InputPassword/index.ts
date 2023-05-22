@@ -1,3 +1,3 @@
-import InputPassword from "./InputPassword";
+import InputPassword from './InputPassword'
 
-export { InputPassword };
+export { InputPassword }

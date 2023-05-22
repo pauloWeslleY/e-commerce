@@ -1,3 +1,3 @@
-import FormLabelTitle from "./FormLabelTitle";
+import FormLabelTitle from './FormLabelTitle'
 
-export { FormLabelTitle };
+export { FormLabelTitle }

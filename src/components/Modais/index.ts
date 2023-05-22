@@ -1,4 +1,4 @@
-import ModalHeroDelete from "./ModalHeroDelete";
-import ModalHeroUpdate from "./ModalHeroUpdate";
+import ModalHeroDelete from './ModalHeroDelete'
+import ModalHeroUpdate from './ModalHeroUpdate'
 
-export { ModalHeroDelete, ModalHeroUpdate };
+export { ModalHeroDelete, ModalHeroUpdate }
