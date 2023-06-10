@@ -18,6 +18,7 @@ const ButtonSign = ({ title, ...props }: ButtonSignProps) => (
     _hover={{
       transform: 'translateY(-2px)',
       boxShadow: 'lg',
+      opacity: '0.6'
     }}
   >
     {title}

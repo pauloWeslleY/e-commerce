@@ -43,12 +43,13 @@ export function useColors() {
 
       //! TABLE COLORS
       TABLE_PRODUCT_HEADER_BG: useColorModeValue('blackAlpha.200', 'gray.800'),
-      TABLE_PRODUCT_LINE_BG: useColorModeValue('whiteAlpha.600', 'gray.600'),
+      TABLE_PRODUCT_LINE_BG: useColorModeValue('whiteAlpha.600', 'gray.500'),
       TABLE_PRODUCT_TITLE_COLORS: useColorModeValue(
         'purple.900',
         'whiteAlpha.800'
       ),
       TABLE_PRODUCT_COLORS: useColorModeValue('purple.800', 'purple.700'),
+      TABLE_PRODUCT_ROW_BG: useColorModeValue('whiteAlpha.800', 'gray.700'),
 
       POPOVER_BACKGROUND: useColorModeValue('whiteAlpha.600', 'gray.700'),
 

@@ -6,7 +6,7 @@ type ProductsType = {
   description?: string
   price?: string
   categoryId?: string
-  quantity?: number
+  quantity?: string | number
   supplier?: string
   createAt?: Timestamp
   updateAt?: Timestamp

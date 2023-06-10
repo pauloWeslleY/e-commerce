@@ -1,17 +1,13 @@
-import HeroTableProductItem from './HeroTableProductItem'
+import HeroTableContainer from './HeroTableContainer'
 import HeroTableHeader from './HeroTableHeader'
 import HeroTableColumn from './HeroTableColumn'
 import HeroTableWrapper from './HeroTableWrapper'
 import HeroTableRowButtons from './HeroTableRowButtons'
-import HeroTableRowSpan from './HeroTableRowSpan'
-import HeroTableRowSpanID from './HeroTableRowSpanID'
 
 export {
-  HeroTableProductItem,
+  HeroTableContainer,
   HeroTableHeader,
   HeroTableColumn,
   HeroTableWrapper,
   HeroTableRowButtons,
-  HeroTableRowSpan,
-  HeroTableRowSpanID,
 }

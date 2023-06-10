@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent, memo } from 'react'
+import { useState, useEffect, FormEvent, memo, useMemo } from 'react'
 import {
   addDoc,
   getDocs,
@@ -25,7 +25,7 @@ import { ModalHeroDelete, ModalHeroUpdate } from '../../../../components/Modais'
 import {
   HeroTableColumn,
   HeroTableHeader,
-  HeroTableProductItem,
+  HeroTableContainer,
   HeroTableWrapper,
 } from '../TableProduct'
 import {
@@ -34,8 +34,11 @@ import {
   FormHeroProduct,
   FormStack,
 } from '../HeroFormProduct'
+import { convertTimestampToDayjs } from '../../../../utils/convertTimestampToDayjs'
+import { formatValueCurrency } from '../../../../utils/formatValueCurrency'
+import { formatValueQuantity } from '../../../../utils/formatQuantityValue'
 
-function CreateProduct() {
+const CreateProduct = () => {
   const [product, setProduct] = useState<ProductsType[]>([])
   const [name, setName] = useState<string>('')
   const [price, setPrice] = useState<string>('')
@@ -141,12 +144,11 @@ function CreateProduct() {
       }
     } catch (error) {
       toast({
-        title: 'Falha ao atualizar o produto!',
+        title: `Falha ao atualizar o produto! ${error.message}`,
         status: 'error',
         duration: 9000,
         isClosable: true,
       })
-      console.error(error)
     }
   }
 
@@ -169,6 +171,25 @@ function CreateProduct() {
 
     setProduct(allProducts)
   }
+
+  const allProductsFormat = useMemo(() => {
+    const response = product.map((product) => {
+      return {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: formatValueCurrency(Number(product.price)),
+        quantity: formatValueQuantity(Number(product.quantity)),
+        categoryId: product.categoryId,
+        supplier: product.supplier,
+        createdAt: convertTimestampToDayjs(product.createAt),
+        updatedAt: convertTimestampToDayjs(product.updateAt),
+      }
+    })
+
+    return response
+  }, [product])
+
 
   useEffect(() => {
     filteredProducts()
@@ -211,9 +232,9 @@ function CreateProduct() {
         </FormHeroBox>
       </DrawerHero>
 
-      <HeroTableProductItem>
-        {product.map((props, i) => (
-          <HeroTableWrapper key={`${props.id}${i}`}>
+      <HeroTableContainer>
+        {allProductsFormat.map((props) => (
+          <HeroTableWrapper key={props.id}>
             <HeroTableHeader />
             <HeroTableColumn product={props}>
               <ModalHeroUpdate
@@ -261,7 +282,7 @@ function CreateProduct() {
             </HeroTableColumn>
           </HeroTableWrapper>
         ))}
-      </HeroTableProductItem>
+      </HeroTableContainer>
     </>
   )
 }

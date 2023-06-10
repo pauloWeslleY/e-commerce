@@ -1,6 +1,5 @@
 import { memo } from 'react'
 import {
-  Box,
   Stack,
   Modal,
   ModalBody,
@@ -15,26 +14,38 @@ import { BsFillEyeFill } from 'react-icons/bs'
 import { ProductsType } from '../../../../types/ProductType'
 import { BtnIcon, IsButton } from '../../../../components/Buttons'
 import { convertTimestampToDayjs } from '../../../../utils/convertTimestampToDayjs'
+import { useColors } from '../../../../hooks/useColors'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
-import { useColors } from '../../../../hooks/useColors'
 dayjs.locale('pt-br')
 
 interface ModalProductHeroProps {
-  items: ProductsType
+  product: ProductsType
 }
 
-function ModalProductHero({ items }: ModalProductHeroProps) {
+function ModalProductHero({ product }: ModalProductHeroProps) {
+  const {
+    id,
+    name,
+    price,
+    description,
+    quantity,
+    categoryId,
+    supplier,
+    createAt,
+    updateAt,
+  } = product
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { THEME } = useColors()
+  const prodID = id.toUpperCase()
 
-  const createdAt = convertTimestampToDayjs(items.createAt)
+  const createdAt = convertTimestampToDayjs(createAt)
   const today = createdAt.format('D [de] MMMM [de] YYYY [às] HH:mm')
 
-  const updatedAt = convertTimestampToDayjs(items.updateAt)
+  const updatedAt = convertTimestampToDayjs(updateAt)
   const dayUpdate = updatedAt.format('D [de] MMMM [de] YYYY [às] HH:mm')
 
-  const lastUpdate = items.updateAt ? `Ultima atualização: ${dayUpdate}` : ''
+  const lastUpdate = updateAt ? `Ultima atualização: ${dayUpdate}` : ''
 
   return (
     <>
@@ -56,7 +67,7 @@ function ModalProductHero({ items }: ModalProductHeroProps) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{items.name}</ModalHeader>
+          <ModalHeader>{name}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Stack
@@ -66,17 +77,13 @@ function ModalProductHero({ items }: ModalProductHeroProps) {
               justifyContent={'center'}
               textAlign={'center'}
             >
-              <Box textTransform={'uppercase'}>ID: {items.id}</Box>
-              <span>Nome: {items.name}</span>
-              <span>Descrição: {items.description}</span>
-              <span>Preço: R${items.price}</span>
-              <span>Quantidade: {items.quantity} unidades</span>
-              <span>Categoria: {items.categoryId}</span>
-              {items.supplier ? (
-                <span>Fornecedor: {items.supplier}</span>
-              ) : (
-                <></>
-              )}
+              <span>ID: {prodID}</span>
+              <span>Nome: {name}</span>
+              <span>Descrição: {description}</span>
+              <span>Preço: {price}</span>
+              <span>Quantidade: {quantity}</span>
+              <span>Categoria: {categoryId}</span>
+              {supplier ? <span>Fornecedor: {supplier}</span> : <></>}
               <span>Data de criação: {today}</span>
               <span>{lastUpdate}</span>
             </Stack>
