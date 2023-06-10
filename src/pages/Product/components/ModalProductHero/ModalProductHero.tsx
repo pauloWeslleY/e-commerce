@@ -1,5 +1,7 @@
-import { memo } from 'react'
+import { ReactNode, memo } from 'react'
 import {
+  Text,
+  Flex,
   Stack,
   Modal,
   ModalBody,
@@ -23,7 +25,17 @@ interface ModalProductHeroProps {
   product: ProductsType
 }
 
-function ModalProductHero({ product }: ModalProductHeroProps) {
+interface ProductsProps {
+  label: string
+  value: string | number
+}
+
+interface TextModalProps {
+  title: string
+  children: ReactNode
+}
+
+const ModalProductHero = ({ product }: ModalProductHeroProps) => {
   const {
     id,
     name,
@@ -38,14 +50,30 @@ function ModalProductHero({ product }: ModalProductHeroProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { THEME } = useColors()
   const prodID = id.toUpperCase()
-
   const createdAt = convertTimestampToDayjs(createAt)
   const today = createdAt.format('D [de] MMMM [de] YYYY [às] HH:mm')
-
   const updatedAt = convertTimestampToDayjs(updateAt)
   const dayUpdate = updatedAt.format('D [de] MMMM [de] YYYY [às] HH:mm')
 
-  const lastUpdate = updateAt ? `Ultima atualização: ${dayUpdate}` : ''
+  const PRODUCTS: Array<ProductsProps> = [
+    { label: 'ID:', value: prodID },
+    { label: 'Nome:', value: name },
+    { label: 'Descrição:', value: description },
+    { label: 'Preço:', value: price },
+    { label: 'Quantidade:', value: quantity },
+    { label: 'Categoria:', value: categoryId },
+    { label: 'Fornecedor:', value: supplier },
+    { label: 'Data de criação:', value: today },
+  ]
+
+  const TextModal = ({title, children}: TextModalProps) => (
+    <Flex gap={2}>
+      <Text color={'purple.600'}>
+        {title}
+      </Text>
+      <span>{children}</span>
+    </Flex>
+  )
 
   return (
     <>
@@ -64,9 +92,10 @@ function ModalProductHero({ product }: ModalProductHeroProps) {
         icon={<BsFillEyeFill />}
         onClick={onOpen}
       />
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent maxW={'3xl'}>
           <ModalHeader>{name}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -77,15 +106,21 @@ function ModalProductHero({ product }: ModalProductHeroProps) {
               justifyContent={'center'}
               textAlign={'center'}
             >
-              <span>ID: {prodID}</span>
-              <span>Nome: {name}</span>
-              <span>Descrição: {description}</span>
-              <span>Preço: {price}</span>
-              <span>Quantidade: {quantity}</span>
-              <span>Categoria: {categoryId}</span>
-              {supplier ? <span>Fornecedor: {supplier}</span> : <></>}
-              <span>Data de criação: {today}</span>
-              <span>{lastUpdate}</span>
+              {PRODUCTS.map((props, i) => (
+                <TextModal key={i} title={props.label}>
+                  <span>{props.value}</span>
+                </TextModal>
+              ))}
+
+              {updateAt ?
+                (
+                  <TextModal title="Ultima atualização:">
+                    <span>{dayUpdate}</span>
+                  </TextModal>
+                ) : (
+                  <></>
+                )
+              }
             </Stack>
           </ModalBody>
 
