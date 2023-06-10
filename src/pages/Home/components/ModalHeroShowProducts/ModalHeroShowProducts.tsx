@@ -32,8 +32,12 @@ function ModalHeroShowProducts(props: ModalHeroShowProductsProps) {
         aria-label="Show Products"
         icon={<BsFillEyeFill />}
         size={'sm'}
-        bg={'blackAlpha.300'}
         variant={'ghost'}
+        bg={'purple.100'}
+        transition={'bg .2s ease-in'}
+        _hover={{
+          bg: 'purple.600',
+        }}
         onClick={onOpen}
       />
 
@@ -43,9 +47,12 @@ function ModalHeroShowProducts(props: ModalHeroShowProductsProps) {
           <ModalHeader>Categoria {title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Flex flexDir={'column'} textAlign={'center'} fontWeight={500}>
-              <Text py={4} fontSize={'xl'} fontWeight={500}>
-                Total de Produtos - {product.length}
+            <Flex flexDir={'column'} textAlign={'center'} fontWeight={'medium'}>
+              <Text py={4} fontSize={'xl'} fontWeight={'medium'}>
+                Total de Produtos -{' '}
+                <Text display={'inline-block'} fontWeight={'semibold'}>
+                  {product.length}
+                </Text>
               </Text>
 
               {product.map(prod => (

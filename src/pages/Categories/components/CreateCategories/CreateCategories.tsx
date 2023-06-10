@@ -193,6 +193,7 @@ function CreateCategories() {
 
               <ModalHeroDelete
                 title="Categoria"
+                label="esta"
                 items={props}
                 onHandleDelete={() => {
                   handleDelete(props.id)

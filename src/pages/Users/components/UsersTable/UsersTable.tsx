@@ -21,7 +21,7 @@ const UsersTable = () => {
 
   const handleDeleteUser = async (id: string) => {
     await deleteDoc(doc(db, 'users', id))
-    const deleteUniqueUser = users.filter((user) => user.id !== id)
+    const deleteUniqueUser = users.filter(user => user.id !== id)
     setUsers(deleteUniqueUser)
 
     if (!currentUser) {
@@ -43,7 +43,7 @@ const UsersTable = () => {
         where('email', '!=', true)
       )
       const querySnapshot = await getDocs(filteredUsers)
-      const usersData = querySnapshot.docs.map<UserType>((doc) => ({
+      const usersData = querySnapshot.docs.map<UserType>(doc => ({
         id: doc.id,
         ...doc.data(),
       }))
@@ -60,6 +60,7 @@ const UsersTable = () => {
         <WrapperTableRow key={index} users={props}>
           <ModalHeroDelete
             title="Usuário"
+            label="este"
             user={props}
             onHandleDelete={() => {
               handleDeleteUser(props.id)

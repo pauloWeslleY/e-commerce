@@ -1,10 +1,8 @@
 import { memo } from 'react'
-import { Box, Flex, Icon, IconButton, Text } from '@chakra-ui/react'
+import { Box, Flex, IconButton, Image, Text } from '@chakra-ui/react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useThemeColors } from '../../hooks/useThemeColors'
 import { SideBarContainerProps } from '../../types/SideBarType'
-
-import { FaBuffer } from 'react-icons/fa'
 
 function SideBarLogoSearch({ collapsed }: SideBarContainerProps) {
   const { THEME } = useThemeColors()
@@ -18,10 +16,13 @@ function SideBarLogoSearch({ collapsed }: SideBarContainerProps) {
       gap={4}
     >
       <Box display={'flex'} alignItems={'center'} gap={2}>
-        <Icon
-          as={FaBuffer}
-          boxSize={'2.5rem'}
-          color={THEME.DASHBOARD.SIDEBAR_ICON_BG}
+        <Image
+          src={'/public/favicon.svg'}
+          alt={'Logo do SystemStock'}
+          bg={THEME.LOGOTIPO_BACKGROUND}
+          boxSize={12}
+          rounded={'2xl'}
+          p={1}
         />
         {collapsed && (
           <Text

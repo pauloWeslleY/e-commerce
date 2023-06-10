@@ -258,7 +258,8 @@ const CreateProduct = () => {
             </ModalHeroUpdate>
 
             <ModalHeroDelete
-              title="Item"
+              title="Produto"
+              label="este"
               items={product}
               onHandleDelete={() => {
                 handleDelete(product.id)

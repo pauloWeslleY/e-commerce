@@ -6,6 +6,8 @@ export function useThemeColors() {
     TEXT_COLORS: useColorModeValue('gray.500', 'whiteAlpha.800'),
     SPAN_COLORS: useColorModeValue('blackAlpha.700', 'whiteAlpha.900'),
 
+    LOGOTIPO_BACKGROUND: useColorModeValue('whiteAlpha.200', 'gray.400'),
+
     SIGN_IN: {
       BACKGROUND: useColorModeValue('blackAlpha.200', 'blackAlpha.500'),
     },

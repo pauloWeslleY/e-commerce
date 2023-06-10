@@ -17,13 +17,14 @@ import { UserType } from '../../types/UsersType'
 
 interface ModalHeroDeleteProps {
   title: string
+  label?: string
   items?: ProductsType
   user?: UserType
   onHandleDelete: () => void
 }
 
 function ModalHeroDelete(props: ModalHeroDeleteProps) {
-  const { title, user, items, onHandleDelete } = props
+  const { title, label, user, items, onHandleDelete } = props
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef()
 
@@ -38,9 +39,9 @@ function ModalHeroDelete(props: ModalHeroDeleteProps) {
       >
         <AlertDialogOverlay>
           <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+            <AlertDialogHeader fontSize={'lg'} fontWeight={'bold'}>
               <Text as={'span'} fontWeight={600}>
-                Tem certeza que você deseja excluir este {title}?
+                Tem certeza que você deseja excluir {label} {title}?
               </Text>
             </AlertDialogHeader>
 
@@ -69,7 +70,7 @@ function ModalHeroDelete(props: ModalHeroDeleteProps) {
             </AlertDialogBody>
 
             <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
+              <Button variant={'ghost'} ref={cancelRef} onClick={onClose}>
                 Cancelar
               </Button>
               <Button colorScheme="red" onClick={onHandleDelete} ml={3}>

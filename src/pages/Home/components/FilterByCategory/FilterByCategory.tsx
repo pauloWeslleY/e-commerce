@@ -37,6 +37,10 @@ const FilterByCategory = () => {
             p={2}
             rounded={'md'}
             boxShadow={'lg'}
+            transition={'transform .3s ease-in'}
+            _hover={{
+              transform: 'translateY(-5px)',
+            }}
           >
             <Text
               as={'span'}
