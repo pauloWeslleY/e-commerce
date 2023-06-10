@@ -1,10 +1,15 @@
-type ProductsType = {
-   id?: string;
-   title?: string;
-   description?: string;
-   price?: string;
-   category?: string;
-   quantity?: number;
-};
+import { Timestamp } from 'firebase/firestore'
 
-export { ProductsType };
+type ProductsType = {
+  id?: string
+  name?: string
+  description?: string
+  price?: string
+  categoryId?: string
+  quantity?: string | number
+  supplier?: string
+  createAt?: Timestamp
+  updateAt?: Timestamp
+}
+
+export { ProductsType }

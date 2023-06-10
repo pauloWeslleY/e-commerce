@@ -1,3 +1,3 @@
-import CardStatistic from "./CardStatistic";
+import CardStatistic from './CardStatistic'
 
-export { CardStatistic };
+export { CardStatistic }

@@ -1,10 +1,10 @@
-import { Dashboard } from "../Dashboard/Dashboard";
-import { AddCategory } from "./components/AddCategory/AddCategory";
+import { SideBar } from '../../components/SideBar'
+import { CreateCategories } from './components/CreateCategories'
 
 export function Categories() {
-   return (
-      <Dashboard>
-         <AddCategory />
-      </Dashboard>
-   );
+  return (
+    <SideBar>
+      <CreateCategories />
+    </SideBar>
+  )
 }

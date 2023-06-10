@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import { Navigate } from "react-router-dom";
-import { SignIn } from "./SignIn";
-import { AuthenticationContext } from "../../contexts/authContextProvider";
+import { Navigate } from 'react-router-dom'
+import { useLoggedUser } from '../../hooks/useLoggedUser'
+import { SignIn } from './SignIn'
 
 export const Login = () => {
-   const { signed } = useContext(AuthenticationContext);
+  const { userAuth } = useLoggedUser()
 
-   return !signed ? <SignIn /> : <Navigate to="/dashboard" />;
-};
+  return !userAuth ? <SignIn /> : <Navigate to="/dashboard" />
+}

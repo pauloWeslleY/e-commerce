@@ -1,10 +1,13 @@
-import { Dashboard } from "../Dashboard/Dashboard";
-import { AddProduct } from "./components/AddProduct/AddProduct";
-import { Loading } from "../../components/Loading";
-import { useLoading } from "../../hooks/useLoading"
+import { SideBar } from '../../components/SideBar'
+import { CreateProduct } from './components/CreateProduct'
+import { TableHero } from './components/Table'
 
-export function Product() {
-   const { isLoading } = useLoading();
+export const Product = () => {
+  return (
+    <SideBar>
+      <CreateProduct />
 
-   return <Dashboard>{isLoading ? <Loading /> : <AddProduct />}</Dashboard>;
+      <TableHero/>
+    </SideBar>
+  )
 }
