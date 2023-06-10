@@ -1,9 +1,9 @@
 import { memo, ReactNode } from 'react'
 import { Stack } from '@chakra-ui/react'
-import { useColors } from '../../../../hooks/useColors'
+import { useThemeColors } from '../../../../hooks/useThemeColors'
 
 const HeroTableContainer = ({ children }: { children: ReactNode }) => {
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <Stack

@@ -1,6 +1,6 @@
 import { ReactNode, memo } from 'react'
 import { SimpleGrid } from '@chakra-ui/react'
-import { useColors } from '../../../../hooks/useColors'
+import { useThemeColors } from '../../../../hooks/useThemeColors'
 import { ProductsType } from '../../../../types/ProductType'
 import { ModalProductHero } from '../ModalProductHero'
 import { HeroTableRowButtons } from './index'
@@ -12,7 +12,7 @@ interface HeroTableColumnProps {
 
 const HeroTableColumn = ({ children, product }: HeroTableColumnProps) => {
   const { id, name, price, quantity, categoryId } = product
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
   const prodId = id.toUpperCase().slice(0, 9)
   const prod = [prodId, name, price, quantity, categoryId]
 

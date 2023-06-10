@@ -10,8 +10,10 @@ import {
   ModalCloseButton,
   useDisclosure,
   Text,
+  Box,
+  IconButton,
 } from '@chakra-ui/react'
-import { BtnIcon, IsButton } from '../../../../components/Buttons'
+import { IsButton } from '../../../../components/Buttons'
 import { BsFillEyeFill } from 'react-icons/bs'
 import { ProductsType } from '../../../../types/ProductType'
 
@@ -26,11 +28,12 @@ function ModalHeroShowProducts(props: ModalHeroShowProductsProps) {
 
   return (
     <>
-      <BtnIcon
+      <IconButton
         aria-label="Show Products"
         icon={<BsFillEyeFill />}
+        size={'sm'}
         bg={'blackAlpha.300'}
-        variant={'outline'}
+        variant={'ghost'}
         onClick={onOpen}
       />
 
@@ -41,11 +44,22 @@ function ModalHeroShowProducts(props: ModalHeroShowProductsProps) {
           <ModalCloseButton />
           <ModalBody>
             <Flex flexDir={'column'} textAlign={'center'} fontWeight={500}>
-              <Text py={4} fontSize={'lg'} fontWeight={500}>
+              <Text py={4} fontSize={'xl'} fontWeight={500}>
                 Total de Produtos - {product.length}
               </Text>
-              {product.map((prod, index) => (
-                <span key={index}>{prod.name}</span>
+
+              {product.map(prod => (
+                <Box
+                  key={prod.id}
+                  as={'h4'}
+                  color={'purple.600'}
+                  fontWeight={'medium'}
+                  fontSize={'lg'}
+                  letterSpacing={'wide'}
+                  lineHeight={'shorter'}
+                >
+                  <span>{prod.name}</span>
+                </Box>
               ))}
             </Flex>
           </ModalBody>

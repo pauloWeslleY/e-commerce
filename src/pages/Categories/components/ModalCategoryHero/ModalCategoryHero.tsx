@@ -33,7 +33,7 @@ function ModalCategoryHero({ category }: ModalCategoryHeroProps) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{category.title}</ModalHeader>
+          <ModalHeader>{category.name}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Stack

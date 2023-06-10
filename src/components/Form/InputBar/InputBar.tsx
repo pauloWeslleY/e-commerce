@@ -1,9 +1,9 @@
 import { memo } from 'react'
 import { Input, InputProps } from '@chakra-ui/react'
-import { useColors } from '../../../hooks/useColors'
+import { useThemeColors } from '../../../hooks/useThemeColors'
 
 function InputBar({ ...rest }: InputProps) {
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <Input

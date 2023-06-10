@@ -1,12 +1,14 @@
 import { ReactNode, memo } from 'react'
-import { Flex, FlexProps } from '@chakra-ui/react'
+import { Flex, FlexProps, Text } from '@chakra-ui/react'
+import { CategoryType } from '../../../../types/CategoryType'
 
 interface HeroCategoryContainerProps extends FlexProps {
   children: ReactNode
+  category: CategoryType
 }
 
-function HeroCategoryContainer(props: HeroCategoryContainerProps) {
-  const { children, ...rest } = props
+const HeroCategoryContainer = (props: HeroCategoryContainerProps) => {
+  const { category, children, ...rest } = props
 
   return (
     <Flex
@@ -19,8 +21,21 @@ function HeroCategoryContainer(props: HeroCategoryContainerProps) {
       rounded={'md'}
       shadow={'md'}
       bg={'whiteAlpha.100'}
-      mb={2}
+      cursor={'pointer'}
+      transition={'all 0.3s ease-out'}
+      _hover={{
+        opacity: '.7',
+        transform: 'translateX(5px)',
+      }}
     >
+      <Text
+        as={'h3'}
+        fontFamily={'Poppins'}
+        fontSize={'md'}
+        fontWeight={'medium'}
+      >
+        {category.name}
+      </Text>
       {children}
     </Flex>
   )

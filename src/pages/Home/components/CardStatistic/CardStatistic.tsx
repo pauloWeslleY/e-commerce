@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { Flex, Heading, Icon, Stack, Text } from '@chakra-ui/react'
-import { useColors } from '../../../../hooks/useColors'
+import { useThemeColors } from '../../../../hooks/useThemeColors'
 import { CardsHomeType } from '../../../../types/CardsHomeType'
 
 interface CardStatisticProps {
@@ -9,34 +9,36 @@ interface CardStatisticProps {
 
 function CardStatistic({ cards }: CardStatisticProps) {
   const { title, subtitle, icon, background } = cards
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
-    <Stack
-      borderRadius={'lg'}
-      w={'full'}
+    <Flex
+      flexBasis={56}
+      flexGrow={1}
+      flexShrink={1}
+      justify={'space-around'}
+      flexDir={{ base: 'column', md: 'row' }}
       height={{ base: '10rem', md: '12rem' }}
-      direction={{ base: 'column', md: 'column' }}
+      borderRadius={'lg'}
       boxShadow={'lg'}
-      justifyContent={'center'}
       bg={background}
       color={THEME.TEXT_COLORS}
     >
-      <Stack flexDirection={'column'} justifyContent={'center'}>
-        <Flex justify={'space-around'} align={'center'}>
-          <Heading fontSize={'2xl'} fontFamily={'Inter'}>
+      <Stack justifyContent={'center'} flex={2}>
+        <Flex align={'center'} justify={'center'} flexDir={'column'} gap={2}>
+          <Heading
+            fontSize={'3xl'}
+            fontWeight={'semibold'}
+            fontFamily={'Poppins'}
+            letterSpacing={'wide'}
+          >
             {title}
           </Heading>
-          <Icon as={icon} boxSize={9} />
-        </Flex>
-      </Stack>
-      <Stack flexDirection={'column'}>
-        <Flex justify={'space-evenly'}>
           <Text
             as={'span'}
             fontSize={'4xl'}
             fontFamily={'Inter'}
-            fontWeight={500}
+            fontWeight={'medium'}
             textAlign={'center'}
             color={THEME.SPAN_COLORS}
             px={3}
@@ -45,7 +47,10 @@ function CardStatistic({ cards }: CardStatisticProps) {
           </Text>
         </Flex>
       </Stack>
-    </Stack>
+      <Stack direction={'column'} justifyContent={'center'} flex={1}>
+        <Icon as={icon} boxSize={20} />
+      </Stack>
+    </Flex>
   )
 }
 

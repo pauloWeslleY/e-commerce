@@ -1,13 +1,13 @@
 import { ReactNode, memo } from 'react'
 import { Flex, FlexProps } from '@chakra-ui/react'
-import { useColors } from '../../../../hooks/useColors'
+import { useThemeColors } from '../../../../hooks/useThemeColors'
 
 interface HeroTableWrapperProps extends FlexProps {
   children: ReactNode
 }
 
 const HeroTableWrapper = ({ children, ...rest }: HeroTableWrapperProps) => {
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <Flex

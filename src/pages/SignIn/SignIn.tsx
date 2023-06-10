@@ -12,7 +12,7 @@ import { HeroTitle } from '../../components/HeroTitle'
 import { ButtonSign } from '../../components/Buttons'
 import { Loading } from '../../components/Loading'
 import { UserType } from '../../types/UsersType'
-import { useColors } from '../../hooks/useColors'
+import { useThemeColors } from '../../hooks/useThemeColors'
 import { useLoading } from '../../hooks/useLoading'
 import { usersCollectionRef } from '../../services/collections'
 import Logotipo from '../../assets/logo.svg'
@@ -22,14 +22,14 @@ export function SignIn() {
   const [password, setPassword] = useState<string | any>('')
   const [users, setUsers] = useState<UserType[]>([])
   const { isLoading } = useLoading()
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
   const navigate = useNavigate()
   const toast = useToast()
 
   const handleSignInUser = async (event: FormEvent) => {
     event.preventDefault()
-    const useEmail = users.some((user) => user.email === email)
-    const usePass = users.some((user) => user.password === password)
+    const useEmail = users.some(user => user.email === email)
+    const usePass = users.some(user => user.password === password)
 
     // TODO: Envie os dados do formulário caso ele for válido
     if (useEmail && !usePass) {
@@ -52,7 +52,7 @@ export function SignIn() {
           setPassword('')
           navigate('/dashboard')
         })
-        .catch((err) => {
+        .catch(err => {
           toast({
             title: 'Email e senha estão incorreto!',
             status: 'warning',
@@ -76,7 +76,7 @@ export function SignIn() {
 
   const getUsers = async () => {
     const dataUser = await getDocs(usersCollectionRef)
-    const users = dataUser.docs.map<UserType>((doc) => ({
+    const users = dataUser.docs.map<UserType>(doc => ({
       ...doc.data(),
       id: doc.id,
     }))
@@ -122,12 +122,12 @@ export function SignIn() {
                 label="email"
                 icon={<EmailIcon w={4} h={4} />}
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={event => setEmail(event.target.value)}
               />
 
               <InputPassword
                 value={password}
-                onChange={(event) => setPassword(event.target.value)}
+                onChange={event => setPassword(event.target.value)}
               />
 
               <Stack pt={2}>

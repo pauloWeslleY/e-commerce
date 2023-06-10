@@ -1,10 +1,10 @@
 import { memo } from 'react'
 import { Flex, Grid, GridItem } from '@chakra-ui/react'
-import { useColors } from '../../../../hooks/useColors'
+import { useThemeColors } from '../../../../hooks/useThemeColors'
 import { FilterByCategory } from '../FilterByCategory'
 
 function HeroProducts() {
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <Flex as={'section'} flexDir={'column'}>
@@ -14,7 +14,6 @@ function HeroProducts() {
           lg: 'repeat(12, 1fr)',
         }}
         gap={2}
-        as={'section'}
       >
         <GridItem
           colSpan={{ lg: 12 }}

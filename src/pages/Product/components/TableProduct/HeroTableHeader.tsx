@@ -1,10 +1,16 @@
 import { memo } from 'react'
 import { SimpleGrid, chakra } from '@chakra-ui/react'
-import { useColors } from '../../../../hooks/useColors'
+import { useThemeColors } from '../../../../hooks/useThemeColors'
 
 const HeroTableHeader = () => {
-  const TABLE_HEADER: Array<string> = ['ID', 'Nome', 'Preço', 'Quantidade', 'Categorias']
-  const { THEME } = useColors()
+  const TABLE_HEADER: Array<string> = [
+    'ID',
+    'Nome',
+    'Preço',
+    'Quantidade',
+    'Categorias',
+  ]
+  const { THEME } = useThemeColors()
 
   return (
     <SimpleGrid

@@ -8,10 +8,10 @@ import {
 } from '@chakra-ui/react'
 import { FormLabelTitle } from '../../../../components/Form/FormLabelTitle'
 import { InputBar } from '../../../../components/Form/InputBar'
-import { useColors } from '../../../../hooks/useColors'
+import { useThemeColors } from '../../../../hooks/useThemeColors'
 
 function FormCategoryHeroUpdate({ ...rest }: InputProps) {
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <form>

@@ -1,6 +1,6 @@
 import { FormControl, GridItem, Select, SelectProps } from '@chakra-ui/react'
 import { FormLabelTitle } from '../../../../components/Form/FormLabelTitle'
-import { useColors } from '../../../../hooks/useColors'
+import { useThemeColors } from '../../../../hooks/useThemeColors'
 import { useFetch } from '../../../../hooks/useFetch'
 
 interface SelectFormProps extends SelectProps {
@@ -10,7 +10,7 @@ interface SelectFormProps extends SelectProps {
 function SelectForm(props: SelectFormProps) {
   const { colSpan, ...rest } = props
   const { isCategories } = useFetch()
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <FormControl isRequired as={GridItem} colSpan={colSpan}>

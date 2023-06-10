@@ -12,11 +12,9 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
-import { BsFillEyeFill } from 'react-icons/bs'
 import { ProductsType } from '../../../../types/ProductType'
-import { BtnIcon, IsButton } from '../../../../components/Buttons'
+import { ButtonModalShow, IsButton } from '../../../../components/Buttons'
 import { convertTimestampToDayjs } from '../../../../utils/convertTimestampToDayjs'
-import { useColors } from '../../../../hooks/useColors'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 dayjs.locale('pt-br')
@@ -48,7 +46,6 @@ const ModalProductHero = ({ product }: ModalProductHeroProps) => {
     updateAt,
   } = product
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { THEME } = useColors()
   const prodID = id.toUpperCase()
   const createdAt = convertTimestampToDayjs(createAt)
   const today = createdAt.format('D [de] MMMM [de] YYYY [às] HH:mm')
@@ -66,32 +63,16 @@ const ModalProductHero = ({ product }: ModalProductHeroProps) => {
     { label: 'Data de criação:', value: today },
   ]
 
-  const TextModal = ({title, children}: TextModalProps) => (
-    <Flex gap={2}>
-      <Text color={'purple.600'}>
-        {title}
-      </Text>
+  const TextModal = ({ title, children }: TextModalProps) => (
+    <Flex gap={1}>
+      <Text color={'purple.600'}>{title}</Text>
       <span>{children}</span>
     </Flex>
   )
 
   return (
     <>
-      <BtnIcon
-        bg={'emerald.400'}
-        color={'whiteAlpha.900'}
-        borderColor={'transparent'}
-        borderWidth={2}
-        transition={'ease-in-out .4s 100ms'}
-        _hover={{
-          bg: THEME.BUTTONS.BTN_ICON_BACKGROUND,
-          color: 'emerald.700',
-          borderColor: 'emerald.600',
-        }}
-        aria-label="Show item"
-        icon={<BsFillEyeFill />}
-        onClick={onOpen}
-      />
+      <ButtonModalShow aria-label="Show Modal Products" onClick={onOpen} />
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -112,15 +93,13 @@ const ModalProductHero = ({ product }: ModalProductHeroProps) => {
                 </TextModal>
               ))}
 
-              {updateAt ?
-                (
-                  <TextModal title="Ultima atualização:">
-                    <span>{dayUpdate}</span>
-                  </TextModal>
-                ) : (
-                  <></>
-                )
-              }
+              {updateAt ? (
+                <TextModal title="Ultima atualização:">
+                  <span>{dayUpdate}</span>
+                </TextModal>
+              ) : (
+                <></>
+              )}
             </Stack>
           </ModalBody>
 

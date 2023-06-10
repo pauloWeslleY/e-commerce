@@ -1,20 +1,21 @@
 import { Flex, Grid, GridItem } from '@chakra-ui/react'
 import { BiCategory, BiHomeAlt2, BiUser } from 'react-icons/bi'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
-import { useColors } from '../../hooks/useColors'
+import { useThemeColors } from '../../hooks/useThemeColors'
 import { useFetch } from '../../hooks/useFetch'
-import { CardStatistic } from './components/CardStatistic'
-import { TableListItems } from './components/TableListItems'
-import { SideBar } from '../../components/SideBar'
-import { HeroTitleBar } from '../../components/HeroTitle'
 import { useProduct } from '../../hooks/useProduct'
 import { CardsHomeType } from '../../types/CardsHomeType'
-import { HeroPricing } from './components/HeroPricing'
+import { CardStatistic } from './components/CardStatistic'
+import { HeroGraphics } from './components/HeroGraphics'
+import { SideBar } from '../../components/SideBar'
+import { HeroTitleBar } from '../../components/HeroTitle'
+import { GraphicsProducts } from './components/GraphicsProducts'
+import { FilterByCategory } from './components/FilterByCategory'
 
 export function Home() {
-  const { categories, users } = useFetch()
+  const { isCategories, users } = useFetch()
   const { product } = useProduct()
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   const CARDS_HOME_PROPS: Array<CardsHomeType> = [
     {
@@ -26,7 +27,7 @@ export function Home() {
     {
       icon: BiCategory,
       title: 'Categorias',
-      subtitle: categories.length,
+      subtitle: isCategories.length,
       background: THEME.HOME.CARDS_STATISTIC_BG_CATE,
     },
     {
@@ -59,20 +60,21 @@ export function Home() {
         ))}
       </Grid>
 
+      <GraphicsProducts />
+
+      <HeroGraphics />
+
       <Grid
         templateColumns={{
           base: 'repeat(1, 1fr)',
           lg: 'repeat(12, 1fr)',
         }}
-        gap={9}
+        gap={4}
         my={4}
+        as={'section'}
       >
-        <GridItem colSpan={{ lg: 12 }}>
-          <HeroPricing />
-        </GridItem>
+        <FilterByCategory />
       </Grid>
-
-      <TableListItems />
     </SideBar>
   )
 }

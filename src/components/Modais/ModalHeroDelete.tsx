@@ -11,8 +11,7 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import { DeleteIcon } from '@chakra-ui/icons'
-import { BtnIcon } from '../Buttons'
+import { ButtonDelete } from '../Buttons'
 import { ProductsType } from '../../types/ProductType'
 import { UserType } from '../../types/UsersType'
 
@@ -30,13 +29,7 @@ function ModalHeroDelete(props: ModalHeroDeleteProps) {
 
   return (
     <>
-      <BtnIcon
-        variant="outline"
-        colorScheme="red"
-        aria-label="Delete item"
-        icon={<DeleteIcon />}
-        onClick={onOpen}
-      />
+      <ButtonDelete aria-label="Delete item" size={'sm'} onClick={onOpen} />
 
       <AlertDialog
         isOpen={isOpen}

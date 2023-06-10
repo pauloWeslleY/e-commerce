@@ -4,7 +4,7 @@ type ProductsType = {
   id?: string
   name?: string
   description?: string
-  price?: string
+  price?: string | number
   categoryId?: string
   quantity?: string | number
   supplier?: string
