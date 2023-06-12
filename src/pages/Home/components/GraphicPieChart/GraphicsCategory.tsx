@@ -17,8 +17,7 @@ const GraphicsCategory = () => {
   const graphicProducts = useMemo(() => {
     const prod = product.map(product => {
       return {
-        name: product.name.slice(0, 8).concat('...'),
-        description: product.name,
+        name: product.name.slice(0, 3),
         quantidade: Number(product.quantity),
         preço: product.price,
       }

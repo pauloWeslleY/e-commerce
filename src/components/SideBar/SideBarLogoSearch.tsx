@@ -17,7 +17,7 @@ function SideBarLogoSearch({ collapsed }: SideBarContainerProps) {
     >
       <Box display={'flex'} alignItems={'center'} gap={2}>
         <Image
-          src={'/public/favicon.svg'}
+          src={'/favicon.svg'}
           alt={'Logo do SystemStock'}
           bg={THEME.LOGOTIPO_BACKGROUND}
           boxSize={12}

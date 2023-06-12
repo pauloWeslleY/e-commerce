@@ -24,7 +24,7 @@ const FilterByCategory = () => {
   return (
     <>
       {categoryByProducts.map(props => (
-        <GridItem key={props.id} colSpan={{ lg: 3 }}>
+        <GridItem key={props.id} colSpan={{ lg: 2 }}>
           <Flex
             flexDir={'column'}
             align={'center'}

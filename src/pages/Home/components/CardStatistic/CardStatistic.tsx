@@ -7,7 +7,7 @@ interface CardStatisticProps {
   cards: CardsHomeType
 }
 
-function CardStatistic({ cards }: CardStatisticProps) {
+const CardStatistic = ({ cards }: CardStatisticProps) => {
   const { title, subtitle, icon, background } = cards
   const { THEME } = useThemeColors()
 
@@ -48,7 +48,7 @@ function CardStatistic({ cards }: CardStatisticProps) {
         </Flex>
       </Stack>
       <Stack direction={'column'} justifyContent={'center'} flex={1}>
-        <Icon as={icon} boxSize={20} />
+        <Icon as={icon} boxSize={20} color={'blackAlpha.400'} />
       </Stack>
     </Flex>
   )
