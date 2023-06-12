@@ -1,9 +1,9 @@
 import { ReactNode, memo, useState } from 'react'
 import { Flex, HStack, IconButton } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
-import { useColors } from '../../hooks/useColors'
+import { useThemeColors } from '../../hooks/useThemeColors'
 import { SideBarContainer, SideBarMobile } from './index'
-import { BtnSwitchDarkMode } from '../Buttons'
+import { ButtonDarkMode } from '../Buttons'
 
 interface SideBarProps {
   children?: ReactNode
@@ -11,7 +11,7 @@ interface SideBarProps {
 
 function SideBar({ children }: SideBarProps) {
   const [collapse, setCollapse] = useState(true)
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <HStack w={'full'} h={'100vh'} bg={THEME.DASHBOARD.BACKGROUND} p={2}>
@@ -59,7 +59,7 @@ function SideBar({ children }: SideBarProps) {
                 borderColor: 'purple.600',
               }}
             />
-            <BtnSwitchDarkMode />
+            <ButtonDarkMode />
           </Flex>
         </Flex>
 

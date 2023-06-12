@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { FormLabel, FormLabelProps } from '@chakra-ui/react'
-import { useColors } from '../../../hooks/useColors'
+import { useThemeColors } from '../../../hooks/useThemeColors'
 
 interface FormLabelTitleProps extends FormLabelProps {
   htmlFor: string
@@ -8,7 +8,7 @@ interface FormLabelTitleProps extends FormLabelProps {
 }
 
 function FormLabelTitle(props: FormLabelTitleProps) {
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
   const { title, htmlFor, ...rest } = props
 
   return (

@@ -11,7 +11,7 @@ import {
 import { FormLabelTitle } from '../../../../components/Form/FormLabelTitle'
 import { IsButton } from '../../../../components/Buttons'
 import { InputBar } from '../../../../components/Form/InputBar'
-import { useColors } from '../../../../hooks/useColors'
+import { useThemeColors } from '../../../../hooks/useThemeColors'
 
 interface FormCategoryHeroProps extends InputProps {
   onHandleSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>
@@ -20,7 +20,7 @@ interface FormCategoryHeroProps extends InputProps {
 
 function FormCategoryHero(props: FormCategoryHeroProps) {
   const { onHandleClick, onHandleSubmit, ...rest } = props
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <Box mt={[10, 0]} mb={8}>

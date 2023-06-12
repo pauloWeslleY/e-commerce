@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent, memo } from 'react'
+import { useState, useEffect, FormEvent, memo, useMemo } from 'react'
 import {
   collection,
   addDoc,
@@ -13,9 +13,7 @@ import {
 import {
   Flex,
   VStack,
-  StackDivider,
   Collapse,
-  Text,
   useDisclosure,
   useToast,
 } from '@chakra-ui/react'
@@ -83,7 +81,7 @@ function CreateCategories() {
 
   const handleUpdatedCategory = async (id: string) => {
     try {
-      const categoryId = category.some((props) => props.id === id)
+      const categoryId = category.some(props => props.id === id)
 
       if (name.length === 0) {
         toast({
@@ -93,7 +91,7 @@ function CreateCategories() {
           isClosable: true,
         })
       } else if (categoryId && name.length !== 0) {
-        const categories = category.map((category) =>
+        const categories = category.map(category =>
           category.id === id ? { id, ...isCategory } : category
         )
         await updateDoc(doc(db, 'categories', id), isCategory)
@@ -125,7 +123,7 @@ function CreateCategories() {
 
   const handleDelete = async (id: string) => {
     await deleteDoc(doc(db, 'categories', id))
-    setCategory(category.filter((item) => item.id !== id))
+    setCategory(category.filter(item => item.id !== id))
   }
 
   const filteredCategory = async () => {
@@ -135,13 +133,24 @@ function CreateCategories() {
       orderBy('name', 'asc')
     )
     const querySnapshot = await getDocs(filteredCategories)
-    const isCategory = querySnapshot.docs.map<CategoryType>((doc) => ({
+    const isCategory = querySnapshot.docs.map<CategoryType>(doc => ({
       id: doc.id,
       ...doc.data(),
     }))
 
     setCategory(isCategory)
   }
+
+  const categories = useMemo(() => {
+    const data = category.map(category => {
+      return {
+        id: category.id,
+        name: category.name,
+      }
+    })
+
+    return data
+  }, [category])
 
   useEffect(() => {
     filteredCategory()
@@ -150,7 +159,7 @@ function CreateCategories() {
   return (
     <>
       <NavBar
-        label="Categorias do Produtos"
+        label="Categorias de Produtos"
         title="Criar Categoria"
         onOpen={navBarToggle.onToggle}
         icon={BiCategory}
@@ -161,27 +170,15 @@ function CreateCategories() {
         <FormCategoryHero
           onHandleSubmit={handleCreateCategory}
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={e => setName(e.target.value)}
           onHandleClick={navBarToggle.onToggle}
         />
       </Collapse>
 
       {/* HACK: List Categories */}
-      <VStack
-        divider={<StackDivider borderColor={'purple.200'} />}
-        spacing={4}
-        align={'stretch'}
-      >
-        {category.map((props) => (
-          <HeroCategoryContainer key={props.id}>
-            <Text
-              as={'h3'}
-              fontFamily={'Inter'}
-              fontSize={'md'}
-              fontWeight={500}
-            >
-              {props.name}
-            </Text>
+      <VStack spacing={4} align={'stretch'}>
+        {categories.map(props => (
+          <HeroCategoryContainer key={props.id} category={props}>
             <Flex gap={2}>
               <ModalHeroUpdate
                 title="Categoria"
@@ -190,12 +187,13 @@ function CreateCategories() {
               >
                 <FormCategoryHeroUpdate
                   value={name}
-                  onChange={(event) => setName(event.target.value)}
+                  onChange={event => setName(event.target.value)}
                 />
               </ModalHeroUpdate>
 
               <ModalHeroDelete
                 title="Categoria"
+                label="esta"
                 items={props}
                 onHandleDelete={() => {
                   handleDelete(props.id)

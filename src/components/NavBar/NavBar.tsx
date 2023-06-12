@@ -3,7 +3,7 @@ import { Box, Button, Flex, Stack } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import { IconType } from 'react-icons'
 import { NavTitle } from './index'
-import { useColors } from '../../hooks/useColors'
+import { useThemeColors } from '../../hooks/useThemeColors'
 
 interface NavBarProps {
   title?: string
@@ -14,7 +14,7 @@ interface NavBarProps {
 
 function NavBar(props: NavBarProps) {
   const { label, title, icon, onOpen } = props
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <Box

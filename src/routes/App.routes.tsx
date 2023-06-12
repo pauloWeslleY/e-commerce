@@ -11,6 +11,7 @@ import { NotFound } from '../pages/404/404'
 import { Categories } from '../pages/Categories/Categories'
 import { Users } from '../pages/Users'
 import { UserProfile } from '../pages/Profile/UserProfile'
+import { Graphic } from '../pages/Graphic/Graphic'
 
 interface RoutesProps {
   path: string
@@ -48,6 +49,10 @@ const routes: RoutesProps[] = [
           {
             path: '/dashboard/categories',
             element: <Categories />,
+          },
+          {
+            path: '/dashboard/graphics',
+            element: <Graphic />,
           },
           {
             path: '/dashboard/users',

@@ -1,13 +1,10 @@
-import {
-  MdOutlineNotificationsActive,
-  MdOutlineCalendarMonth,
-} from 'react-icons/md'
+import { MdOutlineNotificationsActive } from 'react-icons/md'
 import { BiCategory, BiHomeAlt2, BiUser } from 'react-icons/bi'
 import { TbTool } from 'react-icons/tb'
 import { HiOutlineChatBubbleBottomCenter } from 'react-icons/hi2'
 import { BsGear } from 'react-icons/bs'
-// import { RxDashboard } from "react-icons/rx";
 import { HiOutlineMail, HiOutlineShoppingBag } from 'react-icons/hi'
+import { VscGraphLeft } from 'react-icons/vsc'
 import { MenuItemsProps } from '../../../../types/MenuItemsProps'
 
 const MENU_ITEMS: Array<MenuItemsProps> = [
@@ -36,9 +33,9 @@ const MENU_ITEMS: Array<MenuItemsProps> = [
   },
   {
     type: 'link',
-    label: 'Calendário',
-    icon: MdOutlineCalendarMonth,
-    path: '/',
+    label: 'Desempenho',
+    icon: VscGraphLeft,
+    path: '/dashboard/graphics',
   },
   {
     type: 'link',

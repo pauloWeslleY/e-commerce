@@ -1,14 +1,14 @@
 import { memo } from 'react'
 import { Button, ButtonProps } from '@chakra-ui/react'
-import { useColors } from '../../hooks/useColors'
+import { useThemeColors } from '../../hooks/useThemeColors'
 
 interface IsButtonProps extends ButtonProps {
   title: string
 }
 
-function IsButton(props: IsButtonProps) {
+const IsButton = (props: IsButtonProps) => {
   const { title, ...rest } = props
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <Button

@@ -1,7 +1,7 @@
 import { HTMLInputTypeAttribute, memo } from 'react'
 import { FormControl, GridItem, Input, InputProps } from '@chakra-ui/react'
 import { FormLabelTitle } from '../../../../components/Form/FormLabelTitle'
-import { useColors } from '../../../../hooks/useColors'
+import { useThemeColors } from '../../../../hooks/useThemeColors'
 
 interface FormInputFieldProps extends InputProps {
   title: string
@@ -12,7 +12,7 @@ interface FormInputFieldProps extends InputProps {
 
 function FormInputField(props: FormInputFieldProps) {
   const { title, label, type, colSpan, ...rest } = props
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <FormControl isRequired as={GridItem} colSpan={colSpan}>

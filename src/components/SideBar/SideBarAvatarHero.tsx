@@ -1,14 +1,14 @@
 import { memo, useContext } from 'react'
 import { Avatar, Button, Flex, Text } from '@chakra-ui/react'
 import { AuthenticationContext } from '../../contexts/authContextProvider'
-import { useColors } from '../../hooks/useColors'
+import { useThemeColors } from '../../hooks/useThemeColors'
 import { SideBarContainerProps } from '../../types/SideBarType'
 import { SideBarAvatarMenu } from './index'
 import { HiOutlineLogout } from 'react-icons/hi'
 
 function SideBarAvatarHero({ collapsed }: SideBarContainerProps) {
   const { userOnAuth, handleLogout } = useContext(AuthenticationContext)
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <Flex

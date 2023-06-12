@@ -15,40 +15,34 @@ import { db } from '../../../../services/firebase'
 import { useToast, useDisclosure } from '@chakra-ui/react'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
 import { createAndUpdateProduct } from '../../../../utils/createAndUpdateProduct'
-import { useColors } from '../../../../hooks/useColors'
+import { useThemeColors } from '../../../../hooks/useThemeColors'
 import { useLoading } from '../../../../hooks/useLoading'
 import { ProductsType } from '../../../../types/ProductType'
 import { NavBar } from '../../../../components/NavBar'
 import { Loading } from '../../../../components/Loading'
 import { DrawerHero } from '../../../../components/DrawerHero'
 import { ModalHeroDelete, ModalHeroUpdate } from '../../../../components/Modais'
-import {
-  HeroTableColumn,
-  HeroTableHeader,
-  HeroTableContainer,
-  HeroTableWrapper,
-} from '../TableProduct'
+import { convertTimestampToDayjs } from '../../../../utils/convertTimestampToDayjs'
+import { formatValueCurrency } from '../../../../utils/formatValueCurrency'
+import { formatValueQuantity } from '../../../../utils/formatQuantityValue'
+import { HeroTable, HeroTableRow } from '../HeroTableProduct'
 import {
   FormFooterHero,
   FormHeroBox,
   FormHeroProduct,
-  FormStack,
 } from '../HeroFormProduct'
-import { convertTimestampToDayjs } from '../../../../utils/convertTimestampToDayjs'
-import { formatValueCurrency } from '../../../../utils/formatValueCurrency'
-import { formatValueQuantity } from '../../../../utils/formatQuantityValue'
 
 const CreateProduct = () => {
   const [product, setProduct] = useState<ProductsType[]>([])
   const [name, setName] = useState<string>('')
-  const [price, setPrice] = useState<string>('')
+  const [price, setPrice] = useState<string | number>('')
   const [description, setDescription] = useState<string>('')
   const [supplier, setSupplier] = useState<string>('')
   const [categoryId, setCategoryId] = useState<string>('')
   const [quantity, setQuantity] = useState<number>(0)
   const navBarToggle = useDisclosure()
   const toast = useToast()
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
   const { isLoading } = useLoading()
   const { createProduct, updateProduct } = createAndUpdateProduct({
     name,
@@ -107,7 +101,7 @@ const CreateProduct = () => {
   }
 
   const handleUpdateProduct = async (id: string) => {
-    const prodItem = product.some((prod) => prod.id === id)
+    const prodItem = product.some(prod => prod.id === id)
     try {
       if (name.length === 0) {
         toast({
@@ -117,7 +111,7 @@ const CreateProduct = () => {
           isClosable: true,
         })
       } else if (prodItem && name.length !== 0) {
-        const products = product.map((prod) =>
+        const products = product.map(prod =>
           prod.id === id ? { id, ...updateProduct } : prod
         )
         await updateDoc(doc(db, 'items', id), updateProduct)
@@ -154,7 +148,7 @@ const CreateProduct = () => {
 
   const handleDelete = async (id: string) => {
     await deleteDoc(doc(db, 'product', id))
-    setProduct(product.filter((prod) => prod.id !== id))
+    setProduct(product.filter(prod => prod.id !== id))
   }
 
   const filteredProducts = async () => {
@@ -164,7 +158,7 @@ const CreateProduct = () => {
       orderBy('name', 'asc')
     )
     const querySnapshot = await getDocs(filteredProd)
-    const allProducts = querySnapshot.docs.map<ProductsType>((doc) => ({
+    const allProducts = querySnapshot.docs.map<ProductsType>(doc => ({
       id: doc.id,
       ...doc.data(),
     }))
@@ -172,8 +166,18 @@ const CreateProduct = () => {
     setProduct(allProducts)
   }
 
+  const handleQuantity = (quantity: string) => {
+    try {
+      const parseQuantity = Number(quantity)
+      setQuantity(parseQuantity)
+    } catch (error) {
+      console.error('Invalid Quantity value')
+      throw new Error(error)
+    }
+  }
+
   const allProductsFormat = useMemo(() => {
-    const response = product.map((product) => {
+    const response = product.map(product => {
       return {
         id: product.id,
         name: product.name,
@@ -189,7 +193,6 @@ const CreateProduct = () => {
 
     return response
   }, [product])
-
 
   useEffect(() => {
     filteredProducts()
@@ -210,79 +213,67 @@ const CreateProduct = () => {
 
       <DrawerHero isOpen={navBarToggle.isOpen} onClose={navBarToggle.onClose}>
         <FormHeroBox onHandleSubmit={handleCreateProduct}>
-          <FormStack bg={THEME.DASHBOARD.FORM_BACKGROUND}>
-            <FormHeroProduct
-              valueName={name}
-              valuePrice={price}
-              valueDescription={description}
-              valueSupplier={supplier}
-              valueQuantity={quantity}
-              valueCategoryId={categoryId}
-              onHandleChangeName={(e) => setName(e.target.value)}
-              onHandleChangePrice={(e) => setPrice(e.target.value)}
-              onHandleChangeDescription={(e) => setDescription(e.target.value)}
-              onHandleChangeSupplier={(e) => setSupplier(e.target.value)}
-              onHandleChangeQuantity={(e) =>
-                setQuantity(Number(e.target.value))
-              }
-              onHandleChangeCategoryId={(e) => setCategoryId(e.target.value)}
-            />
-          </FormStack>
+          <FormHeroProduct
+            bg={THEME.DASHBOARD.FORM_BACKGROUND}
+            valueName={name}
+            valuePrice={price}
+            valueDescription={description}
+            valueSupplier={supplier}
+            valueQuantity={quantity}
+            valueCategoryId={categoryId}
+            onHandleChangeName={e => setName(e.target.value)}
+            onHandleChangePrice={e => setPrice(e.target.value)}
+            onHandleChangeDescription={e => setDescription(e.target.value)}
+            onHandleChangeSupplier={e => setSupplier(e.target.value)}
+            onHandleChangeQuantity={e => handleQuantity(e.target.value)}
+            onHandleChangeCategoryId={e => setCategoryId(e.target.value)}
+          />
           <FormFooterHero onHandleClick={navBarToggle.onToggle} />
         </FormHeroBox>
       </DrawerHero>
 
-      <HeroTableContainer>
-        {allProductsFormat.map((props) => (
-          <HeroTableWrapper key={props.id}>
-            <HeroTableHeader />
-            <HeroTableColumn product={props}>
-              <ModalHeroUpdate
-                title="Produto"
-                items={props}
-                onHandleClick={() => handleUpdateProduct(props.id)}
-              >
-                <FormStack bg={THEME.DASHBOARD.POPOVER_BACKGROUND}>
-                  <FormHeroProduct
-                    valueName={name}
-                    valuePrice={price}
-                    valueDescription={description}
-                    valueSupplier={supplier}
-                    valueQuantity={quantity}
-                    valueCategoryId={categoryId}
-                    onHandleChangeName={(e) => setName(e.target.value)}
-                    onHandleChangePrice={(e) => setPrice(e.target.value)}
-                    onHandleChangeSupplier={(e) => setSupplier(e.target.value)}
-                    onHandleChangeDescription={(e) =>
-                      setDescription(e.target.value)
-                    }
-                    onHandleChangeQuantity={(e) =>
-                      setQuantity(Number(e.target.value))
-                    }
-                    onHandleChangeCategoryId={(e) =>
-                      setCategoryId(e.target.value)
-                    }
-                  />
-                </FormStack>
-              </ModalHeroUpdate>
-
-              <ModalHeroDelete
-                title="Item"
-                items={props}
-                onHandleDelete={() => {
-                  handleDelete(props.id)
-                  toast({
-                    title: `Item ${props.name} deletado`,
-                    status: 'success',
-                    duration: 10000,
-                    isClosable: true,
-                  })
-                }}
+      <HeroTable bg={THEME.DASHBOARD.TABLE_PRODUCT_HEADER_BG}>
+        {allProductsFormat.map(product => (
+          <HeroTableRow key={product.id} product={product}>
+            <ModalHeroUpdate
+              title="Produto"
+              items={product}
+              onHandleClick={() => handleUpdateProduct(product.id)}
+            >
+              <FormHeroProduct
+                bg={THEME.DASHBOARD.POPOVER_BACKGROUND}
+                valueName={name}
+                valuePrice={price}
+                valueDescription={description}
+                valueSupplier={supplier}
+                valueQuantity={quantity}
+                valueCategoryId={categoryId}
+                onHandleChangeName={e => setName(e.target.value)}
+                onHandleChangePrice={e => setPrice(e.target.value)}
+                onHandleChangeSupplier={e => setSupplier(e.target.value)}
+                onHandleChangeDescription={e => setDescription(e.target.value)}
+                onHandleChangeQuantity={e => handleQuantity(e.target.value)}
+                onHandleChangeCategoryId={e => setCategoryId(e.target.value)}
               />
-            </HeroTableColumn>
-          </HeroTableWrapper>
+            </ModalHeroUpdate>
+
+            <ModalHeroDelete
+              title="Produto"
+              label="este"
+              items={product}
+              onHandleDelete={() => {
+                handleDelete(product.id)
+                toast({
+                  title: `Item ${product.name} deletado`,
+                  status: 'success',
+                  duration: 10000,
+                  isClosable: true,
+                })
+              }}
+            />
+          </HeroTableRow>
         ))}
-      </HeroTableContainer>
+      </HeroTable>
     </>
   )
 }

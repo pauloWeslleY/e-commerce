@@ -9,7 +9,7 @@ import { auth } from '../../services/firebase'
 import { InputPassword } from '../../components/Form/InputPassword'
 import { HeroTitle } from '../../components/HeroTitle'
 import { ButtonSign } from '../../components/Buttons'
-import { useColors } from '../../hooks/useColors'
+import { useThemeColors } from '../../hooks/useThemeColors'
 import { InputFooter } from '../../components/Form/InputFooter'
 import { Loading } from '../../components/Loading'
 import { InputFieldBar } from '../../components/Form/InputBar'
@@ -24,7 +24,7 @@ export function Register() {
   const [password, setPassword] = useState<string>('')
   const [users, setUsers] = useState<UserType[]>([])
   const { isLoading } = useLoading()
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
   const navigate = useNavigate()
   const toast = useToast()
 
@@ -85,7 +85,7 @@ export function Register() {
   useEffect(() => {
     async function getUsers() {
       const dataUser = await getDocs(usersCollectionRef)
-      const users = dataUser.docs.map<UserType>((doc) => ({
+      const users = dataUser.docs.map<UserType>(doc => ({
         ...doc.data(),
         id: doc.id,
       }))
@@ -131,7 +131,7 @@ export function Register() {
                 label="username"
                 icon={<RiUser3Fill color="gray.300" />}
                 value={username}
-                onChange={(event) => setUserName(event.target.value)}
+                onChange={event => setUserName(event.target.value)}
               />
 
               <InputFieldBar
@@ -139,11 +139,11 @@ export function Register() {
                 label="email"
                 icon={<EmailIcon w={4} h={4} />}
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={event => setEmail(event.target.value)}
               />
 
               <InputPassword
-                onChange={(event) => setPassword(event.target.value)}
+                onChange={event => setPassword(event.target.value)}
                 value={password}
                 isRequired
               />

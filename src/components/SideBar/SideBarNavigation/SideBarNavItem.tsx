@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Badge, Box, Heading, Link, ListIcon, Text } from '@chakra-ui/react'
 import { MenuItemsProps } from '../../../types/MenuItemsProps'
-import { useColors } from '../../../hooks/useColors'
+import { useThemeColors } from '../../../hooks/useThemeColors'
 
 interface SideBarNavItemProps {
   item: MenuItemsProps
@@ -13,7 +13,7 @@ interface SideBarNavItemProps {
 function SideBarNavItem(props: SideBarNavItemProps) {
   const { item, isActive, collapsed } = props
   const { label } = item
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   if (item.type === 'link') {
     const { icon, notifications, messages, path } = item

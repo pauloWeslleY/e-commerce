@@ -10,8 +10,10 @@ import {
   ModalCloseButton,
   useDisclosure,
   Text,
+  Box,
+  IconButton,
 } from '@chakra-ui/react'
-import { BtnIcon, IsButton } from '../../../../components/Buttons'
+import { IsButton } from '../../../../components/Buttons'
 import { BsFillEyeFill } from 'react-icons/bs'
 import { ProductsType } from '../../../../types/ProductType'
 
@@ -26,11 +28,16 @@ function ModalHeroShowProducts(props: ModalHeroShowProductsProps) {
 
   return (
     <>
-      <BtnIcon
+      <IconButton
         aria-label="Show Products"
         icon={<BsFillEyeFill />}
-        bg={'blackAlpha.300'}
-        variant={'outline'}
+        size={'sm'}
+        variant={'ghost'}
+        bg={'purple.100'}
+        transition={'bg .2s ease-in'}
+        _hover={{
+          bg: 'purple.600',
+        }}
         onClick={onOpen}
       />
 
@@ -40,12 +47,26 @@ function ModalHeroShowProducts(props: ModalHeroShowProductsProps) {
           <ModalHeader>Categoria {title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Flex flexDir={'column'} textAlign={'center'} fontWeight={500}>
-              <Text py={4} fontSize={'lg'} fontWeight={500}>
-                Total de Produtos - {product.length}
+            <Flex flexDir={'column'} textAlign={'center'} fontWeight={'medium'}>
+              <Text py={4} fontSize={'xl'} fontWeight={'medium'}>
+                Total de Produtos -{' '}
+                <Text display={'inline-block'} fontWeight={'semibold'}>
+                  {product.length}
+                </Text>
               </Text>
-              {product.map((prod, index) => (
-                <span key={index}>{prod.name}</span>
+
+              {product.map(prod => (
+                <Box
+                  key={prod.id}
+                  as={'h4'}
+                  color={'purple.600'}
+                  fontWeight={'medium'}
+                  fontSize={'lg'}
+                  letterSpacing={'wide'}
+                  lineHeight={'shorter'}
+                >
+                  <span>{prod.name}</span>
+                </Box>
               ))}
             </Flex>
           </ModalBody>

@@ -13,12 +13,12 @@ import {
 } from '@chakra-ui/react'
 import { MdOutlineMoreHoriz } from 'react-icons/md'
 import { AuthenticationContext } from '../../contexts/authContextProvider'
-import { useColors } from '../../hooks/useColors'
+import { useThemeColors } from '../../hooks/useThemeColors'
 import { HiOutlineLogout } from 'react-icons/hi'
 
 function SideBarAvatarMenu() {
   const { userOnAuth, handleLogout } = useContext(AuthenticationContext)
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <Popover trigger={'hover'}>

@@ -1,11 +1,11 @@
 import { memo } from 'react'
 import { Box, Flex } from '@chakra-ui/react'
 import { NavTitle } from '../NavBar'
-import { useColors } from '../../hooks/useColors'
+import { useThemeColors } from '../../hooks/useThemeColors'
 import { NavBarProps } from '../../types/NavBarType'
 
 function HeroTitleBar(props: NavBarProps) {
-  const { THEME } = useColors()
+  const { THEME } = useThemeColors()
 
   return (
     <Box
