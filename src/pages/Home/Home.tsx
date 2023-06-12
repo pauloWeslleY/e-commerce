@@ -3,7 +3,6 @@ import { BiCategory, BiHomeAlt2, BiUser } from 'react-icons/bi'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
 import { useThemeColors } from '../../hooks/useThemeColors'
 import { useFetch } from '../../hooks/useFetch'
-import { useProduct } from '../../hooks/useProduct'
 import { CardsHomeType } from '../../types/CardsHomeType'
 import { CardStatistic } from './components/CardStatistic'
 import { HeroGraphics } from './components/HeroGraphics'
@@ -13,8 +12,7 @@ import { GraphicsProducts } from './components/GraphicsProducts'
 import { FilterByCategory } from './components/FilterByCategory'
 
 export function Home() {
-  const { isCategories, users } = useFetch()
-  const { product } = useProduct()
+  const { isCategories, users, product } = useFetch()
   const { THEME } = useThemeColors()
 
   const CARDS_HOME_PROPS: Array<CardsHomeType> = [

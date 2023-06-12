@@ -1,17 +1,17 @@
 import React, { ReactNode, memo } from 'react'
 import { ButtonGroup, Td, Tr } from '@chakra-ui/react'
-import { ProductsType } from '../../../../types/ProductType'
 import { HeroTableContent, HeroTableContentMobile } from './index'
 import { ModalProductHero } from '../ModalProductHero'
+import { ProductFormatProps } from '../../../../types/ProductFormatProps'
 
 interface HeroTableColumnProps {
-  product: ProductsType
+  product: ProductFormatProps
   children: ReactNode
 }
 
 interface ProductsProps {
   label: string
-  value: any
+  value: string | number
 }
 
 const HeroTableRow = ({ product, children }: HeroTableColumnProps) => {

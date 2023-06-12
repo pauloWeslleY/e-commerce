@@ -16,6 +16,7 @@ import {
 import { IsButton } from '../../../../components/Buttons'
 import { BsFillEyeFill } from 'react-icons/bs'
 import { ProductsType } from '../../../../types/ProductType'
+import { useThemeColors } from '../../../../hooks/useThemeColors'
 
 type ModalHeroShowProductsProps = {
   title: string
@@ -25,6 +26,7 @@ type ModalHeroShowProductsProps = {
 function ModalHeroShowProducts(props: ModalHeroShowProductsProps) {
   const { product, title } = props
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { THEME } = useThemeColors()
 
   return (
     <>
@@ -33,7 +35,7 @@ function ModalHeroShowProducts(props: ModalHeroShowProductsProps) {
         icon={<BsFillEyeFill />}
         size={'sm'}
         variant={'ghost'}
-        bg={'purple.100'}
+        bg={THEME.BUTTONS.BTN_ICON_BACKGROUND}
         transition={'bg .2s ease-in'}
         _hover={{
           bg: 'purple.600',

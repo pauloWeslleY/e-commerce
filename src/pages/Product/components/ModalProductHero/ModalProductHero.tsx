@@ -12,15 +12,14 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
-import { ProductsType } from '../../../../types/ProductType'
 import { ButtonModalShow, IsButton } from '../../../../components/Buttons'
-import { convertTimestampToDayjs } from '../../../../utils/convertTimestampToDayjs'
+import { ProductFormatProps } from '../../../../types/ProductFormatProps'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 dayjs.locale('pt-br')
 
 interface ModalProductHeroProps {
-  product: ProductsType
+  product: ProductFormatProps
 }
 
 interface ProductsProps {
@@ -42,15 +41,13 @@ const ModalProductHero = ({ product }: ModalProductHeroProps) => {
     quantity,
     categoryId,
     supplier,
-    createAt,
-    updateAt,
+    createdAt,
+    updatedAt,
   } = product
   const { isOpen, onOpen, onClose } = useDisclosure()
   const prodID = id.toUpperCase()
-  const createdAt = convertTimestampToDayjs(createAt)
-  const today = createdAt.format('D [de] MMMM [de] YYYY [às] HH:mm')
-  const updatedAt = convertTimestampToDayjs(updateAt)
-  const dayUpdate = updatedAt.format('D [de] MMMM [de] YYYY [às] HH:mm')
+  const createDate = createdAt.format('D [de] MMMM [de] YYYY [às] HH:mm')
+  const updateDate = updatedAt.format('D [de] MMMM [de] YYYY [às] HH:mm')
 
   const PRODUCTS: Array<ProductsProps> = [
     { label: 'ID:', value: prodID },
@@ -60,7 +57,7 @@ const ModalProductHero = ({ product }: ModalProductHeroProps) => {
     { label: 'Quantidade:', value: quantity },
     { label: 'Categoria:', value: categoryId },
     { label: 'Fornecedor:', value: supplier },
-    { label: 'Data de criação:', value: today },
+    { label: 'Data de criação:', value: createDate },
   ]
 
   const TextModal = ({ title, children }: TextModalProps) => (
@@ -89,16 +86,14 @@ const ModalProductHero = ({ product }: ModalProductHeroProps) => {
             >
               {PRODUCTS.map((props, i) => (
                 <TextModal key={i} title={props.label}>
-                  <span>{props.value}</span>
+                  {props.value}
                 </TextModal>
               ))}
 
-              {updateAt ? (
-                <TextModal title="Ultima atualização:">
-                  <span>{dayUpdate}</span>
-                </TextModal>
-              ) : (
+              {updateDate ? (
                 <></>
+              ) : (
+                <TextModal title="Ultima atualização:">{updateDate}</TextModal>
               )}
             </Stack>
           </ModalBody>
