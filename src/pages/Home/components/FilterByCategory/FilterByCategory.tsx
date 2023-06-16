@@ -37,6 +37,7 @@ const FilterByCategory = () => {
             p={2}
             rounded={'md'}
             boxShadow={'lg'}
+            textAlign={'center'}
             transition={'transform .3s ease-in'}
             _hover={{
               transform: 'translateY(-5px)',

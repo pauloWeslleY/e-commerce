@@ -33,7 +33,6 @@ function InputFieldBar(props: InputFieldBarProps) {
           _placeholder={{ opacity: 1, color: 'whiteAlpha.500' }}
           fontFamily={'Poppins'}
           shadow={'sm'}
-          w={'full'}
           variant={'flushed'}
           bg={'transparent'}
         />

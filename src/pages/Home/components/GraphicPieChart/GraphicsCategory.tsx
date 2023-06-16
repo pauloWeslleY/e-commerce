@@ -15,11 +15,11 @@ const GraphicsCategory = () => {
   const { product } = useFetch()
 
   const graphicProducts = useMemo(() => {
-    const prod = product.map(product => {
+    const prod = product.map(prod => {
       return {
-        name: product.name.slice(0, 3),
-        quantidade: Number(product.quantity),
-        preço: product.price,
+        name: prod.name.slice(0, 3),
+        uni: prod.quantity,
+        preço: prod.price,
       }
     })
 
@@ -29,8 +29,8 @@ const GraphicsCategory = () => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
-        width={500}
-        height={300}
+        width={150}
+        height={40}
         data={graphicProducts}
         margin={{
           top: 5,
@@ -40,12 +40,12 @@ const GraphicsCategory = () => {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" type="category" />
+        <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="quantidade" fill="#8884d8" />
-        <Bar dataKey="preço" fill="#82ca9d" />
+        <Bar dataKey="preço" fill="#10b981" />
+        <Bar dataKey="uni" fill="#6A64D9" />
       </BarChart>
     </ResponsiveContainer>
   )

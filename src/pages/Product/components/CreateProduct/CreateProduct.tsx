@@ -12,11 +12,10 @@ import {
 } from 'firebase/firestore'
 import { prodCollectionRef } from '../../../../services/collections'
 import { db } from '../../../../services/firebase'
-import { useToast, useDisclosure } from '@chakra-ui/react'
+import { useToast, useDisclosure, Button, Flex } from '@chakra-ui/react'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
 import { createAndUpdateProduct } from '../../../../utils/createAndUpdateProduct'
 import { useThemeColors } from '../../../../hooks/useThemeColors'
-import { useLoading } from '../../../../hooks/useLoading'
 import { ProductsType } from '../../../../types/ProductType'
 import { NavBar } from '../../../../components/NavBar'
 import { Loading } from '../../../../components/Loading'
@@ -35,15 +34,18 @@ import {
 const CreateProduct = () => {
   const [product, setProduct] = useState<ProductsType[]>([])
   const [name, setName] = useState<string>('')
-  const [price, setPrice] = useState<string | number>('')
+  const [price, setPrice] = useState<number | string>()
   const [description, setDescription] = useState<string>('')
   const [supplier, setSupplier] = useState<string>('')
   const [categoryId, setCategoryId] = useState<string>('')
-  const [quantity, setQuantity] = useState<number>(0)
+  const [quantity, setQuantity] = useState<number>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [productsPerPage] = useState<number>(10)
+  const [loading, setLoading] = useState<boolean>(true)
   const navBarToggle = useDisclosure()
   const toast = useToast()
   const { THEME } = useThemeColors()
-  const { isLoading } = useLoading()
+
   const { createProduct, updateProduct } = createAndUpdateProduct({
     name,
     description,
@@ -56,7 +58,7 @@ const CreateProduct = () => {
   const handleCreateProduct = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = query(collection(db, 'product'), where('name', '==', name))
-    const querySnapshot = await getDocs(data)
+    const productSnapshot = await getDocs(data)
 
     try {
       if (name.length === 0) {
@@ -66,7 +68,7 @@ const CreateProduct = () => {
           duration: 9000,
           isClosable: true,
         })
-      } else if (querySnapshot.empty) {
+      } else if (productSnapshot.empty) {
         const docRef = await addDoc(prodCollectionRef, createProduct)
         setProduct([...product, { id: docRef.id, ...createProduct }])
         setName('')
@@ -157,22 +159,31 @@ const CreateProduct = () => {
       where('name', '!=', true),
       orderBy('name', 'asc')
     )
-    const querySnapshot = await getDocs(filteredProd)
-    const allProducts = querySnapshot.docs.map<ProductsType>(doc => ({
+    const prodSnapshot = await getDocs(filteredProd)
+    const allProducts = prodSnapshot.docs.map<ProductsType>(doc => ({
       id: doc.id,
       ...doc.data(),
     }))
 
     setProduct(allProducts)
+    setLoading(false)
   }
 
-  const handleQuantity = (quantity: string) => {
+  const handleConvertNumber = (props: string) => {
     try {
-      const parseQuantity = Number(quantity)
-      setQuantity(parseQuantity)
+      const parseNumber = Number(props)
+      setQuantity(parseNumber)
     } catch (error) {
-      console.error('Invalid Quantity value')
-      throw new Error(error)
+      throw new Error(`Invalid value, must be a number ${error}`)
+    }
+  }
+
+  const handleConvertPrice = (price: string) => {
+    try {
+      const parseNumber = Number(price)
+      setPrice(parseNumber)
+    } catch (error) {
+      throw new Error(`Invalid value, must be a number ${error}`)
     }
   }
 
@@ -194,11 +205,19 @@ const CreateProduct = () => {
     return response
   }, [product])
 
+  //? Função para calcular o índice do último produto da página atual
+  const lastIndex: number = currentPage * productsPerPage
+  //? Função para calcular o índice do primeiro produto da página atual
+  const firstIndex: number = lastIndex - productsPerPage
+  //? Função para obter os produtos da página atual
+  const PRODUCTS = allProductsFormat.slice(firstIndex, lastIndex)
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
+
   useEffect(() => {
     filteredProducts()
   }, [])
 
-  if (isLoading) {
+  if (loading) {
     return <Loading />
   }
 
@@ -222,10 +241,10 @@ const CreateProduct = () => {
             valueQuantity={quantity}
             valueCategoryId={categoryId}
             onHandleChangeName={e => setName(e.target.value)}
-            onHandleChangePrice={e => setPrice(e.target.value)}
+            onHandleChangePrice={e => handleConvertPrice(e.target.value)}
             onHandleChangeDescription={e => setDescription(e.target.value)}
             onHandleChangeSupplier={e => setSupplier(e.target.value)}
-            onHandleChangeQuantity={e => handleQuantity(e.target.value)}
+            onHandleChangeQuantity={e => handleConvertNumber(e.target.value)}
             onHandleChangeCategoryId={e => setCategoryId(e.target.value)}
           />
           <FormFooterHero onHandleClick={navBarToggle.onToggle} />
@@ -233,7 +252,7 @@ const CreateProduct = () => {
       </DrawerHero>
 
       <HeroTable bg={THEME.DASHBOARD.TABLE_PRODUCT_HEADER_BG}>
-        {allProductsFormat.map(product => (
+        {PRODUCTS.map(product => (
           <HeroTableRow key={product.id} product={product}>
             <ModalHeroUpdate
               title="Produto"
@@ -249,10 +268,12 @@ const CreateProduct = () => {
                 valueQuantity={quantity}
                 valueCategoryId={categoryId}
                 onHandleChangeName={e => setName(e.target.value)}
-                onHandleChangePrice={e => setPrice(e.target.value)}
+                onHandleChangePrice={e => handleConvertPrice(e.target.value)}
                 onHandleChangeSupplier={e => setSupplier(e.target.value)}
                 onHandleChangeDescription={e => setDescription(e.target.value)}
-                onHandleChangeQuantity={e => handleQuantity(e.target.value)}
+                onHandleChangeQuantity={e =>
+                  handleConvertNumber(e.target.value)
+                }
                 onHandleChangeCategoryId={e => setCategoryId(e.target.value)}
               />
             </ModalHeroUpdate>
@@ -274,6 +295,24 @@ const CreateProduct = () => {
           </HeroTableRow>
         ))}
       </HeroTable>
+
+      <Flex mt={4} py={6} w={'full'} align={'center'} justify={'center'}>
+        {Array.from({
+          length: Math.ceil(allProductsFormat.length / productsPerPage),
+        }).map((_, index) => (
+          <Button
+            key={index}
+            mr={2}
+            rounded={'xl'}
+            variant={currentPage === index + 1 ? 'solid' : 'outline'}
+            color={currentPage === index + 1 ? 'gray.700' : 'whiteAlpha.400'}
+            bg={currentPage === index + 1 ? 'purple.600' : 'transparent'}
+            onClick={() => paginate(index + 1)}
+          >
+            {index + 1}
+          </Button>
+        ))}
+      </Flex>
     </>
   )
 }

@@ -9,7 +9,6 @@ import { HeroGraphics } from './components/HeroGraphics'
 import { SideBar } from '../../components/SideBar'
 import { HeroTitleBar } from '../../components/HeroTitle'
 import { GraphicsProducts } from './components/GraphicsProducts'
-import { FilterByCategory } from './components/FilterByCategory'
 
 export function Home() {
   const { isCategories, users, product } = useFetch()
@@ -38,7 +37,7 @@ export function Home() {
 
   return (
     <SideBar>
-      <HeroTitleBar label={'Home'} icon={BiHomeAlt2} />
+      <HeroTitleBar label="Home" icon={BiHomeAlt2} />
 
       <Grid
         templateColumns={{
@@ -46,8 +45,8 @@ export function Home() {
           lg: 'repeat(12, 1fr)',
         }}
         gap={9}
-        as={'section'}
         my={4}
+        as={'section'}
       >
         {CARDS_HOME_PROPS.map((props, index) => (
           <GridItem key={`${props.icon}${index}`} colSpan={{ lg: 4 }}>
@@ -62,7 +61,7 @@ export function Home() {
 
       <HeroGraphics />
 
-      <Grid
+      {/* <Grid
         templateColumns={{
           base: 'repeat(1, 1fr)',
           lg: 'repeat(12, 1fr)',
@@ -72,7 +71,7 @@ export function Home() {
         as={'section'}
       >
         <FilterByCategory />
-      </Grid>
+      </Grid> */}
     </SideBar>
   )
 }

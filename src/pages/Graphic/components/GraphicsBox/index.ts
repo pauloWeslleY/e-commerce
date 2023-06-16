@@ -1,3 +1,3 @@
-import GraphicsBox from './GraphicsBox'
+import GraphicByProductQuantity from './GraphicsByProductQuantity'
 
-export { GraphicsBox }
+export { GraphicByProductQuantity }

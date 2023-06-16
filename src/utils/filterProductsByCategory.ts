@@ -1,10 +1,9 @@
-import { collection, getDocs, query, where } from 'firebase/firestore'
-import { db } from '../services/firebase'
+import { getDocs, query, where } from 'firebase/firestore'
+import { prodCollectionRef } from '../services/collections'
 
 export const filterProductsByCategory = async (id: string) => {
-  const productCollectionsRef = collection(db, 'product')
   const filteredProductsByCategory = query(
-    productCollectionsRef,
+    prodCollectionRef,
     where('categoryId', '==', id)
   )
 

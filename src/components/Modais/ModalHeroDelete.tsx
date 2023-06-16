@@ -1,14 +1,14 @@
 import { memo, useRef } from 'react'
 import {
+  Box,
+  Button,
+  Text,
   AlertDialog,
   AlertDialogBody,
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
-  Box,
-  Button,
-  Text,
   useDisclosure,
 } from '@chakra-ui/react'
 import { ButtonDelete } from '../Buttons'

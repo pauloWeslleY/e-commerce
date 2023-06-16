@@ -20,9 +20,9 @@ const GraphicsProducts = () => {
         bg={THEME.HOME.BACKGROUND}
         rounded={'md'}
         boxShadow={'lg'}
-        p={2}
+        p={3}
         w={'full'}
-        h={'auto'}
+        h={'57vh'}
       >
         <GraphicsCategory />
       </GridItem>
@@ -33,9 +33,8 @@ const GraphicsProducts = () => {
         rounded={'md'}
         boxShadow={'lg'}
         py={6}
-        h={'auto'}
       >
-        <Flex w={'full'} h={'65vh'} flexDir={'column'}>
+        <Flex w={'full'} h={'45vh'} flexDir={'column'}>
           <Text as={'h3'} px={5} fontFamily={'Poppins'} fontSize={'xl'}>
             Gráficos de Produtos
           </Text>

@@ -9,14 +9,14 @@ import { auth } from '../../services/firebase'
 import { InputPassword } from '../../components/Form/InputPassword'
 import { HeroTitle } from '../../components/HeroTitle'
 import { ButtonSign } from '../../components/Buttons'
-import { useThemeColors } from '../../hooks/useThemeColors'
 import { InputFooter } from '../../components/Form/InputFooter'
 import { Loading } from '../../components/Loading'
 import { InputFieldBar } from '../../components/Form/InputBar'
+import { useThemeColors } from '../../hooks/useThemeColors'
 import { useLoading } from '../../hooks/useLoading'
 import { UserType } from '../../types/UsersType'
-import Logotipo from '../../assets/logo.svg'
 import { usersCollectionRef } from '../../services/collections'
+import Logotipo from '../../assets/logotipo.svg'
 
 export function Register() {
   const [username, setUserName] = useState<string>('')
@@ -100,36 +100,36 @@ export function Register() {
 
   return (
     <Flex
-      minH={'100vh'}
+      as={'main'}
       align={'center'}
       justify={'center'}
+      minH={'100vh'}
       bg={THEME.BACKGROUND}
-      as={'main'}
     >
       <Stack as={'section'} spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack as={'header'} align={'center'}>
           <Image src={Logotipo} alt="" />
           <HeroTitle title="Cadastre-se" />
 
-          <Text fontSize={'lg'} fontFamily={'Inter'} fontWeight={500}>
+          <Text fontSize={'lg'} fontFamily={'Inter'} fontWeight={'medium'}>
             Crie sua conta agora
           </Text>
         </Stack>
         <Stack
+          as={'section'}
           bg={THEME.SIGN_IN.BACKGROUND}
           rounded={'lg'}
           boxShadow={'lg'}
           justify={'center'}
           align={'center'}
-          as={'section'}
           p={10}
         >
           <chakra.form onSubmit={handleRegisterUser}>
-            <Stack spacing={4}>
+            <Stack spacing={4} w={['full', 'sm']}>
               <InputFieldBar
                 title="Nome"
                 label="username"
-                icon={<RiUser3Fill color="gray.300" />}
+                icon={<RiUser3Fill />}
                 value={username}
                 onChange={event => setUserName(event.target.value)}
               />

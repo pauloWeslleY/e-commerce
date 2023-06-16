@@ -36,7 +36,6 @@ function SideBar({ children }: SideBarProps) {
         w={'full'}
         h={'full'}
         flexDir={'column'}
-        borderRadius={'2xl'}
         overflowY={'scroll'}
         p={4}
       >

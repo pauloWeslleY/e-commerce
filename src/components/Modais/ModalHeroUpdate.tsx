@@ -1,6 +1,7 @@
 import { ReactNode, memo } from 'react'
 import {
   Flex,
+  Text,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -8,7 +9,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Text,
   useDisclosure,
 } from '@chakra-ui/react'
 import { ProductsType } from '../../types/ProductType'
@@ -37,7 +37,7 @@ function ModalHeroUpdate(props: ModalHeroUpdateProps) {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent maxW={['xl', '5xl']}>
+        <ModalContent maxW={['lg', '5xl']}>
           <ModalHeader>Atualizar {title}</ModalHeader>
 
           <ModalCloseButton />

@@ -6,7 +6,7 @@ interface HeroTitleProps {
 }
 
 const HeroTitle = ({ title }: HeroTitleProps) => (
-  <Heading fontSize={'4xl'} fontFamily={'Poppins'} fontWeight={600}>
+  <Heading fontSize={'4xl'} fontFamily={'Poppins'} fontWeight={'semibold'}>
     {title}
   </Heading>
 )

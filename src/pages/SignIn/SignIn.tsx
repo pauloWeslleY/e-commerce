@@ -15,7 +15,7 @@ import { UserType } from '../../types/UsersType'
 import { useThemeColors } from '../../hooks/useThemeColors'
 import { useLoading } from '../../hooks/useLoading'
 import { usersCollectionRef } from '../../services/collections'
-import Logotipo from '../../assets/logo.svg'
+import Logotipo from '../../assets/logotipo.svg'
 
 export function SignIn() {
   const [email, setEmail] = useState<string>('')

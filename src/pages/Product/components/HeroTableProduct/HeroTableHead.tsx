@@ -15,10 +15,7 @@ const HeroTableHead = () => {
 
   return (
     <Thead
-      display={{
-        base: 'none',
-        md: 'table-header-group',
-      }}
+      display={{ base: 'none', md: 'table-header-group' }}
       sx={{
         '@media print': {
           display: 'table-header-group',

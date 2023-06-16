@@ -12,7 +12,7 @@ const LoaderText = ({ title }: LoaderTextProps) => (
 )
 
 const Loading = () => (
-  <Flex h={'100vh'} align={'center'} justify={'center'}>
+  <Flex w={'full'} h={'full'} align={'center'} justify={'center'}>
     <Flex p={1} align={'center'}>
       <Spinner
         label={'Loading...'}
