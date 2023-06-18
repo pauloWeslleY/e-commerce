@@ -30,7 +30,11 @@ function SideBarAvatarHero({ collapsed }: SideBarContainerProps) {
           flexDir={'column'}
           gap={4}
         >
-          <Avatar name={userOnAuth.username} bg={'purple.400'} size={'md'} />
+          <Avatar
+            src={userOnAuth.avatar}
+            name={userOnAuth.username}
+            size={'md'}
+          />
           <Text
             fontSize={'sm'}
             fontWeight={600}

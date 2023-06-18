@@ -27,7 +27,7 @@ const HeroTableRow = ({ product, children }: HeroTableColumnProps) => {
 
   return (
     <Tr
-      display={{ base: 'grid', md: 'table-row' }}
+      display={{ base: 'grid', lg: 'table-row' }}
       sx={{
         '@media print': { display: 'table-row' },
         gridTemplateColumns: 'minmax(0px, 35%) minmax(0px, 65%)',

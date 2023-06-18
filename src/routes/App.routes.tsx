@@ -5,7 +5,7 @@ import { PrivateRoutes } from './Private.routes'
 
 import { Login } from '../pages/SignIn'
 import { Register } from '../pages/Register/Register'
-import { Home } from '../pages/Home/Home'
+import { HomePage } from '../pages/Home'
 import { Product } from '../pages/Product/Product'
 import { NotFound } from '../pages/404/404'
 import { Categories } from '../pages/Categories/Categories'
@@ -40,7 +40,7 @@ const routes: RoutesProps[] = [
         children: [
           {
             path: '/dashboard',
-            element: <Home />,
+            element: <HomePage />,
           },
           {
             path: '/dashboard/product',

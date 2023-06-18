@@ -7,14 +7,14 @@ import {
 import { auth } from '../services/firebase'
 
 export function useLoggedUser() {
-  const [isLoadingLoggedUser, setIsLoadingLoggedUser] = useState(true)
+  const [isLoadingLoggedUser, setIsLoadingLoggedUser] = useState<boolean>(true)
   const [userAuth, setUserAuth] = useState(null as any)
 
   /*
       HACK: Função que mantém o usuário na pagina caso ele esteja logado
    */
   const getLoggedUser = () => {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       onAuthStateChanged(auth, (user: any) => {
         setPersistence(auth, browserSessionPersistence)
         resolve(user)
@@ -24,11 +24,11 @@ export function useLoggedUser() {
 
   useEffect(() => {
     getLoggedUser()
-      .then((user) => {
+      .then(user => {
         setUserAuth(user)
         setIsLoadingLoggedUser(false)
       })
-      .catch((err) => {
+      .catch(err => {
         console.log('ERRO ==> ', err)
         setIsLoadingLoggedUser(false)
       })

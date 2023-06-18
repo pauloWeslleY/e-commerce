@@ -3,8 +3,8 @@ import { FormLabel, FormLabelProps } from '@chakra-ui/react'
 import { useThemeColors } from '../../../hooks/useThemeColors'
 
 interface FormLabelTitleProps extends FormLabelProps {
-  htmlFor: string
   title: string
+  htmlFor?: string
 }
 
 function FormLabelTitle(props: FormLabelTitleProps) {
@@ -16,7 +16,7 @@ function FormLabelTitle(props: FormLabelTitleProps) {
       {...rest}
       htmlFor={htmlFor}
       fontSize={'sm'}
-      fontWeight={'md'}
+      fontWeight={'semibold'}
       fontFamily={'Poppins'}
       color={THEME.DASHBOARD.FORM_LABEL_BACKGROUND}
     >

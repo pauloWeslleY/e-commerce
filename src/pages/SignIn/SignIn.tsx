@@ -47,6 +47,7 @@ export function SignIn() {
             status: 'success',
             duration: 9000,
             isClosable: true,
+            position: 'top',
           })
           setEmail('')
           setPassword('')
@@ -99,12 +100,18 @@ export function SignIn() {
       bg={THEME.BACKGROUND}
       as={'main'}
     >
-      <Stack as={'section'} spacing={8} p={18}>
+      <Stack as={'section'} spacing={8} p={18} maxW={'2xl'}>
         <Stack as={'header'} align={'center'}>
-          <Image src={Logotipo} alt="Logotipo" />
-          <HeroTitle title="SystemStock" />
+          <Flex align={'center'} gap={3}>
+            <Image src={Logotipo} alt="Logotipo" boxSize={16} />
+            <HeroTitle title="SystemStock" color={'purple.600'} />
+          </Flex>
 
-          <Text fontSize={'lg'} fontFamily={'Inter'} fontWeight={500}>
+          <Text
+            fontSize={['md', 'xl']}
+            fontFamily={'Inter'}
+            fontWeight={'medium'}
+          >
             Digite suas informações de login
           </Text>
         </Stack>
@@ -116,10 +123,12 @@ export function SignIn() {
           p={10}
         >
           <chakra.form onSubmit={handleSignInUser}>
-            <Stack spacing={4}>
+            <Stack spacing={4} w={['full', 'lg']}>
               <InputFieldBar
-                title="Email"
+                title="E-mail"
                 label="email"
+                inputType="email"
+                placeholder="Digite seu email..."
                 icon={<EmailIcon w={4} h={4} />}
                 value={email}
                 onChange={event => setEmail(event.target.value)}

@@ -1,17 +1,21 @@
 import { ReactNode, memo, useState } from 'react'
-import { Flex, HStack, IconButton } from '@chakra-ui/react'
-import { HamburgerIcon } from '@chakra-ui/icons'
+import { Flex, HStack } from '@chakra-ui/react'
 import { useThemeColors } from '../../hooks/useThemeColors'
 import { SideBarContainer, SideBarMobile } from './index'
-import { ButtonDarkMode } from '../Buttons'
+import { BtnCollapse, BtnNotifications, ButtonDarkMode } from '../Buttons'
+import SideBarMenuHero from './SideBarMenuHero'
 
 interface SideBarProps {
   children?: ReactNode
 }
 
 function SideBar({ children }: SideBarProps) {
-  const [collapse, setCollapse] = useState(true)
+  const [collapse, setCollapse] = useState<boolean>(true)
   const { THEME } = useThemeColors()
+
+  const onHandleToggle = () => {
+    setCollapse(!collapse)
+  }
 
   return (
     <HStack w={'full'} h={'100vh'} bg={THEME.DASHBOARD.BACKGROUND} p={2}>
@@ -21,15 +25,15 @@ function SideBar({ children }: SideBarProps) {
         display={{ base: 'none', lg: 'flex' }}
         w={'full'}
         h={'full'}
-        maxW={collapse ? 350 : 100}
+        p={6}
+        maxW={collapse ? 340 : 100}
         align={'center'}
         justify={'space-between'}
         flexDir={'column'}
         borderRadius={'3xl'}
-        p={6}
-        transition={'ease-in-out .3s'}
+        transition={'all ease-in-out .2s'}
       >
-        <SideBarContainer collapsed={collapse} />
+        <SideBarContainer collapsed={collapse} onItemClick={onHandleToggle} />
       </Flex>
       <Flex
         as={'main'}
@@ -39,26 +43,22 @@ function SideBar({ children }: SideBarProps) {
         overflowY={'scroll'}
         p={4}
       >
-        <Flex as={'nav'}>
+        <Flex as={'nav'} justify={'space-between'} mx={2}>
           <Flex gap={2}>
             <SideBarMobile collapsed={collapse} />
 
-            <IconButton
+            <BtnCollapse
               aria-label="Menu Collapse"
-              icon={<HamburgerIcon />}
-              display={{ base: 'none', lg: 'flex' }}
-              onClick={() => setCollapse(!collapse)}
-              variant={'outline'}
-              borderColor={'transparent'}
-              borderWidth={2}
-              transition={'ease-in-out .4s 100ms'}
-              _hover={{
-                bg: THEME.BUTTONS.BTN_ICON_BACKGROUND,
-                color: 'purple.700',
-                borderColor: 'purple.600',
-              }}
+              onHandleToggle={onHandleToggle}
             />
+
             <ButtonDarkMode />
+          </Flex>
+
+          <Flex gap={8} align={'center'}>
+            <BtnNotifications />
+
+            <SideBarMenuHero />
           </Flex>
         </Flex>
 

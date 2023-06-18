@@ -251,7 +251,7 @@ const CreateProduct = () => {
         </FormHeroBox>
       </DrawerHero>
 
-      <HeroTable bg={THEME.DASHBOARD.TABLE_PRODUCT_HEADER_BG}>
+      <HeroTable bg={THEME.DASHBOARD.TABLE_PRODUCT_BG}>
         {PRODUCTS.map(product => (
           <HeroTableRow key={product.id} product={product}>
             <ModalHeroUpdate

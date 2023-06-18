@@ -6,7 +6,6 @@ import { useFetch } from '../../hooks/useFetch'
 import { CardsHomeType } from '../../types/CardsHomeType'
 import { CardStatistic } from './components/CardStatistic'
 import { HeroGraphics } from './components/HeroGraphics'
-import { SideBar } from '../../components/SideBar'
 import { HeroTitleBar } from '../../components/HeroTitle'
 import { GraphicsProducts } from './components/GraphicsProducts'
 
@@ -36,7 +35,7 @@ export function Home() {
   ]
 
   return (
-    <SideBar>
+    <>
       <HeroTitleBar label="Home" icon={BiHomeAlt2} />
 
       <Grid
@@ -60,18 +59,6 @@ export function Home() {
       <GraphicsProducts />
 
       <HeroGraphics />
-
-      {/* <Grid
-        templateColumns={{
-          base: 'repeat(1, 1fr)',
-          lg: 'repeat(12, 1fr)',
-        }}
-        gap={4}
-        my={4}
-        as={'section'}
-      >
-        <FilterByCategory />
-      </Grid> */}
-    </SideBar>
+    </>
   )
 }

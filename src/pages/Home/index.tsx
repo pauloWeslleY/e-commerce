@@ -1,9 +1,22 @@
+import { useState, useEffect } from 'react'
 import { Home } from './Home'
 import { Loading } from '../../components/Loading'
-import { useLoading } from '../../hooks/useLoading'
+import { SideBar } from '../../components/SideBar'
 
 export const HomePage = () => {
-  const { isLoading } = useLoading()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  return isLoading ? <Loading /> : <Home />
+  useEffect(() => {
+    setIsLoading(true)
+  }, [])
+
+  return isLoading ? (
+    <SideBar>
+      <Home />
+    </SideBar>
+  ) : (
+    <SideBar>
+      <Loading />
+    </SideBar>
+  )
 }

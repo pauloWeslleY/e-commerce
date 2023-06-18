@@ -4,12 +4,19 @@ import { SideBarContainerProps } from '../../../types/SideBarType'
 import { MENU_ITEMS } from './[slug]/[menu_items_props]'
 import { SideBarNavItem } from '../index'
 
-function SideBarNavigation({ collapsed }: SideBarContainerProps) {
+const SideBarNavigation = (props: SideBarContainerProps) => {
+  const { collapsed, onHandleToggle, onItemClick } = props
+
   return (
     <List py={3}>
       {MENU_ITEMS.map((item, index) => (
         <ListItem key={index}>
-          <SideBarNavItem item={item} collapsed={collapsed} />
+          <SideBarNavItem
+            item={item}
+            collapsed={collapsed}
+            onToggle={onHandleToggle}
+            onItemClick={onItemClick}
+          />
         </ListItem>
       ))}
     </List>

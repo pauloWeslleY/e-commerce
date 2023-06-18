@@ -71,7 +71,7 @@ function FormHeroProduct(props: HeroFormProductProps) {
         <FormInputField
           title="Preço do Produto"
           label="price_product"
-          type="text"
+          type="number"
           colSpan={[6, 2]}
           placeholder="Digite o preço do produto"
           value={valuePrice}

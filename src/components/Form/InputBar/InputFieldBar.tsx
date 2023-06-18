@@ -1,4 +1,4 @@
-import { ReactElement, memo } from 'react'
+import { HTMLInputTypeAttribute, ReactElement, memo } from 'react'
 import {
   FormControl,
   Input,
@@ -7,15 +7,18 @@ import {
   InputProps,
 } from '@chakra-ui/react'
 import { FormLabelTitle } from '../FormLabelTitle'
+import { useThemeColors } from '../../../hooks/useThemeColors'
 
 interface InputFieldBarProps extends InputProps {
   label: string
   title: string
+  inputType: HTMLInputTypeAttribute
   icon?: ReactElement
 }
 
 function InputFieldBar(props: InputFieldBarProps) {
-  const { title, label, icon, ...rest } = props
+  const { title, label, inputType, icon, ...rest } = props
+  const { THEME } = useThemeColors()
 
   return (
     <FormControl id={label} isRequired>
@@ -25,12 +28,14 @@ function InputFieldBar(props: InputFieldBarProps) {
         <Input
           {...rest}
           id={label}
-          type={label}
+          type={inputType}
           name={label}
           autoComplete={label}
-          placeholder="Digite seu email..."
           focusBorderColor={'purple.300'}
-          _placeholder={{ opacity: 1, color: 'whiteAlpha.500' }}
+          _placeholder={{
+            opacity: 1,
+            color: THEME.DASHBOARD.INPUT_BAR_PLACEHOLDER_COLORS,
+          }}
           fontFamily={'Poppins'}
           shadow={'sm'}
           variant={'flushed'}

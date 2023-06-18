@@ -27,7 +27,7 @@ function SideBarLogoSearch({ collapsed }: SideBarContainerProps) {
         {collapsed && (
           <Text
             as={'h2'}
-            fontWeight={900}
+            fontWeight={'bold'}
             fontSize={'2xl'}
             fontFamily={'Inter'}
             letterSpacing={1}

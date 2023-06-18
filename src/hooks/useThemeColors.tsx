@@ -2,14 +2,18 @@ import { useColorModeValue } from '@chakra-ui/react'
 
 export function useThemeColors() {
   const THEME = {
-    BACKGROUND: useColorModeValue('gray.50', 'gray.700'),
+    BACKGROUND: useColorModeValue('whiteAlpha.200', 'gray.700'),
     TEXT_COLORS: useColorModeValue('gray.500', 'whiteAlpha.800'),
     SPAN_COLORS: useColorModeValue('blackAlpha.800', 'whiteAlpha.900'),
 
     LOGOTIPO_BACKGROUND: useColorModeValue('whiteAlpha.200', 'gray.400'),
 
+    LOADING: {
+      IS_LOADING_COLORS: useColorModeValue('whiteAlpha.50', 'blackAlpha.50'),
+    },
+
     SIGN_IN: {
-      BACKGROUND: useColorModeValue('blackAlpha.200', 'blackAlpha.500'),
+      BACKGROUND: useColorModeValue('whiteAlpha.200', 'blackAlpha.500'),
     },
 
     HOME: {
@@ -44,7 +48,7 @@ export function useThemeColors() {
       BORDER_COLOR_MOBILE_BG: useColorModeValue('purple.100', 'purple.700'),
 
       //! TABLE COLORS
-      TABLE_PRODUCT_HEADER_BG: useColorModeValue('whiteAlpha.200', 'gray.800'),
+      TABLE_PRODUCT_BG: useColorModeValue('whiteAlpha.200', 'gray.800'),
       TABLE_PRODUCT_LINE_BG: useColorModeValue('whiteAlpha.600', 'gray.500'),
       TABLE_PRODUCT_TITLE_COLORS: useColorModeValue('purple.900', 'purple.100'),
       TABLE_PRODUCT_COLORS: useColorModeValue('purple.800', 'purple.700'),

@@ -8,7 +8,7 @@ interface InputFooterProps {
 }
 
 const InputFooter = ({ label, link, onClick }: InputFooterProps) => (
-  <Stack pt={6}>
+  <Stack pt={6} align={'center'}>
     <Text fontWeight={500}>
       {label}{' '}
       <Box

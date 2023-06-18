@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useEffect, useState } from 'react'
+import {
+  ChangeEventHandler,
+  ReactNode,
+  createContext,
+  useEffect,
+  useState,
+} from 'react'
 import { Navigate } from 'react-router-dom'
 import {
   GoogleAuthProvider,
@@ -56,7 +62,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
         setUserOnAuth({
           id: user.uid,

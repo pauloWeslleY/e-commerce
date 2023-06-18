@@ -26,6 +26,15 @@ function SideBarMobile({ collapsed }: SideBarContainerProps) {
         icon={<HamburgerIcon />}
         display={{ base: 'block', lg: 'none' }}
         onClick={onOpen}
+        variant={'outline'}
+        borderColor={'transparent'}
+        borderWidth={2}
+        transition={'ease-in-out .4s 100ms'}
+        _hover={{
+          bg: THEME.BUTTONS.BTN_ICON_BACKGROUND,
+          color: 'purple.700',
+          borderColor: 'purple.600',
+        }}
       />
       <Drawer
         isOpen={isOpen}
@@ -41,7 +50,7 @@ function SideBarMobile({ collapsed }: SideBarContainerProps) {
                 aria-label="Close Sidebar"
                 icon={<CloseIcon />}
                 variant={'ghost'}
-                color={'gray.700'}
+                color={'purple.600'}
                 onClick={onClose}
               />
             </Flex>

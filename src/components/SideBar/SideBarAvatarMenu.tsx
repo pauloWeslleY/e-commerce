@@ -36,7 +36,11 @@ function SideBarAvatarMenu() {
         <PopoverArrow />
         <PopoverBody>
           <Flex align={'center'} gap={2} flexDir={'column'}>
-            <Avatar size={'2xl'} bg={'purple.300'} />
+            <Avatar
+              size={'2xl'}
+              src={userOnAuth.avatar}
+              name={userOnAuth.username}
+            />
 
             <Flex
               flexDir={'column'}

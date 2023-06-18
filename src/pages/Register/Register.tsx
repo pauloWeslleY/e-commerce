@@ -82,15 +82,16 @@ export function Register() {
     setUserName('')
   }
 
+  async function getUsers() {
+    const dataUser = await getDocs(usersCollectionRef)
+    const users = dataUser.docs.map<UserType>(doc => ({
+      ...doc.data(),
+      id: doc.id,
+    }))
+    setUsers(users)
+  }
+
   useEffect(() => {
-    async function getUsers() {
-      const dataUser = await getDocs(usersCollectionRef)
-      const users = dataUser.docs.map<UserType>(doc => ({
-        ...doc.data(),
-        id: doc.id,
-      }))
-      setUsers(users)
-    }
     getUsers()
   }, [])
 
@@ -106,12 +107,14 @@ export function Register() {
       minH={'100vh'}
       bg={THEME.BACKGROUND}
     >
-      <Stack as={'section'} spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+      <Stack as={'section'} spacing={8} mx={'auto'} maxW={'2xl'} py={12} px={6}>
         <Stack as={'header'} align={'center'}>
-          <Image src={Logotipo} alt="" />
-          <HeroTitle title="Cadastre-se" />
+          <Flex align={'center'} gap={3}>
+            <Image src={Logotipo} alt="Logotipo" boxSize={16} />
+            <HeroTitle title="Cadastre-se" color={'purple.600'} />
+          </Flex>
 
-          <Text fontSize={'lg'} fontFamily={'Inter'} fontWeight={'medium'}>
+          <Text fontSize={'xl'} fontFamily={'Inter'} fontWeight={'medium'}>
             Crie sua conta agora
           </Text>
         </Stack>
@@ -125,11 +128,13 @@ export function Register() {
           p={10}
         >
           <chakra.form onSubmit={handleRegisterUser}>
-            <Stack spacing={4} w={['full', 'sm']}>
+            <Stack spacing={4} w={['full', 'lg']}>
               <InputFieldBar
                 title="Nome"
                 label="username"
+                inputType="text"
                 icon={<RiUser3Fill />}
+                placeholder="Digite seu nome..."
                 value={username}
                 onChange={event => setUserName(event.target.value)}
               />
@@ -137,6 +142,8 @@ export function Register() {
               <InputFieldBar
                 title="Email"
                 label="email"
+                inputType="email"
+                placeholder="Digite seu email..."
                 icon={<EmailIcon w={4} h={4} />}
                 value={email}
                 onChange={event => setEmail(event.target.value)}
