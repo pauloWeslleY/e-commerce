@@ -38,7 +38,6 @@ const CardStatistic = ({ cards }: CardStatisticProps) => {
           <Text
             as={'span'}
             fontSize={'4xl'}
-            fontFamily={'Poppins'}
             fontWeight={'semibold'}
             textAlign={'center'}
             color={THEME.SPAN_COLORS}

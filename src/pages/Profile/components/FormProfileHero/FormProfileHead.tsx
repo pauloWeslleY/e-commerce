@@ -13,6 +13,7 @@ const FormProfileHead = () => {
         fontSize={'lg'}
         fontWeight={'medium'}
         lineHeight={'6'}
+        letterSpacing={'wide'}
       >
         Atualizar Usuário
       </Heading>

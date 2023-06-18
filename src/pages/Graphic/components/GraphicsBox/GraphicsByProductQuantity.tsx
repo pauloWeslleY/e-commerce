@@ -47,7 +47,7 @@ const GraphicsByProductQuantity = () => {
           cx="30%"
           cy="50%"
           outerRadius={80}
-          fill="#8884d8"
+          fill="#6A64D9"
           label
         />
         <Pie
@@ -57,7 +57,7 @@ const GraphicsByProductQuantity = () => {
           cy={150}
           innerRadius={40}
           outerRadius={80}
-          fill="#82ca9d"
+          fill="#10b981"
           label
         />
         <Tooltip />

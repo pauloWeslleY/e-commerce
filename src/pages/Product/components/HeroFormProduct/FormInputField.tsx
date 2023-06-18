@@ -26,7 +26,7 @@ function FormInputField(props: FormInputFieldProps) {
         autoComplete={label}
         mt={1}
         variant={'flushed'}
-        fontFamily={'Poppins'}
+        letterSpacing={'wider'}
         shadow={'sm'}
         size={'sm'}
         w={'full'}

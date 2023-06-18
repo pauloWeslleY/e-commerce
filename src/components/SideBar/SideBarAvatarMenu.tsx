@@ -16,7 +16,7 @@ import { AuthenticationContext } from '../../contexts/authContextProvider'
 import { useThemeColors } from '../../hooks/useThemeColors'
 import { HiOutlineLogout } from 'react-icons/hi'
 
-function SideBarAvatarMenu() {
+const SideBarAvatarMenu = () => {
   const { userOnAuth, handleLogout } = useContext(AuthenticationContext)
   const { THEME } = useThemeColors()
 

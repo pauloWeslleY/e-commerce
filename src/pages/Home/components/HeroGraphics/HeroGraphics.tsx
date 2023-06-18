@@ -3,7 +3,7 @@ import { Grid, GridItem } from '@chakra-ui/react'
 import { useThemeColors } from '../../../../hooks/useThemeColors'
 import { HeroUserGraphic, HeroUsers } from '../HeroUsers'
 
-function HeroGraphics() {
+const HeroGraphics = () => {
   const { THEME } = useThemeColors()
 
   return (

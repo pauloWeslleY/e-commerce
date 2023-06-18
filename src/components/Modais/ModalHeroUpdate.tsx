@@ -23,7 +23,7 @@ interface ModalHeroUpdateProps {
   onHandleClick: () => void
 }
 
-function ModalHeroUpdate(props: ModalHeroUpdateProps) {
+const ModalHeroUpdate = (props: ModalHeroUpdateProps) => {
   const { title, children, onHandleClick, items, category } = props
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -43,11 +43,11 @@ function ModalHeroUpdate(props: ModalHeroUpdateProps) {
           <ModalCloseButton />
           <ModalBody>
             <Flex align={'center'} flexDir={'column'} gap={5}>
-              <Text as={'span'} fontWeight={600}>
+              <Text as={'span'} fontWeight={'semibold'}>
                 ID:{' '}
                 <Text
                   display={'inline'}
-                  fontWeight={300}
+                  fontWeight={'light'}
                   textTransform={'uppercase'}
                 >
                   {items ? <>{items.id}</> : <>{category.id}</>}

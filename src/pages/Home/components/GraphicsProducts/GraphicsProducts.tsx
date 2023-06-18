@@ -35,7 +35,7 @@ const GraphicsProducts = () => {
         py={6}
       >
         <Flex w={'full'} h={'45vh'} flexDir={'column'}>
-          <Text as={'h3'} px={5} fontFamily={'Poppins'} fontSize={'xl'}>
+          <Text as={'h3'} px={5} fontSize={'xl'}>
             Gráficos de Produtos
           </Text>
 

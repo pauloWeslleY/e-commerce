@@ -1,9 +1,9 @@
-import { ReactNode, memo } from 'react'
+import { memo } from 'react'
 import { Td } from '@chakra-ui/react'
 
-const WrapperTableTdHero = ({ children }: { children: ReactNode }) => (
-  <Td color={'purple.700'} fontSize={'md'} fontWeight={500}>
-    {children}
+const WrapperTableTdHero = ({ label }: { label: string }) => (
+  <Td color={'purple.700'} fontSize={'md'} fontWeight={'medium'}>
+    {label}
   </Td>
 )
 

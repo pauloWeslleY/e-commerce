@@ -31,7 +31,6 @@ const HeroCategoryCard = (props: HeroCategoryCardProps) => {
       <Flex flexDir={'column'} justify={'space-between'} gap={2}>
         <Text
           as={'h3'}
-          fontFamily={'Poppins'}
           fontSize={'md'}
           fontWeight={'semibold'}
           color={'purple.600'}

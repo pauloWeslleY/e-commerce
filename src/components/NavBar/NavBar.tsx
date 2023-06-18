@@ -12,7 +12,7 @@ interface NavBarProps {
   onOpen?: () => void
 }
 
-function NavBar(props: NavBarProps) {
+const NavBar = (props: NavBarProps) => {
   const { label, title, icon, onOpen } = props
   const { THEME } = useThemeColors()
 

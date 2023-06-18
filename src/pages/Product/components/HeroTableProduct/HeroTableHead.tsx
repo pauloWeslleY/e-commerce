@@ -28,7 +28,6 @@ const HeroTableHead = () => {
             key={i}
             color={THEME.DASHBOARD.TABLE_PRODUCT_TITLE_COLORS}
             fontWeight={'semibold'}
-            fontFamily={'Poppins'}
             fontSize={'md'}
           >
             {item}

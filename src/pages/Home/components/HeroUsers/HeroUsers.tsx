@@ -14,12 +14,13 @@ function HeroUsers() {
           Usuários Cadastrado
         </Text>
       </Stack>
-      <Flex flexDir={'column'} fontFamily={'Poppins'} color={THEME.TEXT_COLORS}>
-        {users.map((user, index) => (
+      <Flex flexDir={'column'} color={THEME.TEXT_COLORS}>
+        {users.map(user => (
           <Box
-            key={`${user.id}${index}`}
+            key={user.id}
             borderBottomWidth={2}
             borderColor={'purple.700'}
+            fontFamily={'Inter'}
             py={5}
           >
             <span>{user.username}</span>

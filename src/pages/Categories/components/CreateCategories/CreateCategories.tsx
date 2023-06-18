@@ -30,7 +30,7 @@ import { useFetch } from '../../../../hooks/useFetch'
 import { ModalCreateCategory } from '../ModalCreateCategory'
 import { ModalHeroCategory } from '../ModalHeroCategory'
 
-function CreateCategories() {
+const CreateCategories = () => {
   const [category, setCategory] = useState<CategoryType[]>([])
   const [name, setName] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -193,7 +193,7 @@ function CreateCategories() {
         />
       </ModalCreateCategory>
 
-      {/* HACK: List Categories */}
+      {/* TODO: List Categories */}
       <VStack spacing={4} align={'stretch'}>
         {CATEGORY.map(props => (
           <HeroCategoryCard key={props.id} category={props}>

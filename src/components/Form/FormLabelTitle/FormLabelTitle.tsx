@@ -7,9 +7,9 @@ interface FormLabelTitleProps extends FormLabelProps {
   htmlFor?: string
 }
 
-function FormLabelTitle(props: FormLabelTitleProps) {
-  const { THEME } = useThemeColors()
+const FormLabelTitle = (props: FormLabelTitleProps) => {
   const { title, htmlFor, ...rest } = props
+  const { THEME } = useThemeColors()
 
   return (
     <FormLabel
@@ -17,7 +17,7 @@ function FormLabelTitle(props: FormLabelTitleProps) {
       htmlFor={htmlFor}
       fontSize={'sm'}
       fontWeight={'semibold'}
-      fontFamily={'Poppins'}
+      letterSpacing={'wider'}
       color={THEME.DASHBOARD.FORM_LABEL_BACKGROUND}
     >
       {title}

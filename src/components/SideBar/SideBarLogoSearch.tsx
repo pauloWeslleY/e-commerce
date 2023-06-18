@@ -4,7 +4,7 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import { useThemeColors } from '../../hooks/useThemeColors'
 import { SideBarContainerProps } from '../../types/SideBarType'
 
-function SideBarLogoSearch({ collapsed }: SideBarContainerProps) {
+const SideBarLogoSearch = ({ collapsed }: SideBarContainerProps) => {
   const { THEME } = useThemeColors()
 
   return (

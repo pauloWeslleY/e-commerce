@@ -9,7 +9,7 @@ interface SideBarProps {
   children?: ReactNode
 }
 
-function SideBar({ children }: SideBarProps) {
+const SideBar = ({ children }: SideBarProps) => {
   const [collapse, setCollapse] = useState<boolean>(true)
   const { THEME } = useThemeColors()
 

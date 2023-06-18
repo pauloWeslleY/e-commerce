@@ -6,7 +6,7 @@ import { SideBarContainerProps } from '../../types/SideBarType'
 import { SideBarAvatarMenu } from './index'
 import { HiOutlineLogout } from 'react-icons/hi'
 
-function SideBarAvatarHero({ collapsed }: SideBarContainerProps) {
+const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
   const { userOnAuth, handleLogout } = useContext(AuthenticationContext)
   const { THEME } = useThemeColors()
 

@@ -13,7 +13,7 @@ import { HiLockClosed } from 'react-icons/hi'
 import { FormLabelTitle } from '../FormLabelTitle'
 import { useThemeColors } from '../../../hooks/useThemeColors'
 
-function InputPassword({ ...props }: InputProps) {
+const InputPassword = ({ ...props }: InputProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const { THEME } = useThemeColors()
 

@@ -17,7 +17,7 @@ const HeroTableContentMobile = ({ title }: { title: string }) => {
         fontSize: 'xs',
         fontWeight: 'bold',
         letterSpacing: 'wider',
-        fontFamily: 'heading',
+        fontFamily: 'Poppins',
       }}
     >
       {title}

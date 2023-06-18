@@ -1,7 +1,7 @@
 import { SideBar } from '../../components/SideBar'
 import { CreateCategories } from './components/CreateCategories'
 
-export function Categories() {
+export const Categories = () => {
   return (
     <SideBar>
       <CreateCategories />

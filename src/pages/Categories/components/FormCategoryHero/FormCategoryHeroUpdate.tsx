@@ -1,10 +1,10 @@
 import { memo } from 'react'
 import {
+  Stack,
   FormControl,
-  GridItem,
   InputProps,
   SimpleGrid,
-  Stack,
+  GridItem,
 } from '@chakra-ui/react'
 import { FormLabelTitle } from '../../../../components/Form/FormLabelTitle'
 import { InputBar } from '../../../../components/Form/InputBar'

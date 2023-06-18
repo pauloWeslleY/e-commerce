@@ -8,9 +8,9 @@ export function UserProfile() {
     <SideBar>
       <HeroTitleBar label="Profile" icon={TbTool} />
 
-      <main>
+      <section>
         <FormProfileHero />
-      </main>
+      </section>
     </SideBar>
   )
 }

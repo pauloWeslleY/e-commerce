@@ -14,7 +14,7 @@ import { SideBarContainer } from './index'
 import { SideBarContainerProps } from '../../types/SideBarType'
 import { useThemeColors } from '../../hooks/useThemeColors'
 
-function SideBarMobile({ collapsed }: SideBarContainerProps) {
+const SideBarMobile = ({ collapsed }: SideBarContainerProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { THEME } = useThemeColors()
   const firstField = useRef()

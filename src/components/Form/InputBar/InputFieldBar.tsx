@@ -16,7 +16,7 @@ interface InputFieldBarProps extends InputProps {
   icon?: ReactElement
 }
 
-function InputFieldBar(props: InputFieldBarProps) {
+const InputFieldBar = (props: InputFieldBarProps) => {
   const { title, label, inputType, icon, ...rest } = props
   const { THEME } = useThemeColors()
 

@@ -26,18 +26,12 @@ function ModalCreateCategory(props: ModalCreateCategoryProps) {
       <ModalOverlay />
       <ModalContent maxW={['md', '3xl']}>
         <ModalHeader>
-          <Text as={'h3'} fontFamily={'Poppins'} fontWeight={'medium'}>
+          <Text as={'h3'} fontWeight={'medium'}>
             Criar Categoria
           </Text>
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>
-
-        {/* <ModalFooter>
-          <ButtonGroup spacing={2}>
-            <IsButton title="Fechar" onClick={onClose} />
-          </ButtonGroup>
-        </ModalFooter> */}
       </ModalContent>
     </Modal>
   )
