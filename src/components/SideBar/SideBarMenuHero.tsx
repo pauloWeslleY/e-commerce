@@ -17,6 +17,7 @@ import { AuthenticationContext } from '../../contexts/authContextProvider'
 import { useNavigate } from 'react-router-dom'
 import { TbTool } from 'react-icons/tb'
 import { HiOutlineLogout } from 'react-icons/hi'
+import { IconUser } from '../IconUser'
 
 const SideBarMenuHero = () => {
   const { userOnAuth, handleLogout } = useContext(AuthenticationContext)
@@ -26,11 +27,16 @@ const SideBarMenuHero = () => {
     <Menu>
       <MenuButton py={2} transition={'all 0.3s'} _focus={{ boxShadow: 'none' }}>
         <HStack>
-          <Avatar
-            size={'md'}
-            src={userOnAuth.avatar}
-            name={userOnAuth.username}
-          />
+          {userOnAuth.avatar ? (
+            <Avatar
+              size={'md'}
+              src={userOnAuth.avatar}
+              name={userOnAuth.username}
+            />
+          ) : (
+            <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
+          )}
+
           <VStack
             display={{ base: 'none', md: 'flex' }}
             alignItems={'flex-start'}
@@ -38,7 +44,7 @@ const SideBarMenuHero = () => {
             ml={'2'}
           >
             <Text fontSize={'sm'}>{userOnAuth.username}</Text>
-            <Text fontSize={'xs'} color={'purple.300'}>
+            <Text fontSize={'xs'} fontFamily={'Inter'} color={'purple.300'}>
               {userOnAuth.email}
             </Text>
           </VStack>

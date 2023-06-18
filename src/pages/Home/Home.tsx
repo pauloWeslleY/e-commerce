@@ -1,4 +1,4 @@
-import { Flex, Grid, GridItem } from '@chakra-ui/react'
+import { Grid, GridItem } from '@chakra-ui/react'
 import { BiCategory, BiHomeAlt2, BiUser } from 'react-icons/bi'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
 import { useThemeColors } from '../../hooks/useThemeColors'
@@ -49,9 +49,7 @@ export function Home() {
       >
         {CARDS_HOME_PROPS.map((props, index) => (
           <GridItem key={`${props.icon}${index}`} colSpan={{ lg: 4 }}>
-            <Flex>
-              <CardStatistic cards={props} />
-            </Flex>
+            <CardStatistic cards={props} />
           </GridItem>
         ))}
       </Grid>

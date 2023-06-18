@@ -5,6 +5,7 @@ import { useThemeColors } from '../../hooks/useThemeColors'
 import { SideBarContainerProps } from '../../types/SideBarType'
 import { SideBarAvatarMenu } from './index'
 import { HiOutlineLogout } from 'react-icons/hi'
+import { IconUser } from '../IconUser'
 
 const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
   const { userOnAuth, handleLogout } = useContext(AuthenticationContext)
@@ -19,7 +20,9 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
       w={'full'}
       p={2}
     >
-      {!collapsed && <Avatar name={userOnAuth.username} bg={'purple.400'} />}
+      {!collapsed && (
+        <Avatar name={userOnAuth.username} src={userOnAuth.avatar} />
+      )}
       {!collapsed && <SideBarAvatarMenu />}
 
       {collapsed && (
@@ -30,14 +33,18 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
           flexDir={'column'}
           gap={4}
         >
-          <Avatar
-            src={userOnAuth.avatar}
-            name={userOnAuth.username}
-            size={'md'}
-          />
+          {userOnAuth.avatar ? (
+            <Avatar
+              size={'md'}
+              src={userOnAuth.avatar}
+              name={userOnAuth.username}
+            />
+          ) : (
+            <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
+          )}
           <Text
             fontSize={'sm'}
-            fontWeight={600}
+            fontWeight={'semibold'}
             pb={0}
             lineHeight={0}
             color={THEME.DASHBOARD.TEXT_COLORS}
@@ -48,6 +55,7 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
             as={'small'}
             color={THEME.DASHBOARD.SIDEBAR_AVATAR_HERO_COLORS}
             fontSize={12}
+            fontFamily={'Inter'}
             lineHeight={0}
           >
             {userOnAuth.email}

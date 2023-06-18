@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { IsButton } from '../../../../components/Buttons'
 import { FormLabelTitle } from '../../../../components/Form/FormLabelTitle'
-import { FaUser } from 'react-icons/fa'
+import { IconUser } from '../../../../components/IconUser'
 
 interface FormUploadImageProps {
   photoURL: string
@@ -24,16 +24,6 @@ interface FormUploadImageProps {
 
 const FormUploadImage = (props: FormUploadImageProps) => {
   const { photoURL, uploadProgress, onImageChange, onUploadImage } = props
-
-  const IconUser = (
-    <Icon
-      as={FaUser}
-      boxSize={9}
-      mt={3}
-      rounded={'full'}
-      color={'purple.300'}
-    />
-  )
 
   return (
     <>

@@ -43,7 +43,8 @@ export function SignIn() {
       await signInWithEmailAndPassword(auth, email, password)
         .then(() => {
           toast({
-            title: `Usuário ${email} Logado!`,
+            title: 'Usuário autenticado!',
+            description: `${email}`,
             status: 'success',
             duration: 9000,
             isClosable: true,
@@ -56,6 +57,7 @@ export function SignIn() {
         .catch(err => {
           toast({
             title: 'Email e senha estão incorreto!',
+            description: `${err}`,
             status: 'warning',
             duration: 9000,
             isClosable: true,

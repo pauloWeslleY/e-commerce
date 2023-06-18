@@ -41,9 +41,9 @@ const SideBar = ({ children }: SideBarProps) => {
         h={'full'}
         flexDir={'column'}
         overflowY={'scroll'}
-        p={4}
+        p={3}
       >
-        <Flex as={'nav'} justify={'space-between'} mx={2}>
+        <Flex as={'nav'} justify={'space-between'} align={'center'} p={1}>
           <Flex gap={2}>
             <SideBarMobile collapsed={collapse} />
 

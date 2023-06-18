@@ -53,6 +53,7 @@ export function Register() {
 
         toast({
           title: 'Usuário Cadastrado!',
+          description: `${email}`,
           status: 'success',
           duration: 9000,
           isClosable: true,
@@ -70,7 +71,8 @@ export function Register() {
       }
     } catch (error) {
       toast({
-        title: `Falha ao cadastrar usuário! ==> ${error.message}`,
+        title: 'Falha ao cadastrar usuário!',
+        description: `${error.message}`,
         status: 'error',
         duration: 9000,
         isClosable: true,
