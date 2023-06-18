@@ -6,9 +6,11 @@ import { SideBarContainerProps } from '../../types/SideBarType'
 import { SideBarAvatarMenu } from './index'
 import { HiOutlineLogout } from 'react-icons/hi'
 import { IconUser } from '../IconUser'
+import { useAuthOnStatus } from '../../hooks/useAuthStatus'
 
 const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
   const { userOnAuth, handleLogout } = useContext(AuthenticationContext)
+  const { userAuth } = useAuthOnStatus()
   const { THEME } = useThemeColors()
 
   return (
@@ -21,7 +23,17 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
       p={2}
     >
       {!collapsed && (
-        <Avatar name={userOnAuth.username} src={userOnAuth.avatar} />
+        <>
+          {userOnAuth.avatar ? (
+            <Avatar
+              size={'lg'}
+              src={userOnAuth.avatar}
+              name={userOnAuth.username}
+            />
+          ) : (
+            <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
+          )}
+        </>
       )}
       {!collapsed && <SideBarAvatarMenu />}
 
@@ -33,14 +45,42 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
           flexDir={'column'}
           gap={4}
         >
-          {userOnAuth.avatar ? (
-            <Avatar
-              size={'md'}
-              src={userOnAuth.avatar}
-              name={userOnAuth.username}
-            />
+          {userAuth ? (
+            <>
+              {userOnAuth.avatar ? (
+                <Avatar
+                  size={'md'}
+                  src={userOnAuth.avatar}
+                  name={userOnAuth.username}
+                  pos={'relative'}
+                  _after={{
+                    content: '""',
+                    w: 2,
+                    h: 2,
+                    bg: 'green.300',
+                    border: '2px solid white',
+                    rounded: 'full',
+                    pos: 'absolute',
+                    bottom: -1,
+                    right: 1,
+                  }}
+                />
+              ) : (
+                <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
+              )}
+            </>
           ) : (
-            <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
+            <>
+              {userOnAuth.avatar ? (
+                <Avatar
+                  size={'md'}
+                  src={userOnAuth.avatar}
+                  name={userOnAuth.username}
+                />
+              ) : (
+                <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
+              )}
+            </>
           )}
           <Text
             fontSize={'sm'}

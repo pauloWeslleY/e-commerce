@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react'
 import { Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 import { useFetch } from '../../../../hooks/useFetch'
 
-const GraphicPieChart = () => {
+const ProductsGraphicPieChart = () => {
   const { product, isCategories } = useFetch()
 
   const graphicProducts = useMemo(() => {
@@ -56,4 +56,4 @@ const GraphicPieChart = () => {
   )
 }
 
-export default memo(GraphicPieChart)
+export default memo(ProductsGraphicPieChart)

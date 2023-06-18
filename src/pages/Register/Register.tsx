@@ -53,17 +53,18 @@ export function Register() {
 
         toast({
           title: 'Usuário Cadastrado!',
-          description: `${email}`,
+          description: `${username}`,
           status: 'success',
           duration: 9000,
           isClosable: true,
         })
-        navigate('/')
+        // navigate('/')
 
         return user
       } else {
         toast({
           title: 'Usuário já cadastrado',
+          description: 'Este usuário já possui um cadastro!',
           status: 'error',
           duration: 9000,
           isClosable: true,
@@ -84,7 +85,7 @@ export function Register() {
     setUserName('')
   }
 
-  async function getUsers() {
+  const getUsers = async () => {
     const dataUser = await getDocs(usersCollectionRef)
     const users = dataUser.docs.map<UserType>(doc => ({
       ...doc.data(),

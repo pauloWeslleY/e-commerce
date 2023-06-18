@@ -5,9 +5,10 @@ import { useThemeColors } from '../../hooks/useThemeColors'
 import { useFetch } from '../../hooks/useFetch'
 import { CardsHomeType } from '../../types/CardsHomeType'
 import { CardStatistic } from './components/CardStatistic'
-import { HeroGraphics } from './components/HeroGraphics'
+import { HeroGraphics } from './components/HeroUsersGraphics'
 import { HeroTitleBar } from '../../components/HeroTitle'
-import { GraphicsProducts } from './components/GraphicsProducts'
+import { HeroProductCategory } from './components/HeroProductCategory'
+import { HeroProductsGraphic } from './components/HeroProductsGraphic'
 
 export function Home() {
   const { isCategories, users, product } = useFetch()
@@ -54,7 +55,11 @@ export function Home() {
         ))}
       </Grid>
 
-      <GraphicsProducts />
+      <section>
+        <HeroProductsGraphic />
+      </section>
+
+      <HeroProductCategory />
 
       <HeroGraphics />
     </>

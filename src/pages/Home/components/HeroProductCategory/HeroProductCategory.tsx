@@ -1,9 +1,10 @@
 import { memo } from 'react'
 import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import { useThemeColors } from '../../../../hooks/useThemeColors'
-import { GraphicPieChart, GraphicsCategory } from '../GraphicPieChart'
+import { ProductsGraphicPieChart } from '../ProductsGraphicPieChart'
+import { FilterByCategory } from '../FilterByCategory'
 
-const GraphicsProducts = () => {
+const HeroProductCategory = () => {
   const { THEME } = useThemeColors()
 
   return (
@@ -16,19 +17,21 @@ const GraphicsProducts = () => {
       my={4}
     >
       <GridItem
-        colSpan={{ lg: 8 }}
+        colSpan={{ lg: 6 }}
         bg={THEME.HOME.BACKGROUND}
         rounded={'md'}
         boxShadow={'lg'}
         p={3}
         w={'full'}
-        h={'57vh'}
+        h={'auto'}
       >
-        <GraphicsCategory />
+        <Flex flexWrap={'wrap'} flexDir={'row'} gap={2}>
+          <FilterByCategory />
+        </Flex>
       </GridItem>
 
       <GridItem
-        colSpan={{ lg: 4 }}
+        colSpan={{ lg: 6 }}
         bg={THEME.HOME.BACKGROUND}
         rounded={'md'}
         boxShadow={'lg'}
@@ -39,7 +42,7 @@ const GraphicsProducts = () => {
             Gráficos de Produtos
           </Text>
 
-          <GraphicPieChart />
+          <ProductsGraphicPieChart />
         </Flex>
         <Flex as={'ul'} px={10} flexDir={'column'}>
           <Text as={'li'} color={'emerald.400'}>
@@ -54,4 +57,4 @@ const GraphicsProducts = () => {
   )
 }
 
-export default memo(GraphicsProducts)
+export default memo(HeroProductCategory)

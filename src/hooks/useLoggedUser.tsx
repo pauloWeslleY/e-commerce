@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
+  User,
   browserSessionPersistence,
   onAuthStateChanged,
   setPersistence,
@@ -11,11 +12,11 @@ export function useLoggedUser() {
   const [userAuth, setUserAuth] = useState(null as any)
 
   /*
-      HACK: Função que mantém o usuário na pagina caso ele esteja logado
-   */
+    NOTE: Função que mantém o usuário na pagina caso ele esteja logado
+  */
   const getLoggedUser = () => {
     return new Promise(resolve => {
-      onAuthStateChanged(auth, (user: any) => {
+      onAuthStateChanged(auth, (user: User) => {
         setPersistence(auth, browserSessionPersistence)
         resolve(user)
       })

@@ -15,6 +15,7 @@ import { MdOutlineMoreHoriz } from 'react-icons/md'
 import { AuthenticationContext } from '../../contexts/authContextProvider'
 import { useThemeColors } from '../../hooks/useThemeColors'
 import { HiOutlineLogout } from 'react-icons/hi'
+import { IconUser } from '../IconUser'
 
 const SideBarAvatarMenu = () => {
   const { userOnAuth, handleLogout } = useContext(AuthenticationContext)
@@ -36,11 +37,15 @@ const SideBarAvatarMenu = () => {
         <PopoverArrow />
         <PopoverBody>
           <Flex align={'center'} gap={2} flexDir={'column'}>
-            <Avatar
-              size={'2xl'}
-              src={userOnAuth.avatar}
-              name={userOnAuth.username}
-            />
+            {userOnAuth.avatar ? (
+              <Avatar
+                size={'2xl'}
+                src={userOnAuth.avatar}
+                name={userOnAuth.username}
+              />
+            ) : (
+              <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
+            )}
 
             <Flex
               flexDir={'column'}

@@ -16,7 +16,7 @@ const Loading = () => {
   const { THEME } = useThemeColors()
 
   return (
-    <Flex w={'full'} h={'full'} align={'center'} justify={'center'}>
+    <Flex w={'full'} h={'100vh'} align={'center'} justify={'center'}>
       <Flex p={1} align={'center'}>
         <Spinner
           label={'Loading...'}

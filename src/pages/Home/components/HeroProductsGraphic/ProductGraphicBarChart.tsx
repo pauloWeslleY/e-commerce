@@ -11,7 +11,7 @@ import {
 } from 'recharts'
 import { useFetch } from '../../../../hooks/useFetch'
 
-const GraphicsCategory = () => {
+const ProductGraphicBarChart = () => {
   const { product } = useFetch()
 
   const graphicProducts = useMemo(() => {
@@ -51,4 +51,4 @@ const GraphicsCategory = () => {
   )
 }
 
-export default memo(GraphicsCategory)
+export default memo(ProductGraphicBarChart)

@@ -15,7 +15,7 @@ function HeroUsers() {
         </Text>
       </Stack>
       <Flex flexDir={'column'} color={THEME.TEXT_COLORS}>
-        {users.map(user => (
+        {users.slice(0, 5).map(user => (
           <Box
             key={user.id}
             borderBottomWidth={2}

@@ -3,7 +3,7 @@ import { Grid, GridItem } from '@chakra-ui/react'
 import { useThemeColors } from '../../../../hooks/useThemeColors'
 import { HeroUserGraphic, HeroUsers } from '../HeroUsers'
 
-const HeroGraphics = () => {
+const HeroUsersGraphics = () => {
   const { THEME } = useThemeColors()
 
   return (
@@ -21,6 +21,7 @@ const HeroGraphics = () => {
         bg={THEME.HOME.BACKGROUND}
         rounded={'md'}
         boxShadow={'lg'}
+        h={'md'}
       >
         <HeroUsers />
       </GridItem>
@@ -31,6 +32,7 @@ const HeroGraphics = () => {
         rounded={'md'}
         boxShadow={'lg'}
         p={4}
+        h={'md'}
       >
         <HeroUserGraphic />
       </GridItem>
@@ -38,4 +40,4 @@ const HeroGraphics = () => {
   )
 }
 
-export default memo(HeroGraphics)
+export default memo(HeroUsersGraphics)

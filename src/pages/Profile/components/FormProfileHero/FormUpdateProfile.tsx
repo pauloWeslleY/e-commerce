@@ -26,13 +26,15 @@ const FormUpdateProfile = () => {
         setUsername('')
         toast({
           title: 'Usuário atualizado!',
+          description: `${username}`,
           status: 'success',
           duration: 9000,
           isClosable: true,
         })
       } catch (err) {
         toast({
-          title: `Não foi possível atualizar o usuário ${err}`,
+          title: 'Não foi possível atualizar o usuário',
+          description: `${err}`,
           status: 'error',
           duration: 9000,
           isClosable: true,

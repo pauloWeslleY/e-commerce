@@ -108,7 +108,7 @@ const FormUploadImage = (props: FormUploadImageProps) => {
           <Image
             src={photoURL}
             alt="Image"
-            boxSize={'xl'}
+            h={'auto'}
             w={'full'}
             fit={'cover'}
             rounded={'md'}
