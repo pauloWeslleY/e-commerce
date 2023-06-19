@@ -21,7 +21,7 @@ const FilterByCategory = () => {
   }, [isCategories, product])
 
   return (
-    <>
+    <Flex flexWrap={'wrap'} flexDir={'row'} gap={2}>
       {categoryByProducts.map(props => (
         <Flex
           key={props.id}
@@ -54,7 +54,7 @@ const FilterByCategory = () => {
           </Text>
         </Flex>
       ))}
-    </>
+    </Flex>
   )
 }
 

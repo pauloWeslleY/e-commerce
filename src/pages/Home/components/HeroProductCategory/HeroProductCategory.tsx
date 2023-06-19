@@ -23,9 +23,12 @@ const HeroProductCategory = () => {
         boxShadow={'lg'}
         p={3}
         w={'full'}
-        h={'auto'}
       >
-        <Flex flexWrap={'wrap'} flexDir={'row'} gap={2}>
+        <Flex flexDir={'column'} gap={4}>
+          <Text as={'h3'} px={5} py={4} fontSize={'xl'}>
+            Categorias Cadastra
+          </Text>
+
           <FilterByCategory />
         </Flex>
       </GridItem>

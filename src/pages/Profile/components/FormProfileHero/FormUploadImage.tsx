@@ -102,7 +102,7 @@ const FormUploadImage = (props: FormUploadImageProps) => {
 
       <Flex my={6} align={'center'} justify={'center'}>
         {uploadProgress !== null && (
-          <Progress hasStripe value={uploadProgress} isAnimated />
+          <Progress hasStripe value={uploadProgress} />
         )}
         {photoURL && (
           <Image

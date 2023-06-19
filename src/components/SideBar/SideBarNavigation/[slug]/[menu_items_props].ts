@@ -1,5 +1,4 @@
 import { TbTool } from 'react-icons/tb'
-import { BsGear } from 'react-icons/bs'
 import { VscGraphLeft } from 'react-icons/vsc'
 import { BiCategory, BiHomeAlt2, BiUser } from 'react-icons/bi'
 import { HiOutlineMail, HiOutlineShoppingBag } from 'react-icons/hi'
@@ -39,7 +38,7 @@ const MENU_ITEMS: Array<MenuItemsProps> = [
     type: 'link',
     label: 'Email',
     icon: HiOutlineMail,
-    path: '/',
+    path: '/dashboard/email',
   },
   {
     type: 'link',
@@ -56,12 +55,6 @@ const MENU_ITEMS: Array<MenuItemsProps> = [
     label: 'Profile',
     icon: TbTool,
     path: '/dashboard/profile',
-  },
-  {
-    type: 'link',
-    label: 'Configurações',
-    icon: BsGear,
-    path: '/',
   },
 ]
 

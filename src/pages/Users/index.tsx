@@ -6,7 +6,7 @@ import { UsersTable } from './components/UsersTable'
 export const Users = () => {
   return (
     <SideBar>
-      <HeroTitleBar label={'Usuários'} icon={AiOutlineUser} />
+      <HeroTitleBar label="Usuários" icon={AiOutlineUser} />
 
       <UsersTable />
     </SideBar>
