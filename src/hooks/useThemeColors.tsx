@@ -59,7 +59,7 @@ export function useThemeColors() {
       /*
         ! NOTE: Form Colors
       */
-      FORM_BACKGROUND: useColorModeValue('whiteAlpha.600', 'gray.600'),
+      FORM_BACKGROUND: useColorModeValue('whiteAlpha.600', 'gray.800'),
       FORM_FOOTER_BACKGROUND: useColorModeValue(
         'blackAlpha.100',
         'blackAlpha.400'

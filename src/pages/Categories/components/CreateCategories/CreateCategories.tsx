@@ -1,15 +1,4 @@
-import { useState, useEffect, FormEvent, memo, useMemo } from 'react'
-import {
-  collection,
-  addDoc,
-  getDocs,
-  doc,
-  updateDoc,
-  deleteDoc,
-  where,
-  query,
-  orderBy,
-} from 'firebase/firestore'
+import { useState, memo, useMemo } from 'react'
 import {
   Button,
   ButtonGroup,
@@ -19,134 +8,30 @@ import {
   useToast,
 } from '@chakra-ui/react'
 import { BiCategory } from 'react-icons/bi'
-import { db } from '../../../../services/firebase'
-import { CategoryType } from '../../../../types/CategoryType'
 import { NavBar } from '../../../../components/NavBar'
+import { ModalHeroDelete, ModalHeroUpdate } from '../../../../components/Modais'
 import { FormCategoryHero, FormCategoryHeroUpdate } from '../FormCategoryHero'
 import { HeroCategoryCard } from '../HeroCategoryCard'
-import { ModalHeroDelete, ModalHeroUpdate } from '../../../../components/Modais'
-import { cateCollectionRef } from '../../../../services/collections'
 import { useFetch } from '../../../../hooks/useFetch'
+import { useCategories } from '../../hooks/useCategories'
 import { ModalCreateCategory } from '../ModalCreateCategory'
 import { ModalHeroCategory } from '../ModalHeroCategory'
 
 const CreateCategories = () => {
-  const [category, setCategory] = useState<CategoryType[]>([])
-  const [name, setName] = useState<string>('')
+  const {
+    name,
+    category,
+    isValid,
+    setName,
+    handleCreateCategory,
+    handleDeleteCategory,
+    handleUpdatedCategory,
+  } = useCategories()
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [categoryPerPage] = useState<number>(10)
   const { product } = useFetch()
   const navBarToggle = useDisclosure()
   const toast = useToast()
-
-  const isCategory: CategoryType = {
-    name,
-  }
-
-  const handleCreateCategory = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const data = query(collection(db, 'category'), where('name', '==', name))
-    const categorySnapshot = await getDocs(data)
-    const isCategories = category.some(categories => categories.name === name)
-
-    try {
-      if (name.length === 0) {
-        toast({
-          title: 'Preencha os campos!',
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
-        })
-      } else if (categorySnapshot.empty && !isCategories) {
-        const docRef = await addDoc(cateCollectionRef, isCategory)
-        setCategory([...category, { id: docRef.id, ...isCategory }])
-        setName('')
-        toast({
-          title: 'Categoria Cadastrada!',
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
-        })
-      } else {
-        toast({
-          title: 'Essa Categoria já existe!',
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
-        })
-      }
-    } catch (error) {
-      console.log(error)
-      toast({
-        title: 'Falha ao cria categoria!',
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
-      })
-    }
-  }
-
-  const handleUpdatedCategory = async (id: string) => {
-    try {
-      const categoryId = category.some(props => props.id === id)
-
-      if (name.length === 0) {
-        toast({
-          title: 'Preencher os campos!',
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
-        })
-      } else if (categoryId && name.length !== 0) {
-        const categories = category.map(category =>
-          category.id === id ? { id, ...isCategory } : category
-        )
-        await updateDoc(doc(db, 'categories', id), isCategory)
-        setCategory(categories)
-        setName('')
-        toast({
-          title: 'Categoria Atualizada!',
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
-        })
-      } else {
-        toast({
-          title: 'Categoria já atualizada!',
-          status: 'warning',
-          duration: 9000,
-          isClosable: true,
-        })
-      }
-    } catch (error) {
-      toast({
-        title: 'Falha ao cadastrar categoria!',
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
-      })
-    }
-  }
-
-  const handleDelete = async (id: string) => {
-    await deleteDoc(doc(db, 'categories', id))
-    setCategory(category.filter(item => item.id !== id))
-  }
-
-  const filteredCategory = async () => {
-    const filteredCategories = query(
-      cateCollectionRef,
-      where('name', '!=', true),
-      orderBy('name', 'asc')
-    )
-    const querySnapshot = await getDocs(filteredCategories)
-    const isCategory = querySnapshot.docs.map<CategoryType>(doc => ({
-      id: doc.id,
-      ...doc.data(),
-    }))
-
-    setCategory(isCategory)
-  }
 
   const categories = useMemo(() => {
     const data = category.map(category => {
@@ -167,10 +52,6 @@ const CreateCategories = () => {
   const CATEGORY = categories.slice(firstIndex, lastIndex)
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
-  useEffect(() => {
-    filteredCategory()
-  }, [])
-
   return (
     <>
       <NavBar
@@ -178,6 +59,7 @@ const CreateCategories = () => {
         title="Criar Categoria"
         onOpen={navBarToggle.onOpen}
         icon={BiCategory}
+        isButton
       />
 
       {/* TODO: MODAL CREATE CATEGORY  */}
@@ -187,7 +69,6 @@ const CreateCategories = () => {
       >
         <FormCategoryHero
           onHandleSubmit={handleCreateCategory}
-          value={name}
           onChange={e => setName(e.target.value)}
           onHandleClick={navBarToggle.onToggle}
         />
@@ -204,6 +85,7 @@ const CreateCategories = () => {
                 title="Categoria"
                 category={props}
                 onHandleClick={() => handleUpdatedCategory(props.id)}
+                isValid={isValid}
               >
                 <FormCategoryHeroUpdate
                   value={name}
@@ -216,7 +98,7 @@ const CreateCategories = () => {
                 label="esta"
                 items={props}
                 onHandleDelete={() => {
-                  handleDelete(props.id)
+                  handleDeleteCategory(props.id)
                   toast({
                     title: `Categoria com ID ${props.id} deletado`,
                     status: 'success',

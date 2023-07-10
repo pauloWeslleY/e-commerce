@@ -2,6 +2,8 @@ import { HiOutlineMail } from 'react-icons/hi'
 import { HeroTitleBar } from '../../components/HeroTitle'
 import { SideBar } from '../../components/SideBar'
 import { HeroEmail } from './components/HeroEmail'
+import Chart from './components/Products'
+import { Flex } from '@chakra-ui/react'
 // import { auth } from '../../services/firebase'
 
 export function Email() {
@@ -31,6 +33,10 @@ export function Email() {
       <section>
         <HeroEmail />
       </section>
+
+      <Flex w={'full'} h={'full'}>
+        <Chart />
+      </Flex>
     </SideBar>
   )
 }

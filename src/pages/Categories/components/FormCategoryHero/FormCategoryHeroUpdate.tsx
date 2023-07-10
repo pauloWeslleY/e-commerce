@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 import {
   Stack,
   FormControl,
@@ -9,9 +9,15 @@ import {
 import { FormLabelTitle } from '../../../../components/Form/FormLabelTitle'
 import { InputBar } from '../../../../components/Form/InputBar'
 import { useThemeColors } from '../../../../hooks/useThemeColors'
+import { useCategories } from '../../hooks/useCategories'
 
 function FormCategoryHeroUpdate({ ...rest }: InputProps) {
   const { THEME } = useThemeColors()
+  const { name, isFormValid } = useCategories()
+
+  useEffect(() => {
+    isFormValid()
+  }, [name])
 
   return (
     <form>

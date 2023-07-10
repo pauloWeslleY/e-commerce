@@ -81,15 +81,14 @@ const FormUploadImage = (props: FormUploadImageProps) => {
                   color: 'purple.400',
                 }}
               >
-                <span>Upload a file</span>
-                <VisuallyHidden>
-                  <input
-                    id="file-upload"
-                    name="file-upload"
-                    type="file"
-                    onChange={onImageChange}
-                  />
-                </VisuallyHidden>
+                <span>Upload a file </span>
+                <input
+                  id="file-upload"
+                  name="file-upload"
+                  type="file"
+                  onChange={onImageChange}
+                />
+                <VisuallyHidden></VisuallyHidden>
               </chakra.label>
               <Text pl={1}>or drag and drop</Text>
             </Flex>
@@ -99,10 +98,10 @@ const FormUploadImage = (props: FormUploadImageProps) => {
           </Stack>
         </Flex>
       </FormControl>
-
+      <Progress hasStripe value={uploadProgress} colorScheme={'purple'} />
       <Flex my={6} align={'center'} justify={'center'}>
         {uploadProgress !== null && (
-          <Progress hasStripe value={uploadProgress} />
+          <Progress hasStripe value={uploadProgress} colorScheme={'purple'} />
         )}
         {photoURL && (
           <Image

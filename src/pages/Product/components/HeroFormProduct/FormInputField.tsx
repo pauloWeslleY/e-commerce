@@ -10,7 +10,7 @@ interface FormInputFieldProps extends InputProps {
   type: HTMLInputTypeAttribute
 }
 
-function FormInputField(props: FormInputFieldProps) {
+const FormInputField = (props: FormInputFieldProps) => {
   const { title, label, type, colSpan, ...rest } = props
   const { THEME } = useThemeColors()
 

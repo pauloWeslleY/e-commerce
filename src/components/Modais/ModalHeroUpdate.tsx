@@ -20,11 +20,12 @@ interface ModalHeroUpdateProps {
   items?: ProductsType
   category?: CategoryType
   children: ReactNode
+  isValid: boolean
   onHandleClick: () => void
 }
 
 const ModalHeroUpdate = (props: ModalHeroUpdateProps) => {
-  const { title, children, onHandleClick, items, category } = props
+  const { title, children, onHandleClick, items, category, isValid } = props
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -75,6 +76,7 @@ const ModalHeroUpdate = (props: ModalHeroUpdateProps) => {
               <IsButton
                 title="Atualizar"
                 type="button"
+                isDisabled={!isValid}
                 onClick={() => {
                   onHandleClick()
                   onClose()

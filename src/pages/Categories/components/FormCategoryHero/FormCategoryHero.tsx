@@ -1,4 +1,4 @@
-import { FormEvent, memo } from 'react'
+import { FormEvent, memo, useEffect } from 'react'
 import {
   Box,
   FormControl,
@@ -11,6 +11,7 @@ import {
 import { FormLabelTitle } from '../../../../components/Form/FormLabelTitle'
 import { IsButton } from '../../../../components/Buttons'
 import { InputBar } from '../../../../components/Form/InputBar'
+import { useCategories } from '../../hooks/useCategories'
 
 interface FormCategoryHeroProps extends InputProps {
   onHandleSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>
@@ -19,6 +20,11 @@ interface FormCategoryHeroProps extends InputProps {
 
 function FormCategoryHero(props: FormCategoryHeroProps) {
   const { onHandleClick, onHandleSubmit, ...rest } = props
+  const { name, isValid, isFormValid } = useCategories()
+
+  useEffect(() => {
+    isFormValid()
+  }, [name])
 
   return (
     <Box mt={[10, 0]}>
@@ -37,6 +43,7 @@ function FormCategoryHero(props: FormCategoryHeroProps) {
 
               <InputBar
                 {...rest}
+                value={name}
                 type="text"
                 name="name_category"
                 id="name_category"
@@ -48,7 +55,12 @@ function FormCategoryHero(props: FormCategoryHeroProps) {
           </SimpleGrid>
         </Stack>
         <Box px={{ base: 4, sm: 6 }} py={3} textAlign={'right'}>
-          <IsButton title="Adicionar" type="submit" onClick={onHandleClick} />
+          <IsButton
+            title="Criar"
+            type="submit"
+            onClick={onHandleClick}
+            isDisabled={!isValid}
+          />
         </Box>
       </chakra.form>
     </Box>
