@@ -1,6 +1,5 @@
 import { memo } from 'react'
-import { Box, Flex, IconButton, Image, Text } from '@chakra-ui/react'
-import { AiOutlineSearch } from 'react-icons/ai'
+import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import { useThemeColors } from '../../hooks/useThemeColors'
 import { SideBarContainerProps } from '../../types/SideBarType'
 
@@ -11,7 +10,7 @@ const SideBarLogoSearch = ({ collapsed }: SideBarContainerProps) => {
     <Flex
       w={'full'}
       align={'center'}
-      justify={'space-between'}
+      justify={'center'}
       flexDir={collapsed ? 'row' : 'column'}
       gap={4}
     >
@@ -38,14 +37,6 @@ const SideBarLogoSearch = ({ collapsed }: SideBarContainerProps) => {
           </Text>
         )}
       </Box>
-      <IconButton
-        aria-label="Search"
-        variant={'ghost'}
-        icon={<AiOutlineSearch />}
-        fontSize={16}
-        color={THEME.TEXT_COLORS}
-        borderRadius={'50%'}
-      />
     </Flex>
   )
 }

@@ -13,8 +13,6 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
   const { userAuth } = useAuthOnStatus()
   const { THEME } = useThemeColors()
 
-  console.log('UserOn ==> ', userOnAuth)
-
   return (
     <Flex
       align={'center'}
@@ -65,7 +63,7 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
             fontSize={'sm'}
             fontWeight={'semibold'}
             lineHeight={0}
-            pb={0}
+            pb={1}
           >
             {userOnAuth.username}
           </Text>

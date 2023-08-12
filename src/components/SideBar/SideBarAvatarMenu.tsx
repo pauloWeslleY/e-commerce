@@ -39,8 +39,6 @@ const SideBarAvatarMenu = () => {
             {userOnAuth.avatar ? (
               <AvatarHero
                 size={'lg'}
-                borderWidth={2}
-                borderColor={'purple.100'}
                 avatarUrl={userOnAuth.avatar}
                 name={userOnAuth.username}
               />

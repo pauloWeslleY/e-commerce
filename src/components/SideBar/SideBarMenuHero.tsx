@@ -1,8 +1,8 @@
 import { memo } from 'react'
-import { Avatar, HStack, VStack, Text } from '@chakra-ui/react'
+import { HStack, VStack, Text } from '@chakra-ui/react'
 import { useAuthentication } from '../../hooks/useAuthentication'
 import { useAuthOnStatus } from '../../hooks/useAuthStatus'
-import { IconUser } from '../IconUser'
+import { AvatarHero, AvatarIcon } from '../Avatar'
 
 const SideBarMenuHero = () => {
   const { userOnAuth } = useAuthentication()
@@ -13,37 +13,25 @@ const SideBarMenuHero = () => {
       {userAuth ? (
         <>
           {userOnAuth.avatar ? (
-            <Avatar
+            <AvatarHero
               size={'md'}
-              src={userOnAuth.avatar}
+              avatarUrl={userOnAuth.avatar}
               name={userOnAuth.username}
-              pos={'relative'}
-              _after={{
-                content: '""',
-                w: 2,
-                h: 2,
-                bg: 'green.300',
-                border: '2px solid white',
-                rounded: 'full',
-                pos: 'absolute',
-                bottom: -1,
-                right: 1,
-              }}
             />
           ) : (
-            <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
+            <AvatarIcon />
           )}
         </>
       ) : (
         <>
           {userOnAuth.avatar ? (
-            <Avatar
+            <AvatarHero
               size={'md'}
-              src={userOnAuth.avatar}
+              avatarUrl={userOnAuth.avatar}
               name={userOnAuth.username}
             />
           ) : (
-            <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
+            <AvatarIcon />
           )}
         </>
       )}

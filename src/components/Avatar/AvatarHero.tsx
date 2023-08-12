@@ -14,6 +14,8 @@ const AvatarHero = (props: AvatarHeroProps) => {
       {...rest}
       src={avatarUrl}
       name={name}
+      borderWidth={2}
+      borderColor={'purple.100'}
       pos={'relative'}
       _after={{
         content: '""',
