@@ -16,7 +16,6 @@ export const Graphic = () => {
 
   useEffect(() => {
     const querySnapshot = query(prodCollectionRef, where('quantity', '>', 200))
-
     const unsubscribe = onSnapshot(querySnapshot, snapshot => {
       const productsData: ProductsType[] = []
 

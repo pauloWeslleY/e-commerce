@@ -1,11 +1,8 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Flex, Stack, useToast, chakra, Image, Text } from '@chakra-ui/react'
+import { Flex, Stack, Image, Text, chakra, useToast } from '@chakra-ui/react'
 import { EmailIcon } from '@chakra-ui/icons'
 import { RiUser3Fill } from 'react-icons/ri'
-import { addDoc, getDocs } from 'firebase/firestore'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { auth } from '../../services/firebase'
 import { InputPassword } from '../../components/Form/InputPassword'
 import { HeroTitle } from '../../components/HeroTitle'
 import { ButtonSign } from '../../components/Buttons'
@@ -13,92 +10,39 @@ import { InputFooter } from '../../components/Form/InputFooter'
 import { Loading } from '../../components/Loading'
 import { InputFieldBar } from '../../components/Form/InputBar'
 import { useThemeColors } from '../../hooks/useThemeColors'
-import { useLoading } from '../../hooks/useLoading'
-import { UserType } from '../../types/UsersType'
-import { usersCollectionRef } from '../../services/collections'
+import { AuthenticationContext } from '../../contexts/authContextProvider'
 import Logotipo from '../../assets/logotipo.svg'
 
-export function Register() {
-  const [username, setUserName] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [users, setUsers] = useState<UserType[]>([])
-  const { isLoading } = useLoading()
+export const Register = () => {
+  const {
+    username,
+    email,
+    password,
+    isLoading,
+    setEmail,
+    setUserName,
+    setPassword,
+    handleRegisterUser,
+  } = useContext(AuthenticationContext)
   const { THEME } = useThemeColors()
   const navigate = useNavigate()
   const toast = useToast()
 
-  const handleRegisterUser = async (event: FormEvent) => {
+  const handleCreateUser = (event: FormEvent) => {
     event.preventDefault()
 
-    const emailAlreadyInUse = users.some(
-      (user: UserType) => user.email === email
-    )
+    handleRegisterUser()
 
-    try {
-      // NOTE: Envie os dados do formulário caso ele for válido
-      if (!emailAlreadyInUse) {
-        const newUser: UserType = { username, email, password }
-        const docRef = await addDoc(usersCollectionRef, newUser)
-        setUsers([...users, { id: docRef.id, ...newUser }])
-        const { user } = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        )
-
-        await updateProfile(user, {
-          displayName: username,
-        })
-
-        toast({
-          title: 'Usuário Cadastrado!',
-          description: `${username}`,
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
-        })
-        // navigate('/')
-
-        return user
-      } else {
-        toast({
-          title: 'Usuário já cadastrado',
-          description: 'Este usuário já possui um cadastro!',
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
-        })
-      }
-    } catch (error) {
-      toast({
-        title: 'Falha ao cadastrar usuário!',
-        description: `${error.message}`,
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
-      })
-    }
-
-    setEmail('')
-    setPassword('')
-    setUserName('')
+    toast({
+      title: 'Usuário cadastrado',
+      description: 'Usuário cadastrado com sucesso',
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+    })
   }
 
-  const getUsers = async () => {
-    const dataUser = await getDocs(usersCollectionRef)
-    const users = dataUser.docs.map<UserType>(doc => ({
-      ...doc.data(),
-      id: doc.id,
-    }))
-    setUsers(users)
-  }
-
-  useEffect(() => {
-    getUsers()
-  }, [])
-
-  if (isLoading) {
+  if (!isLoading) {
     return <Loading />
   }
 
@@ -130,7 +74,7 @@ export function Register() {
           align={'center'}
           p={10}
         >
-          <chakra.form onSubmit={handleRegisterUser}>
+          <chakra.form onSubmit={handleCreateUser}>
             <Stack spacing={4} w={['full', 'lg']}>
               <InputFieldBar
                 title="Nome"
@@ -161,10 +105,10 @@ export function Register() {
                 <ButtonSign
                   title="Cadastrar"
                   type="submit"
-                  isDisabled={email.length === 0}
-                  isLoading={email.length === 0}
-                  loadingText={email.length === 0 ? 'Cadastrar' : 'Carregando'}
-                  spinnerPlacement={email.length === 0 ? null : 'start'}
+                  isDisabled={password === ''}
+                  isLoading={password === ''}
+                  loadingText={isLoading ? 'Entrar' : 'Carregando'}
+                  spinnerPlacement={isLoading ? null : 'start'}
                 />
               </Stack>
               <InputFooter

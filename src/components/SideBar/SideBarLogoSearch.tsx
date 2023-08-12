@@ -30,17 +30,11 @@ const SideBarLogoSearch = ({ collapsed }: SideBarContainerProps) => {
             fontWeight={'bold'}
             fontSize={'2xl'}
             fontFamily={'Inter'}
+            bgGradient={'linear(to-r, purple.600, purple.300)'}
+            backgroundClip={'text'}
             letterSpacing={1}
-            color={THEME.DASHBOARD.SIDE_BAR_TITLE_COLORS}
           >
-            System
-            <Box
-              as={'span'}
-              bgGradient={'linear(to-r, purple.700, purple.400)'}
-              backgroundClip={'text'}
-            >
-              Stock
-            </Box>
+            SystemStock
           </Text>
         )}
       </Box>

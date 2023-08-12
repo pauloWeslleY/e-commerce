@@ -1,25 +1,31 @@
 import { ReactNode, createContext, useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
+import { useToast } from '@chakra-ui/react'
+import { getDoc, doc, setDoc } from 'firebase/firestore'
 import {
-  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
   onAuthStateChanged,
-  signInWithPopup,
+  signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from 'firebase/auth'
-import { auth } from '../services/firebase'
-
-type UserProps = {
-  id: string
-  username: string
-  email?: string
-  avatar?: string
-}
+import { auth, db } from '../services/firebase'
+import { UserType } from '../types/UsersType'
 
 type AuthContextProps = {
   signedOnUser: boolean
-  userOnAuth: UserProps | null
-  handleSignInWithGoogle: () => Promise<void>
+  userOnAuth: UserType | null
+  username: string
+  email: string
+  password: string | any
+  users: UserType
+  isLoading: boolean
+  setEmail: React.Dispatch<React.SetStateAction<string>>
+  setPassword: React.Dispatch<any>
+  setUserName: React.Dispatch<React.SetStateAction<string>>
   handleLogout: () => void
+  handleSignInUser: () => Promise<void>
+  handleRegisterUser: () => Promise<void>
 }
 
 type AuthProviderProps = {
@@ -29,19 +35,141 @@ type AuthProviderProps = {
 export const AuthenticationContext = createContext({} as AuthContextProps)
 
 export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
-  const [userOnAuth, setUserOnAuth] = useState<UserProps | null>(null)
+  const [userOnAuth, setUserOnAuth] = useState<UserType | null>(null)
+  const [username, setUserName] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string | any>('')
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [users, setUsers] = useState<UserType>()
+  const toast = useToast()
 
-  const handleSignInWithGoogle = async () => {
-    const provider = new GoogleAuthProvider()
-    const result = await signInWithPopup(auth, provider)
+  const handleRegisterUser = async () => {
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then(async value => {
+        const user = value.user
+        const userID = value.user.uid
 
-    if (result.user) {
-      const { displayName, photoURL, uid } = result.user
-      if (!displayName || !photoURL) {
-        throw new Error('Missing information form Google Account')
-      }
-      console.log('ID: ', uid)
-    }
+        console.log(user)
+
+        await updateProfile(user, {
+          displayName: username,
+        })
+        await setDoc(doc(db, 'users', userID), {
+          username,
+          email: value.user.email,
+          avatar: null,
+        })
+          .then(() => {
+            const dataUser = {
+              id: userID,
+              username,
+              email: value.user.email,
+              avatar: null,
+            }
+            setUsers(dataUser)
+          })
+          .catch()
+      })
+      .catch(err => {
+        if (err.code === 'auth/weak-password') {
+          toast({
+            title: 'Senha muito fraca!',
+            description: 'Senha precisa ter no mínimo 6 digito',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
+
+          return
+        }
+        if (err.code === 'auth/email-already-in-use') {
+          toast({
+            title: 'Email já esta sendo utilizado!',
+            description: 'Cadastre outro email',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
+
+          return
+        }
+        if (err.code === 'auth/invalid-email') {
+          toast({
+            title: 'Email não valido!',
+            description: 'Digite um email valido',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
+
+          return
+        }
+        console.log(err)
+      })
+    setEmail('')
+    setPassword('')
+    setUserName('')
+  }
+
+  /**
+   * @author Weslley Lima
+   * Função login de usuário
+   */
+  const handleSignInUser = async () => {
+    setIsLoading(true)
+    await signInWithEmailAndPassword(auth, email, password)
+      .then(async value => {
+        const userID = value.user.uid
+        const docSnapshot = await getDoc(doc(db, 'users', userID))
+
+        const dataUser = {
+          id: userID,
+          username: docSnapshot.data().username,
+          email: value.user.email,
+          avatar: null,
+        }
+
+        setEmail('')
+        setPassword('')
+        setUsers(dataUser)
+        setIsLoading(false)
+      })
+      .catch(err => {
+        if (err.code === 'auth/invalid-email') {
+          toast({
+            title: 'Email não valido!',
+            description: 'Digite um email valido',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
+
+          return
+        }
+        if (err.code === 'auth/user-not-found') {
+          toast({
+            title: 'Usuário não cadastrado',
+            description: 'Cadastre um usuário',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
+
+          return
+        }
+        if (err.code === 'auth/wrong-password') {
+          toast({
+            title: 'Senha esta incorreta!',
+            description: 'Digite uma senha valida',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
+
+          return
+        }
+        console.log(err)
+      })
   }
 
   const handleLogout = async () => {
@@ -79,8 +207,17 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
       value={{
         signedOnUser: !!userOnAuth,
         userOnAuth,
-        handleSignInWithGoogle,
+        users,
+        username,
+        email,
+        password,
+        isLoading,
+        setEmail,
+        setPassword,
+        setUserName,
         handleLogout,
+        handleSignInUser,
+        handleRegisterUser,
       }}
     >
       {children}

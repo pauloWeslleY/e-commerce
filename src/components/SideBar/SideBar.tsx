@@ -2,7 +2,7 @@ import { ReactNode, memo, useState } from 'react'
 import { Flex, HStack } from '@chakra-ui/react'
 import { useThemeColors } from '../../hooks/useThemeColors'
 import { SideBarContainer, SideBarMobile } from './index'
-import { BtnCollapse, BtnNotifications, ButtonDarkMode } from '../Buttons'
+import { BtnCollapse, ButtonDarkMode } from '../Buttons'
 import SideBarMenuHero from './SideBarMenuHero'
 
 interface SideBarProps {
@@ -56,8 +56,6 @@ const SideBar = ({ children }: SideBarProps) => {
           </Flex>
 
           <Flex gap={8} align={'center'}>
-            <BtnNotifications />
-
             <SideBarMenuHero />
           </Flex>
         </Flex>

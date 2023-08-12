@@ -1,17 +1,19 @@
-import { memo, useContext } from 'react'
-import { Avatar, Button, Flex, Text } from '@chakra-ui/react'
-import { AuthenticationContext } from '../../contexts/authContextProvider'
-import { useThemeColors } from '../../hooks/useThemeColors'
-import { SideBarContainerProps } from '../../types/SideBarType'
-import { SideBarAvatarMenu } from './index'
+import { memo } from 'react'
+import { Button, Flex, Text } from '@chakra-ui/react'
 import { HiOutlineLogout } from 'react-icons/hi'
-import { IconUser } from '../IconUser'
 import { useAuthOnStatus } from '../../hooks/useAuthStatus'
+import { useThemeColors } from '../../hooks/useThemeColors'
+import { useAuthentication } from '../../hooks/useAuthentication'
+import { SideBarContainerProps } from '../../types/SideBarType'
+import { AvatarHero, AvatarIcon } from '../Avatar'
+import { SideBarAvatarMenu } from './index'
 
 const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
-  const { userOnAuth, handleLogout } = useContext(AuthenticationContext)
+  const { userOnAuth, handleLogout } = useAuthentication()
   const { userAuth } = useAuthOnStatus()
   const { THEME } = useThemeColors()
+
+  console.log('UserOn ==> ', userOnAuth)
 
   return (
     <Flex
@@ -19,19 +21,19 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
       justify={'space-between'}
       flexDir={collapsed ? 'row' : 'column-reverse'}
       gap={2}
-      w={'full'}
       p={2}
+      w={'full'}
     >
       {!collapsed && (
         <>
-          {userOnAuth.avatar ? (
-            <Avatar
-              size={'lg'}
-              src={userOnAuth.avatar}
+          {userOnAuth.avatar !== null ? (
+            <AvatarHero
+              size={'md'}
+              avatarUrl={userOnAuth.avatar}
               name={userOnAuth.username}
             />
           ) : (
-            <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
+            <AvatarIcon />
           )}
         </>
       )}
@@ -45,49 +47,25 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
           flexDir={'column'}
           gap={4}
         >
-          {userAuth ? (
+          {userAuth && (
             <>
-              {userOnAuth.avatar ? (
-                <Avatar
+              {userOnAuth.avatar !== null ? (
+                <AvatarHero
                   size={'md'}
-                  src={userOnAuth.avatar}
-                  name={userOnAuth.username}
-                  pos={'relative'}
-                  _after={{
-                    content: '""',
-                    w: 2,
-                    h: 2,
-                    bg: 'green.300',
-                    border: '2px solid white',
-                    rounded: 'full',
-                    pos: 'absolute',
-                    bottom: -1,
-                    right: 1,
-                  }}
-                />
-              ) : (
-                <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
-              )}
-            </>
-          ) : (
-            <>
-              {userOnAuth.avatar ? (
-                <Avatar
-                  size={'md'}
-                  src={userOnAuth.avatar}
+                  avatarUrl={userOnAuth.avatar}
                   name={userOnAuth.username}
                 />
               ) : (
-                <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
+                <AvatarIcon />
               )}
             </>
           )}
           <Text
+            color={THEME.DASHBOARD.TEXT_COLORS}
             fontSize={'sm'}
             fontWeight={'semibold'}
-            pb={0}
             lineHeight={0}
-            color={THEME.DASHBOARD.TEXT_COLORS}
+            pb={0}
           >
             {userOnAuth.username}
           </Text>

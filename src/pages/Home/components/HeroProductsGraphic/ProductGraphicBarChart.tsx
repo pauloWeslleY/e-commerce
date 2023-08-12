@@ -1,4 +1,5 @@
 import { memo, useMemo } from 'react'
+import { Flex, Text } from '@chakra-ui/react'
 import {
   Bar,
   BarChart,
@@ -11,6 +12,24 @@ import {
 } from 'recharts'
 import { useFetch } from '../../../../hooks/useFetch'
 
+interface CustomTooltipProps {
+  label: string
+  payload: any
+}
+
+const CustomTooltip = ({ payload, label }: CustomTooltipProps) => {
+  if (payload.length) {
+    return (
+      <Flex bg={'purple.400'} p={2} flexDir={'column'}>
+        <Text>{`Nome: ${label}`}</Text>
+        <Text>{`Unidades: ${payload[0].value}`}</Text>
+      </Flex>
+    )
+  }
+
+  return null
+}
+
 const ProductGraphicBarChart = () => {
   const { product } = useFetch()
 
@@ -18,8 +37,7 @@ const ProductGraphicBarChart = () => {
     const prod = product.map(prod => {
       return {
         name: prod.name.slice(0, 3),
-        uni: prod.quantity,
-        preço: prod.price,
+        quantity: Number(prod.quantity),
       }
     })
 
@@ -29,8 +47,8 @@ const ProductGraphicBarChart = () => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
-        width={150}
-        height={40}
+        width={500}
+        height={300}
         data={graphicProducts}
         margin={{
           top: 5,
@@ -39,13 +57,12 @@ const ProductGraphicBarChart = () => {
           bottom: 5,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <CartesianGrid strokeDasharray="3 3" stroke="#cecece" />
+        <XAxis dataKey="name" stroke="#cecece" />
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="preço" fill="#10b981" />
-        <Bar dataKey="uni" fill="#6A64D9" />
+        <Bar dataKey="quantity" name="unidades" fill="#6A64D9" />
       </BarChart>
     </ResponsiveContainer>
   )

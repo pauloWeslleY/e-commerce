@@ -18,7 +18,7 @@ const InputPassword = ({ ...props }: InputProps) => {
   const { THEME } = useThemeColors()
 
   return (
-    <FormControl id="password" isRequired>
+    <FormControl id="password">
       <FormLabelTitle title="Senha" htmlFor="password" />
       <InputGroup>
         <InputLeftElement

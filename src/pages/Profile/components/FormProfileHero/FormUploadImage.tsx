@@ -33,7 +33,7 @@ const FormUploadImage = (props: FormUploadImageProps) => {
           {photoURL ? (
             <Avatar boxSize={12} src={photoURL} name={'User Profile'} />
           ) : (
-            <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
+            <Avatar boxSize={12} icon={IconUser} bg={'purple.600'} />
           )}
           <IsButton size={'xs'} title="Trocar" onClick={onUploadImage} />
         </Flex>
@@ -82,13 +82,14 @@ const FormUploadImage = (props: FormUploadImageProps) => {
                 }}
               >
                 <span>Upload a file </span>
-                <input
-                  id="file-upload"
-                  name="file-upload"
-                  type="file"
-                  onChange={onImageChange}
-                />
-                <VisuallyHidden></VisuallyHidden>
+                <VisuallyHidden>
+                  <input
+                    id="file-upload"
+                    name="file-upload"
+                    type="file"
+                    onChange={onImageChange}
+                  />
+                </VisuallyHidden>
               </chakra.label>
               <Text pl={1}>or drag and drop</Text>
             </Flex>
@@ -98,7 +99,7 @@ const FormUploadImage = (props: FormUploadImageProps) => {
           </Stack>
         </Flex>
       </FormControl>
-      <Progress hasStripe value={uploadProgress} colorScheme={'purple'} />
+
       <Flex my={6} align={'center'} justify={'center'}>
         {uploadProgress !== null && (
           <Progress hasStripe value={uploadProgress} colorScheme={'purple'} />

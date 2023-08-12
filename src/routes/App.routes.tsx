@@ -12,7 +12,6 @@ import { Categories } from '../pages/Categories/Categories'
 import { Users } from '../pages/Users'
 import { UserProfile } from '../pages/Profile/UserProfile'
 import { Graphic } from '../pages/Graphic/Graphic'
-import { Email } from '../pages/Email/Email'
 
 interface RoutesProps {
   path: string
@@ -62,10 +61,6 @@ const routes: RoutesProps[] = [
           {
             path: '/dashboard/profile',
             element: <UserProfile />,
-          },
-          {
-            path: '/dashboard/email',
-            element: <Email />,
           },
         ],
       },

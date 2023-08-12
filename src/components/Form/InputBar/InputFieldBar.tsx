@@ -21,7 +21,7 @@ const InputFieldBar = (props: InputFieldBarProps) => {
   const { THEME } = useThemeColors()
 
   return (
-    <FormControl id={label} isRequired>
+    <FormControl id={label}>
       <FormLabelTitle title={title} htmlFor={label} />
       <InputGroup>
         <InputLeftElement pointerEvents="none" children={icon} />

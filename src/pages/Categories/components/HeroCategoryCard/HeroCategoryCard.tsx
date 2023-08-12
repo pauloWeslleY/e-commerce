@@ -37,7 +37,7 @@ const HeroCategoryCard = (props: HeroCategoryCardProps) => {
         >
           {category.name}
         </Text>
-        <Text fontSize={'sm'} fontWeight={'light'} letterSpacing={'wider'}>
+        <Text fontSize={'sm'} fontWeight={'medium'} letterSpacing={'wider'}>
           Produtos cadastrado - {category.products.length}
         </Text>
       </Flex>

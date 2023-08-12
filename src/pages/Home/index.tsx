@@ -1,16 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useContext } from 'react'
+import { AuthenticationContext } from '../../contexts/authContextProvider'
 import { Home } from './Home'
 import { Loading } from '../../components/Loading'
 import { SideBar } from '../../components/SideBar'
 
 export const HomePage = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { isLoading } = useContext(AuthenticationContext)
 
-  useEffect(() => {
-    setIsLoading(true)
-  }, [])
-
-  return isLoading ? (
+  return !isLoading !== true ? (
     <SideBar>
       <Home />
     </SideBar>

@@ -56,8 +56,8 @@ const UsersTable = () => {
 
   return (
     <WrapperTable>
-      {users.map((props, index) => (
-        <WrapperTableRow key={index} users={props}>
+      {users.map((props) => (
+        <WrapperTableRow key={props.id} users={props}>
           <ModalHeroDelete
             title="Usuário"
             label="este"

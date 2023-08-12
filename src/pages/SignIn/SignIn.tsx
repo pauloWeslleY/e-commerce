@@ -1,97 +1,37 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Flex, Stack, Text, useToast, chakra, Image } from '@chakra-ui/react'
+import { Flex, Stack, Text, Image, chakra, useToast } from '@chakra-ui/react'
 import { EmailIcon } from '@chakra-ui/icons'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { getDocs } from 'firebase/firestore'
-import { auth } from '../../services/firebase'
 import { InputPassword } from '../../components/Form/InputPassword'
 import { InputFieldBar } from '../../components/Form/InputBar'
 import { InputFooter } from '../../components/Form/InputFooter'
 import { HeroTitle } from '../../components/HeroTitle'
 import { ButtonSign } from '../../components/Buttons'
-import { Loading } from '../../components/Loading'
-import { UserType } from '../../types/UsersType'
+// import { Loading } from '../../components/Loading'
 import { useThemeColors } from '../../hooks/useThemeColors'
-import { useLoading } from '../../hooks/useLoading'
-import { usersCollectionRef } from '../../services/collections'
+import { AuthenticationContext } from '../../contexts/authContextProvider'
 import Logotipo from '../../assets/logotipo.svg'
 
 export function SignIn() {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string | any>('')
-  const [users, setUsers] = useState<UserType[]>([])
-  const { isLoading } = useLoading()
+  const { email, password, setEmail, setPassword, handleSignInUser } =
+    useContext(AuthenticationContext)
   const { THEME } = useThemeColors()
   const navigate = useNavigate()
   const toast = useToast()
 
-  const handleSignInUser = async (event: FormEvent) => {
+  const handleSignIn = (event: FormEvent) => {
     event.preventDefault()
-    const useEmail = users.some(user => user.email === email)
-    const usePass = users.some(user => user.password === password)
 
-    // TODO: Envie os dados do formulário caso ele for válido
-    if (useEmail && !usePass) {
-      toast({
-        title: 'Email e senha estão incorreto!',
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
-      })
-    } else if (useEmail && usePass) {
-      await signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          toast({
-            title: 'Usuário autenticado!',
-            description: `${email}`,
-            status: 'success',
-            duration: 9000,
-            isClosable: true,
-            position: 'top',
-          })
-          setEmail('')
-          setPassword('')
-          navigate('/dashboard')
-        })
-        .catch(err => {
-          toast({
-            title: 'Email e senha estão incorreto!',
-            description: `${err}`,
-            status: 'warning',
-            duration: 9000,
-            isClosable: true,
-          })
-          console.error(err)
-        })
-    } else {
-      toast({
-        title: 'Usuário não cadastrado',
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
-      })
-    }
-
-    setEmail('')
-    setPassword('')
-  }
-
-  const getUsers = async () => {
-    const dataUser = await getDocs(usersCollectionRef)
-    const users = dataUser.docs.map<UserType>(doc => ({
-      ...doc.data(),
-      id: doc.id,
-    }))
-    setUsers(users)
-  }
-
-  useEffect(() => {
-    getUsers()
-  }, [])
-
-  if (isLoading) {
-    return <Loading />
+    handleSignInUser()
+    navigate('/dashboard')
+    toast({
+      title: 'Usuário autenticado!',
+      description: `${email}`,
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+      position: 'top',
+    })
   }
 
   return (
@@ -124,7 +64,7 @@ export function SignIn() {
           as={'section'}
           p={10}
         >
-          <chakra.form onSubmit={handleSignInUser}>
+          <chakra.form onSubmit={handleSignIn}>
             <Stack spacing={4} w={['full', 'lg']}>
               <InputFieldBar
                 title="E-mail"
@@ -145,10 +85,10 @@ export function SignIn() {
                 <ButtonSign
                   title="Entrar"
                   type="submit"
-                  isDisabled={email.length === 0}
-                  isLoading={email.length === 0}
-                  loadingText={email.length === 0 ? 'Entrar' : 'Carregando'}
-                  spinnerPlacement={email.length === 0 ? null : 'start'}
+                  isDisabled={password === ''}
+                  isLoading={password === ''}
+                  loadingText={password === '' ? 'Entrar' : 'Carregando'}
+                  spinnerPlacement={password === '' ? null : 'start'}
                 />
               </Stack>
             </Stack>

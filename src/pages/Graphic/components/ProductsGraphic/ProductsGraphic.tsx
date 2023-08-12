@@ -9,7 +9,6 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-
 import { ProductsType } from '../../../../types/ProductType'
 
 interface ProductsGraphicProps {
@@ -21,8 +20,8 @@ const ProductsGraphic = ({ products }: ProductsGraphicProps) => {
     const prod = products.map(props => {
       return {
         name: props.name.slice(0, 7),
-        quantidade: Number(props.quantity),
-        preço: Number(props.price),
+        quantity: Number(props.quantity),
+        price: Number(props.price),
       }
     })
 
@@ -51,14 +50,16 @@ const ProductsGraphic = ({ products }: ProductsGraphicProps) => {
         <Line
           yAxisId="left"
           type="monotone"
-          dataKey="quantidade"
+          dataKey="quantity"
+          name="Quantidade"
           stroke="#6A64D9"
           activeDot={{ r: 8 }}
         />
         <Line
           yAxisId="right"
           type="monotone"
-          dataKey="preço"
+          dataKey="price"
+          name="Preço"
           stroke="#10b981"
         />
       </LineChart>

@@ -1,7 +1,7 @@
 import { TbTool } from 'react-icons/tb'
 import { VscGraphLeft } from 'react-icons/vsc'
 import { BiCategory, BiHomeAlt2, BiUser } from 'react-icons/bi'
-import { HiOutlineMail, HiOutlineShoppingBag } from 'react-icons/hi'
+import { HiOutlineShoppingBag } from 'react-icons/hi'
 import { MenuItemsProps } from '../../../../types/MenuItemsProps'
 
 const MENU_ITEMS: Array<MenuItemsProps> = [
@@ -21,7 +21,6 @@ const MENU_ITEMS: Array<MenuItemsProps> = [
     icon: HiOutlineShoppingBag,
     path: '/dashboard/product',
   },
-
   {
     type: 'link',
     label: 'Categorias',
@@ -33,12 +32,6 @@ const MENU_ITEMS: Array<MenuItemsProps> = [
     label: 'Desempenho',
     icon: VscGraphLeft,
     path: '/dashboard/graphics',
-  },
-  {
-    type: 'link',
-    label: 'Email',
-    icon: HiOutlineMail,
-    path: '/dashboard/email',
   },
   {
     type: 'link',

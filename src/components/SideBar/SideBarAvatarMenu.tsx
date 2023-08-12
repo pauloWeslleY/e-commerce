@@ -1,6 +1,5 @@
-import { memo, useContext } from 'react'
+import { memo } from 'react'
 import {
-  Avatar,
   Button,
   Flex,
   IconButton,
@@ -12,13 +11,13 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { MdOutlineMoreHoriz } from 'react-icons/md'
-import { AuthenticationContext } from '../../contexts/authContextProvider'
-import { useThemeColors } from '../../hooks/useThemeColors'
 import { HiOutlineLogout } from 'react-icons/hi'
-import { IconUser } from '../IconUser'
+import { useThemeColors } from '../../hooks/useThemeColors'
+import { useAuthentication } from '../../hooks/useAuthentication'
+import { AvatarHero, AvatarIcon } from '../Avatar'
 
 const SideBarAvatarMenu = () => {
-  const { userOnAuth, handleLogout } = useContext(AuthenticationContext)
+  const { userOnAuth, handleLogout } = useAuthentication()
   const { THEME } = useThemeColors()
 
   return (
@@ -38,13 +37,15 @@ const SideBarAvatarMenu = () => {
         <PopoverBody>
           <Flex align={'center'} gap={2} flexDir={'column'}>
             {userOnAuth.avatar ? (
-              <Avatar
-                size={'2xl'}
-                src={userOnAuth.avatar}
+              <AvatarHero
+                size={'lg'}
+                borderWidth={2}
+                borderColor={'purple.100'}
+                avatarUrl={userOnAuth.avatar}
                 name={userOnAuth.username}
               />
             ) : (
-              <Avatar boxSize={12} bg={'purple.600'} icon={IconUser} />
+              <AvatarIcon />
             )}
 
             <Flex

@@ -1,4 +1,4 @@
-import { ReactNode, memo } from 'react'
+import React, { ReactNode, memo } from 'react'
 import { ButtonGroup, Td, Tr } from '@chakra-ui/react'
 import { UserType } from '../../../../types/UsersType'
 import { ModalUserHero } from '../ModalUserHero'
@@ -32,11 +32,11 @@ const WrapperTableRow = ({ children, users }: WrapperTableRowProps) => {
         gridGap: '10px',
       }}
     >
-      {USER.map(user => (
-        <>
+      {USER.map((user, index) => (
+        <React.Fragment key={index}>
           <WrapperTableCell title={user.label} />
           <WrapperTableTdHero label={user.value} />
-        </>
+        </React.Fragment>
       ))}
       <WrapperTableCell title="Ações" />
 

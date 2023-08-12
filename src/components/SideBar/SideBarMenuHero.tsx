@@ -1,11 +1,11 @@
-import { memo, useContext } from 'react'
+import { memo } from 'react'
 import { Avatar, HStack, VStack, Text } from '@chakra-ui/react'
-import { AuthenticationContext } from '../../contexts/authContextProvider'
+import { useAuthentication } from '../../hooks/useAuthentication'
 import { useAuthOnStatus } from '../../hooks/useAuthStatus'
 import { IconUser } from '../IconUser'
 
 const SideBarMenuHero = () => {
-  const { userOnAuth } = useContext(AuthenticationContext)
+  const { userOnAuth } = useAuthentication()
   const { userAuth } = useAuthOnStatus()
 
   return (

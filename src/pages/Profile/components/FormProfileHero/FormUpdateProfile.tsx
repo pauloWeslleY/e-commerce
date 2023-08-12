@@ -9,37 +9,34 @@ import { auth, storage } from '../../../../services/firebase'
 import { FormUploadImage, FormProfile } from './index'
 
 const FormUpdateProfile = () => {
-  const [username, setUsername] = useState<string>('')
+  const user = auth.currentUser
+  const [username, setUsername] = useState<string>(`${user.displayName}`)
   const [photoUrl, setPhotoUrl] = useState<string>('')
   const [image, setImage] = useState<File | null>(null)
   const [uploadProgress, setUploadProgress] = useState<number | null>(null)
   const toast = useToast()
-  const user = auth.currentUser
 
   const handleUpdateUser = async () => {
     if (user) {
-      try {
-        await updateProfile(user, {
-          displayName: username,
-          photoURL: photoUrl,
-        })
-        setUsername('')
-        toast({
-          title: 'Usuário atualizado!',
-          description: `${username}`,
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
-        })
-      } catch (err) {
-        toast({
-          title: 'Não foi possível atualizar o usuário',
-          description: `${err}`,
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
-        })
-      }
+      await updateProfile(user, {
+        displayName: username,
+        photoURL: photoUrl,
+      })
+      setUsername('')
+      toast({
+        title: 'Usuário atualizado!',
+        description: `${username}`,
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
+    } else {
+      toast({
+        title: 'Não foi possível atualizar o usuário',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
     }
   }
 
@@ -110,7 +107,11 @@ const FormUpdateProfile = () => {
       />
 
       <Box px={{ base: 4, sm: 6 }} py={3} textAlign={'right'}>
-        <IsButton title="Atualizar" onClick={handleUpdateUser} />
+        <IsButton
+          title="Atualizar"
+          onClick={handleUpdateUser}
+          isDisabled={!photoUrl}
+        />
       </Box>
     </FormProfile>
   )

@@ -37,6 +37,8 @@ export function useThemeColors() {
       */
       SIDE_BAR_BG: useColorModeValue('whiteAlpha.900', 'gray.900'),
       SIDE_BAR_COLORS: useColorModeValue('purple.600', 'purple.400'),
+      SIDE_BAR_BG_ACTIVE: useColorModeValue('purple.600', 'purple.500'),
+      SIDE_BAR_BG_ACTIVE_HOVER: useColorModeValue('purple.500', 'purple.700'),
       SIDE_BAR_TITLE_COLORS: useColorModeValue('purple.700', 'purple.100'),
       SIDEBAR_AVATAR_HERO_BORDER_COLORS: useColorModeValue(
         'purple.600',

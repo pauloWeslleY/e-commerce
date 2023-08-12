@@ -37,7 +37,7 @@ export function useFetch() {
     setProduct(isProduct)
   }
 
-  const filteredCategory = async () => {
+  const getCategories = async () => {
     const filteredCategories = query(
       cateCollectionRef,
       where('name', '!=', true),
@@ -55,7 +55,7 @@ export function useFetch() {
   useEffect(() => {
     getProduct()
     getUsers()
-    filteredCategory()
+    getCategories()
   }, [])
 
   return {

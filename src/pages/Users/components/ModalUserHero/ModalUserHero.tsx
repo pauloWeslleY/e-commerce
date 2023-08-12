@@ -19,7 +19,7 @@ interface ModalUserHeroProps {
 }
 
 const ModalUserHero = ({ user }: ModalUserHeroProps) => {
-  const { username, password, email, id } = user
+  const { username, email, id } = user
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -40,7 +40,6 @@ const ModalUserHero = ({ user }: ModalUserHeroProps) => {
               <Box textTransform={'uppercase'}>ID: {id}</Box>
               <span>Nome: {username}</span>
               <span>Email: {email}</span>
-              <span>Senha: {password}</span>
             </Stack>
           </ModalBody>
 
