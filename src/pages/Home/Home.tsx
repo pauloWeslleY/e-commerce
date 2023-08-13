@@ -10,7 +10,7 @@ import { HeroTitleBar } from '../../components/HeroTitle'
 import { HeroProductCategory } from './components/HeroProductCategory'
 import { HeroProductsGraphic } from './components/HeroProductsGraphic'
 
-export function Home() {
+export const Home = () => {
   const { isCategories, users, product } = useFetch()
   const { THEME } = useThemeColors()
 

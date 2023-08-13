@@ -5,16 +5,18 @@ import { currentDay } from './convertTimestampToDayjs'
 const createdAtTimestamp = Timestamp.fromDate(currentDay)
 const updatedAtTimestamp = Timestamp.fromDate(currentDay)
 
-const createAndUpdateProduct = ({
-  name,
-  description,
-  price,
-  categoryId,
-  quantity,
-  supplier,
-  createAt = createdAtTimestamp,
-  updateAt = updatedAtTimestamp,
-}: ProductsType) => {
+const createAndUpdateProduct = (props: ProductsType) => {
+  const {
+    name,
+    description,
+    price,
+    categoryId,
+    quantity,
+    supplier,
+    createAt = createdAtTimestamp,
+    updateAt = updatedAtTimestamp,
+  } = props
+
   const createProduct: ProductsType = {
     name,
     description,

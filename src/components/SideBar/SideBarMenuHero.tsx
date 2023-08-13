@@ -1,10 +1,9 @@
-import { memo } from 'react'
 import { HStack, VStack, Text } from '@chakra-ui/react'
 import { useAuthentication } from '../../hooks/useAuthentication'
 import { useAuthOnStatus } from '../../hooks/useAuthStatus'
 import { AvatarHero, AvatarIcon } from '../Avatar'
 
-const SideBarMenuHero = () => {
+export const SideBarMenuHero = () => {
   const { userOnAuth } = useAuthentication()
   const { userAuth } = useAuthOnStatus()
 
@@ -50,5 +49,3 @@ const SideBarMenuHero = () => {
     </HStack>
   )
 }
-
-export default memo(SideBarMenuHero)

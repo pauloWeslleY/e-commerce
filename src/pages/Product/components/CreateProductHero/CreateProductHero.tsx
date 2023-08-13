@@ -20,6 +20,7 @@ const CreateProductHero = () => {
     quantity,
     loading,
     product,
+    isValid,
     setCategoryId,
     setDescription,
     setName,
@@ -53,7 +54,8 @@ const CreateProductHero = () => {
   }, [product])
 
   /**
-   * !Função para calcular o índice do último produto da página atual
+   * @author Weslley
+   * Função para calcular o índice do último produto da página atual
    * Função para calcular o índice do primeiro produto da página atual
    * Função para obter os produtos da página atual
    */
@@ -74,6 +76,7 @@ const CreateProductHero = () => {
             <ModalHeroUpdate
               title="Produto"
               items={product}
+              isValid={isValid}
               onHandleClick={() => handleUpdateProduct(product.id)}
             >
               <FormHeroProduct

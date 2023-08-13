@@ -3,15 +3,15 @@ import { RouteObject, createBrowserRouter } from 'react-router-dom'
 import { App } from '../App'
 import { PrivateRoutes } from './Private.routes'
 
-import { Login } from '../pages/SignIn'
-import { Register } from '../pages/Register/Register'
+import { Register } from '../pages/Register'
 import { HomePage } from '../pages/Home'
-import { Product } from '../pages/Product/Product'
-import { NotFound } from '../pages/404/404'
-import { Categories } from '../pages/Categories/Categories'
+import { Product } from '../pages/Product'
+import { NotFound } from '../pages/404'
+import { Categories } from '../pages/Categories'
 import { Users } from '../pages/Users'
-import { UserProfile } from '../pages/Profile/UserProfile'
-import { Graphic } from '../pages/Graphic/Graphic'
+import { UserProfile } from '../pages/Profile'
+import { Graphic } from '../pages/Graphic'
+import { SignIn } from '../pages/SignIn'
 
 interface RoutesProps {
   path: string
@@ -28,7 +28,7 @@ const routes: RoutesProps[] = [
     children: [
       {
         path: '/',
-        element: <Login />,
+        element: <SignIn />,
       },
       {
         path: '/register',

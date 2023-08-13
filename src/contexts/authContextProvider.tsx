@@ -21,8 +21,8 @@ type AuthContextProps = {
   users: UserType
   isLoading: boolean
   setEmail: React.Dispatch<React.SetStateAction<string>>
-  setPassword: React.Dispatch<any>
   setUserName: React.Dispatch<React.SetStateAction<string>>
+  setPassword: React.Dispatch<any>
   handleLogout: () => void
   handleSignInUser: () => Promise<void>
   handleRegisterUser: () => Promise<void>
@@ -43,6 +43,10 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
   const [users, setUsers] = useState<UserType>()
   const toast = useToast()
 
+  /**
+   * @author Weslley
+   * função que criar um usuário no firebase
+   */
   const handleRegisterUser = async () => {
     await createUserWithEmailAndPassword(auth, email, password)
       .then(async value => {
@@ -68,42 +72,64 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
             }
             setUsers(dataUser)
           })
-          .catch()
+          .catch(err => {
+            toast({
+              title: 'Falha ao cadastrado usuário',
+              description: 'Não foi possível cadastrar usuário!',
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+              position: 'top-right',
+            })
+            console.log(`Falha ao criar usuário ${err}`)
+          })
+
+        toast({
+          title: 'Usuário cadastrado',
+          description: 'Usuário cadastrado com sucesso',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+          position: 'top-right',
+        })
+        setIsLoading(false)
       })
       .catch(err => {
-        if (err.code === 'auth/weak-password') {
-          toast({
-            title: 'Senha muito fraca!',
-            description: 'Senha precisa ter no mínimo 6 digito',
-            status: 'error',
-            duration: 9000,
-            isClosable: true,
-          })
+        switch (err.code) {
+          case 'auth/weak-password':
+            toast({
+              title: 'Senha muito fraca!',
+              description: 'Senha precisa ter no mínimo 6 digito',
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+              position: 'top-right',
+            })
+            return
 
-          return
-        }
-        if (err.code === 'auth/email-already-in-use') {
-          toast({
-            title: 'Email já esta sendo utilizado!',
-            description: 'Cadastre outro email',
-            status: 'error',
-            duration: 9000,
-            isClosable: true,
-          })
+          case 'auth/email-already-in-use':
+            toast({
+              title: 'Email já esta sendo utilizado!',
+              description: 'Cadastre outro email',
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+              position: 'top-right',
+            })
+            return
 
-          return
+          case 'auth/invalid-email':
+            toast({
+              title: 'Email não valido!',
+              description: 'Digite um email valido',
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+              position: 'top-right',
+            })
+            return
         }
-        if (err.code === 'auth/invalid-email') {
-          toast({
-            title: 'Email não valido!',
-            description: 'Digite um email valido',
-            status: 'error',
-            duration: 9000,
-            isClosable: true,
-          })
 
-          return
-        }
         console.log(err)
       })
     setEmail('')
@@ -116,7 +142,6 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
    * Função login de usuário
    */
   const handleSignInUser = async () => {
-    setIsLoading(true)
     await signInWithEmailAndPassword(auth, email, password)
       .then(async value => {
         const userID = value.user.uid
@@ -129,45 +154,56 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
           avatar: null,
         }
 
+        toast({
+          title: 'Usuário autenticado!',
+          description: `${email}`,
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+          position: 'top-right',
+        })
+
         setEmail('')
         setPassword('')
         setUsers(dataUser)
         setIsLoading(false)
       })
       .catch(err => {
-        if (err.code === 'auth/invalid-email') {
-          toast({
-            title: 'Email não valido!',
-            description: 'Digite um email valido',
-            status: 'error',
-            duration: 9000,
-            isClosable: true,
-          })
+        switch (err.code) {
+          case 'auth/invalid-email':
+            toast({
+              title: 'Email não valido!',
+              description: 'Digite um email valido',
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+              position: 'top-right',
+            })
+            return
 
-          return
-        }
-        if (err.code === 'auth/user-not-found') {
-          toast({
-            title: 'Usuário não cadastrado',
-            description: 'Cadastre um usuário',
-            status: 'error',
-            duration: 9000,
-            isClosable: true,
-          })
+          case 'auth/user-not-found':
+            toast({
+              title: 'Usuário não cadastrado',
+              description: 'Cadastre um usuário',
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+              position: 'top-right',
+            })
+            return
 
-          return
+          case 'auth/wrong-password':
+            toast({
+              title: 'Senha esta incorreta!',
+              description: 'Digite uma senha valida',
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+              position: 'top-right',
+            })
+            return
         }
-        if (err.code === 'auth/wrong-password') {
-          toast({
-            title: 'Senha esta incorreta!',
-            description: 'Digite uma senha valida',
-            status: 'error',
-            duration: 9000,
-            isClosable: true,
-          })
 
-          return
-        }
         console.log(err)
       })
   }

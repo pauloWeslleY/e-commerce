@@ -9,6 +9,7 @@ const ButtonModalShow = ({ ...rest }: IconButtonProps) => {
   return (
     <IconButton
       {...rest}
+      icon={<BsFillEyeFill />}
       size={'sm'}
       rounded={'lg'}
       bg={'emerald.400'}
@@ -21,7 +22,6 @@ const ButtonModalShow = ({ ...rest }: IconButtonProps) => {
         color: 'emerald.700',
         borderColor: 'emerald.600',
       }}
-      icon={<BsFillEyeFill />}
     />
   )
 }

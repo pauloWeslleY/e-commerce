@@ -2,11 +2,7 @@ import { memo } from 'react'
 import { chakra, Flex, Spinner } from '@chakra-ui/react'
 import { useThemeColors } from '../../hooks/useThemeColors'
 
-type LoaderTextProps = {
-  title: string
-}
-
-const LoaderText = ({ title }: LoaderTextProps) => (
+const LoaderText = ({ title }: { title: string }) => (
   <chakra.h1 px={4} fontSize={'3xl'} color={'purple.600'}>
     {title}
   </chakra.h1>
@@ -16,7 +12,14 @@ const Loading = () => {
   const { THEME } = useThemeColors()
 
   return (
-    <Flex w={'full'} h={'100vh'} align={'center'} justify={'center'}>
+    <Flex
+      w={'full'}
+      h={'100vh'}
+      align={'center'}
+      justify={'center'}
+      borderRadius={5}
+      bg={'rgba(255, 255, 255, 0.2)'}
+    >
       <Flex p={1} align={'center'}>
         <Spinner
           label={'Loading...'}

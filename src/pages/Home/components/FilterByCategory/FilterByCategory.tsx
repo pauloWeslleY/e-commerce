@@ -1,11 +1,10 @@
 import { memo, useMemo } from 'react'
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import { useFetch } from '../../../../hooks/useFetch'
-import { useThemeColors } from '../../../../hooks/useThemeColors'
+import { CardFilterByCategory } from './CardFilterByCategory'
 
 const FilterByCategory = () => {
   const { isCategories, product } = useFetch()
-  const { THEME } = useThemeColors()
 
   const categoryByProducts = useMemo(() => {
     const categories = isCategories.map(props => {
@@ -23,36 +22,7 @@ const FilterByCategory = () => {
   return (
     <Flex flexWrap={'wrap'} flexDir={'row'} gap={2}>
       {categoryByProducts.map(props => (
-        <Flex
-          key={props.id}
-          flexBasis={16}
-          flexShrink={1}
-          flexGrow={1}
-          align={'center'}
-          justify={'center'}
-          bg={THEME.HOME.BACKGROUND}
-          borderColor={'purple.600'}
-          borderWidth={2}
-          borderStyle={'solid'}
-          borderRadius={3}
-          p={1}
-          rounded={'md'}
-          boxShadow={'lg'}
-          textAlign={'center'}
-          transition={'transform .3s ease-in'}
-          _hover={{
-            transform: 'translateY(-5px)',
-          }}
-        >
-          <Text
-            as={'span'}
-            color={'purple.600'}
-            fontFamily={'Poppins'}
-            fontSize={'xl'}
-          >
-            {props.name}
-          </Text>
-        </Flex>
+        <CardFilterByCategory key={props.id} cards={props} />
       ))}
     </Flex>
   )

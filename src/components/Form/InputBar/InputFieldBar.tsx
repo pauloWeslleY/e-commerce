@@ -1,4 +1,4 @@
-import { HTMLInputTypeAttribute, ReactElement, memo } from 'react'
+import { HTMLInputTypeAttribute, ReactElement, memo, useRef } from 'react'
 import {
   FormControl,
   Input,
@@ -19,6 +19,7 @@ interface InputFieldBarProps extends InputProps {
 const InputFieldBar = (props: InputFieldBarProps) => {
   const { title, label, inputType, icon, ...rest } = props
   const { THEME } = useThemeColors()
+  const inputRef = useRef<HTMLInputElement>(null)
 
   return (
     <FormControl id={label}>
@@ -31,15 +32,16 @@ const InputFieldBar = (props: InputFieldBarProps) => {
           type={inputType}
           name={label}
           autoComplete={label}
+          ref={inputRef}
+          fontFamily={'Poppins'}
+          shadow={'sm'}
+          variant={'flushed'}
+          bg={'transparent'}
           focusBorderColor={'purple.300'}
           _placeholder={{
             opacity: 1,
             color: THEME.DASHBOARD.INPUT_BAR_PLACEHOLDER_COLORS,
           }}
-          fontFamily={'Poppins'}
-          shadow={'sm'}
-          variant={'flushed'}
-          bg={'transparent'}
         />
       </InputGroup>
     </FormControl>

@@ -3,7 +3,7 @@ import { SideBar } from '../../components/SideBar'
 import { HeroTitleBar } from '../../components/HeroTitle'
 import { FormProfileHero } from './components/FormProfileHero'
 
-export function UserProfile() {
+export const UserProfile = () => {
   return (
     <SideBar>
       <HeroTitleBar label="Profile" icon={TbTool} />

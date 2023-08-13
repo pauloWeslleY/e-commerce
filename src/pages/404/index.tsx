@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 import { SideBar } from '../../components/SideBar'
 
-export function NotFound() {
+export const NotFound = () => {
   const [redirect, setRedirect] = useState<number>(3)
   const timeout = useRef<any>(0)
   const navigate = useNavigate()

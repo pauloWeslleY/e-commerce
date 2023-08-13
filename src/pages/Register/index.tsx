@@ -2,40 +2,62 @@ import { FormEvent, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Stack } from '@chakra-ui/react'
 import { EmailIcon } from '@chakra-ui/icons'
+import { RiUser3Fill } from 'react-icons/ri'
 import { InputPassword } from '../../components/Form/InputPassword'
-import { InputFieldBar } from '../../components/Form/InputBar'
 import { InputFooter } from '../../components/Form/InputFooter'
 import { FormHeader } from '../../components/Form/FormHeader'
+import { InputFieldBar } from '../../components/Form/InputBar'
 import { WrapperForm } from '../../components/Form/WrapperForm'
 import { FormContainer } from '../../components/Form/FormContainer'
 import { ButtonSign } from '../../components/Buttons'
-
+import { Loading } from '../../components/Loading'
 import { AuthenticationContext } from '../../contexts/authContextProvider'
 import Logotipo from '../../assets/logotipo.svg'
 
-export const SignIn = () => {
-  const { email, password, setEmail, setPassword, handleSignInUser } =
-    useContext(AuthenticationContext)
-
+export const Register = () => {
+  const {
+    username,
+    email,
+    password,
+    isLoading,
+    setEmail,
+    setUserName,
+    setPassword,
+    handleRegisterUser,
+  } = useContext(AuthenticationContext)
   const navigate = useNavigate()
 
-  const handleSignIn = (event: FormEvent) => {
+  const handleCreateUser = (event: FormEvent) => {
     event.preventDefault()
 
-    handleSignInUser()
-    navigate('/dashboard')
+    handleRegisterUser()
+    navigate('/')
+  }
+
+  if (!isLoading) {
+    return <Loading />
   }
 
   return (
     <WrapperForm>
       <FormHeader
         logo={Logotipo}
-        title="SystemStock"
-        description="Digite suas informações de login"
+        title="Cadastre-se"
+        description="Crie sua conta agora"
       />
-      <FormContainer onHandleSubmit={handleSignIn}>
+      <FormContainer onHandleSubmit={handleCreateUser}>
         <InputFieldBar
-          title="E-mail"
+          title="Nome"
+          label="username"
+          inputType="text"
+          icon={<RiUser3Fill />}
+          placeholder="Digite seu nome..."
+          value={username}
+          onChange={event => setUserName(event.target.value)}
+        />
+
+        <InputFieldBar
+          title="Email"
           label="email"
           inputType="email"
           placeholder="Digite seu email..."
@@ -45,25 +67,23 @@ export const SignIn = () => {
         />
 
         <InputPassword
-          value={password}
           onChange={event => setPassword(event.target.value)}
+          value={password}
         />
-
         <Stack pt={2}>
           <ButtonSign
-            title="Entrar"
+            title="Cadastrar"
             type="submit"
             isDisabled={password === ''}
             isLoading={password === ''}
-            loadingText={password === '' ? 'Entrar' : 'Carregando'}
-            spinnerPlacement={password === '' ? null : 'start'}
+            loadingText={isLoading ? 'Cadastrar' : 'Carregando'}
+            spinnerPlacement={isLoading ? null : 'start'}
           />
         </Stack>
-
         <InputFooter
-          label="Você não tem uma conta?"
-          link="Crie a sua conta aqui"
-          onClick={() => navigate('/register')}
+          label="Você já tem conta?"
+          link="Acesse ela aqui"
+          onClick={() => navigate('/')}
         />
       </FormContainer>
     </WrapperForm>

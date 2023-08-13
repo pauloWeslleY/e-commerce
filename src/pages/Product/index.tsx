@@ -1,58 +1,26 @@
-import React, { useState, useEffect } from 'react'
-import { Button, Flex, Input, chakra } from '@chakra-ui/react'
+import { HiOutlineShoppingBag } from 'react-icons/hi'
+import { NavBar } from '../../components/NavBar'
+import { SideBar } from '../../components/SideBar'
+import { CreateProductHero } from './components/CreateProductHero'
+import { ProductsProvider } from './provider/providerProducts'
+import { NavHeroTabs } from './components/NavHeroTabs'
+import { FormCreateProduct } from './components/FormCreateProduct'
 
-const MeuFormulario: React.FC = () => {
-  const [campo1, setCampo1] = useState('')
-  const [campo2, setCampo2] = useState('')
-  const [enviarHabilitado, setEnviarHabilitado] = useState(false)
-
-  // Função para verificar se todos os campos estão preenchidos
-  const verificarCampos = () => {
-    if (campo1 !== '' && campo2 !== '') {
-      setEnviarHabilitado(true)
-    } else {
-      setEnviarHabilitado(false)
-    }
-  }
-
-  useEffect(() => {
-    verificarCampos()
-  }, [campo1, campo2])
-
-  // Função para lidar com o envio do formulário
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault()
-
-    if (enviarHabilitado) {
-      // Lógica para enviar o formulário para o servidor
-      console.log('Formulário enviado!')
-      // Limpar os campos do formulário
-      setCampo1('')
-      setCampo2('')
-    }
-
-    console.log('Formulário não enviado!')
-  }
-
+export const Product = () => {
   return (
-    <Flex align={'center'} justify={'center'}>
-      <chakra.form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          value={campo1}
-          onChange={event => setCampo1(event.target.value)}
+    <ProductsProvider>
+      <SideBar>
+        <NavBar
+          label="Tabela de Produtos"
+          title="Criar Produto"
+          icon={HiOutlineShoppingBag}
+          isButton={false}
         />
-        <Input
-          type="text"
-          value={campo2}
-          onChange={event => setCampo2(event.target.value)}
-        />
-        <Button type="submit" isDisabled={!enviarHabilitado}>
-          Enviar
-        </Button>
-      </chakra.form>
-    </Flex>
+
+        <NavHeroTabs form={<FormCreateProduct />}>
+          <CreateProductHero />
+        </NavHeroTabs>
+      </SideBar>
+    </ProductsProvider>
   )
 }
-
-export default MeuFormulario

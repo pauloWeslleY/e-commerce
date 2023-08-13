@@ -2,8 +2,8 @@ import { ReactNode, memo, useState } from 'react'
 import { Flex, HStack } from '@chakra-ui/react'
 import { useThemeColors } from '../../hooks/useThemeColors'
 import { SideBarContainer, SideBarMobile } from './index'
+import { SideBarMenuHero } from './SideBarMenuHero'
 import { BtnCollapse, ButtonDarkMode } from '../Buttons'
-import SideBarMenuHero from './SideBarMenuHero'
 
 interface SideBarProps {
   children?: ReactNode

@@ -1,6 +1,6 @@
+import { memo } from 'react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import { IconButton, IconButtonProps } from '@chakra-ui/react'
-import { memo } from 'react'
 import { useThemeColors } from '../../hooks/useThemeColors'
 
 interface BtnCollapseProps extends IconButtonProps {

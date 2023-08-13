@@ -1,6 +1,5 @@
 import { ReactNode, memo } from 'react'
 import { Box } from '@chakra-ui/react'
-
 import { useThemeColors } from '../../../../hooks/useThemeColors'
 
 interface FormFooterHeroProps {
