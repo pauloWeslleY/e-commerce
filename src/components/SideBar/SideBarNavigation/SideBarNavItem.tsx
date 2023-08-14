@@ -38,7 +38,7 @@ function SideBarNavItem(props: SideBarNavItemProps) {
           fontWeight={isActive ? 'medium' : 'semibold'}
           borderRadius={5}
           bg={isActive ? THEME.DASHBOARD.SIDE_BAR_BG_ACTIVE : 'transparent'}
-          color={isActive ? 'purple.100' : THEME.DASHBOARD.SIDE_BAR_COLORS}
+          color={isActive ? 'violet.50' : THEME.DASHBOARD.SIDE_BAR_COLORS}
           transition={'all ease-in-out .3s'}
           _hover={{
             color: THEME.DASHBOARD.SIDE_BAR_BG_ACTIVE_HOVER,

@@ -32,8 +32,8 @@ const CreateProductHero = () => {
   } = useProducts()
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [productsPerPage] = useState<number>(10)
-  const toast = useToast()
   const { THEME } = useThemeColors()
+  const toast = useToast()
 
   const allProductsFormat = useMemo(() => {
     const response = product.map(product => {
@@ -70,7 +70,7 @@ const CreateProductHero = () => {
 
   return (
     <>
-      <HeroTable bg={THEME.DASHBOARD.TABLE_PRODUCT_BG}>
+      <HeroTable bg={THEME.DASHBOARD.TABLE_BACKGROUND}>
         {PRODUCTS.map(product => (
           <HeroTableRow key={product.id} product={product}>
             <ModalHeroUpdate
@@ -80,7 +80,6 @@ const CreateProductHero = () => {
               onHandleClick={() => handleUpdateProduct(product.id)}
             >
               <FormHeroProduct
-                bg={THEME.DASHBOARD.POPOVER_BACKGROUND}
                 valueName={name}
                 valuePrice={price}
                 valueDescription={description}

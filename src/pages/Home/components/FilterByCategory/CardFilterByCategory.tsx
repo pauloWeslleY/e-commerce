@@ -25,7 +25,7 @@ export const CardFilterByCategory = ({ cards }: CardsFilterProps) => {
       align={'center'}
       justify={'center'}
       bg={THEME.HOME.BACKGROUND}
-      borderColor={'purple.600'}
+      borderColor={'violet.500'}
       borderWidth={2}
       borderStyle={'solid'}
       borderRadius={3}
@@ -41,7 +41,7 @@ export const CardFilterByCategory = ({ cards }: CardsFilterProps) => {
     >
       <Text
         as={'span'}
-        color={'purple.600'}
+        color={'violet.500'}
         fontFamily={'Poppins'}
         fontSize={'xl'}
       >

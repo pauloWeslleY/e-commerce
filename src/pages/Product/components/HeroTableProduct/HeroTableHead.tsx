@@ -26,7 +26,7 @@ const HeroTableHead = () => {
         {TABLE_HEADER.map((item, i) => (
           <Th
             key={i}
-            color={THEME.DASHBOARD.TABLE_PRODUCT_TITLE_COLORS}
+            color={THEME.DASHBOARD.TABLE_TITLE_COLORS}
             fontWeight={'semibold'}
             fontSize={'md'}
           >

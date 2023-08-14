@@ -50,7 +50,7 @@ const ModalHeroCategory = (props: ModalHeroCategoryProps) => {
                 <Box
                   key={prod.id}
                   as={'h4'}
-                  color={'purple.600'}
+                  color={'violet.400'}
                   fontWeight={'medium'}
                   fontSize={'lg'}
                   letterSpacing={'wide'}

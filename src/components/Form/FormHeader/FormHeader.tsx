@@ -12,7 +12,7 @@ const FormHeader = ({ logo, title, description }: FormHeaderProps) => (
   <Stack as={'header'} align={'center'}>
     <Flex align={'center'} gap={3}>
       <Image src={logo} alt="Logotipo" boxSize={16} />
-      <HeroTitle title={title} color={'purple.600'} />
+      <HeroTitle title={title} color={'violet.500'} />
     </Flex>
 
     <Text fontSize={['md', 'xl']} fontFamily={'Inter'} fontWeight={'medium'}>

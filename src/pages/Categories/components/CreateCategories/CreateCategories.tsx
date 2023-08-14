@@ -16,12 +16,14 @@ import { useFetch } from '../../../../hooks/useFetch'
 import { useCategories } from '../../hooks/useCategories'
 import { ModalCreateCategory } from '../ModalCreateCategory'
 import { ModalHeroCategory } from '../ModalHeroCategory'
+import { Loading } from '../../../../components/Loading'
 
 const CreateCategories = () => {
   const {
     name,
     category,
     isValid,
+    loading,
     setName,
     handleCreateCategory,
     handleDeleteCategory,
@@ -75,42 +77,49 @@ const CreateCategories = () => {
       </ModalCreateCategory>
 
       {/* TODO: List Categories */}
-      <VStack spacing={4} align={'stretch'}>
-        {CATEGORY.map(props => (
-          <HeroCategoryCard key={props.id} category={props}>
-            <ButtonGroup spacing={2}>
-              <ModalHeroCategory products={props.products} title={props.name} />
-
-              <ModalHeroUpdate
-                title="Categoria"
-                category={props}
-                onHandleClick={() => handleUpdatedCategory(props.id)}
-                isValid={isValid}
-              >
-                <FormCategoryHeroUpdate
-                  value={name}
-                  onChange={event => setName(event.target.value)}
+      {!loading ? (
+        <VStack spacing={4} align={'stretch'}>
+          {CATEGORY.map(props => (
+            <HeroCategoryCard key={props.id} category={props}>
+              <ButtonGroup spacing={2}>
+                <ModalHeroCategory
+                  products={props.products}
+                  title={props.name}
                 />
-              </ModalHeroUpdate>
 
-              <ModalHeroDelete
-                title="Categoria"
-                label="esta"
-                items={props}
-                onHandleDelete={() => {
-                  handleDeleteCategory(props.id)
-                  toast({
-                    title: `Categoria com ID ${props.id} deletado`,
-                    status: 'success',
-                    duration: 10000,
-                    isClosable: true,
-                  })
-                }}
-              />
-            </ButtonGroup>
-          </HeroCategoryCard>
-        ))}
-      </VStack>
+                <ModalHeroUpdate
+                  title="Categoria"
+                  category={props}
+                  onHandleClick={() => handleUpdatedCategory(props.id)}
+                  isValid={isValid}
+                >
+                  <FormCategoryHeroUpdate
+                    value={name}
+                    onChange={event => setName(event.target.value)}
+                  />
+                </ModalHeroUpdate>
+
+                <ModalHeroDelete
+                  title="Categoria"
+                  label="esta"
+                  items={props}
+                  onHandleDelete={() => {
+                    handleDeleteCategory(props.id)
+                    toast({
+                      title: `Categoria com ID ${props.id} deletado`,
+                      status: 'success',
+                      duration: 10000,
+                      isClosable: true,
+                    })
+                  }}
+                />
+              </ButtonGroup>
+            </HeroCategoryCard>
+          ))}
+        </VStack>
+      ) : (
+        <Loading />
+      )}
 
       <Flex mt={4} py={6} w={'full'} align={'center'} justify={'center'}>
         {Array.from({

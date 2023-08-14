@@ -29,12 +29,11 @@ export const Register = () => {
 
   const handleCreateUser = (event: FormEvent) => {
     event.preventDefault()
-
     handleRegisterUser()
     navigate('/')
   }
 
-  if (!isLoading) {
+  if (!isLoading === false) {
     return <Loading />
   }
 

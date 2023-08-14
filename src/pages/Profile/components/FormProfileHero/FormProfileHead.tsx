@@ -1,21 +1,25 @@
 import { memo } from 'react'
 import { Box, Heading, Text } from '@chakra-ui/react'
-
 import { useThemeColors } from '../../../../hooks/useThemeColors'
 
-const FormProfileHead = () => {
+interface FormProfileHeadProps {
+  title: string
+  description: string
+}
+
+const FormProfileHead = ({ title, description }: FormProfileHeadProps) => {
   const { THEME } = useThemeColors()
 
   return (
     <Box px={[4, 0]}>
       <Heading
         fontFamily={'Poppins'}
-        fontSize={'lg'}
         fontWeight={'medium'}
-        lineHeight={'6'}
+        fontSize={'lg'}
         letterSpacing={'wide'}
+        lineHeight={'6'}
       >
-        Atualizar Usuário
+        {title}
       </Heading>
       <Text
         mt={1}
@@ -23,7 +27,7 @@ const FormProfileHead = () => {
         fontSize={'sm'}
         letterSpacing={'wide'}
       >
-        Preencha as informações para atualizar seu cadastro
+        {description}
       </Text>
     </Box>
   )

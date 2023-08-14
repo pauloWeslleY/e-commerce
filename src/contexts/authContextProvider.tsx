@@ -92,7 +92,6 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
           isClosable: true,
           position: 'top-right',
         })
-        setIsLoading(false)
       })
       .catch(err => {
         switch (err.code) {
@@ -135,6 +134,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
     setEmail('')
     setPassword('')
     setUserName('')
+    setIsLoading(false)
   }
 
   /**

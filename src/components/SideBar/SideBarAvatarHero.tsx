@@ -59,7 +59,7 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
             </>
           )}
           <Text
-            color={THEME.DASHBOARD.TEXT_COLORS}
+            color={THEME.DASHBOARD.SIDE_BAR_TEXT_COLORS}
             fontSize={'sm'}
             fontWeight={'semibold'}
             lineHeight={0}

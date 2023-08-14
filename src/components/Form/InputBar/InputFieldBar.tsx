@@ -37,7 +37,7 @@ const InputFieldBar = (props: InputFieldBarProps) => {
           shadow={'sm'}
           variant={'flushed'}
           bg={'transparent'}
-          focusBorderColor={'purple.300'}
+          focusBorderColor={'violet.500'}
           _placeholder={{
             opacity: 1,
             color: THEME.DASHBOARD.INPUT_BAR_PLACEHOLDER_COLORS,

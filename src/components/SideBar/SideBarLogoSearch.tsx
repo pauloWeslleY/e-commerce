@@ -29,7 +29,7 @@ const SideBarLogoSearch = ({ collapsed }: SideBarContainerProps) => {
             fontWeight={'bold'}
             fontSize={'2xl'}
             fontFamily={'Inter'}
-            bgGradient={'linear(to-r, purple.600, purple.300)'}
+            bgGradient={'linear(to-r, violet.700, violet.400)'}
             backgroundClip={'text'}
             letterSpacing={1}
           >

@@ -40,10 +40,10 @@ const NavBar = (props: NavBarProps) => {
                 transition={'ease-in-out .4s 100ms'}
                 _hover={{
                   bg: THEME.BUTTONS.BTN_ICON_BACKGROUND,
-                  color: 'purple.700',
-                  borderColor: 'purple.600',
-                  boxShadow: 'none',
+                  color: 'violet.600',
+                  borderColor: 'violet.600',
                   transform: 'translateY(2px)',
+                  boxShadow: 'none',
                 }}
                 size={'sm'}
                 mr={4}

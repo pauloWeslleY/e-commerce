@@ -8,9 +8,9 @@ const WrapperTable = ({ children }: { children: ReactNode }) => {
 
   return (
     <Table
+      bg={THEME.DASHBOARD.TABLE_BACKGROUND}
       w={'full'}
       my={5}
-      bg={THEME.DASHBOARD.TABLE_PRODUCT_BG}
       shadow={'lg'}
       rounded={'md'}
       display={{ base: 'block', md: 'table' }}
@@ -29,7 +29,7 @@ const WrapperTable = ({ children }: { children: ReactNode }) => {
       >
         <Tr>
           {HEADER.map(props => (
-            <Th key={props} color={THEME.TABLE_USERS.TABLE_TITLE_COLORS}>
+            <Th key={props} color={THEME.DASHBOARD.TABLE_TITLE_COLORS}>
               {props}
             </Th>
           ))}

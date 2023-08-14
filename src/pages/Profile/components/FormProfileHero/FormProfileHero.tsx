@@ -8,7 +8,7 @@ const FormProfileHero = () => {
 
   return (
     <Box
-      bg={THEME.DASHBOARD.TABLE_PRODUCT_BG}
+      bg={THEME.DASHBOARD.TABLE_BACKGROUND}
       shadow={'lg'}
       rounded={'md'}
       p={10}
@@ -19,7 +19,10 @@ const FormProfileHero = () => {
         spacing={{ md: 6 }}
       >
         <GridItem colSpan={{ md: 1 }}>
-          <FormProfileHead />
+          <FormProfileHead
+            title=" Atualizar Usuário"
+            description="Preencha as informações para atualizar seu cadastro"
+          />
         </GridItem>
         <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
           <FormUpdateProfile />

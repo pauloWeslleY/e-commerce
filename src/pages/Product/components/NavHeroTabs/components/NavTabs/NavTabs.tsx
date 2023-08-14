@@ -12,7 +12,7 @@ const NavTabs = ({ navTabsList }: NavTabsProps) => {
     <Flex align={'center'} justify={'center'}>
       <TabList>
         {navTabsList.map(props => (
-          <Tab key={`tabs${props.title}`} color={'purple.400'}>
+          <Tab key={`tabs${props.title}`} color={'violet.500'}>
             {props.title}
           </Tab>
         ))}

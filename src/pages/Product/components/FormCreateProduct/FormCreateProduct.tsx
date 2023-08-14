@@ -1,12 +1,12 @@
 import { memo, useEffect } from 'react'
 import { useProducts } from '../../hooks/useProducts'
 import { useThemeColors } from '../../../../hooks/useThemeColors'
+import { IsButton } from '../../../../components/Buttons'
 import {
   FormFooterHero,
   FormHeroBox,
   FormHeroProduct,
 } from '../HeroFormProduct'
-import { IsButton } from '../../../../components/Buttons'
 
 const FormCreateProduct = () => {
   const {

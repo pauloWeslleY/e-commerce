@@ -26,6 +26,7 @@ const FormUpdateProfile = () => {
       toast({
         title: 'Usuário atualizado!',
         description: `${username}`,
+        position: 'top-right',
         status: 'success',
         duration: 9000,
         isClosable: true,
@@ -34,6 +35,7 @@ const FormUpdateProfile = () => {
       toast({
         title: 'Não foi possível atualizar o usuário',
         status: 'error',
+        position: 'top-right',
         duration: 9000,
         isClosable: true,
       })

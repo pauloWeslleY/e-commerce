@@ -12,11 +12,11 @@ const FormProfile = ({ children }: { children: ReactNode }) => {
       overflow={{ sm: 'hidden' }}
     >
       <Stack
-        px={4}
-        py={5}
-        bg={THEME.DASHBOARD.FORM_BACKGROUND}
+        bg={THEME.DASHBOARD.FORM_PROFILE_BACKGROUND}
         spacing={6}
         p={{ sm: 6 }}
+        px={4}
+        py={5}
       >
         {children}
       </Stack>

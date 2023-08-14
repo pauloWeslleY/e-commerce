@@ -33,7 +33,7 @@ const FormUploadImage = (props: FormUploadImageProps) => {
           {photoURL ? (
             <Avatar boxSize={12} src={photoURL} name={'User Profile'} />
           ) : (
-            <Avatar boxSize={12} icon={IconUser} bg={'purple.600'} />
+            <Avatar boxSize={12} icon={IconUser} bg={'violet.500'} />
           )}
           <IsButton size={'xs'} title="Trocar" onClick={onUploadImage} />
         </Flex>
@@ -48,7 +48,7 @@ const FormUploadImage = (props: FormUploadImageProps) => {
           pt={5}
           pb={6}
           borderWidth={2}
-          color={'purple.400'}
+          color={'violet.400'}
           borderStyle={'dashed'}
           rounded={'md'}
         >
@@ -56,7 +56,7 @@ const FormUploadImage = (props: FormUploadImageProps) => {
             <Icon
               mx={'auto'}
               boxSize={12}
-              color={'gray.400'}
+              color={'zinc.600'}
               stroke={'currentColor'}
               fill={'none'}
               viewBox={'0 0 48 48'}
@@ -69,16 +69,17 @@ const FormUploadImage = (props: FormUploadImageProps) => {
                 strokeLinejoin="round"
               />
             </Icon>
-            <Flex fontSize={'sm'} color={'purple.600'} align={'baseline'}>
+            <Flex fontSize={'sm'} color={'violet.700'} align={'baseline'}>
               <chakra.label
                 htmlFor={'file-upload'}
                 cursor={'pointer'}
                 rounded={'md'}
                 fontSize={'md'}
-                color={'purple.500'}
+                color={'violet.400'}
                 pos={'relative'}
+                transition={'all .3s ease'}
                 _hover={{
-                  color: 'purple.400',
+                  color: 'violet.600',
                 }}
               >
                 <span>Upload a file </span>
@@ -93,7 +94,7 @@ const FormUploadImage = (props: FormUploadImageProps) => {
               </chakra.label>
               <Text pl={1}>or drag and drop</Text>
             </Flex>
-            <Text fontSize={'xs'} color={'gray.50'}>
+            <Text fontSize={'xs'} color={'zinc.600'}>
               PNG, JPG, GIF up to 10MB
             </Text>
           </Stack>

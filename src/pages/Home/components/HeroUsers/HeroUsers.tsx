@@ -3,7 +3,7 @@ import { Box, Flex, Stack, Text } from '@chakra-ui/react'
 import { useFetch } from '../../../../hooks/useFetch'
 import { useThemeColors } from '../../../../hooks/useThemeColors'
 
-function HeroUsers() {
+const HeroUsers = () => {
   const { users } = useFetch()
   const { THEME } = useThemeColors()
 

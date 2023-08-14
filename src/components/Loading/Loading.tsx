@@ -3,7 +3,7 @@ import { chakra, Flex, Spinner } from '@chakra-ui/react'
 import { useThemeColors } from '../../hooks/useThemeColors'
 
 const LoaderText = ({ title }: { title: string }) => (
-  <chakra.h1 px={4} fontSize={'3xl'} color={'purple.600'}>
+  <chakra.h1 px={4} fontSize={'3xl'} color={'violet.600'}>
     {title}
   </chakra.h1>
 )
@@ -18,14 +18,13 @@ const Loading = () => {
       align={'center'}
       justify={'center'}
       borderRadius={5}
-      bg={'rgba(255, 255, 255, 0.2)'}
     >
       <Flex p={1} align={'center'}>
         <Spinner
           label={'Loading...'}
           thickness={'0.4rem'}
           speed={'0.65s'}
-          emptyColor={'purple.600'}
+          emptyColor={'violet.600'}
           color={THEME.LOADING.IS_LOADING_COLORS}
           size={'xl'}
         />

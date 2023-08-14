@@ -1,13 +1,13 @@
 import { useContext } from 'react'
 import { AuthenticationContext } from '../../contexts/authContextProvider'
 import { Home } from './Home'
-import { Loading } from '../../components/Loading'
 import { SideBar } from '../../components/SideBar'
+import { Loading } from '../../components/Loading'
 
 export const HomePage = () => {
   const { isLoading } = useContext(AuthenticationContext)
 
-  return !isLoading !== true ? (
+  return isLoading ? (
     <SideBar>
       <Home />
     </SideBar>

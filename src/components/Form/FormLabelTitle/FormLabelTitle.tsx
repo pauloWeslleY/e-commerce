@@ -18,7 +18,7 @@ const FormLabelTitle = (props: FormLabelTitleProps) => {
       fontSize={'sm'}
       fontWeight={'semibold'}
       letterSpacing={'wider'}
-      color={THEME.DASHBOARD.FORM_LABEL_BACKGROUND}
+      color={THEME.DASHBOARD.FORM_LABEL_COLORS}
     >
       {title}
     </FormLabel>

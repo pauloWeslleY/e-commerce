@@ -19,6 +19,7 @@ type CategoriesProviderProps = {
   name: string
   category: CategoryType[]
   isValid: boolean
+  loading: boolean
   isFormValid: () => void
   setCategory: React.Dispatch<React.SetStateAction<CategoryType[]>>
   setName: React.Dispatch<React.SetStateAction<string>>
@@ -37,6 +38,7 @@ export const CategoriesProvider = ({ children }: CategoriesProvider) => {
   const [category, setCategory] = useState<CategoryType[]>([])
   const [name, setName] = useState<string>('')
   const [isValid, setIsValid] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
   const toast = useToast()
 
   const isFormValid = () => {
@@ -135,6 +137,7 @@ export const CategoriesProvider = ({ children }: CategoriesProvider) => {
     }))
 
     setCategory(isCategory)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -147,6 +150,7 @@ export const CategoriesProvider = ({ children }: CategoriesProvider) => {
         name,
         category,
         isValid,
+        loading,
         isFormValid,
         setName,
         setCategory,

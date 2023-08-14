@@ -13,12 +13,12 @@ const InputFooter = ({ label, link, onClick }: InputFooterProps) => (
       {label}{' '}
       <Box
         as={'a'}
-        cursor={'pointer'}
-        color={'purple.300'}
         onClick={onClick}
+        cursor={'pointer'}
+        color={'violet.300'}
         transition={'color .5s ease-out 100ms'}
         _hover={{
-          color: 'purple.600',
+          color: 'violet.600',
         }}
       >
         {link}

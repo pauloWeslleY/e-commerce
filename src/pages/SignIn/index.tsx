@@ -9,19 +9,16 @@ import { FormHeader } from '../../components/Form/FormHeader'
 import { WrapperForm } from '../../components/Form/WrapperForm'
 import { FormContainer } from '../../components/Form/FormContainer'
 import { ButtonSign } from '../../components/Buttons'
-
 import { AuthenticationContext } from '../../contexts/authContextProvider'
 import Logotipo from '../../assets/logotipo.svg'
 
 export const SignIn = () => {
   const { email, password, setEmail, setPassword, handleSignInUser } =
     useContext(AuthenticationContext)
-
   const navigate = useNavigate()
 
   const handleSignIn = (event: FormEvent) => {
     event.preventDefault()
-
     handleSignInUser()
     navigate('/dashboard')
   }

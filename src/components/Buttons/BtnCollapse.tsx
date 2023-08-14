@@ -22,8 +22,8 @@ const BtnCollapse = ({ onHandleToggle, ...rest }: BtnCollapseProps) => {
       transition={'ease-in-out .4s 100ms'}
       _hover={{
         bg: THEME.BUTTONS.BTN_ICON_BACKGROUND,
-        color: 'purple.700',
-        borderColor: 'purple.600',
+        color: 'violet.500',
+        borderColor: 'violet.500',
       }}
     />
   )

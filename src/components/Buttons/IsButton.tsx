@@ -22,8 +22,8 @@ const IsButton = (props: IsButtonProps) => {
       transition={'ease-in-out .3s'}
       _hover={{
         bg: THEME.BUTTONS.BTN_ICON_BACKGROUND,
-        color: 'purple.700',
-        borderColor: 'purple.600',
+        color: THEME.BUTTONS.IS_BUTTON_COLORS_HOVER,
+        borderColor: THEME.BUTTONS.IS_BUTTON_COLORS_HOVER,
         transform: 'translateY(-2px)',
         boxShadow: 'lg',
       }}

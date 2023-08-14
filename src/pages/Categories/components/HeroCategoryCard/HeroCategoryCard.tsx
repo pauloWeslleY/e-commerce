@@ -1,6 +1,7 @@
 import { ReactNode, memo } from 'react'
 import { Flex, FlexProps, Text } from '@chakra-ui/react'
 import { CategoriesProps } from '../../../../types/CategoriesProps'
+import { useThemeColors } from '../../../../hooks/useThemeColors'
 
 interface HeroCategoryCardProps extends FlexProps {
   children: ReactNode
@@ -9,10 +10,12 @@ interface HeroCategoryCardProps extends FlexProps {
 
 const HeroCategoryCard = (props: HeroCategoryCardProps) => {
   const { category, children, ...rest } = props
+  const { THEME } = useThemeColors()
 
   return (
     <Flex
       {...rest}
+      bg={THEME.DASHBOARD.HERO_CATEGORY_CARD_BG}
       align={'center'}
       justify={'space-between'}
       gap={6}
@@ -20,7 +23,6 @@ const HeroCategoryCard = (props: HeroCategoryCardProps) => {
       px={4}
       rounded={'md'}
       shadow={'md'}
-      bg={'whiteAlpha.100'}
       cursor={'pointer'}
       transition={'all 0.3s ease-out'}
       _hover={{
@@ -33,7 +35,7 @@ const HeroCategoryCard = (props: HeroCategoryCardProps) => {
           as={'h3'}
           fontSize={'md'}
           fontWeight={'semibold'}
-          color={'purple.600'}
+          color={'violet.600'}
         >
           {category.name}
         </Text>

@@ -32,7 +32,7 @@ const InputPassword = ({ ...props }: InputProps) => {
           autoComplete="password"
           type={showPassword ? 'text' : 'password'}
           placeholder="Digite sua senha..."
-          focusBorderColor={'purple.300'}
+          focusBorderColor={'violet.500'}
           fontFamily={'Poppins'}
           _placeholder={{
             opacity: 1,

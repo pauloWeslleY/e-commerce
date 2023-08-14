@@ -3,7 +3,7 @@ import { InputProps, SimpleGrid, Stack } from '@chakra-ui/react'
 import { FormInputField, FormSelect } from './index'
 
 interface HeroFormProductProps extends InputProps {
-  bg: string
+  bg?: string
   valueName?: string
   valuePrice?: string | number
   valueDescription?: string

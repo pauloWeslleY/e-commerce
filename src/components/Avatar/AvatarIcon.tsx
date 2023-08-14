@@ -7,13 +7,13 @@ const AvatarIcon = () => {
     <Avatar
       boxSize={12}
       icon={IconUser}
-      bg={'purple.600'}
+      bg={'violet.500'}
       pos={'relative'}
       _after={{
         content: '""',
         w: 2,
         h: 2,
-        bg: 'green.300',
+        bg: 'emerald.300',
         border: '2px solid white',
         rounded: 'full',
         pos: 'absolute',
