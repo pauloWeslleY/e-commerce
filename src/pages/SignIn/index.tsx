@@ -1,4 +1,4 @@
-import { FormEvent, useContext } from 'react'
+import { FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Stack } from '@chakra-ui/react'
 import { EmailIcon } from '@chakra-ui/icons'
@@ -9,18 +9,23 @@ import { FormHeader } from '../../components/Form/FormHeader'
 import { WrapperForm } from '../../components/Form/WrapperForm'
 import { FormContainer } from '../../components/Form/FormContainer'
 import { ButtonSign } from '../../components/Buttons'
-import { AuthenticationContext } from '../../contexts/authContextProvider'
+import { useAuthentication } from '../../hooks/useAuthentication'
 import Logotipo from '../../assets/logotipo.svg'
 
 export const SignIn = () => {
-  const { email, password, setEmail, setPassword, handleSignInUser } =
-    useContext(AuthenticationContext)
+  const {
+    email,
+    password,
+    isLoading,
+    setEmail,
+    setPassword,
+    handleSignInUser,
+  } = useAuthentication()
   const navigate = useNavigate()
 
   const handleSignIn = (event: FormEvent) => {
     event.preventDefault()
     handleSignInUser()
-    navigate('/dashboard')
   }
 
   return (
@@ -52,8 +57,8 @@ export const SignIn = () => {
             type="submit"
             isDisabled={password === ''}
             isLoading={password === ''}
-            loadingText={password === '' ? 'Entrar' : 'Carregando'}
-            spinnerPlacement={password === '' ? null : 'start'}
+            loadingText={isLoading ? 'Carregando' : 'Entrar'}
+            spinnerPlacement={isLoading ? 'start' : null}
           />
         </Stack>
 

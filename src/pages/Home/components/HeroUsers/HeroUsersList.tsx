@@ -1,21 +1,27 @@
 import { memo } from 'react'
 import { Box, Flex, Stack, Text } from '@chakra-ui/react'
-import { useFetch } from '../../../../hooks/useFetch'
 import { useThemeColors } from '../../../../hooks/useThemeColors'
 
-const HeroUsers = () => {
-  const { users } = useFetch()
+interface UsersListProps {
+  title: string
+  usersList: {
+    id: string
+    username: string
+  }[]
+}
+
+const HeroUsersList = ({ title, usersList }: UsersListProps) => {
   const { THEME } = useThemeColors()
 
   return (
     <Flex as={'section'} flexDir={'column'} px={8} py={4}>
       <Stack py={2}>
         <Text as={'h2'} fontSize={'2xl'} fontWeight={500}>
-          Usuários Cadastrado
+          {title}
         </Text>
       </Stack>
       <Flex flexDir={'column'} color={THEME.TEXT_COLORS}>
-        {users.slice(0, 5).map(user => (
+        {usersList.slice(0, 5).map(user => (
           <Box
             key={user.id}
             borderBottomWidth={2}
@@ -31,4 +37,4 @@ const HeroUsers = () => {
   )
 }
 
-export default memo(HeroUsers)
+export default memo(HeroUsersList)

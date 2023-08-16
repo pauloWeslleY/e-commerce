@@ -1,10 +1,23 @@
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 import { Grid, GridItem } from '@chakra-ui/react'
 import { useThemeColors } from '../../../../hooks/useThemeColors'
-import { HeroUserGraphic, HeroUsers } from '../HeroUsers'
+import { HeroUserGraphic, HeroUsersList } from '../HeroUsers'
+import { useFetch } from '../../../../hooks/useFetch'
 
 const HeroUsersGraphics = () => {
   const { THEME } = useThemeColors()
+  const { allUsers } = useFetch()
+
+  const userData = useMemo(() => {
+    const users = allUsers.map(props => {
+      return {
+        id: props.id,
+        username: props.username,
+      }
+    })
+
+    return users
+  }, [allUsers])
 
   return (
     <Grid
@@ -23,7 +36,7 @@ const HeroUsersGraphics = () => {
         boxShadow={'lg'}
         h={'md'}
       >
-        <HeroUsers />
+        <HeroUsersList title="Usuários Cadastrado" usersList={userData} />
       </GridItem>
 
       <GridItem

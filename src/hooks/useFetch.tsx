@@ -12,7 +12,7 @@ import {
 export function useFetch() {
   const [product, setProduct] = useState<ProductsType[]>([])
   const [isCategories, setIsCategories] = useState<CategoryType[]>([])
-  const [users, setUsers] = useState<UserType[]>([])
+  const [allUsers, setAllUsers] = useState<UserType[]>([])
 
   const getUsers = async () => {
     const dataUser = await getDocs(usersCollectionRef)
@@ -20,7 +20,7 @@ export function useFetch() {
       ...doc.data(),
       id: doc.id,
     }))
-    setUsers(users)
+    setAllUsers(users)
   }
 
   const getProduct = async () => {
@@ -61,6 +61,6 @@ export function useFetch() {
   return {
     product,
     isCategories,
-    users,
+    allUsers,
   }
 }

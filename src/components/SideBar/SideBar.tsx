@@ -1,4 +1,4 @@
-import { ReactNode, memo, useState } from 'react'
+import { ReactNode, memo, useCallback, useState } from 'react'
 import { Flex, HStack } from '@chakra-ui/react'
 import { useThemeColors } from '../../hooks/useThemeColors'
 import { SideBarContainer, SideBarMobile } from './index'
@@ -13,25 +13,25 @@ const SideBar = ({ children }: SideBarProps) => {
   const [collapse, setCollapse] = useState<boolean>(true)
   const { THEME } = useThemeColors()
 
-  const onHandleToggle = () => {
+  const onHandleToggle = useCallback(() => {
     setCollapse(!collapse)
-  }
+  }, [collapse])
 
   return (
     <HStack w={'full'} h={'100vh'} bg={THEME.DASHBOARD.BACKGROUND} p={2}>
       <Flex
         as={'aside'}
-        bg={THEME.DASHBOARD.SIDE_BAR_BG}
         display={{ base: 'none', lg: 'flex' }}
+        flexDir={'column'}
+        align={'center'}
+        justify={'space-between'}
+        borderRadius={'3xl'}
+        bg={THEME.DASHBOARD.SIDE_BAR_BG}
+        maxW={collapse ? 340 : 100}
+        transition={'all ease-in-out .2s'}
         w={'full'}
         h={'full'}
         p={6}
-        maxW={collapse ? 340 : 100}
-        align={'center'}
-        justify={'space-between'}
-        flexDir={'column'}
-        borderRadius={'3xl'}
-        transition={'all ease-in-out .2s'}
       >
         <SideBarContainer collapsed={collapse} onItemClick={onHandleToggle} />
       </Flex>

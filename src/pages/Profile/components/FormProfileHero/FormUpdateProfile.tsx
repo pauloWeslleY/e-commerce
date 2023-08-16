@@ -46,6 +46,15 @@ const FormUpdateProfile = () => {
     if (e.target.files && e.target.files[0]) {
       const selectedImage = e.target.files[0]
       setImage(selectedImage)
+    } else {
+      toast({
+        title: 'Não foi possível atualizar o foto',
+        description: 'Por favor selecione uma foto!',
+        status: 'error',
+        position: 'top-right',
+        duration: 9000,
+        isClosable: true,
+      })
     }
   }
 
@@ -65,7 +74,8 @@ const FormUpdateProfile = () => {
           toast({
             title: `Não foi possível fazer upload da image ${err}`,
             status: 'error',
-            duration: 9000,
+            position: 'top-right',
+            duration: 4000,
             isClosable: true,
           })
         },

@@ -3,17 +3,17 @@ import {
   FormControl,
   Flex,
   Avatar,
-  Icon,
   Stack,
   Text,
-  chakra,
-  VisuallyHidden,
   Progress,
   Image,
+  useToast,
 } from '@chakra-ui/react'
 import { IsButton } from '../../../../components/Buttons'
 import { FormLabelTitle } from '../../../../components/Form/FormLabelTitle'
 import { IconUser } from '../../../../components/IconUser'
+import { IcoForm } from '../IconForm/IcoForm'
+import { InputUploadProfile } from '../InputUploadProfile/InputUploadProfile'
 
 interface FormUploadImageProps {
   photoURL: string
@@ -24,6 +24,22 @@ interface FormUploadImageProps {
 
 const FormUploadImage = (props: FormUploadImageProps) => {
   const { photoURL, uploadProgress, onImageChange, onUploadImage } = props
+  const toast = useToast()
+
+  const handleUpload = () => {
+    if (uploadProgress === 100) {
+      onUploadImage()
+    } else {
+      toast({
+        title: 'Não foi possível atualizar a foto',
+        description: 'Por favor selecione uma foto!',
+        status: 'error',
+        position: 'top-right',
+        duration: 4000,
+        isClosable: true,
+      })
+    }
+  }
 
   return (
     <>
@@ -35,65 +51,29 @@ const FormUploadImage = (props: FormUploadImageProps) => {
           ) : (
             <Avatar boxSize={12} icon={IconUser} bg={'violet.500'} />
           )}
-          <IsButton size={'xs'} title="Trocar" onClick={onUploadImage} />
+          <IsButton size={'xs'} title="Trocar" onClick={handleUpload} />
         </Flex>
       </FormControl>
 
       <FormControl>
         <FormLabelTitle title="Cover Foto" />
         <Flex
-          mt={1}
           justify={'center'}
+          mt={1}
           px={6}
           pt={5}
           pb={6}
           borderWidth={2}
-          color={'violet.400'}
           borderStyle={'dashed'}
           rounded={'md'}
         >
           <Stack spacing={1} textAlign={'center'}>
-            <Icon
-              mx={'auto'}
-              boxSize={12}
-              color={'zinc.600'}
-              stroke={'currentColor'}
-              fill={'none'}
-              viewBox={'0 0 48 48'}
-              aria-hidden={'true'}
-            >
-              <path
-                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </Icon>
-            <Flex fontSize={'sm'} color={'violet.700'} align={'baseline'}>
-              <chakra.label
-                htmlFor={'file-upload'}
-                cursor={'pointer'}
-                rounded={'md'}
-                fontSize={'md'}
-                color={'violet.400'}
-                pos={'relative'}
-                transition={'all .3s ease'}
-                _hover={{
-                  color: 'violet.600',
-                }}
-              >
-                <span>Upload a file </span>
-                <VisuallyHidden>
-                  <input
-                    id="file-upload"
-                    name="file-upload"
-                    type="file"
-                    onChange={onImageChange}
-                  />
-                </VisuallyHidden>
-              </chakra.label>
-              <Text pl={1}>or drag and drop</Text>
-            </Flex>
+            <IcoForm />
+            <InputUploadProfile
+              label="Upload a file"
+              description="or drag and drop"
+              onChange={onImageChange}
+            />
             <Text fontSize={'xs'} color={'zinc.600'}>
               PNG, JPG, GIF up to 10MB
             </Text>
@@ -114,6 +94,8 @@ const FormUploadImage = (props: FormUploadImageProps) => {
             fit={'cover'}
             rounded={'md'}
             shadow={'md'}
+            borderWidth={1}
+            borderColor={'violet.100'}
           />
         )}
       </Flex>

@@ -9,7 +9,7 @@ import { AvatarHero, AvatarIcon } from '../Avatar'
 import { SideBarAvatarMenu } from './index'
 
 const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
-  const { userOnAuth, handleLogout } = useAuthentication()
+  const { users, userOnAuth, handleLogout } = useAuthentication()
   const { userAuth } = useAuthOnStatus()
   const { THEME } = useThemeColors()
 
@@ -24,11 +24,11 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
     >
       {!collapsed && (
         <>
-          {userOnAuth.avatar !== null ? (
+          {userOnAuth?.avatar !== null ? (
             <AvatarHero
               size={'md'}
-              avatarUrl={userOnAuth.avatar}
-              name={userOnAuth.username}
+              avatarUrl={userOnAuth?.avatar}
+              name={userOnAuth?.username}
             />
           ) : (
             <AvatarIcon />
@@ -47,11 +47,11 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
         >
           {userAuth && (
             <>
-              {userOnAuth.avatar !== null ? (
+              {userOnAuth?.avatar !== null ? (
                 <AvatarHero
                   size={'md'}
-                  avatarUrl={userOnAuth.avatar}
-                  name={userOnAuth.username}
+                  avatarUrl={userOnAuth?.avatar}
+                  name={userOnAuth?.username}
                 />
               ) : (
                 <AvatarIcon />
@@ -65,7 +65,7 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
             lineHeight={0}
             pb={1}
           >
-            {userOnAuth.username}
+            {users?.username}
           </Text>
           <Text
             as={'small'}
@@ -74,7 +74,7 @@ const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
             fontFamily={'Inter'}
             lineHeight={0}
           >
-            {userOnAuth.email}
+            {userOnAuth?.email}
           </Text>
           <Button
             onClick={handleLogout}

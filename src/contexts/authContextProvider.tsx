@@ -1,11 +1,11 @@
 import { ReactNode, createContext, useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 import { getDoc, doc, setDoc } from 'firebase/firestore'
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
   signOut,
   updateProfile,
 } from 'firebase/auth'
@@ -20,6 +20,7 @@ type AuthContextProps = {
   password: string | any
   users: UserType
   isLoading: boolean
+  isLoadingUser?: boolean
   setEmail: React.Dispatch<React.SetStateAction<string>>
   setUserName: React.Dispatch<React.SetStateAction<string>>
   setPassword: React.Dispatch<any>
@@ -39,15 +40,53 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
   const [username, setUserName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string | any>('')
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true)
   const [users, setUsers] = useState<UserType>()
   const toast = useToast()
+  const navigate = useNavigate()
+
+  /**
+   * @author Weslley
+   * função que armazena dados do usuário
+   */
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      if (user) {
+        setUserOnAuth({
+          id: user.uid,
+          username: user.displayName,
+          email: user.email,
+          avatar: user.photoURL,
+        })
+      } else {
+        setUserOnAuth(null)
+      }
+    })
+
+    return () => {
+      unsubscribe()
+    }
+  }, [])
+
+  useEffect(() => {
+    const handleLoadingUser = async () => {
+      const storageUser = JSON.parse(localStorage.getItem(':@user'))
+      if (storageUser) {
+        setUsers(storageUser)
+        setIsLoadingUser(false)
+      }
+      setIsLoadingUser(false)
+    }
+    handleLoadingUser()
+  }, [])
 
   /**
    * @author Weslley
    * função que criar um usuário no firebase
    */
   const handleRegisterUser = async () => {
+    setIsLoading(true)
     await createUserWithEmailAndPassword(auth, email, password)
       .then(async value => {
         const user = value.user
@@ -70,7 +109,10 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
               email: value.user.email,
               avatar: null,
             }
+            handleStorageUser(dataUser)
             setUsers(dataUser)
+            setIsLoading(false)
+            navigate('/dashboard')
           })
           .catch(err => {
             toast({
@@ -81,7 +123,8 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
               isClosable: true,
               position: 'top-right',
             })
-            console.log(`Falha ao criar usuário ${err}`)
+            console.error(err)
+            setIsLoading(false)
           })
 
         toast({
@@ -130,6 +173,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
         }
 
         console.log(err)
+        setIsLoading(false)
       })
     setEmail('')
     setPassword('')
@@ -146,17 +190,18 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
       .then(async value => {
         const userID = value.user.uid
         const docSnapshot = await getDoc(doc(db, 'users', userID))
+        const displayName = docSnapshot.data().username
 
         const dataUser = {
           id: userID,
-          username: docSnapshot.data().username,
+          username: displayName,
           email: value.user.email,
           avatar: null,
         }
 
         toast({
           title: 'Usuário autenticado!',
-          description: `${email}`,
+          description: `${displayName}`,
           status: 'success',
           duration: 9000,
           isClosable: true,
@@ -166,7 +211,9 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
         setEmail('')
         setPassword('')
         setUsers(dataUser)
+        handleStorageUser(dataUser)
         setIsLoading(false)
+        navigate('/dashboard')
       })
       .catch(err => {
         switch (err.code) {
@@ -209,34 +256,34 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
   }
 
   const handleLogout = async () => {
-    try {
-      await signOut(auth)
-      setUserOnAuth(null)
-
-      return <Navigate to="/" />
-    } catch (err) {
-      console.log(err)
-    }
+    await signOut(auth)
+      .then(() => {
+        localStorage.removeItem(':@user')
+        setUsers(null)
+        setUserOnAuth(null)
+        toast({
+          title: 'Logout realizado com sucesso',
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+          position: 'top-right',
+        })
+      })
+      .catch(err => {
+        toast({
+          title: 'Falha ao fazer logout',
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+          position: 'top-right',
+        })
+        console.log(err)
+      })
   }
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
-      if (user) {
-        setUserOnAuth({
-          id: user.uid,
-          username: user.displayName,
-          email: user.email,
-          avatar: user.photoURL,
-        })
-      } else {
-        setUserOnAuth(null)
-      }
-    })
-
-    return () => {
-      unsubscribe()
-    }
-  }, [])
+  const handleStorageUser = data => {
+    localStorage.setItem(':@user', JSON.stringify(data))
+  }
 
   return (
     <AuthenticationContext.Provider
@@ -248,6 +295,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
         email,
         password,
         isLoading,
+        isLoadingUser,
         setEmail,
         setPassword,
         setUserName,

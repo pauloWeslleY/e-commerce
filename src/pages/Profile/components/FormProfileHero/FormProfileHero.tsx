@@ -17,14 +17,15 @@ const FormProfileHero = () => {
         display={{ base: 'initial', md: 'grid' }}
         columns={{ md: 3 }}
         spacing={{ md: 6 }}
+        as={'section'}
       >
-        <GridItem colSpan={{ md: 1 }}>
+        <GridItem as={'aside'} colSpan={{ md: 1 }}>
           <FormProfileHead
             title=" Atualizar Usuário"
             description="Preencha as informações para atualizar seu cadastro"
           />
         </GridItem>
-        <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
+        <GridItem as={'section'} mt={[5, null, 0]} colSpan={{ md: 2 }}>
           <FormUpdateProfile />
         </GridItem>
       </SimpleGrid>

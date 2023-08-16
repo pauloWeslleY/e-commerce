@@ -36,7 +36,7 @@ const SideBarAvatarMenu = () => {
         <PopoverArrow />
         <PopoverBody>
           <Flex align={'center'} gap={2} flexDir={'column'}>
-            {userOnAuth.avatar ? (
+            {userOnAuth?.avatar ? (
               <AvatarHero
                 size={'lg'}
                 avatarUrl={userOnAuth.avatar}
@@ -53,10 +53,10 @@ const SideBarAvatarMenu = () => {
               gap={3}
             >
               <Text fontSize={'lg'} fontFamily={'Inter'} fontWeight={500}>
-                {userOnAuth.username}
+                {userOnAuth?.username}
               </Text>
               <Text fontSize={'md'} fontFamily={'Inter'} fontWeight={400}>
-                {userOnAuth.email}
+                {userOnAuth?.email}
               </Text>
             </Flex>
             <Button

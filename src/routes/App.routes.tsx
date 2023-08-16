@@ -1,17 +1,17 @@
 import { ReactElement } from 'react'
 import { RouteObject, createBrowserRouter } from 'react-router-dom'
-import { App } from '../App'
 import { PrivateRoutes } from './Private.routes'
+import { App } from '../App'
 
+import { Home } from '../pages/Home'
 import { Register } from '../pages/Register'
-import { HomePage } from '../pages/Home'
 import { Product } from '../pages/Product'
 import { NotFound } from '../pages/404'
 import { Categories } from '../pages/Categories'
 import { Users } from '../pages/Users'
 import { UserProfile } from '../pages/Profile'
 import { Graphic } from '../pages/Graphic'
-import { SignIn } from '../pages/SignIn'
+import { Login } from '../pages/SignIn/SignIn'
 
 interface RoutesProps {
   path: string
@@ -28,7 +28,7 @@ const routes: RoutesProps[] = [
     children: [
       {
         path: '/',
-        element: <SignIn />,
+        element: <Login />,
       },
       {
         path: '/register',
@@ -40,7 +40,7 @@ const routes: RoutesProps[] = [
         children: [
           {
             path: '/dashboard',
-            element: <HomePage />,
+            element: <Home />,
           },
           {
             path: '/dashboard/product',

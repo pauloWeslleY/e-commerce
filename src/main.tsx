@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
-import { AuthenticationProvider } from './contexts/authContextProvider.tsx'
 import { AppRoutes } from './routes/App.routes.tsx'
 import { theme } from './themes/themes.ts'
 import './services/firebase'
@@ -13,9 +12,7 @@ ReactDOM.createRoot(elementRoot).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <AuthenticationProvider>
-        <RouterProvider router={AppRoutes} />
-      </AuthenticationProvider>
+      <RouterProvider router={AppRoutes} />
     </ChakraProvider>
   </React.StrictMode>
 )

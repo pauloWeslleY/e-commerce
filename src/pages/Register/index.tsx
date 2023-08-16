@@ -1,4 +1,4 @@
-import { FormEvent, useContext } from 'react'
+import { FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Stack } from '@chakra-ui/react'
 import { EmailIcon } from '@chakra-ui/icons'
@@ -11,7 +11,7 @@ import { WrapperForm } from '../../components/Form/WrapperForm'
 import { FormContainer } from '../../components/Form/FormContainer'
 import { ButtonSign } from '../../components/Buttons'
 import { Loading } from '../../components/Loading'
-import { AuthenticationContext } from '../../contexts/authContextProvider'
+import { useAuthentication } from '../../hooks/useAuthentication'
 import Logotipo from '../../assets/logotipo.svg'
 
 export const Register = () => {
@@ -24,16 +24,15 @@ export const Register = () => {
     setUserName,
     setPassword,
     handleRegisterUser,
-  } = useContext(AuthenticationContext)
+  } = useAuthentication()
   const navigate = useNavigate()
 
-  const handleCreateUser = (event: FormEvent) => {
+  const handleCreateUser = async (event: FormEvent) => {
     event.preventDefault()
-    handleRegisterUser()
-    navigate('/')
+    await handleRegisterUser()
   }
 
-  if (!isLoading === false) {
+  if (isLoading) {
     return <Loading />
   }
 
@@ -75,8 +74,8 @@ export const Register = () => {
             type="submit"
             isDisabled={password === ''}
             isLoading={password === ''}
-            loadingText={isLoading ? 'Cadastrar' : 'Carregando'}
-            spinnerPlacement={isLoading ? null : 'start'}
+            loadingText={isLoading ? 'Carregando' : 'Cadastrar'}
+            spinnerPlacement={isLoading ? 'start' : null}
           />
         </Stack>
         <InputFooter
