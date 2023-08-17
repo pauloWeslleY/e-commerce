@@ -4,7 +4,9 @@ import { SideBarContainerProps } from '../../../types/SideBarType'
 import { MENU_ITEMS } from './[slug]/[menu_items_props]'
 import { SideBarNavItem } from '../index'
 
-function SideBarNavigation({ collapsed }: SideBarContainerProps) {
+const SideBarNavigation = (props: SideBarContainerProps) => {
+  const { collapsed } = props
+
   return (
     <List py={3}>
       {MENU_ITEMS.map((item, index) => (

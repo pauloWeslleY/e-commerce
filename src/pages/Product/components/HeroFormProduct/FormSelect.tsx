@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { FormControl, GridItem, Select, SelectProps } from '@chakra-ui/react'
 import { FormLabelTitle } from '../../../../components/Form/FormLabelTitle'
 import { useThemeColors } from '../../../../hooks/useThemeColors'
@@ -7,7 +8,7 @@ interface SelectFormProps extends SelectProps {
   colSpan: number[]
 }
 
-function SelectForm(props: SelectFormProps) {
+const SelectForm = (props: SelectFormProps) => {
   const { colSpan, ...rest } = props
   const { isCategories } = useFetch()
   const { THEME } = useThemeColors()
@@ -41,4 +42,4 @@ function SelectForm(props: SelectFormProps) {
   )
 }
 
-export default SelectForm
+export default memo(SelectForm)

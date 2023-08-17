@@ -1,6 +1,5 @@
-import { memo, useContext } from 'react'
+import { memo } from 'react'
 import {
-  Avatar,
   Button,
   Flex,
   IconButton,
@@ -12,12 +11,13 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { MdOutlineMoreHoriz } from 'react-icons/md'
-import { AuthenticationContext } from '../../contexts/authContextProvider'
-import { useThemeColors } from '../../hooks/useThemeColors'
 import { HiOutlineLogout } from 'react-icons/hi'
+import { useThemeColors } from '../../hooks/useThemeColors'
+import { useAuthentication } from '../../hooks/useAuthentication'
+import { AvatarHero, AvatarIcon } from '../Avatar'
 
-function SideBarAvatarMenu() {
-  const { userOnAuth, handleLogout } = useContext(AuthenticationContext)
+const SideBarAvatarMenu = () => {
+  const { userOnAuth, handleLogout } = useAuthentication()
   const { THEME } = useThemeColors()
 
   return (
@@ -36,7 +36,15 @@ function SideBarAvatarMenu() {
         <PopoverArrow />
         <PopoverBody>
           <Flex align={'center'} gap={2} flexDir={'column'}>
-            <Avatar size={'2xl'} bg={'purple.300'} />
+            {userOnAuth?.avatar ? (
+              <AvatarHero
+                size={'lg'}
+                avatarUrl={userOnAuth.avatar}
+                name={userOnAuth.username}
+              />
+            ) : (
+              <AvatarIcon />
+            )}
 
             <Flex
               flexDir={'column'}
@@ -45,10 +53,10 @@ function SideBarAvatarMenu() {
               gap={3}
             >
               <Text fontSize={'lg'} fontFamily={'Inter'} fontWeight={500}>
-                {userOnAuth.username}
+                {userOnAuth?.username}
               </Text>
               <Text fontSize={'md'} fontFamily={'Inter'} fontWeight={400}>
-                {userOnAuth.email}
+                {userOnAuth?.email}
               </Text>
             </Flex>
             <Button

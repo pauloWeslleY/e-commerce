@@ -15,10 +15,7 @@ const HeroTableHead = () => {
 
   return (
     <Thead
-      display={{
-        base: 'none',
-        md: 'table-header-group',
-      }}
+      display={{ base: 'none', lg: 'table-header-group' }}
       sx={{
         '@media print': {
           display: 'table-header-group',
@@ -29,9 +26,8 @@ const HeroTableHead = () => {
         {TABLE_HEADER.map((item, i) => (
           <Th
             key={i}
-            color={THEME.DASHBOARD.TABLE_PRODUCT_TITLE_COLORS}
+            color={THEME.DASHBOARD.TABLE_TITLE_COLORS}
             fontWeight={'semibold'}
-            fontFamily={'Poppins'}
             fontSize={'md'}
           >
             {item}

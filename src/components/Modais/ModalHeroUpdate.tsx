@@ -1,6 +1,7 @@
 import { ReactNode, memo } from 'react'
 import {
   Flex,
+  Text,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -8,7 +9,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Text,
   useDisclosure,
 } from '@chakra-ui/react'
 import { ProductsType } from '../../types/ProductType'
@@ -20,11 +20,12 @@ interface ModalHeroUpdateProps {
   items?: ProductsType
   category?: CategoryType
   children: ReactNode
+  isValid: boolean
   onHandleClick: () => void
 }
 
-function ModalHeroUpdate(props: ModalHeroUpdateProps) {
-  const { title, children, onHandleClick, items, category } = props
+const ModalHeroUpdate = (props: ModalHeroUpdateProps) => {
+  const { title, children, onHandleClick, items, category, isValid } = props
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -37,17 +38,17 @@ function ModalHeroUpdate(props: ModalHeroUpdateProps) {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent maxW={['xl', '5xl']}>
+        <ModalContent maxW={['lg', '5xl']}>
           <ModalHeader>Atualizar {title}</ModalHeader>
 
           <ModalCloseButton />
           <ModalBody>
             <Flex align={'center'} flexDir={'column'} gap={5}>
-              <Text as={'span'} fontWeight={600}>
+              <Text as={'span'} fontWeight={'semibold'}>
                 ID:{' '}
                 <Text
                   display={'inline'}
-                  fontWeight={300}
+                  fontWeight={'light'}
                   textTransform={'uppercase'}
                 >
                   {items ? <>{items.id}</> : <>{category.id}</>}
@@ -75,6 +76,7 @@ function ModalHeroUpdate(props: ModalHeroUpdateProps) {
               <IsButton
                 title="Atualizar"
                 type="button"
+                isDisabled={!isValid}
                 onClick={() => {
                   onHandleClick()
                   onClose()

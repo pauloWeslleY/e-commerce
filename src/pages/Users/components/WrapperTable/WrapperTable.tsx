@@ -2,15 +2,15 @@ import { ReactNode, memo } from 'react'
 import { Table, Tbody, Th, Thead, Tr } from '@chakra-ui/react'
 import { useThemeColors } from '../../../../hooks/useThemeColors'
 
-function WrapperTable({ children }: { children: ReactNode }) {
+const WrapperTable = ({ children }: { children: ReactNode }) => {
   const { THEME } = useThemeColors()
   const HEADER: Array<string> = ['ID', 'Nome', 'Email', 'ações']
 
   return (
     <Table
+      bg={THEME.DASHBOARD.TABLE_BACKGROUND}
       w={'full'}
       my={5}
-      bg={THEME.DASHBOARD.TABLE_PRODUCT_HEADER_BG}
       shadow={'lg'}
       rounded={'md'}
       display={{ base: 'block', md: 'table' }}
@@ -29,7 +29,7 @@ function WrapperTable({ children }: { children: ReactNode }) {
       >
         <Tr>
           {HEADER.map(props => (
-            <Th key={props} color={THEME.TABLE_USERS.TABLE_TITLE_COLORS}>
+            <Th key={props} color={THEME.DASHBOARD.TABLE_TITLE_COLORS}>
               {props}
             </Th>
           ))}

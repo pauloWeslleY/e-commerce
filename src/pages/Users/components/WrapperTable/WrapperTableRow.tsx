@@ -1,4 +1,4 @@
-import { ReactNode, memo } from 'react'
+import React, { ReactNode, memo } from 'react'
 import { ButtonGroup, Td, Tr } from '@chakra-ui/react'
 import { UserType } from '../../../../types/UsersType'
 import { ModalUserHero } from '../ModalUserHero'
@@ -9,7 +9,20 @@ interface WrapperTableRowProps {
   children: ReactNode
 }
 
-function WrapperTableRow({ children, users }: WrapperTableRowProps) {
+interface UserProps {
+  label: string
+  value: string
+}
+
+const WrapperTableRow = ({ children, users }: WrapperTableRowProps) => {
+  const { id, username, email } = users
+
+  const USER: UserProps[] = [
+    { label: 'ID:', value: id },
+    { label: 'Nome:', value: username },
+    { label: 'Email:', value: email },
+  ]
+
   return (
     <Tr
       display={{ base: 'grid', md: 'table-row' }}
@@ -19,13 +32,14 @@ function WrapperTableRow({ children, users }: WrapperTableRowProps) {
         gridGap: '10px',
       }}
     >
-      <WrapperTableCell>ID:</WrapperTableCell>
-      <WrapperTableTdHero>{users.id}</WrapperTableTdHero>
-      <WrapperTableCell>Nome</WrapperTableCell>
-      <WrapperTableTdHero>{users.username}</WrapperTableTdHero>
-      <WrapperTableCell>Email</WrapperTableCell>
-      <WrapperTableTdHero>{users.email}</WrapperTableTdHero>
-      <WrapperTableCell>Ações</WrapperTableCell>
+      {USER.map((user, index) => (
+        <React.Fragment key={index}>
+          <WrapperTableCell title={user.label} />
+          <WrapperTableTdHero label={user.value} />
+        </React.Fragment>
+      ))}
+      <WrapperTableCell title="Ações" />
+
       <Td>
         <ButtonGroup size={'sm'} spacing={3}>
           <ModalUserHero user={users} />

@@ -1,9 +1,9 @@
 import { memo } from 'react'
 import { Box, Text } from '@chakra-ui/react'
 
-const TitleHeroGraphic = ({ title }: { title: string }) => (
-  <Box my={2} px={6} py={8}>
-    <Text as={'h3'} fontSize={'2xl'} fontFamily={'Poppins'}>
+const TitleHeroGraphic = ({ title, bg }: { title: string; bg?: string }) => (
+  <Box my={2} px={6} py={8} bg={bg} rounded={'md'} shadow={'md'}>
+    <Text as={'h3'} fontSize={'2xl'}>
       {title}
     </Text>
   </Box>

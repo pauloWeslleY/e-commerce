@@ -1,14 +1,14 @@
 import { memo, useRef } from 'react'
 import {
+  Box,
+  Button,
+  Text,
   AlertDialog,
   AlertDialogBody,
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
-  Box,
-  Button,
-  Text,
   useDisclosure,
 } from '@chakra-ui/react'
 import { ButtonDelete } from '../Buttons'
@@ -23,7 +23,7 @@ interface ModalHeroDeleteProps {
   onHandleDelete: () => void
 }
 
-function ModalHeroDelete(props: ModalHeroDeleteProps) {
+const ModalHeroDelete = (props: ModalHeroDeleteProps) => {
   const { title, label, user, items, onHandleDelete } = props
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef()
@@ -40,7 +40,7 @@ function ModalHeroDelete(props: ModalHeroDeleteProps) {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize={'lg'} fontWeight={'bold'}>
-              <Text as={'span'} fontWeight={600}>
+              <Text as={'span'} fontWeight={'semibold'}>
                 Tem certeza que você deseja excluir {label} {title}?
               </Text>
             </AlertDialogHeader>

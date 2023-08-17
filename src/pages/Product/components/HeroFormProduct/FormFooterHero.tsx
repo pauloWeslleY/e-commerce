@@ -1,13 +1,12 @@
+import { ReactNode, memo } from 'react'
 import { Box } from '@chakra-ui/react'
-import { memo } from 'react'
-import { IsButton } from '../../../../components/Buttons'
 import { useThemeColors } from '../../../../hooks/useThemeColors'
 
 interface FormFooterHeroProps {
-  onHandleClick: () => void
+  children: ReactNode
 }
 
-const FormFooterHero = ({ onHandleClick }: FormFooterHeroProps) => {
+const FormFooterHero = ({ children }: FormFooterHeroProps) => {
   const { THEME } = useThemeColors()
 
   return (
@@ -17,7 +16,7 @@ const FormFooterHero = ({ onHandleClick }: FormFooterHeroProps) => {
       bg={THEME.DASHBOARD.FORM_FOOTER_BACKGROUND}
       textAlign={'right'}
     >
-      <IsButton title="Criar" type="submit" onClick={onHandleClick} />
+      {children}
     </Box>
   )
 }

@@ -1,17 +1,16 @@
 import { memo } from 'react'
-import { Box, Flex, IconButton, Image, Text } from '@chakra-ui/react'
-import { AiOutlineSearch } from 'react-icons/ai'
+import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import { useThemeColors } from '../../hooks/useThemeColors'
 import { SideBarContainerProps } from '../../types/SideBarType'
 
-function SideBarLogoSearch({ collapsed }: SideBarContainerProps) {
+const SideBarLogoSearch = ({ collapsed }: SideBarContainerProps) => {
   const { THEME } = useThemeColors()
 
   return (
     <Flex
       w={'full'}
       align={'center'}
-      justify={'space-between'}
+      justify={'center'}
       flexDir={collapsed ? 'row' : 'column'}
       gap={4}
     >
@@ -27,31 +26,17 @@ function SideBarLogoSearch({ collapsed }: SideBarContainerProps) {
         {collapsed && (
           <Text
             as={'h2'}
-            fontWeight={900}
+            fontWeight={'bold'}
             fontSize={'2xl'}
             fontFamily={'Inter'}
+            bgGradient={'linear(to-r, violet.700, violet.400)'}
+            backgroundClip={'text'}
             letterSpacing={1}
-            color={THEME.DASHBOARD.SIDE_BAR_TITLE_COLORS}
           >
-            System
-            <Box
-              as={'span'}
-              bgGradient={'linear(to-r, purple.700, purple.400)'}
-              backgroundClip={'text'}
-            >
-              Stock
-            </Box>
+            SystemStock
           </Text>
         )}
       </Box>
-      <IconButton
-        aria-label="Search"
-        variant={'ghost'}
-        icon={<AiOutlineSearch />}
-        fontSize={16}
-        color={THEME.TEXT_COLORS}
-        borderRadius={'50%'}
-      />
     </Flex>
   )
 }

@@ -1,17 +1,17 @@
 import { ReactElement } from 'react'
 import { RouteObject, createBrowserRouter } from 'react-router-dom'
-import { App } from '../App'
 import { PrivateRoutes } from './Private.routes'
+import { App } from '../App'
 
-import { Login } from '../pages/SignIn'
-import { Register } from '../pages/Register/Register'
-import { Home } from '../pages/Home/Home'
-import { Product } from '../pages/Product/Product'
-import { NotFound } from '../pages/404/404'
-import { Categories } from '../pages/Categories/Categories'
+import { Home } from '../pages/Home'
+import { Register } from '../pages/Register'
+import { Product } from '../pages/Product'
+import { NotFound } from '../pages/404'
+import { Categories } from '../pages/Categories'
 import { Users } from '../pages/Users'
-import { UserProfile } from '../pages/Profile/UserProfile'
-import { Graphic } from '../pages/Graphic/Graphic'
+import { UserProfile } from '../pages/Profile'
+import { Graphic } from '../pages/Graphic'
+import { Login } from '../pages/SignIn/SignIn'
 
 interface RoutesProps {
   path: string

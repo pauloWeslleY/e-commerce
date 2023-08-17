@@ -1,13 +1,16 @@
-import { memo, useContext } from 'react'
-import { Avatar, Button, Flex, Text } from '@chakra-ui/react'
-import { AuthenticationContext } from '../../contexts/authContextProvider'
-import { useThemeColors } from '../../hooks/useThemeColors'
-import { SideBarContainerProps } from '../../types/SideBarType'
-import { SideBarAvatarMenu } from './index'
+import { memo } from 'react'
+import { Button, Flex, Text } from '@chakra-ui/react'
 import { HiOutlineLogout } from 'react-icons/hi'
+import { useAuthOnStatus } from '../../hooks/useAuthStatus'
+import { useThemeColors } from '../../hooks/useThemeColors'
+import { useAuthentication } from '../../hooks/useAuthentication'
+import { SideBarContainerProps } from '../../types/SideBarType'
+import { AvatarHero, AvatarIcon } from '../Avatar'
+import { SideBarAvatarMenu } from './index'
 
-function SideBarAvatarHero({ collapsed }: SideBarContainerProps) {
-  const { userOnAuth, handleLogout } = useContext(AuthenticationContext)
+const SideBarAvatarHero = ({ collapsed }: SideBarContainerProps) => {
+  const { users, userOnAuth, handleLogout } = useAuthentication()
+  const { userAuth } = useAuthOnStatus()
   const { THEME } = useThemeColors()
 
   return (
@@ -16,10 +19,22 @@ function SideBarAvatarHero({ collapsed }: SideBarContainerProps) {
       justify={'space-between'}
       flexDir={collapsed ? 'row' : 'column-reverse'}
       gap={2}
-      w={'full'}
       p={2}
+      w={'full'}
     >
-      {!collapsed && <Avatar name={userOnAuth.username} bg={'purple.400'} />}
+      {!collapsed && (
+        <>
+          {userOnAuth?.avatar !== null ? (
+            <AvatarHero
+              size={'md'}
+              avatarUrl={userOnAuth?.avatar}
+              name={userOnAuth?.username}
+            />
+          ) : (
+            <AvatarIcon />
+          )}
+        </>
+      )}
       {!collapsed && <SideBarAvatarMenu />}
 
       {collapsed && (
@@ -30,23 +45,36 @@ function SideBarAvatarHero({ collapsed }: SideBarContainerProps) {
           flexDir={'column'}
           gap={4}
         >
-          <Avatar name={userOnAuth.username} bg={'purple.400'} size={'md'} />
+          {userAuth && (
+            <>
+              {userOnAuth?.avatar !== null ? (
+                <AvatarHero
+                  size={'md'}
+                  avatarUrl={userOnAuth?.avatar}
+                  name={userOnAuth?.username}
+                />
+              ) : (
+                <AvatarIcon />
+              )}
+            </>
+          )}
           <Text
+            color={THEME.DASHBOARD.SIDE_BAR_TEXT_COLORS}
             fontSize={'sm'}
-            fontWeight={600}
-            pb={0}
+            fontWeight={'semibold'}
             lineHeight={0}
-            color={THEME.DASHBOARD.TEXT_COLORS}
+            pb={1}
           >
-            {userOnAuth.username}
+            {users?.username}
           </Text>
           <Text
             as={'small'}
             color={THEME.DASHBOARD.SIDEBAR_AVATAR_HERO_COLORS}
             fontSize={12}
+            fontFamily={'Inter'}
             lineHeight={0}
           >
-            {userOnAuth.email}
+            {userOnAuth?.email}
           </Text>
           <Button
             onClick={handleLogout}

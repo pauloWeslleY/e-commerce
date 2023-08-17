@@ -6,7 +6,7 @@ interface FormHeroBoxProps {
   onHandleSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>
 }
 
-function FormHeroBox({ children, onHandleSubmit }: FormHeroBoxProps) {
+const FormHeroBox = ({ children, onHandleSubmit }: FormHeroBoxProps) => {
   return (
     <Box mt={[10, 0]} mb={8}>
       <chakra.form

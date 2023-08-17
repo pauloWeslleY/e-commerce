@@ -10,7 +10,7 @@ interface FormInputFieldProps extends InputProps {
   type: HTMLInputTypeAttribute
 }
 
-function FormInputField(props: FormInputFieldProps) {
+const FormInputField = (props: FormInputFieldProps) => {
   const { title, label, type, colSpan, ...rest } = props
   const { THEME } = useThemeColors()
 
@@ -26,7 +26,7 @@ function FormInputField(props: FormInputFieldProps) {
         autoComplete={label}
         mt={1}
         variant={'flushed'}
-        fontFamily={'Poppins'}
+        letterSpacing={'wider'}
         shadow={'sm'}
         size={'sm'}
         w={'full'}

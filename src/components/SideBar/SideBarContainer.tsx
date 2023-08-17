@@ -7,13 +7,23 @@ import {
   SideBarNavigation,
 } from './index'
 
-function SideBarContainer({ collapsed }: SideBarContainerProps) {
+interface SideBarProps extends SideBarContainerProps {
+  onHandleToggle?: () => void
+}
+
+const SideBarContainer = (props: SideBarProps) => {
+  const { collapsed, onHandleToggle, onItemClick } = props
+
   return (
     <>
       <Box w={'full'}>
         <SideBarLogoSearch collapsed={collapsed} />
 
-        <SideBarNavigation collapsed={collapsed} />
+        <SideBarNavigation
+          collapsed={collapsed}
+          onHandleToggle={onHandleToggle}
+          onItemClick={onItemClick}
+        />
       </Box>
       <SideBarAvatarHero collapsed={collapsed} />
     </>

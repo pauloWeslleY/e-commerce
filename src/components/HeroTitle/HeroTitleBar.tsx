@@ -4,7 +4,7 @@ import { NavTitle } from '../NavBar'
 import { useThemeColors } from '../../hooks/useThemeColors'
 import { NavBarProps } from '../../types/NavBarType'
 
-function HeroTitleBar(props: NavBarProps) {
+const HeroTitleBar = (props: NavBarProps) => {
   const { THEME } = useThemeColors()
 
   return (

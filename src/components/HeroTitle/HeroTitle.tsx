@@ -1,12 +1,17 @@
 import { memo } from 'react'
-import { Heading } from '@chakra-ui/react'
+import { Heading, HeadingProps } from '@chakra-ui/react'
 
-interface HeroTitleProps {
+interface HeroTitleProps extends HeadingProps {
   title: string
 }
 
-const HeroTitle = ({ title }: HeroTitleProps) => (
-  <Heading fontSize={'4xl'} fontFamily={'Poppins'} fontWeight={600}>
+const HeroTitle = ({ title, ...rest }: HeroTitleProps) => (
+  <Heading
+    {...rest}
+    fontSize={['xl', '4xl']}
+    fontFamily={'Poppins'}
+    fontWeight={'semibold'}
+  >
     {title}
   </Heading>
 )

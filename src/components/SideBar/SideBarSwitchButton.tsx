@@ -17,7 +17,7 @@ function SideBarSwitchButton({ collapsed }: SideBarContainerProps) {
     }
   }
 
-  if (!collapsed) {
+  if (collapsed) {
     return (
       <Flex w={'full'} align={'center'} textAlign={'center'} py={6}>
         <Switch w={'full'} colorScheme="teal" />
@@ -31,7 +31,7 @@ function SideBarSwitchButton({ collapsed }: SideBarContainerProps) {
       borderWidth={1}
       borderColor={'blackAlpha.100'}
       borderRadius={14}
-      my={6}
+      mt={6}
     >
       <Button
         w={'full'}

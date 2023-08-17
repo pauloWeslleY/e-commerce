@@ -10,15 +10,17 @@ const ButtonSign = ({ title, ...props }: ButtonSignProps) => (
   <Button
     {...props}
     rightIcon={<ArrowForwardIcon />}
+    w={64}
     size={'lg'}
     rounded={'md'}
-    bg={'purple.700'}
+    bg={'violet.800'}
     color={'whiteAlpha.900'}
     transition={'all .2s ease-out 200ms'}
     _hover={{
       transform: 'translateY(-2px)',
-      boxShadow: 'lg',
-      opacity: '0.6'
+      filter: 'brightness(130%)',
+      boxShadow: 'md',
+      w: 72,
     }}
   >
     {title}

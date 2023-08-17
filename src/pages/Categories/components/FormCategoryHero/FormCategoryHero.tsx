@@ -1,4 +1,4 @@
-import { FormEvent, memo } from 'react'
+import { FormEvent, memo, useEffect } from 'react'
 import {
   Box,
   FormControl,
@@ -11,7 +11,7 @@ import {
 import { FormLabelTitle } from '../../../../components/Form/FormLabelTitle'
 import { IsButton } from '../../../../components/Buttons'
 import { InputBar } from '../../../../components/Form/InputBar'
-import { useThemeColors } from '../../../../hooks/useThemeColors'
+import { useCategories } from '../../hooks/useCategories'
 
 interface FormCategoryHeroProps extends InputProps {
   onHandleSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>
@@ -20,25 +20,20 @@ interface FormCategoryHeroProps extends InputProps {
 
 function FormCategoryHero(props: FormCategoryHeroProps) {
   const { onHandleClick, onHandleSubmit, ...rest } = props
-  const { THEME } = useThemeColors()
+  const { name, isValid, isFormValid } = useCategories()
+
+  useEffect(() => {
+    isFormValid()
+  }, [name])
 
   return (
-    <Box mt={[10, 0]} mb={8}>
+    <Box mt={[10, 0]}>
       <chakra.form
         onSubmit={onHandleSubmit}
-        shadow={'base'}
         rounded={[null, 'md']}
-        overflow={{
-          sm: 'hidden',
-        }}
+        overflow={{ sm: 'hidden' }}
       >
-        <Stack
-          px={4}
-          py={5}
-          p={[null, 6]}
-          bg={THEME.DASHBOARD.FORM_BACKGROUND}
-          spacing={6}
-        >
+        <Stack px={4} py={5} p={[null, 6]} spacing={6}>
           <SimpleGrid columns={12} spacing={6}>
             <FormControl isRequired as={GridItem} colSpan={[1, 12]}>
               <FormLabelTitle
@@ -48,25 +43,24 @@ function FormCategoryHero(props: FormCategoryHeroProps) {
 
               <InputBar
                 {...rest}
+                value={name}
                 type="text"
                 name="name_category"
                 id="name_category"
                 autoComplete="name_category"
                 placeholder="Digite o nome do categoria"
+                px={1}
               />
             </FormControl>
           </SimpleGrid>
         </Stack>
-        <Box
-          px={{
-            base: 4,
-            sm: 6,
-          }}
-          py={3}
-          bg={THEME.DASHBOARD.FORM_FOOTER_BACKGROUND}
-          textAlign={'right'}
-        >
-          <IsButton title="Adicionar" type="submit" onClick={onHandleClick} />
+        <Box px={{ base: 4, sm: 6 }} py={3} textAlign={'right'}>
+          <IsButton
+            title="Criar"
+            type="submit"
+            onClick={onHandleClick}
+            isDisabled={!isValid}
+          />
         </Box>
       </chakra.form>
     </Box>

@@ -11,12 +11,14 @@ import {
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { HiLockClosed } from 'react-icons/hi'
 import { FormLabelTitle } from '../FormLabelTitle'
+import { useThemeColors } from '../../../hooks/useThemeColors'
 
-function InputPassword({ ...props }: InputProps) {
+const InputPassword = ({ ...props }: InputProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const { THEME } = useThemeColors()
 
   return (
-    <FormControl id="password" isRequired>
+    <FormControl id="password">
       <FormLabelTitle title="Senha" htmlFor="password" />
       <InputGroup>
         <InputLeftElement
@@ -30,9 +32,12 @@ function InputPassword({ ...props }: InputProps) {
           autoComplete="password"
           type={showPassword ? 'text' : 'password'}
           placeholder="Digite sua senha..."
-          focusBorderColor={'purple.300'}
+          focusBorderColor={'violet.500'}
           fontFamily={'Poppins'}
-          _placeholder={{ opacity: 1, color: 'whiteAlpha.500' }}
+          _placeholder={{
+            opacity: 1,
+            color: THEME.DASHBOARD.INPUT_BAR_PLACEHOLDER_COLORS,
+          }}
           shadow={'sm'}
           w={'full'}
           variant={'flushed'}
@@ -41,7 +46,7 @@ function InputPassword({ ...props }: InputProps) {
         <InputRightElement h={'full'}>
           <Button
             variant={'ghost'}
-            onClick={() => setShowPassword((showPassword) => !showPassword)}
+            onClick={() => setShowPassword(showPassword => !showPassword)}
           >
             {showPassword ? <ViewIcon /> : <ViewOffIcon />}
           </Button>

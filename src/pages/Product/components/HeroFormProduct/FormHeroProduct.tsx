@@ -3,22 +3,22 @@ import { InputProps, SimpleGrid, Stack } from '@chakra-ui/react'
 import { FormInputField, FormSelect } from './index'
 
 interface HeroFormProductProps extends InputProps {
-  bg: string
+  bg?: string
   valueName?: string
-  onHandleChangeName: ChangeEventHandler<HTMLInputElement>
   valuePrice?: string | number
-  onHandleChangePrice: ChangeEventHandler<HTMLInputElement>
   valueDescription?: string
-  onHandleChangeDescription: ChangeEventHandler<HTMLInputElement>
-  valueSupplier: string
-  onHandleChangeSupplier: ChangeEventHandler<HTMLInputElement>
+  valueSupplier?: string
   valueQuantity?: number
-  onHandleChangeQuantity: ChangeEventHandler<HTMLInputElement>
   valueCategoryId?: string
+  onHandleChangeName: ChangeEventHandler<HTMLInputElement>
+  onHandleChangePrice: ChangeEventHandler<HTMLInputElement>
+  onHandleChangeDescription: ChangeEventHandler<HTMLInputElement>
+  onHandleChangeSupplier: ChangeEventHandler<HTMLInputElement>
+  onHandleChangeQuantity: ChangeEventHandler<HTMLInputElement>
   onHandleChangeCategoryId: ChangeEventHandler<HTMLSelectElement>
 }
 
-function FormHeroProduct(props: HeroFormProductProps) {
+const FormHeroProduct = (props: HeroFormProductProps) => {
   const {
     bg,
     valueName,
@@ -42,7 +42,7 @@ function FormHeroProduct(props: HeroFormProductProps) {
           title="Nome do Produto"
           label="name_product"
           type="text"
-          colSpan={[6, 3]}
+          colSpan={[6, 6]}
           placeholder="Digite o nome do produto"
           value={valueName}
           onChange={onHandleChangeName}
@@ -52,7 +52,7 @@ function FormHeroProduct(props: HeroFormProductProps) {
           title="Descrição do Produto"
           label="description_product"
           type="text"
-          colSpan={[6, 3]}
+          colSpan={[6, 6]}
           placeholder="Digite a descrição do produto"
           value={valueDescription}
           onChange={onHandleChangeDescription}
@@ -71,7 +71,7 @@ function FormHeroProduct(props: HeroFormProductProps) {
         <FormInputField
           title="Preço do Produto"
           label="price_product"
-          type="text"
+          type="number"
           colSpan={[6, 2]}
           placeholder="Digite o preço do produto"
           value={valuePrice}

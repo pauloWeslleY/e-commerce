@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react'
-import { Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
+import { Label, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 import { useFetch } from '../../../../hooks/useFetch'
 
 const CategoriesGraphic = () => {
@@ -9,9 +9,11 @@ const CategoriesGraphic = () => {
     const categories = isCategories.map(props => {
       const prod = product.filter(item => item.categoryId === props.name)
 
-      return {
-        name: props.name,
-        value: prod.length,
+      if (prod.length > 0) {
+        return {
+          name: props.name,
+          value: prod.length,
+        }
       }
     })
 
@@ -29,9 +31,11 @@ const CategoriesGraphic = () => {
           cx="50%"
           cy="50%"
           outerRadius={80}
-          fill="#8884d8"
+          fill="#6A64D9"
           label
         />
+
+        <Label value="value" />
         <Tooltip />
       </PieChart>
     </ResponsiveContainer>

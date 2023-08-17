@@ -2,21 +2,25 @@ import { useColorModeValue } from '@chakra-ui/react'
 
 export function useThemeColors() {
   const THEME = {
-    BACKGROUND: useColorModeValue('gray.50', 'gray.700'),
-    TEXT_COLORS: useColorModeValue('gray.500', 'whiteAlpha.800'),
-    SPAN_COLORS: useColorModeValue('blackAlpha.800', 'whiteAlpha.900'),
+    BACKGROUND: useColorModeValue('whiteAlpha.200', 'stone.950'),
+    TEXT_COLORS: useColorModeValue('zinc.700', 'zinc.100'),
+    SPAN_COLORS: useColorModeValue('blackAlpha.900', 'whiteAlpha.900'),
 
-    LOGOTIPO_BACKGROUND: useColorModeValue('whiteAlpha.200', 'gray.400'),
+    LOGOTIPO_BACKGROUND: useColorModeValue('whiteAlpha.200', 'blackAlpha.100'),
+
+    LOADING: {
+      IS_LOADING_COLORS: useColorModeValue('whiteAlpha.50', 'blackAlpha.50'),
+    },
 
     SIGN_IN: {
-      BACKGROUND: useColorModeValue('blackAlpha.200', 'blackAlpha.500'),
+      BACKGROUND: useColorModeValue('whiteAlpha.200', 'blackAlpha.500'),
     },
 
     HOME: {
       BACKGROUND: useColorModeValue('whiteAlpha.600', 'blackAlpha.400'),
-      CARDS_STATISTIC_BG_PROD: useColorModeValue('red.100', 'red.200'),
-      CARDS_STATISTIC_BG_CATE: useColorModeValue('blue.100', 'blue.200'),
-      CARDS_STATISTIC_BG_USERS: useColorModeValue('teal.100', 'teal.300'),
+      CARDS_STATISTIC_BG_PROD: useColorModeValue('red.100', 'red.400'),
+      CARDS_STATISTIC_BG_CATE: useColorModeValue('blue.100', 'blue.400'),
+      CARDS_STATISTIC_BG_USERS: useColorModeValue('emerald.100', 'emerald.400'),
       CARDS_STATISTIC_TEXT_COLORS: useColorModeValue(
         'blackAlpha.700',
         'whiteAlpha.900'
@@ -24,60 +28,47 @@ export function useThemeColors() {
     },
 
     DASHBOARD: {
-      BACKGROUND: useColorModeValue('blackAlpha.100', 'gray.600'),
-      TEXT_COLORS: useColorModeValue('gray.500', 'purple.100'),
-      BORDER_RIGHT_COLORS: useColorModeValue('gray.200', 'gray.700'),
+      BACKGROUND: useColorModeValue('zinc.200', 'zinc.900'),
 
-      /*
-        ! NOTE: SideBar Colors
-      */
-      SIDE_BAR_BG: useColorModeValue('whiteAlpha.900', 'gray.900'),
-      SIDE_BAR_COLORS: useColorModeValue('purple.600', 'purple.400'),
-      SIDE_BAR_TITLE_COLORS: useColorModeValue('purple.700', 'purple.100'),
+      //! SIDEBAR COLORS
+      SIDE_BAR_BG: useColorModeValue('whiteAlpha.700', 'blackAlpha.400'),
+      SIDE_BAR_COLORS: useColorModeValue('violet.600', 'violet.400'),
+      SIDE_BAR_BG_ACTIVE: useColorModeValue('violet.500', 'violet.500'),
+      SIDE_BAR_BG_ACTIVE_HOVER: useColorModeValue('violet.800', 'violet.300'),
       SIDEBAR_AVATAR_HERO_BORDER_COLORS: useColorModeValue(
-        'purple.600',
-        'purple.400'
+        'violet.500',
+        'violet.400'
       ),
-      SIDEBAR_AVATAR_HERO_COLORS: useColorModeValue('gray.600', 'gray.100'),
-      SIDEBAR_ICON_BG: useColorModeValue('purple.700', 'purple.100'),
-      MOBILE_NAV_BG: useColorModeValue('whiteAlpha.900', 'gray.700'),
-      BORDER_COLOR_MOBILE_BG: useColorModeValue('purple.100', 'purple.700'),
+      SIDEBAR_AVATAR_HERO_COLORS: useColorModeValue('zinc.400', 'zinc.600'),
+      SIDE_BAR_TEXT_COLORS: useColorModeValue('zinc.800', 'violet.200'),
 
       //! TABLE COLORS
-      TABLE_PRODUCT_HEADER_BG: useColorModeValue('whiteAlpha.200', 'gray.800'),
-      TABLE_PRODUCT_LINE_BG: useColorModeValue('whiteAlpha.600', 'gray.500'),
-      TABLE_PRODUCT_TITLE_COLORS: useColorModeValue('purple.900', 'purple.100'),
-      TABLE_PRODUCT_COLORS: useColorModeValue('purple.800', 'purple.700'),
-      TABLE_PRODUCT_ROW_BG: useColorModeValue('whiteAlpha.800', 'gray.700'),
+      TABLE_BACKGROUND: useColorModeValue('whiteAlpha.700', 'blackAlpha.400'),
+      TABLE_TITLE_COLORS: useColorModeValue('violet.800', 'violet.600'),
+      TABLE_COLORS: useColorModeValue('violet.800', 'violet.300'),
 
-      POPOVER_BACKGROUND: useColorModeValue('whiteAlpha.600', 'gray.700'),
+      //! HeroCategoryCard COLORS
+      HERO_CATEGORY_CARD_BG: useColorModeValue(
+        'whiteAlpha.500',
+        'whiteAlpha.100'
+      ),
 
-      /*
-        ! NOTE: Form Colors
-      */
-      FORM_BACKGROUND: useColorModeValue('whiteAlpha.600', 'gray.600'),
+      //! FORM COLORS
+      FORM_BACKGROUND: useColorModeValue('whiteAlpha.500', 'blackAlpha.400'),
+      FORM_PROFILE_BACKGROUND: useColorModeValue('whiteAlpha.500', 'zinc.900'),
       FORM_FOOTER_BACKGROUND: useColorModeValue(
         'blackAlpha.100',
-        'blackAlpha.400'
+        'blackAlpha.600'
       ),
-      FORM_LABEL_BACKGROUND: useColorModeValue('gray.700', 'whiteAlpha.900'),
+      FORM_LABEL_COLORS: useColorModeValue('zinc.800', 'zinc.100'),
       INPUT_BAR_PLACEHOLDER_FOCUS_COLORS: useColorModeValue(
-        'purple.700',
-        'purple.800'
+        'violet.700',
+        'violet.500'
       ),
       INPUT_BAR_PLACEHOLDER_COLORS: useColorModeValue(
         'blackAlpha.400',
         'whiteAlpha.400'
       ),
-
-      MENU_LIST_BG: useColorModeValue('whiteAlpha.900', 'gray.700'),
-      MENU_LIST_BORDER_COLORS: useColorModeValue('purple.100', 'purple.700'),
-    },
-
-    TABLE_USERS: {
-      TABLE_BACKGROUND: useColorModeValue('transparent', 'gray.700'),
-      TABLE_TITLE_COLORS: useColorModeValue('purple.800', 'purple.300'),
-      TABLE_TEXT_COLORS: useColorModeValue('purple.800', 'purple.600'),
     },
 
     BUTTONS: {
@@ -90,8 +81,8 @@ export function useThemeColors() {
         'whiteAlpha.400',
         'blackAlpha.900'
       ),
-      IS_BUTTON_COLORS: useColorModeValue('purple.600', 'purple.400'),
-      IS_BUTTON_COLORS_HOVER: useColorModeValue('purple.800', 'purple.600'),
+      IS_BUTTON_COLORS: useColorModeValue('violet.500', 'violet.400'),
+      IS_BUTTON_COLORS_HOVER: useColorModeValue('violet.800', 'violet.600'),
     },
   }
 

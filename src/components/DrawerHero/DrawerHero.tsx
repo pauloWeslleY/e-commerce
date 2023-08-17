@@ -14,7 +14,7 @@ interface DrawerHeroProps {
   onClose: () => void
 }
 
-function DrawerHero({ isOpen, onClose, children }: DrawerHeroProps) {
+function DrawerHero({ onClose, isOpen, children }: DrawerHeroProps) {
   const btnRef = useRef()
 
   return (

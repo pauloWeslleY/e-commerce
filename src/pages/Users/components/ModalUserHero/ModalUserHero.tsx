@@ -18,7 +18,8 @@ interface ModalUserHeroProps {
   user: UserType
 }
 
-function ModalUserHero({ user }: ModalUserHeroProps) {
+const ModalUserHero = ({ user }: ModalUserHeroProps) => {
+  const { username, email, id } = user
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -27,7 +28,7 @@ function ModalUserHero({ user }: ModalUserHeroProps) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{user.username}</ModalHeader>
+          <ModalHeader>{username}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Stack
@@ -36,10 +37,9 @@ function ModalUserHero({ user }: ModalUserHeroProps) {
               alignItems={'center'}
               justifyContent={'center'}
             >
-              <Box textTransform={'uppercase'}>ID: {user.id}</Box>
-              <span>Nome: {user.username}</span>
-              <span>Email: {user.email}</span>
-              <span>Password: {user.password}</span>
+              <Box textTransform={'uppercase'}>ID: {id}</Box>
+              <span>Nome: {username}</span>
+              <span>Email: {email}</span>
             </Stack>
           </ModalBody>
 

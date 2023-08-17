@@ -6,7 +6,7 @@ const HeroTableContentMobile = ({ title }: { title: string }) => {
     <Td
       display={{
         base: 'table-cell',
-        md: 'none',
+        lg: 'none',
       }}
       sx={{
         '@media print': {
@@ -17,7 +17,7 @@ const HeroTableContentMobile = ({ title }: { title: string }) => {
         fontSize: 'xs',
         fontWeight: 'bold',
         letterSpacing: 'wider',
-        fontFamily: 'heading',
+        fontFamily: 'Poppins',
       }}
     >
       {title}

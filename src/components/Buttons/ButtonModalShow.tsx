@@ -9,6 +9,7 @@ const ButtonModalShow = ({ ...rest }: IconButtonProps) => {
   return (
     <IconButton
       {...rest}
+      icon={<BsFillEyeFill />}
       size={'sm'}
       rounded={'lg'}
       bg={'emerald.400'}
@@ -18,10 +19,9 @@ const ButtonModalShow = ({ ...rest }: IconButtonProps) => {
       transition={'ease-in-out .4s 100ms'}
       _hover={{
         bg: THEME.BUTTONS.BTN_ICON_BACKGROUND,
-        color: 'emerald.700',
+        color: 'emerald.600',
         borderColor: 'emerald.600',
       }}
-      icon={<BsFillEyeFill />}
     />
   )
 }

@@ -8,17 +8,17 @@ interface InputFooterProps {
 }
 
 const InputFooter = ({ label, link, onClick }: InputFooterProps) => (
-  <Stack pt={6}>
+  <Stack pt={6} align={'center'}>
     <Text fontWeight={500}>
       {label}{' '}
       <Box
         as={'a'}
-        cursor={'pointer'}
-        color={'purple.300'}
         onClick={onClick}
+        cursor={'pointer'}
+        color={'violet.300'}
         transition={'color .5s ease-out 100ms'}
         _hover={{
-          color: 'purple.600',
+          color: 'violet.600',
         }}
       >
         {link}

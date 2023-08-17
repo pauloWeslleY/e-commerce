@@ -1,4 +1,4 @@
-import HeroUsers from './HeroUsers'
+import HeroUsersList from './HeroUsersList'
 import HeroUserGraphic from './HeroUserGraphic'
 
-export { HeroUsers, HeroUserGraphic }
+export { HeroUsersList, HeroUserGraphic }

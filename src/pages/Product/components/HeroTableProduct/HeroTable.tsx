@@ -4,7 +4,7 @@ import { HeroTableBody, HeroTableHead } from './index'
 
 const HeroTable = ({ bg, children }: { bg: string; children: ReactNode }) => (
   <Table
-    my={4}
+    mb={4}
     w={'full'}
     bg={bg}
     display={{ base: 'block', md: 'table' }}

@@ -17,7 +17,7 @@ const ButtonModalUpdate = ({ ...rest }: IconButtonProps) => {
       transition={'ease-in-out .4s 100ms'}
       _hover={{
         bg: THEME.BUTTONS.BTN_ICON_BACKGROUND,
-        color: 'blue.700',
+        color: 'blue.600',
         borderColor: 'blue.600',
       }}
     />

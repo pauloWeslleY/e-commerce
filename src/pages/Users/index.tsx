@@ -3,10 +3,10 @@ import { SideBar } from '../../components/SideBar'
 import { HeroTitleBar } from '../../components/HeroTitle'
 import { UsersTable } from './components/UsersTable'
 
-export function Users() {
+export const Users = () => {
   return (
     <SideBar>
-      <HeroTitleBar label={'Usuários'} icon={AiOutlineUser} />
+      <HeroTitleBar label="Usuários" icon={AiOutlineUser} />
 
       <UsersTable />
     </SideBar>

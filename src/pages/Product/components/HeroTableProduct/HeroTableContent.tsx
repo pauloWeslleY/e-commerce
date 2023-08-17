@@ -7,7 +7,7 @@ const HeroTableContent = ({ title }: { title: string | number }) => {
 
   return (
     <Td
-      color={THEME.DASHBOARD.TABLE_PRODUCT_COLORS}
+      color={THEME.DASHBOARD.TABLE_COLORS}
       fontSize={'md'}
       fontWeight={'medium'}
     >

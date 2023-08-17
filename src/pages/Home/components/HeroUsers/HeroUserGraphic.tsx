@@ -77,10 +77,10 @@ const HeroUserGraphic = () => {
         <Line
           type="monotone"
           dataKey="pv"
-          stroke="#8884d8"
+          stroke="#6A64D9"
           activeDot={{ r: 8 }}
         />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+        <Line type="monotone" dataKey="uv" stroke="#10b981" />
       </LineChart>
     </ResponsiveContainer>
   )

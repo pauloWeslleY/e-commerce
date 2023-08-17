@@ -9,22 +9,24 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { useFetch } from '../../../../hooks/useFetch'
+import { ProductsType } from '../../../../types/ProductType'
 
-const ProductsGraphic = () => {
-  const { product } = useFetch()
+interface ProductsGraphicProps {
+  products: ProductsType[]
+}
 
+const ProductsGraphic = ({ products }: ProductsGraphicProps) => {
   const graphicProducts = useMemo(() => {
-    const prod = product.map(props => {
+    const prod = products.map(props => {
       return {
-        name: props.categoryId,
-        quantidade: Number(props.quantity),
-        preço: props.price,
+        name: props.name.slice(0, 7),
+        quantity: Number(props.quantity),
+        price: Number(props.price),
       }
     })
 
     return prod
-  }, [product])
+  }, [products])
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -48,15 +50,17 @@ const ProductsGraphic = () => {
         <Line
           yAxisId="left"
           type="monotone"
-          dataKey="quantidade"
-          stroke="#8884d8"
+          dataKey="quantity"
+          name="Quantidade"
+          stroke="#6A64D9"
           activeDot={{ r: 8 }}
         />
         <Line
           yAxisId="right"
           type="monotone"
-          dataKey="preço"
-          stroke="#82ca9d"
+          dataKey="price"
+          name="Preço"
+          stroke="#10b981"
         />
       </LineChart>
     </ResponsiveContainer>

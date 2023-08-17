@@ -1,5 +1,6 @@
 import { memo } from 'react'
 import { Flex, Heading, Icon, Stack, Text } from '@chakra-ui/react'
+import CountUp from 'react-countup'
 import { useThemeColors } from '../../../../hooks/useThemeColors'
 import { CardsHomeType } from '../../../../types/CardsHomeType'
 
@@ -16,19 +17,19 @@ const CardStatistic = ({ cards }: CardStatisticProps) => {
       flexBasis={56}
       flexGrow={1}
       flexShrink={1}
-      justify={'space-around'}
+      justify={'space-between'}
       flexDir={{ base: 'column', md: 'row' }}
-      height={{ base: '10rem', md: '12rem' }}
       borderRadius={'lg'}
       boxShadow={'lg'}
       bg={background}
       color={THEME.TEXT_COLORS}
+      p={6}
     >
-      <Stack justifyContent={'center'} flex={2}>
+      <Stack justifyContent={'center'}>
         <Flex align={'center'} justify={'center'} flexDir={'column'} gap={2}>
           <Heading
-            fontSize={'3xl'}
-            fontWeight={'semibold'}
+            fontSize={'2xl'}
+            fontWeight={'medium'}
             fontFamily={'Poppins'}
             letterSpacing={'wide'}
           >
@@ -37,18 +38,17 @@ const CardStatistic = ({ cards }: CardStatisticProps) => {
           <Text
             as={'span'}
             fontSize={'4xl'}
-            fontFamily={'Inter'}
-            fontWeight={'medium'}
+            fontWeight={'semibold'}
             textAlign={'center'}
             color={THEME.SPAN_COLORS}
             px={3}
           >
-            {subtitle}
+            <CountUp end={subtitle} duration={3} />
           </Text>
         </Flex>
       </Stack>
-      <Stack direction={'column'} justifyContent={'center'} flex={1}>
-        <Icon as={icon} boxSize={20} color={'blackAlpha.400'} />
+      <Stack justifyContent={'center'}>
+        <Icon as={icon} boxSize={24} color={'blackAlpha.400'} />
       </Stack>
     </Flex>
   )
