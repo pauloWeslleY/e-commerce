@@ -29,7 +29,7 @@ O Projeto Stock System oferece diversas funcionalidades para facilitar o gerenci
 O Projeto Stock System foi desenvolvido utilizando um conjunto de tecnologias modernas e confiáveis:
 
 - **Linguagem de Programação:** TypeScript
-- **Biblioteca Web:** ViteJs, ReactJs, Chakra-UI
+- **Biblioteca Web:** ViteJs, ReactJs, Chakra-UI, dayJs, Recharts,
 - **Banco de Dados:** Firebase, FireStore
 - **Interface de Usuário:** HTML5, CSS3, JavaScript
 - **Controle de Versão:** Git
