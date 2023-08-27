@@ -10,7 +10,6 @@ import { InputFieldBar } from '../../components/Form/InputBar'
 import { WrapperForm } from '../../components/Form/WrapperForm'
 import { FormContainer } from '../../components/Form/FormContainer'
 import { ButtonSign } from '../../components/Buttons'
-import { Loading } from '../../components/Loading'
 import { useAuthentication } from '../../hooks/useAuthentication'
 import Logotipo from '../../assets/logotipo.svg'
 
@@ -32,15 +31,11 @@ export const Register = () => {
     await handleRegisterUser()
   }
 
-  if (isLoading) {
-    return <Loading />
-  }
-
   return (
     <WrapperForm>
       <FormHeader
         logo={Logotipo}
-        title="Cadastre-se"
+        title="Cadastro"
         description="Crie sua conta agora"
       />
       <FormContainer onHandleSubmit={handleCreateUser}>
@@ -60,8 +55,8 @@ export const Register = () => {
           inputType="email"
           placeholder="Digite seu email..."
           icon={<EmailIcon w={4} h={4} />}
-          value={email}
           onChange={event => setEmail(event.target.value)}
+          value={email}
         />
 
         <InputPassword
@@ -72,8 +67,8 @@ export const Register = () => {
           <ButtonSign
             title="Cadastrar"
             type="submit"
-            isDisabled={password === ''}
-            isLoading={password === ''}
+            isDisabled={isLoading && password === ''}
+            isLoading={isLoading}
             loadingText={isLoading ? 'Carregando' : 'Cadastrar'}
             spinnerPlacement={isLoading ? 'start' : null}
           />

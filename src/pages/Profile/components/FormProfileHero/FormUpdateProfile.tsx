@@ -5,7 +5,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { updateProfile } from 'firebase/auth'
 import { IsButton } from '../../../../components/Buttons'
 import { InputFieldBar } from '../../../../components/Form/InputBar'
-import { auth, storage } from '../../../../services/firebase'
+import { auth, storage } from '../../../../../firebase'
 import { FormUploadImage, FormProfile } from './index'
 
 const FormUpdateProfile = () => {

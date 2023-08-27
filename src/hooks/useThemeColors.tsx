@@ -13,7 +13,7 @@ export function useThemeColors() {
     },
 
     SIGN_IN: {
-      BACKGROUND: useColorModeValue('whiteAlpha.200', 'blackAlpha.500'),
+      BACKGROUND: useColorModeValue('whiteAlpha.200', 'blackAlpha.300'),
     },
 
     HOME: {
