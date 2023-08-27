@@ -34,9 +34,7 @@ const InputFieldBar = (props: InputFieldBarProps) => {
           autoComplete={label}
           ref={inputRef}
           fontFamily={'Poppins'}
-          shadow={'sm'}
           variant={'flushed'}
-          bg={'transparent'}
           focusBorderColor={'violet.500'}
           _placeholder={{
             opacity: 1,

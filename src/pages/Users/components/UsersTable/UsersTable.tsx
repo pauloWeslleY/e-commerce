@@ -9,7 +9,7 @@ import {
   where,
 } from 'firebase/firestore'
 import { UserType } from '../../../../types/UsersType'
-import { db, auth } from '../../../../services/firebase'
+import { db, auth } from '../../../../../firebase'
 import { ModalHeroDelete } from '../../../../components/Modais'
 import { WrapperTable, WrapperTableRow } from '../WrapperTable'
 
@@ -56,7 +56,7 @@ const UsersTable = () => {
 
   return (
     <WrapperTable>
-      {users.map((props) => (
+      {users.map(props => (
         <WrapperTableRow key={props.id} users={props}>
           <ModalHeroDelete
             title="Usuário"

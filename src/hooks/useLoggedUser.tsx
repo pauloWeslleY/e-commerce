@@ -5,7 +5,7 @@ import {
   browserSessionPersistence,
   setPersistence,
 } from 'firebase/auth'
-import { auth } from '../services/firebase'
+import { auth } from '../../firebase'
 
 export function useLoggedUser() {
   const [isLoadingLoggedUser, setIsLoadingLoggedUser] = useState<boolean>(true)

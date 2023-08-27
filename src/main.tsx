@@ -4,7 +4,6 @@ import { RouterProvider } from 'react-router-dom'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import { AppRoutes } from './routes/App.routes.tsx'
 import { theme } from './themes/themes.ts'
-import './services/firebase'
 import './styles/global.css'
 
 const elementRoot = document.getElementById('root') as HTMLElement

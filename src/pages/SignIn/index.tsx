@@ -63,8 +63,8 @@ export const SignIn = () => {
         </Stack>
 
         <InputFooter
-          label="Você não tem uma conta?"
-          link="Crie a sua conta aqui"
+          label="Ainda não possui uma conta?"
+          link="Crie sua conta aqui"
           onClick={() => navigate('/register')}
         />
       </FormContainer>

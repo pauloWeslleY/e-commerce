@@ -9,7 +9,7 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth'
-import { auth, db } from '../services/firebase'
+import { auth, db } from '../../firebase'
 import { UserType } from '../types/UsersType'
 
 type AuthContextProps = {
@@ -89,6 +89,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
     setIsLoading(true)
     await createUserWithEmailAndPassword(auth, email, password)
       .then(async value => {
+        setIsLoading(false)
         const user = value.user
         const userID = value.user.uid
 
@@ -111,7 +112,6 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
             }
             handleStorageUser(dataUser)
             setUsers(dataUser)
-            setIsLoading(false)
             navigate('/dashboard')
           })
           .catch(err => {
@@ -124,7 +124,6 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
               position: 'top-right',
             })
             console.error(err)
-            setIsLoading(false)
           })
 
         toast({
@@ -137,43 +136,50 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
         })
       })
       .catch(err => {
+        setIsLoading(false)
         switch (err.code) {
           case 'auth/weak-password':
             toast({
               title: 'Senha muito fraca!',
               description: 'Senha precisa ter no mínimo 6 digito',
               status: 'error',
-              duration: 9000,
+              duration: 4000,
               isClosable: true,
               position: 'top-right',
             })
-            return
-
+            break
           case 'auth/email-already-in-use':
             toast({
               title: 'Email já esta sendo utilizado!',
               description: 'Cadastre outro email',
               status: 'error',
-              duration: 9000,
+              duration: 4000,
               isClosable: true,
               position: 'top-right',
             })
-            return
-
+            break
           case 'auth/invalid-email':
             toast({
-              title: 'Email não valido!',
+              title: 'Email invalido!',
               description: 'Digite um email valido',
               status: 'error',
-              duration: 9000,
+              duration: 4000,
               isClosable: true,
               position: 'top-right',
             })
-            return
+            break
+          default:
+            toast({
+              title: 'Não foi possível cadastrar, tente mais tarde!',
+              status: 'error',
+              duration: 4000,
+              isClosable: true,
+              position: 'top-right',
+            })
+            break
         }
 
         console.log(err)
-        setIsLoading(false)
       })
     setEmail('')
     setPassword('')
@@ -226,8 +232,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
               isClosable: true,
               position: 'top-right',
             })
-            return
-
+            break
           case 'auth/user-not-found':
             toast({
               title: 'Usuário não cadastrado',
@@ -237,8 +242,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
               isClosable: true,
               position: 'top-right',
             })
-            return
-
+            break
           case 'auth/wrong-password':
             toast({
               title: 'Senha esta incorreta!',
@@ -248,7 +252,17 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
               isClosable: true,
               position: 'top-right',
             })
-            return
+            break
+          default:
+            toast({
+              title:
+                'Não foi possível fazer login, tente novamente mais tarde!',
+              status: 'error',
+              duration: 4000,
+              isClosable: true,
+              position: 'top-right',
+            })
+            break
         }
 
         console.log(err)

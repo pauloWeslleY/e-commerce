@@ -11,7 +11,7 @@ import { Categories } from '../pages/Categories'
 import { Users } from '../pages/Users'
 import { UserProfile } from '../pages/Profile'
 import { Graphic } from '../pages/Graphic'
-import { Login } from '../pages/SignIn/SignIn'
+import { Login } from '../pages/SignIn/Login'
 
 interface RoutesProps {
   path: string

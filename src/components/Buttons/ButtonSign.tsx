@@ -12,7 +12,7 @@ const ButtonSign = ({ title, ...props }: ButtonSignProps) => (
     rightIcon={<ArrowForwardIcon />}
     w={64}
     size={'lg'}
-    rounded={'md'}
+    rounded={'xl'}
     bg={'violet.800'}
     color={'whiteAlpha.900'}
     transition={'all .2s ease-out 200ms'}

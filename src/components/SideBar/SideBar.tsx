@@ -27,7 +27,7 @@ const SideBar = ({ children }: SideBarProps) => {
         justify={'space-between'}
         borderRadius={'3xl'}
         bg={THEME.DASHBOARD.SIDE_BAR_BG}
-        maxW={collapse ? 340 : 100}
+        maxW={collapse ? 300 : 100}
         transition={'all ease-in-out .2s'}
         w={'full'}
         h={'full'}

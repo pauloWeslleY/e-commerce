@@ -18,7 +18,7 @@ import {
   where,
 } from 'firebase/firestore'
 import { useToast } from '@chakra-ui/react'
-import { db } from '../../../services/firebase'
+import { db } from '../../../../firebase'
 import { prodCollectionRef } from '../../../services/collections'
 import { createAndUpdateProduct } from '../../../utils/createAndUpdateProduct'
 import { ProductsType } from '../../../types/ProductType'

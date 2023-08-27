@@ -12,7 +12,7 @@ import {
   orderBy,
 } from 'firebase/firestore'
 import { cateCollectionRef } from '../../../services/collections'
-import { db } from '../../../services/firebase'
+import { db } from '../../../../firebase'
 import { CategoryType } from '../../../types/CategoryType'
 
 type CategoriesProviderProps = {
